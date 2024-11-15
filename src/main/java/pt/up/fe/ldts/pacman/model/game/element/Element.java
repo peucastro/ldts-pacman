@@ -2,11 +2,11 @@ package pt.up.fe.ldts.pacman.model.game.element;
 
 import pt.up.fe.ldts.pacman.model.game.Position;
 
-abstract class Element {
+public abstract class Element {
     private Position position;
     //private int direction;
 
-    Element(Position pos) {
+    protected Element(Position pos) {
         position = pos;
     }
 
