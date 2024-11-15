@@ -1,4 +1,7 @@
-package pt.up.fe.ldts.pacman.model.game;
+package pt.up.fe.ldts.pacman.model.game.element;
+
+import pt.up.fe.ldts.pacman.model.game.Position;
+
 abstract class Element {
     private Position position;
     //private int direction;
