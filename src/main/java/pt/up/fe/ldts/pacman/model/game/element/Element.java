@@ -6,14 +6,15 @@ abstract class Element {
     private Position position;
     //private int direction;
 
-    Element(Position pos){
+    Element(Position pos) {
         position = pos;
     }
 
-    public void setPosition(Position other){
+    public void setPosition(Position other) {
         position.setPosition(other);
     }
-    public Position getPosition(){
+
+    public Position getPosition() {
         return position;
     }
 
