@@ -27,7 +27,7 @@ public class Display {
 
         DefaultTerminalFactory factory = new DefaultTerminalFactory();
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 3);
         AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
         factory.setTerminalEmulatorFontConfiguration(fontConfig);
         factory.setForceAWTOverSwing(true);

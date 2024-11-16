@@ -1,4 +1,11 @@
 package pt.up.fe.ldts.pacman.view.game;
 
-public class DeadGhostDrawer {
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
+public class DeadGhostDrawer extends Drawer{
+    public DeadGhostDrawer() throws IOException {
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/deadghost.png"));
+    }
 }
