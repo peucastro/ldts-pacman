@@ -9,7 +9,7 @@ public class View {
     public ClydeDrawer clydeDrawer;
     public InkyDrawer inkyDrawer;
     public AppleDrawer appleDrawer;
-    public  CherryDrawer cherryDrawer;
+    public CherryDrawer cherryDrawer;
     public DeadGhostDrawer deadGhostDrawer;
     public KeyDrawer keyDrawer;
     public OrangeDrawer orangeDrawer;

@@ -14,8 +14,6 @@ public abstract class Drawer {
         for(int y = 0; y < 14;y++){
             for(int x = 0; x < 14;x++){
                 if(image.getRGB(x,y) == 0) continue;
-                System.out.printf("%d %d: ",y,x);
-                System.out.println(String.format("%x",image.getRGB(x,y)));
                 graphics.setBackgroundColor(TextColor.Factory.fromString("#" + String.format("%x", image.getRGB(x,y)).substring(2)));
                 graphics.putString(new TerminalPosition(position.getX() + x, position.getY() + y), " ");
             }
