@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'info.solidsoft.pitest' version '1.15.0'
 }
 
@@ -8,6 +9,10 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+application { //temporary class
+    mainClass.set("TempDrawFrame")
 }
 
 dependencies {
