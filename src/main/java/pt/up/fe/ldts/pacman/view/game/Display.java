@@ -14,11 +14,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Display {
-    private Terminal terminal;
-    private com.googlecode.lanterna.screen.Screen screen;
+    private final com.googlecode.lanterna.screen.Screen screen;
 
     public Display(TerminalSize ts) throws IOException, URISyntaxException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("Fonts/square.ttf");
+        assert resource != null;
         File fontFile = new File(resource.toURI());
         Font font =  Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
@@ -33,7 +33,7 @@ public class Display {
         factory.setForceAWTOverSwing(true);
         factory.setInitialTerminalSize(ts);
 
-        this.terminal = factory.createTerminal();
+        Terminal terminal = factory.createTerminal();
         this.screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null);
