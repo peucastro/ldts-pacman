@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'info.solidsoft.pitest' version '1.15.0'
 }
 
@@ -10,10 +11,15 @@ repositories {
     mavenCentral()
 }
 
+application { //temporary class
+    mainClass.set("TempDrawFrame")
+}
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core:3.7.7'
+    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.2'
 }
 
 test {
