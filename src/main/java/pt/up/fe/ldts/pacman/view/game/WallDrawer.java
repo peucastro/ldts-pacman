@@ -1,7 +1,5 @@
 package pt.up.fe.ldts.pacman.view.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.Wall;
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;

@@ -18,20 +18,16 @@ public class ArenaDrawer extends Drawer {
     }
 
     private void drawEntities(TextGraphics graphics, Arena arena) {
-
         try {
-
             View view = new View();
 
             for (Wall wall : arena.getWalls()) {
                 view.wallDrawer.draw(graphics, wall.getPosition());
             }
 
-
             for (Coin coin : arena.getCoins()) {
                 view.coinDrawer.draw(graphics, coin.getPosition());
             }
-
 
             for (PowerUp powerUp : arena.getPowerUps()) {
                 view.appleDrawer.draw(graphics, powerUp.getPosition());
