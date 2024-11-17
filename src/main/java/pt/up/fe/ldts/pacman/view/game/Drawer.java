@@ -15,7 +15,7 @@ public abstract class Drawer {
             for(int x = 0; x < 14;x++){
                 if(image.getRGB(x,y) == 0) continue;
                 graphics.setBackgroundColor(TextColor.Factory.fromString("#" + String.format("%x", image.getRGB(x,y)).substring(2)));
-                graphics.putString(new TerminalPosition(position.getX() + x, position.getY() + y), " ");
+                graphics.setCharacter(new TerminalPosition(position.getX() + x, position.getY() + y), ' ');
             }
         }
     }

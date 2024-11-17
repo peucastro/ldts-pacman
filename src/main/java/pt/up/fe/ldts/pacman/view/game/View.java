@@ -13,8 +13,9 @@ public class View {
     public DeadGhostDrawer deadGhostDrawer;
     public KeyDrawer keyDrawer;
     public OrangeDrawer orangeDrawer;
-    public PointDrawer pointDrawer;
+    public CoinDrawer coinDrawer;
     public StrawberryDrawer strawberryDrawer;
+    public WallDrawer wallDrawer;
 
     public View() throws IOException {
         this.blinkyDrawer = new BlinkyDrawer();
@@ -27,7 +28,8 @@ public class View {
         this.deadGhostDrawer = new DeadGhostDrawer();
         this.keyDrawer = new KeyDrawer();
         this.orangeDrawer = new OrangeDrawer();
-        this.pointDrawer = new PointDrawer();
+        this.coinDrawer = new CoinDrawer();
         this.strawberryDrawer = new StrawberryDrawer();
+        this.wallDrawer = new WallDrawer();
     }
 }

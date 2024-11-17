@@ -24,12 +24,12 @@ public class ArenaDrawer extends Drawer {
             View view = new View();
 
             for (Wall wall : arena.getWalls()) {
-                view.keyDrawer.draw(graphics, wall.getPosition());
+                view.wallDrawer.draw(graphics, wall.getPosition());
             }
 
 
             for (Coin coin : arena.getCoins()) {
-                view.pointDrawer.draw(graphics, coin.getPosition());
+                view.coinDrawer.draw(graphics, coin.getPosition());
             }
 
 

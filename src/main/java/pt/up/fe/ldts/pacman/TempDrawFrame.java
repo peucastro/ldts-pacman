@@ -11,7 +11,7 @@ public class TempDrawFrame {
     public static void main(String args[]){
         try {
             Display display = new Display(new TerminalSize(280,280));
-            View view = new View();
+            //View view = new View();
             TextGraphics graphics = display.getScreen().newTextGraphics();
 
             Arena arena = new Arena(20,20);
