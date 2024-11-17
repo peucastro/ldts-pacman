@@ -87,4 +87,24 @@ public class Arena {
     public void setPowerUps(HashSet<PowerUp> powerUps) {
         this.powerUps = powerUps;
     }
+
+    public void addWall(Wall wall) {
+        walls.add(wall);
+    }
+
+    public void addCoin(Coin coin) {
+        coins.add(coin);
+    }
+
+    public void addPowerUp(PowerUp powerUp) {
+        powerUps.add(powerUp);
+    }
+
+    public void setPacmanPosition(Position position) {
+        pacman.setPosition(position);
+    }
+
+    public void setGhostPosition(Ghost ghost, Position position) {
+        ghost.setPosition(position);
+    }
 }

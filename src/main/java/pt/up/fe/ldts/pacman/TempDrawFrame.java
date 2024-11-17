@@ -1,9 +1,9 @@
 package pt.up.fe.ldts.pacman;
 
-
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
 import pt.up.fe.ldts.pacman.view.game.*;
 
 
@@ -14,6 +14,12 @@ public class TempDrawFrame {
             View view = new View();
             TextGraphics graphics = display.getScreen().newTextGraphics();
 
+            Arena arena = new Arena(20,20);
+            ArenaLoader arenaLoader = new ArenaLoader(arena, "src/main/resources/Maps/map.txt");
+            ArenaDrawer arenaDrawer = new ArenaDrawer(arena);
+            arenaDrawer.draw(graphics);
+
+            /*
             view.pacmanDrawer.draw(graphics,new Position(16,0));
             view.pinkyDrawer.draw(graphics,new Position(0,0));
             view.blinkyDrawer.draw(graphics,new Position(32,0));
@@ -26,6 +32,8 @@ public class TempDrawFrame {
             view.orangeDrawer.draw(graphics,new Position(48,16));
             view.pointDrawer.draw(graphics,new Position(64,16));
             view.strawberryDrawer.draw(graphics,new Position(80,16));
+
+             */
 
             display.getScreen().refresh();
             Thread.sleep(15000);
