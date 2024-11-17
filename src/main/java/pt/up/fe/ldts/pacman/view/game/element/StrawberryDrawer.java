@@ -1,9 +1,10 @@
-package pt.up.fe.ldts.pacman.view.game;
+package pt.up.fe.ldts.pacman.view.game.element;
+
+import pt.up.fe.ldts.pacman.view.game.Drawer;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.Stack;
 
 public class StrawberryDrawer extends Drawer {
     public StrawberryDrawer() throws IOException {

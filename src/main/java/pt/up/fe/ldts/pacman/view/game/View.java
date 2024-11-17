@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman.view.game;
 
+import pt.up.fe.ldts.pacman.view.game.element.*;
+
 import java.io.IOException;
 
 public class View {
