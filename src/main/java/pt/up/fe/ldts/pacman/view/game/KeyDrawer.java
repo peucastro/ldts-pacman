@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public class KeyDrawer extends Drawer{
     public KeyDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/key.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/items/key.png"));
     }
 }

@@ -12,7 +12,7 @@ repositories {
 }
 
 application { //temporary class
-    mainClass.set("TempDrawFrame")
+    mainClass.set("pt.up.fe.ldts.TempDrawFrame")
 }
 
 dependencies {

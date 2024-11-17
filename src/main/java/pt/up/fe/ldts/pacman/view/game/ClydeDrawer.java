@@ -4,8 +4,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class ClydeDrawer extends Drawer{
+public class ClydeDrawer extends Drawer {
     public ClydeDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/clydeleft.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/ghosts/clydeleft.png"));
     }
 }

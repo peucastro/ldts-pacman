@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public class PacmanDrawer extends Drawer{
     public PacmanDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/pacmanleft.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png"));
     }
 }

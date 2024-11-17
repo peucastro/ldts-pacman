@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public class InkyDrawer extends Drawer{
     public InkyDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/inkyleft.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/ghosts/inkyleft.png"));
     }
 }

@@ -7,6 +7,6 @@ import java.util.Stack;
 
 public class StrawberryDrawer extends Drawer {
     public StrawberryDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/strawberry.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/items/strawberry.png"));
     }
 }

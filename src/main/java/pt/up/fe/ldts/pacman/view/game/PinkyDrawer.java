@@ -11,6 +11,6 @@ import java.io.IOException;
 
 public class PinkyDrawer extends Drawer{
     public PinkyDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/pinkyleft.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinkyleft.png"));
     }
 }

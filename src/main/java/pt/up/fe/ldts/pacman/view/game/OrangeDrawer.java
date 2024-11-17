@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public class OrangeDrawer extends Drawer{
     public OrangeDrawer() throws IOException {
-        this.image = ImageIO.read(new File("src/main/resources/PNGs/orange.png"));
+        this.image = ImageIO.read(new File("src/main/resources/PNGs/items/orange.png"));
     }
 }
