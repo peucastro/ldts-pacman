@@ -5,7 +5,7 @@ import pt.up.fe.ldts.pacman.model.game.element.Element;
 import pt.up.fe.ldts.pacman.model.game.element.MovableElement;
 
 public class Ghost extends Element implements MovableElement {
-    protected Ghost(Position pos) {
+    public Ghost(Position pos) {
         super(pos);
     }
 }
