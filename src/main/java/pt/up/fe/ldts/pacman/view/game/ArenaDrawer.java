@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.view.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
@@ -14,19 +15,19 @@ import java.io.IOException;
 
 public class ArenaDrawer extends Drawer {
     private final Arena arena;
-    private BlinkyDrawer blinkyDrawer;
-    private PinkyDrawer pinkyDrawer;
-    private PacmanDrawer pacmanDrawer;
-    private ClydeDrawer clydeDrawer;
-    private InkyDrawer inkyDrawer;
-    private AppleDrawer appleDrawer;
-    private CherryDrawer cherryDrawer;
-    private DeadGhostDrawer deadGhostDrawer;
-    private KeyDrawer keyDrawer;
-    private OrangeDrawer orangeDrawer;
-    private CoinDrawer coinDrawer;
-    private StrawberryDrawer strawberryDrawer;
-    private WallDrawer wallDrawer;
+    private final BlinkyDrawer blinkyDrawer;
+    private final PinkyDrawer pinkyDrawer;
+    private final PacmanDrawer pacmanDrawer;
+    private final ClydeDrawer clydeDrawer;
+    private final InkyDrawer inkyDrawer;
+    private final AppleDrawer appleDrawer;
+    private final CherryDrawer cherryDrawer;
+    private final DeadGhostDrawer deadGhostDrawer;
+    private final KeyDrawer keyDrawer;
+    private final OrangeDrawer orangeDrawer;
+    private final CoinDrawer coinDrawer;
+    private final StrawberryDrawer strawberryDrawer;
+    private final WallDrawer wallDrawer;
 
     public ArenaDrawer(Arena arena) throws IOException {
         this.arena = arena;
@@ -45,24 +46,24 @@ public class ArenaDrawer extends Drawer {
         this.wallDrawer = new WallDrawer();
     }
 
-    public void drawEntities(TextGraphics graphics) throws IOException {
+    public void drawElements(TextGraphics graphics) {
 
         for (Wall wall : arena.getWalls()) {
-            wallDrawer.draw(graphics, wall.getPosition());
+            wallDrawer.draw(graphics, new Position(wall.getPosition().getX()*14, wall.getPosition().getY()*14));
         }
 
         for (Coin coin : arena.getCoins()) {
-            coinDrawer.draw(graphics, coin.getPosition());
+            coinDrawer.draw(graphics, new Position(coin.getPosition().getX()*14, coin.getPosition().getY()*14));
         }
 
         for (PowerUp powerUp : arena.getPowerUps()) {
-            appleDrawer.draw(graphics, powerUp.getPosition());
+            appleDrawer.draw(graphics, new Position(powerUp.getPosition().getX()*14, powerUp.getPosition().getY()*14));
         }
 
-        pacmanDrawer.draw(graphics, arena.getPacman().getPosition());
-        pinkyDrawer.draw(graphics, arena.getPinky().getPosition());
-        inkyDrawer.draw(graphics, arena.getInky().getPosition());
-        clydeDrawer.draw(graphics, arena.getClyde().getPosition());
-        blinkyDrawer.draw(graphics, arena.getBlinky().getPosition());
+        pacmanDrawer.draw(graphics, new Position(arena.getPacman().getPosition().getX()*14, arena.getPacman().getPosition().getY()*14));
+        pinkyDrawer.draw(graphics, new Position(arena.getPinky().getPosition().getX()*14, arena.getPinky().getPosition().getY()*14));
+        inkyDrawer.draw(graphics, new Position(arena.getInky().getPosition().getX()*14, arena.getInky().getPosition().getY()*14));
+        clydeDrawer.draw(graphics, new Position(arena.getClyde().getPosition().getX()*14, arena.getClyde().getPosition().getY()*14));
+        blinkyDrawer.draw(graphics, new Position(arena.getBlinky().getPosition().getX()*14, arena.getBlinky().getPosition().getY()*14));
     }
 }

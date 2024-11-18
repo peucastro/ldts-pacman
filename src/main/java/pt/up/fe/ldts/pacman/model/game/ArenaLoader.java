@@ -14,7 +14,7 @@ public class ArenaLoader {
     private final int width;
     private final int height;
 
-    public ArenaLoader(Arena arena) throws IOException {
+    public ArenaLoader(Arena arena) {
         this.arena = arena;
         this.width = arena.getWidth();
         this.height = arena.getHeight();
@@ -28,17 +28,17 @@ public class ArenaLoader {
             while ((line = reader.readLine()) != null && row < height) {
                 for (int col = 0; col < Math.min(line.length(), width); col++) {
                     char currentChar = line.charAt(col);
-                    loadEntityAt(row, col, currentChar);
+                    loadElementAt(col, row, currentChar);
                 }
                 row++;
             }
         }
     }
 
-    private void loadEntityAt(int col, int row, char entity) {
-        Position position = new Position(row*14, col*14);
+    private void loadElementAt(int col, int row, char element) {
+        Position position = new Position(col, row);
 
-        switch (entity) {
+        switch (element) {
             case 'W':
                 arena.addWall(new Wall(position));
                 break;
@@ -64,12 +64,12 @@ public class ArenaLoader {
                 arena.setGhostPosition(arena.getBlinky(), position);
                 break;
             /*case 'T': para caso usemos no futuro
-                arena.addEntity(new Teleporter(position));
+                arena.addElement(new Teleporter(position));
                 break; */
             case ' ':
                 break;
             default:
-                System.out.println("Unknown element '" + entity + "' at (" + row + ", " + col + ")");
+                System.out.println("Unknown element '" + element + "' at (" + row + ", " + col + ")");
                 break;
         }
     }
