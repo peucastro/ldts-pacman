@@ -1,6 +1,8 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
@@ -80,5 +82,45 @@ public class ArenaTest {
         Pacman pacman = arena.getPacman();
 
         assertEquals(new Position(0, 0), pacman.getPosition());
+    }
+
+    @Test
+    void testAddWall() {
+        Arena arena = new Arena(20, 15);
+        Wall wall = new Wall(new Position(10,10));
+        arena.addWall(wall);
+        assertTrue(arena.getWalls().contains(new Wall(new Position(10,10))));
+    }
+
+    @Test
+    void testAddCoin() {
+        Arena arena = new Arena(20, 15);
+        Coin coin = new Coin(new Position(10,10));
+        arena.addCoin(coin);
+        assertTrue(arena.getCoins().contains(new Coin(new Position(10,10))));
+    }
+
+    @Test
+    void testAddPowerUp() {
+        Arena arena = new Arena(20, 15);
+        PowerUp powerUp = new PowerUp(new Position(10,10));
+        arena.addPowerUp(powerUp);
+        assertTrue(arena.getPowerUps().contains(new PowerUp(new Position(10,10))));
+    }
+
+    @Test
+    void testSetPacmanPosition() {
+        Arena arena = new Arena(20, 15);
+        Position position = new Position(10,10);
+        arena.setPacmanPosition(position);
+        assertEquals(position, arena.getPacman().getPosition());
+    }
+
+    @Test
+    void testSetGhostPosition() {
+        Arena arena = new Arena(20, 15);
+        Position position = new Position(10,10);
+        arena.setGhostPosition(arena.getBlinky(), position);
+        assertEquals(position, arena.getBlinky().getPosition());
     }
 }
