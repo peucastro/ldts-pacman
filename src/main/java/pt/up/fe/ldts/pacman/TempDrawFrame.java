@@ -18,9 +18,10 @@ public class TempDrawFrame {
         TextGraphics graphics = display.getScreen().newTextGraphics();
 
         Arena arena = new Arena(20, 20);
-        ArenaLoader arenaLoader = new ArenaLoader(arena, "src/main/resources/Maps/map.txt");
+        ArenaLoader arenaLoader = new ArenaLoader(arena);
+        arenaLoader.loadMap("src/main/resources/Maps/map.txt");
         ArenaDrawer arenaDrawer = new ArenaDrawer(arena);
-        arenaDrawer.draw(graphics);
+        arenaDrawer.drawEntities(graphics);
 
         display.getScreen().refresh();
         Thread.sleep(15000);

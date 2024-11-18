@@ -14,14 +14,13 @@ public class ArenaLoader {
     private final int width;
     private final int height;
 
-    public ArenaLoader(Arena arena, String mapFile) throws IOException {
+    public ArenaLoader(Arena arena) throws IOException {
         this.arena = arena;
         this.width = arena.getWidth();
         this.height = arena.getHeight();
-        loadMap(mapFile);
     }
 
-    private void loadMap(String mapFile) throws IOException {
+    public void loadMap(String mapFile) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(mapFile))) {
             String line;
             int row = 0;
