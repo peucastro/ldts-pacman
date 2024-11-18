@@ -1,7 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
-import pt.up.fe.ldts.pacman.model.game.element.Pacman;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;

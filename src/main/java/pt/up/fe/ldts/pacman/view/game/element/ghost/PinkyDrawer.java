@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.view.game.element;
+package pt.up.fe.ldts.pacman.view.game.element.ghost;
 
 import pt.up.fe.ldts.pacman.view.game.Drawer;
 

@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.Pacman;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;

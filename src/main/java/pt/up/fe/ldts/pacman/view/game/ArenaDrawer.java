@@ -6,6 +6,9 @@ import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.view.game.element.*;
+import pt.up.fe.ldts.pacman.view.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.view.game.element.item.*;
+import pt.up.fe.ldts.pacman.view.game.element.pacman.PacmanDrawer;
 
 import java.io.IOException;
 
