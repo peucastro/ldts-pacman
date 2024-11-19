@@ -1,14 +1,14 @@
-package pt.up.fe.ldts.pacman.view.game;
+package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Position;
-import pt.up.fe.ldts.pacman.view.game.element.Drawable;
+import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Drawer implements Drawable {
+public abstract class Viewer implements Viewable {
     protected BufferedImage image;
 
     public void draw(TextGraphics graphics, Position position) {

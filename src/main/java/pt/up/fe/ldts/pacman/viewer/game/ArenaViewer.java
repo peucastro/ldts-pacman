@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.view.game;
+package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
@@ -11,36 +11,41 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-import pt.up.fe.ldts.pacman.view.game.element.*;
-import pt.up.fe.ldts.pacman.view.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.view.game.element.item.*;
-import pt.up.fe.ldts.pacman.view.game.element.pacman.PacmanDrawer;
+import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
+import pt.up.fe.ldts.pacman.viewer.game.element.WallViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.ghost.BlinkyViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.ghost.ClydeViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.ghost.InkyViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.ghost.PinkyViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.item.AppleViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.item.CoinViewer;
+import pt.up.fe.ldts.pacman.viewer.game.element.pacman.PacmanViewer;
 
 import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArenaDrawer extends Drawer {
+public class ArenaViewer extends Viewer {
     private final Arena arena;
-    private final Map<Class<?>, Drawable> drawers;
+    private final Map<Class<?>, Viewable> viewers;
 
-    public ArenaDrawer(Arena arena) throws IOException {
+    public ArenaViewer(Arena arena) throws IOException {
         this.arena = arena;
-        this.drawers = new HashMap<>();
+        this.viewers = new HashMap<>();
 
-        this.drawers.put(Wall.class, new WallDrawer());
-        this.drawers.put(Coin.class, new CoinDrawer());
-        this.drawers.put(PowerUp.class, new AppleDrawer());
-        this.drawers.put(Pacman.class, new PacmanDrawer());
-        this.drawers.put(Blinky.class, new BlinkyDrawer());
-        this.drawers.put(Pinky.class, new PinkyDrawer());
-        this.drawers.put(Inky.class, new InkyDrawer());
-        this.drawers.put(Clyde.class, new ClydeDrawer());
+        this.viewers.put(Wall.class, new WallViewer());
+        this.viewers.put(Coin.class, new CoinViewer());
+        this.viewers.put(PowerUp.class, new AppleViewer());
+        this.viewers.put(Pacman.class, new PacmanViewer());
+        this.viewers.put(Blinky.class, new BlinkyViewer());
+        this.viewers.put(Pinky.class, new PinkyViewer());
+        this.viewers.put(Inky.class, new InkyViewer());
+        this.viewers.put(Clyde.class, new ClydeViewer());
     }
 
     private void drawElement(TextGraphics graphics, Element element) {
-        Drawable drawer = drawers.get(element.getClass());
+        Viewable drawer = viewers.get(element.getClass());
         if (drawer != null) {
             drawer.draw(graphics, new Position(element.getPosition().getX() * 14, element.getPosition().getY() * 14));
         }

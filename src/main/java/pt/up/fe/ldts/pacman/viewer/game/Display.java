@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.view.game;
+package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
