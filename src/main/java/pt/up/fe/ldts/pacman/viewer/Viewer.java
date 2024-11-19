@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.viewer.game;
+package pt.up.fe.ldts.pacman.viewer;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;

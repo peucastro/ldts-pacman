@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer.game.element.pacman;
 
-import pt.up.fe.ldts.pacman.viewer.game.Viewer;
+import pt.up.fe.ldts.pacman.viewer.Viewer;
 
 import javax.imageio.ImageIO;
 import java.io.File;

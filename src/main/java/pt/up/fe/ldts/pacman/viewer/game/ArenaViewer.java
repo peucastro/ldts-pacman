@@ -11,6 +11,7 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
 import pt.up.fe.ldts.pacman.viewer.game.element.WallViewer;
 import pt.up.fe.ldts.pacman.viewer.game.element.ghost.BlinkyViewer;
