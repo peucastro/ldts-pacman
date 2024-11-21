@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.model.game;
 
 import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
-import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
+import pt.up.fe.ldts.pacman.model.game.element.item.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,10 +46,22 @@ public class ArenaLoader {
                 arena.setPacmanPosition(position);
                 break;
             case 'o':
-                arena.addCoin(new Coin(position));
+                arena.addCollectible(new Coin(position));
                 break;
             case 'O':
-                arena.addPowerUp(new PowerUp(position));
+                arena.addCollectible(new Orange(position));
+                break;
+            case 'A':
+                arena.addCollectible(new Apple(position));
+                break;
+            case 'C':
+                arena.addCollectible(new Cherry(position));
+                break;
+            case 'K':
+                arena.addCollectible(new Key(position));
+                break;
+            case 'S':
+                arena.addCollectible(new Strawberry(position));
                 break;
             case 'p':
                 arena.setGhostPosition(arena.getPinky(), position);
@@ -74,3 +86,19 @@ public class ArenaLoader {
         }
     }
 }
+
+/*
+Map of the keys to the elements:
+W = wall
+P = pacman
+o = coin
+A = apple
+C = cherry
+K = key
+O = orange
+S = strawberry
+p = pinky
+i = inky
+c = clyde
+b = blinky
+ */

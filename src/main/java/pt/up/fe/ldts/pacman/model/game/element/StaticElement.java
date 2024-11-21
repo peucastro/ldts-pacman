@@ -1,4 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game.element;
 
-public interface StaticElement {
+import pt.up.fe.ldts.pacman.model.game.Position;
+
+public abstract class StaticElement extends Element{
+    public StaticElement(Position pos){ super(pos);}
 }

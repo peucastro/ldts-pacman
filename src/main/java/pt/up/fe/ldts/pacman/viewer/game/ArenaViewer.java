@@ -2,14 +2,12 @@ package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
-import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
