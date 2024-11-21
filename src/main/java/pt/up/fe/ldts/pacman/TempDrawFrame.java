@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
+import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 import pt.up.fe.ldts.pacman.viewer.game.Display;
 
@@ -24,9 +25,14 @@ public class TempDrawFrame {
         ArenaViewer arenaViewer = new ArenaViewer(arena);
         arenaViewer.drawElements(graphics);
 
-        display.getScreen().refresh();
-        Thread.sleep(15000);
+        int i = 0;
+        while (i < 100) {
+            display.getScreen().clear();
+            arena.setPacmanPosition(new Position(arena.getPacman().getPosition().getX()-1, arena.getPacman().getPosition().getY()));
+            arenaViewer.drawElements(graphics);
+            display.getScreen().refresh();
+            i++;
+        }
         display.getScreen().close();
-
     }
 }

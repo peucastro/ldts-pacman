@@ -36,7 +36,7 @@ public class ArenaLoader {
     }
 
     private void loadElementAt(int col, int row, char element) {
-        Position position = new Position(col, row);
+        Position position = new Position(col*14, row*14);
 
         switch (element) {
             case 'W':

@@ -48,7 +48,7 @@ public class ArenaViewer extends Viewer {
     private void drawElement(TextGraphics graphics, Element element) {
         Viewable drawer = viewers.get(element.getClass());
         if (drawer != null) {
-            drawer.draw(graphics, new Position(element.getPosition().getX() * 14, element.getPosition().getY() * 14));
+            drawer.draw(graphics, element.getPosition());
         }
     }
 
