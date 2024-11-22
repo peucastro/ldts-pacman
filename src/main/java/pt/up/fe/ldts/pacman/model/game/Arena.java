@@ -4,7 +4,6 @@ import pt.up.fe.ldts.pacman.model.game.element.item.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 
 import java.util.HashSet;
 

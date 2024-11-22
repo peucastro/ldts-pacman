@@ -7,8 +7,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
-import pt.up.fe.ldts.pacman.model.game.element.item.Apple;
-import pt.up.fe.ldts.pacman.model.game.element.item.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.item.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.*;

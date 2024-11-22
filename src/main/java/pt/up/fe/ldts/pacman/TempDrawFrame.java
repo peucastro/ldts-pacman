@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 
 
 public class TempDrawFrame {
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException {
 
         Display display = new Display(new TerminalSize(280, 280));
         TextGraphics graphics = display.getScreen().newTextGraphics();

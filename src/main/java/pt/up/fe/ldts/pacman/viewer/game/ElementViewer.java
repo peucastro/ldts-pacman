@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ElementViewer extends Viewer {
-    private BufferedImage image;
+    private final BufferedImage image;
     public ElementViewer(String filepath) throws IOException {
         this.image = ImageIO.read(new File(filepath));
     }
