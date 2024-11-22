@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 
 public abstract class MultipleElementViewer extends Viewer{
-    protected Map<Integer,BufferedImage> images;
-    public MultipleElementViewer(Map<Integer,BufferedImage> images){
+    protected Map<Enum<?>,BufferedImage> images;
+    public MultipleElementViewer(Map<Enum<?>,BufferedImage> images){
         this.images = images;
     }
 }

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 public class PacmanViewer extends MultipleElementViewer {
-    public PacmanViewer(Map<Integer, BufferedImage> images){
+    public PacmanViewer(Map<Enum<?>, BufferedImage> images){
         super(images);
     }
 
