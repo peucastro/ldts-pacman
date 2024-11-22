@@ -4,7 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Position;
-import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
+import pt.up.fe.ldts.pacman.viewer.game.Viewable;
 
 import java.awt.image.BufferedImage;
 

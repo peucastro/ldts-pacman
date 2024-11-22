@@ -12,15 +12,6 @@ import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.ElementViewer;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.Viewable;
-import pt.up.fe.ldts.pacman.viewer.game.element.WallViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.ghost.BlinkyViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.ghost.ClydeViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.ghost.InkyViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.ghost.PinkyViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.item.AppleViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.item.CoinViewer;
-import pt.up.fe.ldts.pacman.viewer.game.element.pacman.PacmanViewer;
 
 import java.io.IOException;
 
