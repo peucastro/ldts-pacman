@@ -1,8 +1,8 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import pt.up.fe.ldts.pacman.model.game.element.*;
-import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
-import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.item.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class ArenaLoader {
     }
 
     private void loadElementAt(int col, int row, char element) {
-        Position position = new Position(col, row);
+        Position position = new Position(col*14, row*14);
 
         switch (element) {
             case 'W':
@@ -46,22 +46,34 @@ public class ArenaLoader {
                 arena.setPacmanPosition(position);
                 break;
             case 'o':
-                arena.addCoin(new Coin(position));
+                arena.addCollectible(new Coin(position));
                 break;
             case 'O':
-                arena.addPowerUp(new PowerUp(position));
+                arena.addCollectible(new Orange(position));
+                break;
+            case 'A':
+                arena.addCollectible(new Apple(position));
+                break;
+            case 'C':
+                arena.addCollectible(new Cherry(position));
+                break;
+            case 'K':
+                arena.addCollectible(new Key(position));
+                break;
+            case 'S':
+                arena.addCollectible(new Strawberry(position));
                 break;
             case 'p':
-                arena.setGhostPosition(arena.getPinky(), position);
+                arena.addGhost(new Pinky(position));
                 break;
             case 'i':
-                arena.setGhostPosition(arena.getInky(), position);
+                arena.addGhost(new Inky(position));
                 break;
             case 'c':
-                arena.setGhostPosition(arena.getClyde(), position);
+                arena.addGhost(new Clyde(position));
                 break;
             case 'b':
-                arena.setGhostPosition(arena.getBlinky(), position);
+                arena.addGhost(new Blinky(position));
                 break;
             /*case 'T': para caso usemos no futuro
                 arena.addElement(new Teleporter(position));
@@ -74,3 +86,19 @@ public class ArenaLoader {
         }
     }
 }
+
+/*
+Map of the keys to the elements:
+W = wall
+P = pacman
+o = coin
+A = apple
+C = cherry
+K = key
+O = orange
+S = strawberry
+p = pinky
+i = inky
+c = clyde
+b = blinky
+ */

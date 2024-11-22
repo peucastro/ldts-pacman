@@ -1,11 +1,8 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
-import pt.up.fe.ldts.pacman.model.game.element.item.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 
 import java.util.HashSet;
