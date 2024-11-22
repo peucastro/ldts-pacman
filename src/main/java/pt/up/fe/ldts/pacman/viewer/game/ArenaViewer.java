@@ -29,7 +29,7 @@ public class ArenaViewer extends Viewer {
         this.viewers.put(Wall.class, new ElementViewer("src/main/resources/PNGs/wall.png"));
         this.viewers.put(Coin.class, new ElementViewer("src/main/resources/PNGs/items/coin.png"));
         this.viewers.put(Apple.class, new ElementViewer("src/main/resources/PNGs/items/apple.png"));
-        this.viewers.put(Pacman.class, new ElementViewer("src/main/resources/PNGs/pacman/pacman.png"));
+        this.viewers.put(Pacman.class, new ElementViewer("src/main/resources/PNGs/pacman/pacmanleft.png"));
         this.viewers.put(Blinky.class, new ElementViewer("src/main/resources/PNGs/ghosts/blinky/blinkyright.png"));
         this.viewers.put(Pinky.class, new ElementViewer("src/main/resources/PNGs/ghosts/pinky/pinkyright.png"));
         this.viewers.put(Inky.class, new ElementViewer("src/main/resources/PNGs/ghosts//inky/inkyright.png"));
@@ -45,6 +45,7 @@ public class ArenaViewer extends Viewer {
 
     public void drawElements(TextGraphics graphics) {
         arena.getWalls().forEach(wall -> drawElement(graphics, wall));
+        arena.getCollectibles().forEach(c -> drawElement(graphics, c));
         drawElement(graphics, arena.getPacman());
         drawElement(graphics, arena.getBlinky());
         drawElement(graphics, arena.getPinky());
