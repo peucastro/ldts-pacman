@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.viewer.game;
+package pt.up.fe.ldts.pacman.viewer;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Position;

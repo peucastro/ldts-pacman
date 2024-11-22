@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public abstract class Element {
     private final Position position;
-    // private int direction;
 
     protected Element(Position pos) {
         position = pos;

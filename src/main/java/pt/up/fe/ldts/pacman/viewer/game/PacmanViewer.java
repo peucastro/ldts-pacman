@@ -1,14 +1,14 @@
-package pt.up.fe.ldts.pacman.viewer;
+package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.viewer.MultipleElementViewer;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-public class PacmanViewer extends MultipleElementViewer{
+public class PacmanViewer extends MultipleElementViewer {
     public PacmanViewer(Map<Integer, BufferedImage> images){
         super(images);
     }

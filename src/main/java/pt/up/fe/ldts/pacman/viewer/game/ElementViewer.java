@@ -1,8 +1,8 @@
-package pt.up.fe.ldts.pacman.viewer;
+package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
-import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
+import pt.up.fe.ldts.pacman.viewer.Viewer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

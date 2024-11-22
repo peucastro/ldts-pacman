@@ -11,10 +11,7 @@ import pt.up.fe.ldts.pacman.model.game.element.item.Apple;
 import pt.up.fe.ldts.pacman.model.game.element.item.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.item.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-import pt.up.fe.ldts.pacman.viewer.ElementViewer;
-import pt.up.fe.ldts.pacman.viewer.GhostViewer;
-import pt.up.fe.ldts.pacman.viewer.PacmanViewer;
-import pt.up.fe.ldts.pacman.viewer.Viewer;
+import pt.up.fe.ldts.pacman.viewer.*;
 
 import javax.imageio.ImageIO;
 import java.io.File;
