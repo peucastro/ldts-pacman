@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import pt.up.fe.ldts.pacman.model.game.element.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.item.Coin;
 import pt.up.fe.ldts.pacman.model.game.element.item.*;
 
@@ -64,16 +65,16 @@ public class ArenaLoader {
                 arena.addCollectible(new Strawberry(position));
                 break;
             case 'p':
-                arena.setGhostPosition(arena.getPinky(), position);
+                arena.addGhost(new Pinky(position));
                 break;
             case 'i':
-                arena.setGhostPosition(arena.getInky(), position);
+                arena.addGhost(new Inky(position));
                 break;
             case 'c':
-                arena.setGhostPosition(arena.getClyde(), position);
+                arena.addGhost(new Clyde(position));
                 break;
             case 'b':
-                arena.setGhostPosition(arena.getBlinky(), position);
+                arena.addGhost(new Blinky(position));
                 break;
             /*case 'T': para caso usemos no futuro
                 arena.addElement(new Teleporter(position));

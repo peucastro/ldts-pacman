@@ -46,10 +46,7 @@ public class ArenaViewer extends Viewer {
     public void drawElements(TextGraphics graphics) {
         arena.getWalls().forEach(wall -> drawElement(graphics, wall));
         arena.getCollectibles().forEach(c -> drawElement(graphics, c));
+        arena.getGhosts().forEach(ghost -> drawElement(graphics,ghost));
         drawElement(graphics, arena.getPacman());
-        drawElement(graphics, arena.getBlinky());
-        drawElement(graphics, arena.getPinky());
-        drawElement(graphics, arena.getInky());
-        drawElement(graphics, arena.getClyde());
     }
 }
