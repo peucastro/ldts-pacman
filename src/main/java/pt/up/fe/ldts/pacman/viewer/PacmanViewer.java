@@ -3,20 +3,18 @@ package pt.up.fe.ldts.pacman.viewer;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.Map;
 
-public class ElementViewer extends Viewer {
-    private BufferedImage image;
-    public ElementViewer(String filepath) throws IOException {
-        this.image = ImageIO.read(new File(filepath));
+public class PacmanViewer extends MultipleElementViewer{
+    public PacmanViewer(Map<Integer, BufferedImage> images){
+        super(images);
     }
 
     @Override
     public void drawElement(TextGraphics graphics, Element element) {
-        draw(graphics,element.getPosition(), image);
+        draw(graphics,element.getPosition(),images.get(((Pacman)element).getDirection()));
     }
 }

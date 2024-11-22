@@ -9,9 +9,7 @@ import pt.up.fe.ldts.pacman.viewer.game.Viewable;
 import java.awt.image.BufferedImage;
 
 public abstract class Viewer implements Viewable {
-    protected BufferedImage image;
-
-    public void draw(TextGraphics graphics, Position position) {
+    public void draw(TextGraphics graphics, Position position, BufferedImage image) {
         for (int y = 0; y < 14; y++) {
             for (int x = 0; x < 14; x++) {
                 if (image.getRGB(x, y) == 0) continue;
