@@ -8,7 +8,7 @@ nostalgia of the original game while exploring the SOLID principales and design-
 <h3 align="center">Gameplay examples</h3>
 
 <p align="center">
-    <img src="docs/resources/game-demo.gif" alt="Game demonstration">
+    <img src="docs/resources/screenshots/game-demo.gif" alt="Game demonstration">
 </p>
 
-<p align="center">This project was developed by <a href="https://github.com/GustavoCMadureira">Gustavo Madureira</a> (up202304978@fe.up.pt), <a href="https://github.com/PauloSaa29">Paulo Saavedra</a> (up202307477@fe.up.pt) and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.pt) for the LDTS 2024/25 course at FEUP</p>
+<p align="center">This project was developed by <a href="https://github.com/GustavoCMadureira">Gustavo Madureira</a> (up202304978@fe.up.pt), <a href="https://github.com/PauloSaa29">Paulo Saavedra</a> (up202307477@fe.up.pt) and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.pt) for the LDTS 2024/25 course at FEUP.</p>
