@@ -50,10 +50,11 @@ The system is composed of the following key components:
 - **Pacman & Ghost**: Concrete classes that implement the movable behavior, with the Ghost class further divided into
   specific ghost types (Blinky, Pinky, Inky, Clyde).
 - **Direction & Position**: Representations of the directions and coordinates in the game world.
-- **GameController**: Coordinates game flow and updates the state of the arena.
-- **Arena**: A container for all the elements in the game, including Pacman, ghosts, PacDots, and PowerPellets.
+- **Arena**: A container for all the elements in the game, including Pacman, ghosts, and collectible items.
 
-### **UML schema**
+---
+
+## **UML schema**
 
 ![Project structure](/docs/resources/uml/structure.png "UML")
 
