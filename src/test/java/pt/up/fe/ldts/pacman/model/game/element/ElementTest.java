@@ -1,15 +1,10 @@
 package pt.up.fe.ldts.pacman.model.game.element;
 
-import org.ietf.jgss.Oid;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.item.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-
-import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -7,7 +7,7 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
-import pt.up.fe.ldts.pacman.model.game.element.item.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

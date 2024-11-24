@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.item.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 
