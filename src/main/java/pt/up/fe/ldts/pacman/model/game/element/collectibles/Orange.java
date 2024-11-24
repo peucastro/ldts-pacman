@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.model.game.element.item;
+package pt.up.fe.ldts.pacman.model.game.element.collectibles;
 
 import pt.up.fe.ldts.pacman.model.game.Position;
 

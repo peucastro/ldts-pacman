@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.model.game;
 
 import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.item.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -81,7 +81,7 @@ public class ArenaLoader {
             case ' ':
                 break;
             default:
-                System.out.println("Unknown element '" + element + "' at (" + row + ", " + col + ")");
+                System.out.println("Unknown element '" + element + "' at (" + position.getX() + ", " + position.getY() + ")");
                 break;
         }
     }

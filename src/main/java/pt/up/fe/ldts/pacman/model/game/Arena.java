@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.item.Collectible;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
