@@ -19,6 +19,8 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
 
 - **Arena**: A maze filled with coins and power-ups.
 
+---
+
 ## Planned features
 
 ### **Gameplay**
@@ -64,4 +66,5 @@ We used unit testing with Junit 5, mocks with Mockito and mutation testing with 
 
 ### Screenshot of Test Coverage
 
-TODO... 
+![Test coverage](/docs/resources/testing/coverage.png "Coverage")
+![Pitest report](/docs/resources/testing/pitest.png "Pitest")
