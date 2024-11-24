@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.State;
-import pt.up.fe.ldts.pacman.viewer.game.ElementViewer;
 import pt.up.fe.ldts.pacman.viewer.game.PacmanViewer;
 
 import javax.imageio.ImageIO;

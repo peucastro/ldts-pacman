@@ -1,15 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.State;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
-import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import javax.imageio.ImageIO;
 import java.io.File;
