@@ -81,7 +81,7 @@ public class ArenaLoader {
             case ' ':
                 break;
             default:
-                System.out.println("Unknown element '" + element + "' at (" + row + ", " + col + ")");
+                System.out.println("Unknown element '" + element + "' at (" + position.getX() + ", " + position.getY() + ")");
                 break;
         }
     }
