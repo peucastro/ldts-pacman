@@ -27,10 +27,10 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
 
 - **Player Character (Pacman)**: The player controls Pacman, which can move in four directions—up, down, left, and
   right—using corresponding arrow keys.
-- **Ghosts**: Each ghost will have a unique behavior.
+- **Ghosts**: Each ghost will have a unique behavior to challenge the player.
 - **Coins**: Collectible items that increase the player’s score. The game ends when all PacDots are consumed.
 - **Power-ups**: Special collectible items that temporarily change the Pacman state.
-- **Game Over**: If a ghost catches Pacman, the game ends and the player is returned to the main menu.
+- **Game Over**: If a ghost catches Pacman, the game ends, and the player is returned to the main menu.
 
 ### **Menu**
 
@@ -42,17 +42,40 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
 
 - The game will display a death animation and return to the main menu after Pacman is caught by a ghost.
 
-### **Implementation Overview**
+---
+
+## **Implementation Overview**
 
 The system is composed of the following key components:
 
-- **Element**: A base class representing both movable (Pacman, Ghosts) and static (PacDots, PowerPellets) elements in
+- **Element**: A base class representing both movable (Pacman, Ghosts) and static (coins, power-ups) elements in
   the game.
 - **MovableElement & StaticElement**: Interfaces defining the behavior of objects that can move or remain stationary.
 - **Pacman & Ghost**: Concrete classes that implement the movable behavior, with the Ghost class further divided into
   specific ghost types (Blinky, Pinky, Inky, Clyde).
 - **Direction & Position**: Representations of the directions and coordinates in the game world.
 - **Arena**: A container for all the elements in the game, including Pacman, ghosts, and collectible items.
+
+## Design patterns used
+
+### **MVC** (Model-view-controller)
+
+**Problem Context:** We needed a structured way to organize the game logic, user interactions, and visual representation
+to ensure modularity and separation of concerns in the project.
+
+**Solution:** We implemented the MVC design pattern. The `Model` represents the game state and logic, the `View` handles
+rendering the game elements, and the `Controller` manages user inputs and updates the game state. This approach ensures
+that changes in one layer (e.g., the user interface) don't directly affect the others.
+
+- **Model:** Encapsulates the game elements like Pacman, ghosts, collectibles, and their interactions.
+- **View:** Uses the Lanterna library to render the game elements on the console.
+- **Controller:** Interprets user inputs and updates the model accordingly.
+
+**Classes Involved:**
+
+- **Model:** `Position`, `Pacman`, `Ghost`, `Arena`, `ArenaLoader`, `Collectible`, `Direction`, ...
+- **View:** `ArenaViewer`, `ElementViewer`, `Display`, ...
+- **Controller:** Yet to be implemented
 
 ---
 
