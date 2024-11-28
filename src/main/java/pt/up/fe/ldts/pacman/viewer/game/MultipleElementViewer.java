@@ -8,7 +8,7 @@ import pt.up.fe.ldts.pacman.viewer.Viewer;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-import static pt.up.fe.ldts.pacman.model.game.element.Direction.RIGHT;
+import static pt.up.fe.ldts.pacman.model.game.element.Direction.LEFT;
 
 public class MultipleElementViewer<T extends Element> extends Viewer {
     private final Map<Enum<?>, BufferedImage> images;
@@ -20,6 +20,6 @@ public class MultipleElementViewer<T extends Element> extends Viewer {
 
     @Override
     public void drawElement(TextGraphics graphics, Element element) {
-        renderer.drawImage(element.getPosition(), images.get(RIGHT));
+        renderer.drawImage(element.getPosition(), images.get(LEFT));
     }
 }

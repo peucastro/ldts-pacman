@@ -8,7 +8,7 @@ import pt.up.fe.ldts.pacman.model.game.Position;
 import java.awt.image.BufferedImage;
 
 public class Renderer {
-    TextGraphics graphics;
+    private final TextGraphics graphics;
 
     public Renderer(TextGraphics graphics) {
         this.graphics = graphics;
