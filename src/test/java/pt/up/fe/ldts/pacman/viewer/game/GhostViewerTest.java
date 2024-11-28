@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.Element;
 import pt.up.fe.ldts.pacman.model.game.element.State;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -21,7 +23,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 public class GhostViewerTest {
     @Test
     void testDrawElement() throws IOException {
-        GhostViewer a = new GhostViewer(new HashMap<>(Map.ofEntries(
+        Renderer mockRenderer = Mockito.mock(Renderer.class);
+        MultipleElementViewer<Element> a = new MultipleElementViewer<>(mockRenderer, new HashMap<>(Map.ofEntries(
                 Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkyup.png"))))));
         TextGraphics mockLeft = Mockito.mock(TextGraphics.class);
         TextGraphics mockScared = Mockito.mock(TextGraphics.class);

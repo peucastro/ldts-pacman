@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -19,7 +20,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 public class PacmanViewerTest {
     @Test
     void testDrawElement() throws IOException {
-        PacmanViewer a = new PacmanViewer(Map.ofEntries(
+        Renderer mockRenderer = Mockito.mock(Renderer.class);
+        MultipleElementViewer a = new MultipleElementViewer(mockRenderer, Map.ofEntries(
                 Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png"))),
                 Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanclosed.png")))));
         TextGraphics mockLeft = Mockito.mock(TextGraphics.class);
