@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
+
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
 import pt.up.fe.ldts.pacman.viewer.Renderer;
@@ -20,17 +20,17 @@ public class ArenaViewer extends Viewer {
         this.viewers = ViewerFactory.createViewers(renderer);
     }
 
-    public void drawElement(TextGraphics graphics, Element element) {
+    public void drawElement(Element element) {
         Viewer drawer = viewers.get(element.getClass());
         if (drawer != null) {
-            drawer.drawElement(graphics, element);
+            drawer.drawElement(element);
         }
     }
 
-    public void drawElements(TextGraphics graphics) {
-        arena.getWalls().forEach(wall -> drawElement(graphics, wall));
-        arena.getCollectibles().forEach(collectible -> drawElement(graphics, collectible));
-        arena.getGhosts().forEach(ghost -> drawElement(graphics, ghost));
-        drawElement(graphics, arena.getPacman());
+    public void drawElements() {
+        arena.getWalls().forEach(this::drawElement);
+        arena.getCollectibles().forEach(this::drawElement);
+        arena.getGhosts().forEach(this::drawElement);
+        drawElement(arena.getPacman());
     }
 }

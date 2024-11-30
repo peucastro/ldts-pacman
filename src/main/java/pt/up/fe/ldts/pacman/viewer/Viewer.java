@@ -1,6 +1,5 @@
 package pt.up.fe.ldts.pacman.viewer;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
 
 
@@ -11,6 +10,6 @@ public abstract class Viewer {
         this.renderer = renderer;
     }
 
-    public abstract void drawElement(TextGraphics graphics, Element element);
+    public abstract void drawElement(Element element);
 }
 

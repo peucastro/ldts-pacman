@@ -1,11 +1,10 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import java.awt.*;
 import java.io.IOException;
@@ -18,25 +17,27 @@ public class ArenaViewerTest {
     @Test
     void testDrawElementCallCountWithNoMapLoading() throws IOException, URISyntaxException, FontFormatException {
         Arena arena =  new Arena(20,20);
-        ArenaViewer mock = Mockito.mock(ArenaViewer.class,withSettings().useConstructor(arena).defaultAnswer(CALLS_REAL_METHODS));
-        TextGraphics graphics =  new Display(new TerminalSize(20,20)).getScreen().newTextGraphics();
+        Renderer mockRenderer = Mockito.mock(Renderer.class);
+        ArenaViewer mockArenaViewer = Mockito.mock(ArenaViewer.class,withSettings().useConstructor(mockRenderer,arena).defaultAnswer(CALLS_REAL_METHODS));
 
-        mock.drawElements(graphics);
+        mockArenaViewer.drawElements();
 
         //if a map in not loaded into arena, the only element present is a Pacman at position (0,0)
-        verify(mock,times(1)).drawElement(any(),any());
+        verify(mockArenaViewer,times(1)).drawElement(any());
+        verify(mockRenderer,times(1)).drawImage(any(),any());
     }
 
     @Test
     void testDrawElementCallCountWithMapLoading() throws IOException, URISyntaxException, FontFormatException {
         Arena arena =  new Arena(20,20);
+        Renderer mockRenderer = Mockito.mock(Renderer.class);
         new ArenaLoader(arena).loadMap("src/main/resources/Maps/testmap.txt");
-        ArenaViewer mock = Mockito.mock(ArenaViewer.class,withSettings().useConstructor(arena).defaultAnswer(CALLS_REAL_METHODS));
-        TextGraphics graphics =  new Display(new TerminalSize(20,20)).getScreen().newTextGraphics();
+        ArenaViewer mockArenaViewer = Mockito.mock(ArenaViewer.class,withSettings().useConstructor(mockRenderer,arena).defaultAnswer(CALLS_REAL_METHODS));
 
-        mock.drawElements(graphics);
+        mockArenaViewer.drawElements();
 
         //pacman + ghosts + collectibles + walls or 20*20 - 2spaces - 1unkownElement
-        verify(mock,times(397)).drawElement(any(),any());
+        verify(mockArenaViewer,times(397)).drawElement(any());
+        verify(mockRenderer,times(397)).drawImage(any(),any());
     }
 }

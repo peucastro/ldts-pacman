@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import pt.up.fe.ldts.pacman.model.game.element.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 
 public class ImageLoader {
 

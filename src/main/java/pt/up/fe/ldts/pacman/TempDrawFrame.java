@@ -26,7 +26,7 @@ public class TempDrawFrame {
         arenaLoader.loadMap("src/main/resources/Maps/map.txt");
         Renderer renderer = new Renderer(graphics);
         ArenaViewer arenaViewer = new ArenaViewer(renderer, arena);
-        arenaViewer.drawElements(graphics);
+        arenaViewer.drawElements();
 
         int i = 0;
         while (i < 100) {
@@ -35,7 +35,7 @@ public class TempDrawFrame {
             if(i == 50){
                 arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
             }
-            arenaViewer.drawElements(graphics);
+            arenaViewer.drawElements();
             display.getScreen().refresh();
             i++;
         }
