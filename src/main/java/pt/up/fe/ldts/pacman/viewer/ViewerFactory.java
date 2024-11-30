@@ -8,9 +8,10 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.game.ElementViewer;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
-import pt.up.fe.ldts.pacman.viewer.game.ghost.GhostViewer;
-import pt.up.fe.ldts.pacman.viewer.game.pacman.PacmanViewer;
+import pt.up.fe.ldts.pacman.viewer.game.MultipleElementViewer;
 import pt.up.fe.ldts.pacman.model.game.element.*;
+import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
+import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,12 +29,12 @@ public class ViewerFactory {
         viewers.put(Orange.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/orange.png"));
         viewers.put(Strawberry.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/strawberry.png"));
 
-        viewers.put(Pacman.class, new PacmanViewer(renderer, ImageLoader.loadPacmanImages()));
+        viewers.put(Pacman.class, new MultipleElementViewer(renderer, new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 
-        viewers.put(Blinky.class, new GhostViewer(renderer, ImageLoader.loadGhostImages("blinky")));
-        viewers.put(Pinky.class, new GhostViewer(renderer, ImageLoader.loadGhostImages("pinky")));
-        viewers.put(Inky.class, new GhostViewer(renderer, ImageLoader.loadGhostImages("inky")));
-        viewers.put(Clyde.class, new GhostViewer(renderer, ImageLoader.loadGhostImages("clyde")));
+        viewers.put(Blinky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
+        viewers.put(Pinky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
+        viewers.put(Inky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
+        viewers.put(Clyde.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
 
         return viewers;
     }

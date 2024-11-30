@@ -5,6 +5,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
 import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.viewer.Renderer;
 import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 import pt.up.fe.ldts.pacman.viewer.game.Display;
@@ -31,6 +32,9 @@ public class TempDrawFrame {
         while (i < 100) {
             display.getScreen().clear();
             arena.setPacmanPosition(new Position(arena.getPacman().getPosition().getX() - 1, arena.getPacman().getPosition().getY()));
+            if(i == 50){
+                arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
+            }
             arenaViewer.drawElements(graphics);
             display.getScreen().refresh();
             i++;

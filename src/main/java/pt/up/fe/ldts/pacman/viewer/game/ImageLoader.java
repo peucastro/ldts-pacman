@@ -10,23 +10,26 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 
 public class ImageLoader {
 
-    public static Map<GhostState, BufferedImage> loadGhostImages(String ghostName) throws IOException {
+    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException {
         return Map.of(
-                GhostState.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png")),
-                GhostState.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png")),
-                GhostState.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png")),
-                GhostState.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png")),
-                GhostState.SCARED, ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/scaredghost.png")),
-                GhostState.DEAD, ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostright.png"))
+                'L', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png")),
+                'U', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png")),
+                'D', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png")),
+                'R', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png")),
+                'S', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/scaredghost.png")),
+                'r', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostright.png")),
+                'l', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostleft.png")),
+                'u', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostup.png")),
+                'd', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostdown.png"))
         );
     }
 
-    public static Map<Direction, BufferedImage> loadPacmanImages() throws IOException {
+    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException {
         return Map.of(
-                Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png")),
-                Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png")),
-                Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png")),
-                Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png"))
+                'L', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png")),
+                'U', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png")),
+                'D', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png")),
+                'R', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png"))
         );
     }
 }
