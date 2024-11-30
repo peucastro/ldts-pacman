@@ -3,7 +3,7 @@ package pt.up.fe.ldts.pacman.model.game.ghost;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
-import pt.up.fe.ldts.pacman.model.game.element.State;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
@@ -49,14 +49,14 @@ public class GhostTest {
         Ghost c = new Inky(new Position(0,2));
         Ghost d = new Clyde(new Position(100,0));
 
-        b.setState(State.DEAD);
-        c.setState(State.SCARED);
-        d.setState(State.DEAD);
+        b.setState(GhostState.DEAD);
+        c.setState(GhostState.SCARED);
+        d.setState(GhostState.DEAD);
 
-        assertEquals(State.ALIVE,a.getState());
-        assertEquals(State.DEAD,b.getState());
-        assertEquals(State.SCARED,c.getState());
-        assertEquals(State.DEAD,d.getState());
+        assertEquals(GhostState.ALIVE,a.getState());
+        assertEquals(GhostState.DEAD,b.getState());
+        assertEquals(GhostState.SCARED,c.getState());
+        assertEquals(GhostState.DEAD,d.getState());
     }
 
     @Test
@@ -66,9 +66,9 @@ public class GhostTest {
         Ghost c = new Inky(new Position(0,2));
         Ghost d = new Clyde(new Position(100,0));
 
-        assertEquals(State.ALIVE,a.getState());
-        assertEquals(State.ALIVE,b.getState());
-        assertEquals(State.ALIVE,c.getState());
-        assertEquals(State.ALIVE,d.getState());
+        assertEquals(GhostState.ALIVE,a.getState());
+        assertEquals(GhostState.ALIVE,b.getState());
+        assertEquals(GhostState.ALIVE,c.getState());
+        assertEquals(GhostState.ALIVE,d.getState());
     }
 }

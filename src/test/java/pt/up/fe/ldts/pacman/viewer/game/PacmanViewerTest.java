@@ -6,33 +6,32 @@ import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
+import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class PacmanViewerTest {
     @Test
     void testDrawElement() throws IOException {
-        PacmanViewer a = new PacmanViewer(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanclosed.png")))));
-        TextGraphics mockLeft = Mockito.mock(TextGraphics.class);
-        TextGraphics mockClosed = Mockito.mock(TextGraphics.class);
+        TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
+        Renderer mockRenderer = Mockito.mock(Renderer.class,withSettings().useConstructor(mockGraphics).defaultAnswer(CALLS_REAL_METHODS));
+        MultipleElementViewer a = new MultipleElementViewer(mockRenderer, new PacmanStrategy(), ImageLoader.loadPacmanImages());
         Pacman pacman = new Pacman(new Position(0,0));
 
-        a.drawElement(mockLeft,pacman);
-        pacman.setDirection(Direction.UP);
-        a.drawElement(mockClosed,pacman);
+        a.drawElement(pacman); //pacman facing left has 136 drawn characters
 
-        verify(mockLeft,times(136)).putString(any(),any());
-        verify(mockLeft,times(136)).setBackgroundColor(any());
-        verify(mockClosed,times(164)).putString(any(),any());
-        verify(mockClosed,times(164)).setBackgroundColor(any());
+        verify(mockGraphics,times(136)).putString(any(),any());
+        verify(mockGraphics,times(136)).setBackgroundColor(any());
+
+        pacman.setDirection(Direction.UP);//pacman facing up also has 136 drawn characters
+        a.drawElement(pacman);
+
+        verify(mockGraphics,times(136 + 136)).putString(any(),any());
+        verify(mockGraphics,times(136 + 136)).setBackgroundColor(any());
     }
 }

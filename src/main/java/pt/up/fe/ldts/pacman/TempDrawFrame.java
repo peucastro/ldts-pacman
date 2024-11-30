@@ -5,6 +5,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
 import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
 import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 import pt.up.fe.ldts.pacman.viewer.game.Display;
 
@@ -22,14 +24,18 @@ public class TempDrawFrame {
         Arena arena = new Arena(20, 20);
         ArenaLoader arenaLoader = new ArenaLoader(arena);
         arenaLoader.loadMap("src/main/resources/Maps/map.txt");
-        ArenaViewer arenaViewer = new ArenaViewer(arena);
-        arenaViewer.drawElements(graphics);
+        Renderer renderer = new Renderer(graphics);
+        ArenaViewer arenaViewer = new ArenaViewer(renderer, arena);
+        arenaViewer.drawElements();
 
         int i = 0;
         while (i < 100) {
             display.getScreen().clear();
-            arena.setPacmanPosition(new Position(arena.getPacman().getPosition().getX()-1, arena.getPacman().getPosition().getY()));
-            arenaViewer.drawElements(graphics);
+            arena.setPacmanPosition(new Position(arena.getPacman().getPosition().getX() - 1, arena.getPacman().getPosition().getY()));
+            if(i == 50){
+                arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
+            }
+            arenaViewer.drawElements();
             display.getScreen().refresh();
             i++;
         }
