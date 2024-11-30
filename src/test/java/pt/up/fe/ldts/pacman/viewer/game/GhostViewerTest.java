@@ -6,9 +6,11 @@ import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.Element;
-import pt.up.fe.ldts.pacman.model.game.element.State;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.Renderer;
+import pt.up.fe.ldts.pacman.viewer.game.pacman.PacmanViewer;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -24,14 +26,14 @@ public class GhostViewerTest {
     @Test
     void testDrawElement() throws IOException {
         Renderer mockRenderer = Mockito.mock(Renderer.class);
-        MultipleElementViewer<Element> a = new MultipleElementViewer<>(mockRenderer, new HashMap<>(Map.ofEntries(
+        MultipleElementViewer<Pacman, Direction> a = new PacmanViewer(mockRenderer, new HashMap<>(Map.ofEntries(
                 Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkyup.png"))))));
         TextGraphics mockLeft = Mockito.mock(TextGraphics.class);
         TextGraphics mockScared = Mockito.mock(TextGraphics.class);
         Pinky pinky = new Pinky(new Position(0,0));
 
         a.drawElement(mockLeft,pinky);
-        pinky.setState(State.SCARED);
+        pinky.setState(GhostState.SCARED);
         a.drawElement(mockScared,pinky);
 
         verify(mockLeft,times(158)).putString(any(),any());

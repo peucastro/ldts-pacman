@@ -3,8 +3,10 @@ package pt.up.fe.ldts.pacman.viewer;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.game.MultipleElementViewer;
+import pt.up.fe.ldts.pacman.viewer.game.pacman.PacmanViewer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ public class MultipleElementViewerTest {
     void testLanternaDependency() throws IOException {
         Renderer mockRenderer = Mockito.mock(Renderer.class);
         Pacman mockPacman = Mockito.mock(Pacman.class);
-        MultipleElementViewer a = new MultipleElementViewer(mockRenderer, new HashMap<>());
+        MultipleElementViewer<Pacman, Direction> a = new PacmanViewer(mockRenderer, new HashMap<>());
         TextGraphics mock = Mockito.mock(TextGraphics.class);
 
         a.drawElement(mock,mockPacman);

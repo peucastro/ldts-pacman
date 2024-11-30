@@ -3,18 +3,18 @@ package pt.up.fe.ldts.pacman.viewer.game;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-import pt.up.fe.ldts.pacman.viewer.*;
+import pt.up.fe.ldts.pacman.viewer.Renderer;
+import pt.up.fe.ldts.pacman.viewer.Viewer;
+import pt.up.fe.ldts.pacman.viewer.game.ghost.GhostViewer;
+import pt.up.fe.ldts.pacman.viewer.game.pacman.PacmanViewer;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +27,7 @@ public class ArenaViewer extends Viewer {
         this.arena = arena;
         this.viewers = new HashMap<>();
 
+        // Loading static elements
         this.viewers.put(Wall.class, new ElementViewer(renderer, "src/main/resources/PNGs/wall.png"));
         this.viewers.put(Coin.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/coin.png"));
         this.viewers.put(Apple.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/apple.png"));
@@ -34,31 +35,35 @@ public class ArenaViewer extends Viewer {
         this.viewers.put(Key.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/key.png"));
         this.viewers.put(Orange.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/orange.png"));
         this.viewers.put(Strawberry.class, new ElementViewer(renderer, "src/main/resources/PNGs/items/strawberry.png"));
-        this.viewers.put(Pacman.class, new MultipleElementViewer<>(renderer, new HashMap<>(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png"))),
-                Map.entry(Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png"))),
-                Map.entry(Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png")))))));
-        this.viewers.put(Blinky.class, new MultipleElementViewer<>(renderer, new HashMap<>(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/blinky/blinkyleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/blinky/blinkyup.png"))),
-                Map.entry(Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/blinky/blinkydown.png"))),
-                Map.entry(Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/blinky/blinkyright.png")))))));
-        this.viewers.put(Pinky.class, new MultipleElementViewer<>(renderer, new HashMap<>(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkyleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkyup.png"))),
-                Map.entry(Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkydown.png"))),
-                Map.entry(Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/pinky/pinkyright.png")))))));
-        this.viewers.put(Inky.class, new MultipleElementViewer<>(renderer, new HashMap<>(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/inky/inkyleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/inky/inkyup.png"))),
-                Map.entry(Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/inky/inkydown.png"))),
-                Map.entry(Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/inky/inkyright.png")))))));
-        this.viewers.put(Clyde.class, new MultipleElementViewer<>(renderer, new HashMap<>(Map.ofEntries(
-                Map.entry(Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/clyde/clydeleft.png"))),
-                Map.entry(Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/clyde/clydeup.png"))),
-                Map.entry(Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/clyde/clydedown.png"))),
-                Map.entry(Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/clyde/clyderight.png")))))));
+
+        // Loading Pacman images
+        this.viewers.put(Pacman.class, new PacmanViewer(renderer, loadPacmanImages()));
+
+        // Loading Ghosts with GhostState logic
+        this.viewers.put(Blinky.class, new GhostViewer(renderer, loadGhostImages("blinky")));
+        this.viewers.put(Pinky.class, new GhostViewer(renderer, loadGhostImages("pinky")));
+        this.viewers.put(Inky.class, new GhostViewer(renderer, loadGhostImages("inky")));
+        this.viewers.put(Clyde.class, new GhostViewer(renderer, loadGhostImages("clyde")));
+    }
+
+    private Map<GhostState, BufferedImage> loadGhostImages(String ghostName) throws IOException {
+        return Map.of(
+                GhostState.LEFT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png")),
+                GhostState.UP, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png")),
+                GhostState.DOWN, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png")),
+                GhostState.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png")),
+                GhostState.SCARED, ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/scaredghost.png")),
+                GhostState.DEAD, ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostright.png"))
+        );
+    }
+
+    private Map<Direction, BufferedImage> loadPacmanImages() throws IOException {
+        return Map.of(
+                Direction.LEFT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png")),
+                Direction.UP, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png")),
+                Direction.DOWN, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png")),
+                Direction.RIGHT, ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png"))
+        );
     }
 
     public void drawElement(TextGraphics graphics, Element element) {
@@ -70,7 +75,7 @@ public class ArenaViewer extends Viewer {
 
     public void drawElements(TextGraphics graphics) {
         arena.getWalls().forEach(wall -> drawElement(graphics, wall));
-        arena.getCollectibles().forEach(c -> drawElement(graphics, c));
+        arena.getCollectibles().forEach(collectible -> drawElement(graphics, collectible));
         arena.getGhosts().forEach(ghost -> drawElement(graphics, ghost));
         drawElement(graphics, arena.getPacman());
     }
