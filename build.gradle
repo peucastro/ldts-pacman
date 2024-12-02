@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'application'
+    id 'net.ltgt.errorprone' version '4.1.0'
+    id 'jacoco'
     id 'info.solidsoft.pitest' version '1.15.0'
 }
 
@@ -19,13 +21,27 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'org.mockito:mockito-core:3.7.7'
+    errorprone "com.google.errorprone:error_prone_core:2.30.0"
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.2'
+}
+
+compileJava {
+    options.compilerArgs << "-Werror"
 }
 
 test {
     useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+    }
+    finalizedBy jacocoTestReport
 }
 
 pitest {
-    junit5PluginVersion = '1.0.0'
+    junit5PluginVersion = '1.2.0'
+    pitestVersion = '1.15.0'
+}
+
+jacocoTestReport {
+    dependsOn test
 }
