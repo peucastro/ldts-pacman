@@ -6,13 +6,14 @@ import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class Arena {
     private final Pacman pacman;
 
-    private HashSet<Ghost> ghosts;
-    private HashSet<Wall> walls;
-    private HashSet<Collectible> collectibles;
+    private Set<Ghost> ghosts;
+    private Set<Wall> walls;
+    private Set<Collectible> collectibles;
 
     private final int width, height;
 
@@ -31,15 +32,15 @@ public class Arena {
         return pacman;
     }
 
-    public HashSet<Ghost> getGhosts() {
+    public Set<Ghost> getGhosts() {
         return ghosts;
     }
 
-    public HashSet<Wall> getWalls() {
+    public Set<Wall> getWalls() {
         return walls;
     }
 
-    public HashSet<Collectible> getCollectibles() {
+    public Set<Collectible> getCollectibles() {
         return collectibles;
     }
 
@@ -51,15 +52,15 @@ public class Arena {
         return height;
     }
 
-    public void setWalls(HashSet<Wall> walls) {
+    public void setWalls(Set<Wall> walls) {
         this.walls = walls;
     }
 
-    public void setCollectibles(HashSet<Collectible> collectibles) {
+    public void setCollectibles(Set<Collectible> collectibles) {
         this.collectibles = collectibles;
     }
 
-    public void setGhosts(HashSet<Ghost> ghosts) {
+    public void setGhosts(Set<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
 
@@ -67,9 +68,13 @@ public class Arena {
         walls.add(wall);
     }
 
-    public void addCollectible(Collectible collectible) {collectibles.add(collectible);}
+    public void addCollectible(Collectible collectible) {
+        collectibles.add(collectible);
+    }
 
-    public void addGhost(Ghost ghost) {ghosts.add(ghost);}
+    public void addGhost(Ghost ghost) {
+        ghosts.add(ghost);
+    }
 
     public void setPacmanPosition(Position position) {
         pacman.setPosition(position);
