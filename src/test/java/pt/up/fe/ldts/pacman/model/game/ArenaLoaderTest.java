@@ -12,6 +12,7 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 public class ArenaLoaderTest {
 
@@ -38,7 +39,7 @@ public class ArenaLoaderTest {
         Assertions.assertTrue(arena.getGhosts().contains(new Blinky(new Position(9*14,10*14))));
         Assertions.assertTrue(arena.getWalls().contains(new Wall(new Position(0,0))));
 
-        String output = outputStream.toString();
+        String output = outputStream.toString(StandardCharsets.UTF_8);
         Assertions.assertEquals("Unknown element '*' at (14, 14)\n", output);
 
         System.setOut(originalOut);
