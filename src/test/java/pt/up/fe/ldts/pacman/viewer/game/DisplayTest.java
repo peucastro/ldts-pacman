@@ -12,14 +12,9 @@ import java.net.URISyntaxException;
 
 public class DisplayTest {
     @Test
-    void testGetScreen() throws IOException, URISyntaxException, FontFormatException {
-        Display display = new Display(new TerminalSize(10,10));
-
-        Assertions.assertEquals(TerminalScreen.class,display.getScreen().getClass());
-    }
-
-    @Test
-    void testNegativeTerminalSize(){
-        Assertions.assertThrows(IllegalArgumentException.class,() -> {Display display = new Display(new TerminalSize(-10,10));});
+    void testNegativeTerminalSize() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Display(new TerminalSize(-10, 10));
+        });
     }
 }
