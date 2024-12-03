@@ -44,12 +44,22 @@ public class ImageLoader {
         );
     }
 
-    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException {
+    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException, URISyntaxException {
+        URL leftResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanleft.png");
+        URL upResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanup.png");
+        URL downResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmandown.png");
+        URL rightResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanright.png");
+
+        assert leftResource != null;
+        assert upResource != null;
+        assert downResource != null;
+        assert rightResource != null;
+
         return Map.of(
-                'L', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png")),
-                'U', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png")),
-                'D', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png")),
-                'R', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png"))
+                'L', ImageIO.read(new File(leftResource.toURI())),
+                'U', ImageIO.read(new File(upResource.toURI())),
+                'D', ImageIO.read(new File(downResource.toURI())),
+                'R', ImageIO.read(new File(rightResource.toURI()))
         );
     }
 }
