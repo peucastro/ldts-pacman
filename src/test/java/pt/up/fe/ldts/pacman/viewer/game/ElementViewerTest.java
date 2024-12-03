@@ -21,9 +21,9 @@ public class ElementViewerTest {
     void testDrawElement() throws IOException, URISyntaxException {
         TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
         Renderer mockRenderer = Mockito.mock(Renderer.class,withSettings().useConstructor(mockGraphics).defaultAnswer(CALLS_REAL_METHODS));
-        ElementViewer a = new ElementViewer(mockRenderer, "src/main/resources/PNGs/items/cherry.png");
-        ElementViewer b = new ElementViewer(mockRenderer, "src/main/resources/PNGs/items/orange.png");
-        ElementViewer c = new ElementViewer(mockRenderer, "src/main/resources/PNGs/wall.png");
+        ElementViewer a = new ElementViewer(mockRenderer, "PNGs/items/cherry.png");
+        ElementViewer b = new ElementViewer(mockRenderer, "PNGs/items/orange.png");
+        ElementViewer c = new ElementViewer(mockRenderer, "PNGs/wall.png");
         Cherry cherry = new Cherry(new Position(0, 0));
         Orange orange = new Orange(new Position(0, 0));
         Wall wall = new Wall(new Position(0, 0));
