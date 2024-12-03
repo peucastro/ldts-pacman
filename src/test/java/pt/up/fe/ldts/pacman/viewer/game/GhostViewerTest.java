@@ -10,6 +10,7 @@ import pt.up.fe.ldts.pacman.viewer.Renderer;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 
 import static org.mockito.ArgumentMatchers.any;
@@ -18,7 +19,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class GhostViewerTest {
     @Test
-    void testDrawElement() throws IOException {
+    void testDrawElement() throws IOException, URISyntaxException {
         TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
         Renderer mockRenderer = Mockito.mock(Renderer.class,withSettings().useConstructor(mockGraphics).defaultAnswer(CALLS_REAL_METHODS));
         MultipleElementViewer a = new MultipleElementViewer(mockRenderer, new GhostStrategy(), ImageLoader.loadGhostImages("pinky"));
