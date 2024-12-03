@@ -10,6 +10,7 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.Orange;
 import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -17,7 +18,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class ElementViewerTest {
     @Test
-    void testDrawElement() throws IOException {
+    void testDrawElement() throws IOException, URISyntaxException {
         TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
         Renderer mockRenderer = Mockito.mock(Renderer.class,withSettings().useConstructor(mockGraphics).defaultAnswer(CALLS_REAL_METHODS));
         ElementViewer a = new ElementViewer(mockRenderer, "src/main/resources/PNGs/items/cherry.png");
