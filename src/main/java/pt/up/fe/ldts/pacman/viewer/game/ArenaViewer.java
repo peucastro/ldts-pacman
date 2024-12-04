@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-public class ArenaViewer extends Viewer {
+public class ArenaViewer extends Viewer<Element> {
     private final Arena arena;
     private final Map<Class<?>, Viewer> viewers;
 

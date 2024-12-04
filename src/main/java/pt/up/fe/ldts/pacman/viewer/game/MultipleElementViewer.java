@@ -8,7 +8,7 @@ import pt.up.fe.ldts.pacman.viewer.game.strategies.MultipleElementStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
-public class MultipleElementViewer extends Viewer {
+public class MultipleElementViewer extends Viewer<Element> {
     private final Map<Character, BufferedImage> images;
     private MultipleElementStrategy strategy;
 

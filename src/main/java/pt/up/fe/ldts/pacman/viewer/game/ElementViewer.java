@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class ElementViewer extends Viewer {
+public class ElementViewer extends Viewer<Element> {
     private final BufferedImage image;
 
     public ElementViewer(Renderer renderer, String filePath) throws IOException, URISyntaxException {
