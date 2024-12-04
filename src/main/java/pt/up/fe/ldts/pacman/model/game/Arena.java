@@ -1,9 +1,9 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
-import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -78,5 +78,20 @@ public class Arena {
 
     public void setPacmanPosition(Position position) {
         pacman.setPosition(position);
+    }
+
+    public boolean isEmpty(Position position) {
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isGhost(Position position) {
+        for (Ghost ghost : ghosts)
+            if (ghost.getPosition().equals(position))
+                return true;
+        return false;
     }
 }
