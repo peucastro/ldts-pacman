@@ -1,7 +1,5 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.Element;
-
 import java.util.Objects;
 
 public class Position {
@@ -17,21 +15,37 @@ public class Position {
         return x;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public Position getLeft() {
+        return new Position(x - 1, y);
+    }
+
+    public Position getRight() {
+        return new Position(x + 1, y);
+    }
+
+    public Position getUp() {
+        return new Position(x, y - 1);
+    }
+
+    public Position getDown() {
+        return new Position(x, y + 1);
+    }
+
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void setPosition(Position other) {
         this.x = other.x;
         this.y = other.y;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     @Override
