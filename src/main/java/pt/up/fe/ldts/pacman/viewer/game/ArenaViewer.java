@@ -8,13 +8,14 @@ import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 public class ArenaViewer extends Viewer {
     private final Arena arena;
     private final Map<Class<?>, Viewer> viewers;
 
-    public ArenaViewer(Renderer renderer, Arena arena) throws IOException {
+    public ArenaViewer(Renderer renderer, Arena arena) throws IOException, URISyntaxException {
         super(renderer);
         this.arena = arena;
         this.viewers = ViewerFactory.createViewers(renderer);

@@ -4,30 +4,62 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Map;
 
 public class ImageLoader {
 
-    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException {
+    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
+        URL leftResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
+        URL upResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
+        URL downResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
+        URL rightResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
+        URL scaredResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/scaredghost.png");
+        URL deadRightResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostright.png");
+        URL deadLeftResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostleft.png");
+        URL deadUpResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostup.png");
+        URL deadDownResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostdown.png");
+
+        assert leftResource != null;
+        assert upResource != null;
+        assert downResource != null;
+        assert rightResource != null;
+        assert scaredResource != null;
+        assert deadRightResource != null;
+        assert deadLeftResource != null;
+        assert deadUpResource != null;
+        assert deadDownResource != null;
+
         return Map.of(
-                'L', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png")),
-                'U', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png")),
-                'D', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png")),
-                'R', ImageIO.read(new File("src/main/resources/PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png")),
-                'S', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/scaredghost.png")),
-                'r', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostright.png")),
-                'l', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostleft.png")),
-                'u', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostup.png")),
-                'd', ImageIO.read(new File("src/main/resources/PNGs/ghosts/common/deadghostdown.png"))
+                'L', ImageIO.read(new File(leftResource.toURI())),
+                'U', ImageIO.read(new File(upResource.toURI())),
+                'D', ImageIO.read(new File(downResource.toURI())),
+                'R', ImageIO.read(new File(rightResource.toURI())),
+                'S', ImageIO.read(new File(scaredResource.toURI())),
+                'r', ImageIO.read(new File(deadRightResource.toURI())),
+                'l', ImageIO.read(new File(deadLeftResource.toURI())),
+                'u', ImageIO.read(new File(deadUpResource.toURI())),
+                'd', ImageIO.read(new File(deadDownResource.toURI()))
         );
     }
 
-    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException {
+    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException, URISyntaxException {
+        URL leftResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanleft.png");
+        URL upResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanup.png");
+        URL downResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmandown.png");
+        URL rightResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanright.png");
+
+        assert leftResource != null;
+        assert upResource != null;
+        assert downResource != null;
+        assert rightResource != null;
+
         return Map.of(
-                'L', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanleft.png")),
-                'U', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanup.png")),
-                'D', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmandown.png")),
-                'R', ImageIO.read(new File("src/main/resources/PNGs/pacman/pacmanright.png"))
+                'L', ImageIO.read(new File(leftResource.toURI())),
+                'U', ImageIO.read(new File(upResource.toURI())),
+                'D', ImageIO.read(new File(downResource.toURI())),
+                'R', ImageIO.read(new File(rightResource.toURI()))
         );
     }
 }
