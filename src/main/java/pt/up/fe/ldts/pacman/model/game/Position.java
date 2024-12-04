@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game;
 
+import pt.up.fe.ldts.pacman.model.game.element.Element;
+
 import java.util.Objects;
 
 public class Position {
@@ -40,11 +42,9 @@ public class Position {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (!(obj instanceof Position position)) return false;
 
-        Position p = (Position) obj;
-        return x == p.getX() && y == p.getY();
+        return x == position.getX() && y == position.getY();
     }
 
     @Override

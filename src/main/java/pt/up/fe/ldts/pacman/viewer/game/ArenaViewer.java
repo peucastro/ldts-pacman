@@ -21,6 +21,7 @@ public class ArenaViewer extends Viewer {
         this.viewers = ViewerFactory.createViewers(renderer);
     }
 
+    @Override
     public void drawElement(Element element) {
         Viewer drawer = viewers.get(element.getClass());
         if (drawer != null) {
