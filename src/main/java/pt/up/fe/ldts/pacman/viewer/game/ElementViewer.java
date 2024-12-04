@@ -8,13 +8,18 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class ElementViewer extends Viewer {
     private final BufferedImage image;
 
-    public ElementViewer(Renderer renderer, String filePath) throws IOException {
+    public ElementViewer(Renderer renderer, String filePath) throws IOException, URISyntaxException {
         super(renderer);
-        this.image = ImageIO.read(new File(filePath));
+        URL resource = getClass().getClassLoader().getResource(filePath);
+        assert resource != null;
+        File imageFile = new File(resource.toURI());
+        this.image = ImageIO.read(imageFile);
     }
 
     @Override
