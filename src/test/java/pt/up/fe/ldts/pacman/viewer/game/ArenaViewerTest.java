@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
-import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import java.awt.*;
 import java.io.IOException;

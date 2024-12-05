@@ -7,7 +7,6 @@ import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Orange;
-import pt.up.fe.ldts.pacman.viewer.Renderer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

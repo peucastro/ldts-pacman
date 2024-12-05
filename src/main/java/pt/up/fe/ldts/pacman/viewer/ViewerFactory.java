@@ -19,23 +19,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewerFactory {
-    public static Map<Class<?>, Viewer> createViewers(Renderer renderer) throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer> createViewers() throws IOException, URISyntaxException {
         Map<Class<?>, Viewer> viewers = new HashMap<>();
 
-        viewers.put(Wall.class, new ElementViewer(renderer, "PNGs/wall.png"));
-        viewers.put(Coin.class, new ElementViewer(renderer, "PNGs/items/coin.png"));
-        viewers.put(Apple.class, new ElementViewer(renderer, "PNGs/items/apple.png"));
-        viewers.put(Cherry.class, new ElementViewer(renderer, "PNGs/items/cherry.png"));
-        viewers.put(Key.class, new ElementViewer(renderer, "PNGs/items/key.png"));
-        viewers.put(Orange.class, new ElementViewer(renderer, "PNGs/items/orange.png"));
-        viewers.put(Strawberry.class, new ElementViewer(renderer, "PNGs/items/strawberry.png"));
+        viewers.put(Wall.class, new ElementViewer(ImageLoader.loadImage( "PNGs/wall.png")));
+        viewers.put(Coin.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/coin.png")));
+        viewers.put(Apple.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/apple.png")));
+        viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/cherry.png")));
+        viewers.put(Key.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/key.png")));
+        viewers.put(Orange.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/orange.png")));
+        viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/strawberry.png")));
 
-        viewers.put(Pacman.class, new MultipleElementViewer(renderer, new PacmanStrategy(), ImageLoader.loadPacmanImages()));
+        viewers.put(Pacman.class, new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 
-        viewers.put(Blinky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
-        viewers.put(Pinky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
-        viewers.put(Inky.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
-        viewers.put(Clyde.class, new MultipleElementViewer(renderer, new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
+        viewers.put(Blinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
+        viewers.put(Pinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
+        viewers.put(Inky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
+        viewers.put(Clyde.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
 
         return viewers;
     }

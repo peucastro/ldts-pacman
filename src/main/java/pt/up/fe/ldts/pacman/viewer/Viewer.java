@@ -1,12 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer;
 
-public abstract class Viewer<T> {
-    protected final Renderer renderer;
+import pt.up.fe.ldts.pacman.gui.GUI;
 
-    public Viewer(Renderer renderer) {
-        this.renderer = renderer;
+public abstract class Viewer<T> {
+
+    public Viewer() {
     }
 
-    public abstract void drawElement(T model);
+    public abstract void drawElement(GUI gui, T model);
 }
 

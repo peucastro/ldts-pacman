@@ -62,4 +62,11 @@ public class ImageLoader {
                 'R', ImageIO.read(new File(rightResource.toURI()))
         );
     }
+
+    public static BufferedImage loadImage(String filePath) throws URISyntaxException, IOException {
+        URL resource = ImageLoader.class.getClassLoader().getResource(filePath);
+        assert resource != null;
+        File imageFile = new File(resource.toURI());
+        return ImageIO.read(imageFile);
+    }
 }

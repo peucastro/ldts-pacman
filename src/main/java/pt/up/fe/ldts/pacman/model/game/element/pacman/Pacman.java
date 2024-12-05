@@ -14,4 +14,12 @@ public class Pacman extends MovableElement {
     public void decreaseLife() {
         this.life--;
     }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 }

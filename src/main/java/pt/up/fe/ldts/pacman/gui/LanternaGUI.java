@@ -85,11 +85,20 @@ public class LanternaGUI implements GUI {
     @Override
     public void drawImage(Position position, BufferedImage image) {
         TextGraphics tg = screen.newTextGraphics();
+        int posX = position.getX();
+        int posY = position.getY();
+
         for (int y = 0; y < 14; y++) {
             for (int x = 0; x < 14; x++) {
                 if (image.getRGB(x, y) == 0) continue;
-                tg.setBackgroundColor(TextColor.Factory.fromString("#" + String.format("%x", image.getRGB(x, y)).substring(2)));
-                tg.putString(new TerminalPosition(position.getX() + x, position.getY() + y), " ");
+
+                int RGB = image.getRGB(x,y);
+                int red = RGB >> 16 & 0xFF;
+                int green = RGB >> 8 & 0xFF;
+                int blue = RGB & 0xFF;
+
+                tg.setBackgroundColor(new TextColor.RGB(red,green,blue));
+                tg.setCharacter(posX + x, posY + y, ' ');
             }
         }
     }
