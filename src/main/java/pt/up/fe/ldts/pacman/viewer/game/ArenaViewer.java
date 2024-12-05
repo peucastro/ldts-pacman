@@ -3,7 +3,7 @@ package pt.up.fe.ldts.pacman.viewer.game;
 
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.element.Element;
+import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 

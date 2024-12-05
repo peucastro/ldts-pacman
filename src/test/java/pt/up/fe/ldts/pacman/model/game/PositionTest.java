@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
+import pt.up.fe.ldts.pacman.model.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
 

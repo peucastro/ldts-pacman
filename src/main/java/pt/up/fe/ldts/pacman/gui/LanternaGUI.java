@@ -1,7 +1,7 @@
 package pt.up.fe.ldts.pacman.gui;
 
 
-import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -12,7 +12,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collection;
 
 public class LanternaGUI implements GUI {
     private final Screen screen;
@@ -101,6 +102,13 @@ public class LanternaGUI implements GUI {
                 tg.setCharacter(posX + x, posY + y, ' ');
             }
         }
+    }
+
+    @Override
+    public void drawText(Position position, String text, TextColor textColor) {
+        TextGraphics tg = screen.newTextGraphics();
+        tg.setBackgroundColor(textColor);
+        tg.putString(position.getX(), position.getY(), text);
     }
 
     @Override

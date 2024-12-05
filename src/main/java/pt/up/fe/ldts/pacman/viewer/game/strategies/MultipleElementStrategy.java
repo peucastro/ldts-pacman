@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer.game.strategies;
 
-import pt.up.fe.ldts.pacman.model.game.element.Element;
+import pt.up.fe.ldts.pacman.model.Element;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;

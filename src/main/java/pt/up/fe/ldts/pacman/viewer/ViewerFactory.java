@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer;
 
+import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;

@@ -1,6 +1,4 @@
-package pt.up.fe.ldts.pacman.model.game.element;
-
-import pt.up.fe.ldts.pacman.model.game.Position;
+package pt.up.fe.ldts.pacman.model;
 
 import java.util.Objects;
 

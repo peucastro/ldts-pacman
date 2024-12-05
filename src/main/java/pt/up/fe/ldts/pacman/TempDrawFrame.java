@@ -5,9 +5,7 @@ import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
-import pt.up.fe.ldts.pacman.model.game.Position;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
-import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 
 import java.awt.*;
 import java.io.IOException;
@@ -26,13 +24,15 @@ public class TempDrawFrame {
 
 
         int i = 0;
-        while (i < 100) {
+        long start = System.currentTimeMillis();
+        while (i < 300) {
             state.step(new TempDrawFrame(),gui,i);
             if(i == 50){
                 arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
             }
             i++;
         }
+        System.out.println((System.currentTimeMillis() - start)/(double)1000);
         gui.close();
     }
 }

@@ -1,7 +1,8 @@
 package pt.up.fe.ldts.pacman.model.game.element;
 
 import org.junit.jupiter.api.Test;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Element;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;

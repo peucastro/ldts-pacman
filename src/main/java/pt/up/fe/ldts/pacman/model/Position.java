@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.model.game;
+package pt.up.fe.ldts.pacman.model;
 
 import java.util.Objects;
 

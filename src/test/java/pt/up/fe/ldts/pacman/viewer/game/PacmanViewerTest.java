@@ -3,7 +3,7 @@ package pt.up.fe.ldts.pacman.viewer.game;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
