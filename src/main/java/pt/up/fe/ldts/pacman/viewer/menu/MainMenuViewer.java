@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
-import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.Menu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-public class MenuViewer extends Viewer<Menu> {
+public class MainMenuViewer extends Viewer<MainMenu> {
     private final Map<Class<?>, Viewer<TextBox>> viewers;
 
-    public MenuViewer() throws IOException, URISyntaxException {
+    public MainMenuViewer() throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createMenuViewers();
     }
 
@@ -26,12 +26,12 @@ public class MenuViewer extends Viewer<Menu> {
         }
     }
 
-    public void drawElements(GUI gui, Menu menu) {
+    public void drawElements(GUI gui, MainMenu menu) {
         menu.getOptions().forEach(textBox -> drawElement(gui,textBox));
     }
 
     @Override
-    public void drawElement(GUI gui, Menu menu) {
+    public void drawElement(GUI gui, MainMenu menu) {
         gui.clear();
         drawElements(gui,menu);
         try {

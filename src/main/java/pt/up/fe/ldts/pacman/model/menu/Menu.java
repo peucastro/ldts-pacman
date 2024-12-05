@@ -4,21 +4,22 @@ import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Menu {
-    private ArrayList<TextBox> options;
+    private List<TextBox> options;
     private int selectedOption;
-    public Menu(ArrayList<TextBox> options){
-        this.options = options;
+
+    public Menu(){
         selectedOption = 0;
-        setOptions(options);
+        setOptions(createOptions());
     }
 
-    public ArrayList<TextBox> getOptions() {
+    public List<TextBox> getOptions() {
         return options;
     }
 
-    public void setOptions(ArrayList<TextBox> options) {
+    public void setOptions(List<TextBox> options) {
         this.options = options;
         if(!options.isEmpty()){
             options.forEach(textBox -> textBox.setColor(new TextColor.RGB(255,255,255)));
@@ -37,13 +38,15 @@ public abstract class Menu {
 
     public void selectNextOption(){
         options.get(selectedOption).setColor(new TextColor.RGB(255,255,255));
-        selectedOption = (selectedOption + 1) % options.size();
+        if(++selectedOption >= options.size()) selectedOption = 0;
         options.get(selectedOption).setColor(new TextColor.RGB(255,255,0));
     }
 
     public void selectPreviousOption(){
         options.get(selectedOption).setColor(new TextColor.RGB(255,255,255));
-        selectedOption = (selectedOption - 1) % options.size();
-        options.get(selectedOption).setColor(new TextColor.RGB(255,255,255));
+        if(--selectedOption < 0) selectedOption = options.size() - 1;
+        options.get(selectedOption).setColor(new TextColor.RGB(255,255,0));
     }
+
+    public abstract List<TextBox> createOptions();
 }
