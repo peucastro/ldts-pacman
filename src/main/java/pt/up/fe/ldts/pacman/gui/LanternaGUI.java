@@ -2,9 +2,12 @@ package pt.up.fe.ldts.pacman.gui;
 
 
 import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -84,30 +87,14 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public void drawImage(Position position, BufferedImage image) {
-        TextGraphics tg = screen.newTextGraphics();
-        int posX = position.getX();
-        int posY = position.getY();
-
-        for (int y = 0; y < 14; y++) {
-            for (int x = 0; x < 14; x++) {
-                if (image.getRGB(x, y) == 0) continue;
-
-                int RGB = image.getRGB(x,y);
-                int red = RGB >> 16 & 0xFF;
-                int green = RGB >> 8 & 0xFF;
-                int blue = RGB & 0xFF;
-
-                tg.setBackgroundColor(new TextColor.RGB(red,green,blue));
-                tg.setCharacter(posX + x, posY + y, ' ');
-            }
-        }
+    public void drawImage(Position position, BasicTextImage image) {
+        screen.newTextGraphics().drawImage(position.toTerminalPosition(), image);
     }
 
     @Override
     public void drawText(Position position, String text, TextColor textColor) {
         TextGraphics tg = screen.newTextGraphics();
-        tg.setBackgroundColor(textColor);
+        tg.setForegroundColor(textColor);
         tg.putString(position.getX(), position.getY(), text);
     }
 

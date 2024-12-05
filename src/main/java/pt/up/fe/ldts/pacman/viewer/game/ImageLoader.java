@@ -1,8 +1,11 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
+import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.BasicTextImage;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -10,63 +13,66 @@ import java.util.Map;
 
 public class ImageLoader {
 
-    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
-        URL leftResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
-        URL upResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
-        URL downResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
-        URL rightResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
-        URL scaredResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/scaredghost.png");
-        URL deadRightResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostright.png");
-        URL deadLeftResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostleft.png");
-        URL deadUpResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostup.png");
-        URL deadDownResource = ImageLoader.class.getClassLoader().getResource("PNGs/ghosts/common/deadghostdown.png");
+    public static Map<Character, BasicTextImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
+        BasicTextImage leftResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
+        BasicTextImage upResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
+        BasicTextImage downResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
+        BasicTextImage rightResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
+        BasicTextImage scaredResource = loadImage("PNGs/ghosts/common/scaredghost.png");
+        BasicTextImage deadRightResource = loadImage("PNGs/ghosts/common/deadghostright.png");
+        BasicTextImage deadLeftResource = loadImage("PNGs/ghosts/common/deadghostleft.png");
+        BasicTextImage deadUpResource = loadImage("PNGs/ghosts/common/deadghostup.png");
+        BasicTextImage deadDownResource = loadImage("PNGs/ghosts/common/deadghostdown.png");
 
-        assert leftResource != null;
-        assert upResource != null;
-        assert downResource != null;
-        assert rightResource != null;
-        assert scaredResource != null;
-        assert deadRightResource != null;
-        assert deadLeftResource != null;
-        assert deadUpResource != null;
-        assert deadDownResource != null;
 
         return Map.of(
-                'L', ImageIO.read(new File(leftResource.toURI())),
-                'U', ImageIO.read(new File(upResource.toURI())),
-                'D', ImageIO.read(new File(downResource.toURI())),
-                'R', ImageIO.read(new File(rightResource.toURI())),
-                'S', ImageIO.read(new File(scaredResource.toURI())),
-                'r', ImageIO.read(new File(deadRightResource.toURI())),
-                'l', ImageIO.read(new File(deadLeftResource.toURI())),
-                'u', ImageIO.read(new File(deadUpResource.toURI())),
-                'd', ImageIO.read(new File(deadDownResource.toURI()))
+                'L', leftResource,
+                'U', upResource,
+                'D', downResource,
+                'R', rightResource,
+                'S', scaredResource,
+                'r', deadRightResource,
+                'l', deadLeftResource,
+                'u', deadUpResource,
+                'd', deadDownResource
         );
     }
 
-    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException, URISyntaxException {
-        URL leftResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanleft.png");
-        URL upResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanup.png");
-        URL downResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmandown.png");
-        URL rightResource = ImageLoader.class.getClassLoader().getResource("PNGs/pacman/pacmanright.png");
-
-        assert leftResource != null;
-        assert upResource != null;
-        assert downResource != null;
-        assert rightResource != null;
+    public static Map<Character, BasicTextImage> loadPacmanImages() throws IOException, URISyntaxException {
+        BasicTextImage leftResource = loadImage("PNGs/pacman/pacmanleft.png");
+        BasicTextImage upResource = loadImage("PNGs/pacman/pacmanup.png");
+        BasicTextImage downResource = loadImage("PNGs/pacman/pacmandown.png");
+        BasicTextImage rightResource = loadImage("PNGs/pacman/pacmanright.png");
 
         return Map.of(
-                'L', ImageIO.read(new File(leftResource.toURI())),
-                'U', ImageIO.read(new File(upResource.toURI())),
-                'D', ImageIO.read(new File(downResource.toURI())),
-                'R', ImageIO.read(new File(rightResource.toURI()))
+                'L', leftResource,
+                'U', upResource,
+                'D', downResource,
+                'R', rightResource
         );
     }
 
-    public static BufferedImage loadImage(String filePath) throws URISyntaxException, IOException {
+    public static BasicTextImage loadImage(String filePath) throws IOException {
         URL resource = ImageLoader.class.getClassLoader().getResource(filePath);
         assert resource != null;
-        File imageFile = new File(resource.toURI());
-        return ImageIO.read(imageFile);
+        return toTextImage(ImageIO.read(resource));
+    }
+
+    private static BasicTextImage toTextImage(BufferedImage image){
+        BasicTextImage textImage = new BasicTextImage(14,14);
+
+        for (int y = 0; y < 14; y++) {
+            for (int x = 0; x < 14; x++) {
+                if (image.getRGB(x, y) == 0) continue;
+
+                int RGB = image.getRGB(x,y);
+                int red = RGB >> 16 & 0xFF;
+                int green = RGB >> 8 & 0xFF;
+                int blue = RGB & 0xFF;
+
+                textImage.setCharacterAt(x,y,new TextCharacter(' ', null, new TextColor.RGB(red,green,blue)));
+            }
+        }
+        return textImage;
     }
 }

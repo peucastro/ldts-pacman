@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.gui;
 
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import pt.up.fe.ldts.pacman.model.Position;
 
 import java.awt.image.BufferedImage;
@@ -9,7 +10,7 @@ import java.io.IOException;
 public interface GUI {
     ACTION getNextAction() throws IOException;
 
-    void drawImage(Position position, BufferedImage image);
+    void drawImage(Position position, BasicTextImage image);
 
     void drawText(Position position, String text, TextColor textColor);
 

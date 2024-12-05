@@ -15,7 +15,7 @@ public class ArenaViewer extends Viewer<Arena> {
     private final Map<Class<?>, Viewer<Element>> viewers;
 
     public ArenaViewer() throws IOException, URISyntaxException {
-        this.viewers = ViewerFactory.createViewers();
+        this.viewers = ViewerFactory.createArenaViewers();
     }
 
 

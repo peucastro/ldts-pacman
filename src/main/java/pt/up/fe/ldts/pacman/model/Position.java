@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman.model;
 
+import com.googlecode.lanterna.TerminalPosition;
+
 import java.util.Objects;
 
 public class Position {
@@ -20,19 +22,19 @@ public class Position {
     }
 
     public Position getLeft() {
-        return new Position(x - 1, y);
+        return new Position(x - 2, y);
     }
 
     public Position getRight() {
-        return new Position(x + 1, y);
+        return new Position(x + 2, y);
     }
 
     public Position getUp() {
-        return new Position(x, y - 1);
+        return new Position(x, y - 2);
     }
 
     public Position getDown() {
-        return new Position(x, y + 1);
+        return new Position(x, y + 2);
     }
 
     public void setX(int x) {
@@ -48,6 +50,9 @@ public class Position {
         this.y = other.y;
     }
 
+    public TerminalPosition toTerminalPosition(){
+        return new TerminalPosition(x,y);
+    }
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
