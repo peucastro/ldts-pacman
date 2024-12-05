@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewerFactory {
-    public static Map<Class<?>, Viewer> createViewers() throws IOException, URISyntaxException {
-        Map<Class<?>, Viewer> viewers = new HashMap<>();
+    public static Map<Class<?>, Viewer<Element>> createViewers() throws IOException, URISyntaxException {
+        Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
 
         viewers.put(Wall.class, new ElementViewer(ImageLoader.loadImage( "PNGs/wall.png")));
         viewers.put(Coin.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/coin.png")));

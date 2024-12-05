@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman;
 
+import pt.up.fe.ldts.pacman.States.GameState;
+import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
@@ -19,16 +21,16 @@ public class TempDrawFrame {
         Arena arena = new Arena(20, 20);
         ArenaLoader arenaLoader = new ArenaLoader(arena);
         arenaLoader.loadMap("src/main/resources/Maps/map.txt");
-        ArenaViewer arenaViewer = new ArenaViewer();
-        arenaViewer.draw(gui,arena);
+
+        State<Arena> state = new GameState(arena);
+
 
         int i = 0;
         while (i < 100) {
-            arena.setPacmanPosition(new Position(arena.getPacman().getPosition().getX() - 1, arena.getPacman().getPosition().getY()));
+            state.step(new TempDrawFrame(),gui,i);
             if(i == 50){
                 arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
             }
-            arenaViewer.draw(gui,arena);
             i++;
         }
         gui.close();
