@@ -66,10 +66,10 @@ public class ImageLoader {
     }
 
     private static BasicTextImage toTextImage(BufferedImage image){
-        BasicTextImage textImage = new BasicTextImage(14,14);
+        BasicTextImage textImage = new BasicTextImage(11,11);
 
-        for (int y = 0; y < 14; y++) {
-            for (int x = 0; x < 14; x++) {
+        for (int y = 0; y < 11; y++) {
+            for (int x = 0; x < 11; x++) {
                 if (image.getRGB(x, y) == 0) continue;
 
                 int RGB = image.getRGB(x,y);

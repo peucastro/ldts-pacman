@@ -43,7 +43,7 @@ public class TempDrawFrame {
          */
 
         TempDrawFrame tdf = new TempDrawFrame();
-        tdf.gui = new LanternaGUI(252,252);
+        tdf.gui = new LanternaGUI(220,220);
 
 
 
@@ -53,7 +53,7 @@ public class TempDrawFrame {
         int i = 0;
         long start = System.currentTimeMillis();
         long frameTime = 1000/30;
-        while (i < 400 && tdf.state != null) {
+        while (i < 500 && tdf.state != null) {
             long startTime = System.currentTimeMillis();
             tdf.state.step(tdf,tdf.gui,i);
             i++;

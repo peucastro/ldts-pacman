@@ -44,7 +44,7 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() {
         Map<Class<?>, Viewer<TextBox>> viewers = new HashMap<>();
         viewers.put(TextBox.class, new TextBoxViewer());
         return viewers;
