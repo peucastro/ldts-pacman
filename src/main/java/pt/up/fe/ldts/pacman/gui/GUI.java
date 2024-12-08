@@ -12,6 +12,8 @@ public interface GUI {
 
     void drawImage(Position position, BasicTextImage image);
 
+    void drawImage(Position position, BufferedImage image);
+
     void drawText(Position position, String text, TextColor textColor);
 
     void clear();

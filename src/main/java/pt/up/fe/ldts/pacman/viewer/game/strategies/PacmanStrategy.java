@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class PacmanStrategy extends MultipleElementStrategy{
     @Override
-    public BasicTextImage getCurrentImage(Element element, Map<Character,BasicTextImage> images) {
+    public BufferedImage getCurrentImage(Element element, Map<Character,BufferedImage> images) {
         Pacman pacman = (Pacman)element;
         return switch (pacman.getDirection()) {
             case UP -> images.get('U');

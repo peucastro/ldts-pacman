@@ -13,16 +13,16 @@ import java.util.Map;
 
 public class ImageLoader {
 
-    public static Map<Character, BasicTextImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
-        BasicTextImage leftResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
-        BasicTextImage upResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
-        BasicTextImage downResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
-        BasicTextImage rightResource = loadImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
-        BasicTextImage scaredResource = loadImage("PNGs/ghosts/common/scaredghost.png");
-        BasicTextImage deadRightResource = loadImage("PNGs/ghosts/common/deadghostright.png");
-        BasicTextImage deadLeftResource = loadImage("PNGs/ghosts/common/deadghostleft.png");
-        BasicTextImage deadUpResource = loadImage("PNGs/ghosts/common/deadghostup.png");
-        BasicTextImage deadDownResource = loadImage("PNGs/ghosts/common/deadghostdown.png");
+    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
+        BufferedImage leftResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
+        BufferedImage upResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
+        BufferedImage downResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
+        BufferedImage rightResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
+        BufferedImage scaredResource = loadBufferedImage("PNGs/ghosts/common/scaredghost.png");
+        BufferedImage deadRightResource = loadBufferedImage("PNGs/ghosts/common/deadghostright.png");
+        BufferedImage deadLeftResource = loadBufferedImage("PNGs/ghosts/common/deadghostleft.png");
+        BufferedImage deadUpResource = loadBufferedImage("PNGs/ghosts/common/deadghostup.png");
+        BufferedImage deadDownResource = loadBufferedImage("PNGs/ghosts/common/deadghostdown.png");
 
 
         return Map.of(
@@ -38,11 +38,11 @@ public class ImageLoader {
         );
     }
 
-    public static Map<Character, BasicTextImage> loadPacmanImages() throws IOException, URISyntaxException {
-        BasicTextImage leftResource = loadImage("PNGs/pacman/pacmanleft.png");
-        BasicTextImage upResource = loadImage("PNGs/pacman/pacmanup.png");
-        BasicTextImage downResource = loadImage("PNGs/pacman/pacmandown.png");
-        BasicTextImage rightResource = loadImage("PNGs/pacman/pacmanright.png");
+    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException, URISyntaxException {
+        BufferedImage leftResource = loadBufferedImage("PNGs/pacman/pacmanleft.png");
+        BufferedImage upResource = loadBufferedImage("PNGs/pacman/pacmanup.png");
+        BufferedImage downResource = loadBufferedImage("PNGs/pacman/pacmandown.png");
+        BufferedImage rightResource = loadBufferedImage("PNGs/pacman/pacmanright.png");
 
         return Map.of(
                 'L', leftResource,
@@ -52,7 +52,14 @@ public class ImageLoader {
         );
     }
 
-    public static BasicTextImage loadImage(String filePath) throws IOException {
+
+    public static BufferedImage loadBufferedImage(String filePath) throws IOException {
+        URL resource = ImageLoader.class.getClassLoader().getResource(filePath);
+        assert resource != null;
+        return ImageIO.read(resource);
+    }
+
+    public static BasicTextImage loadTextImage(String filePath) throws IOException {
         URL resource = ImageLoader.class.getClassLoader().getResource(filePath);
         assert resource != null;
         return toTextImage(ImageIO.read(resource));

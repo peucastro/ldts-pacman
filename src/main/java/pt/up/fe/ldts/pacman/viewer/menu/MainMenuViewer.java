@@ -16,7 +16,7 @@ public class MainMenuViewer extends Viewer<MainMenu> {
     private final Map<Class<?>, Viewer<TextBox>> viewers;
 
     public MainMenuViewer() throws IOException, URISyntaxException {
-        this.viewers = ViewerFactory.createMenuViewers();
+        this.viewers = ViewerFactory.createMainMenuViewers();
     }
 
     public void drawElement(GUI gui, Element element) {

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class GhostStrategy extends MultipleElementStrategy{
     @Override
-    public BasicTextImage getCurrentImage(Element element, Map<Character, BasicTextImage> images) {
+    public BufferedImage getCurrentImage(Element element, Map<Character, BufferedImage> images) {
         Ghost ghost = (Ghost)element;
         if(ghost.isScared()) return images.get('S');
         return switch (ghost.getDirection()) {

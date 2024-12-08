@@ -26,13 +26,13 @@ public class ViewerFactory {
     public static Map<Class<?>, Viewer<Element>> createArenaViewers() throws IOException, URISyntaxException {
         Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
 
-        viewers.put(Wall.class, new ElementViewer(ImageLoader.loadImage( "PNGs/wall.png")));
-        viewers.put(Coin.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/coin.png")));
-        viewers.put(Apple.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/apple.png")));
-        viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/cherry.png")));
-        viewers.put(Key.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/key.png")));
-        viewers.put(Orange.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/orange.png")));
-        viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadImage( "PNGs/items/strawberry.png")));
+        viewers.put(Wall.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/wall.png")));
+        viewers.put(Coin.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/coin.png")));
+        viewers.put(Apple.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/apple.png")));
+        viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/cherry.png")));
+        viewers.put(Key.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/key.png")));
+        viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/orange.png")));
+        viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/strawberry.png")));
 
         viewers.put(Pacman.class, new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 
@@ -44,7 +44,7 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<TextBox>> createMenuViewers() throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() throws IOException, URISyntaxException {
         Map<Class<?>, Viewer<TextBox>> viewers = new HashMap<>();
         viewers.put(TextBox.class, new TextBoxViewer());
         return viewers;

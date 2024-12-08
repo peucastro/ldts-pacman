@@ -7,5 +7,5 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 public abstract class MultipleElementStrategy {
-    public abstract BasicTextImage getCurrentImage(Element element, Map<Character, BasicTextImage> images);
+    public abstract BufferedImage getCurrentImage(Element element, Map<Character, BufferedImage> images);
 }
