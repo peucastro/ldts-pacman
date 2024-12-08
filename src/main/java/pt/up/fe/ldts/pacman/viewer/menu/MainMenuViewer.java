@@ -11,21 +11,23 @@ import java.io.IOException;
 import java.util.Map;
 
 public class MainMenuViewer extends Viewer<MainMenu> {
-    private final Map<Class<?>, Viewer<TextBox>> viewers;
+    private final Map<Class<?>, Viewer<Element>> viewers;
 
     public MainMenuViewer() throws IOException {
         this.viewers = ViewerFactory.createMainMenuViewers();
     }
 
     public void drawElement(GUI gui, Element element) {
-        Viewer<TextBox> viewer = viewers.get(element.getClass());
+        Viewer<Element> viewer = viewers.get(element.getClass());
         if (viewer != null) {
-            viewer.drawElement(gui,(TextBox) element);
+            viewer.drawElement(gui, element);
         }
     }
 
     public void drawElements(GUI gui, MainMenu menu) {
         menu.getOptions().forEach(textBox -> drawElement(gui,textBox));
+        drawElement(gui,menu.getPacman());
+        drawElement(gui,menu.getTitle());
     }
 
     @Override

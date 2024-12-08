@@ -43,9 +43,10 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() throws IOException {
-        Map<Class<?>, Viewer<TextBox>> viewers = new HashMap<>();
+    public static Map<Class<?>, Viewer<Element>> createMainMenuViewers() throws IOException {
+        Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
         viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
+        viewers.put(Pacman.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/pacman/pacmanright.png")));
         return viewers;
     }
 }

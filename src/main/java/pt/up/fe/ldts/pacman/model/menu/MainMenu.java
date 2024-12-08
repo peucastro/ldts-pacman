@@ -1,13 +1,25 @@
 package pt.up.fe.ldts.pacman.model.menu;
 
 import com.googlecode.lanterna.TextColor;
+import com.sun.tools.javac.Main;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
+import pt.up.fe.ldts.pacman.viewer.menu.MainMenuViewer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenu extends Menu{
+    private final TextBox title;
+    private final Pacman pacman;
+
+    public MainMenu(){
+        super();
+        title = new TextBox("PACMAN", new Position(95,30), new TextColor.RGB(255,255,255));
+        pacman = new Pacman(new Position(104,41));
+    }
+
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<TextBox>(List.of(
@@ -28,5 +40,14 @@ public class MainMenu extends Menu{
 
     public boolean ExitSelected(){
         return getSelectedOption() == 2;
+    }
+
+
+    public Pacman getPacman() {
+        return pacman;
+    }
+
+    public TextBox getTitle() {
+        return title;
     }
 }
