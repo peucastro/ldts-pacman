@@ -3,19 +3,17 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
-import pt.up.fe.ldts.pacman.model.menu.Menu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 public class MainMenuViewer extends Viewer<MainMenu> {
     private final Map<Class<?>, Viewer<TextBox>> viewers;
 
-    public MainMenuViewer() throws IOException, URISyntaxException {
+    public MainMenuViewer() throws IOException {
         this.viewers = ViewerFactory.createMainMenuViewers();
     }
 

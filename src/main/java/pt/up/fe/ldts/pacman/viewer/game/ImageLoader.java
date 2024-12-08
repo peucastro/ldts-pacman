@@ -7,9 +7,13 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ImageLoader {
 
@@ -81,5 +85,28 @@ public class ImageLoader {
             }
         }
         return textImage;
+    }
+
+    public static Map<Character,BufferedImage> loadFontImages() throws IOException {
+        InputStream fontMapResource = ImageLoader.class.getClassLoader().getResourceAsStream("Fonts/ingamefontmap.txt");
+        URL fontResource = ImageLoader.class.getClassLoader().getResource("Fonts/ingamefont.png");
+        assert fontMapResource != null;
+        assert fontResource != null;
+
+        Map<Character, BufferedImage> characters = new HashMap<>();
+        String fontMap = new Scanner(fontMapResource, StandardCharsets.UTF_8).next(); fontMapResource.close();
+        BufferedImage font = ImageIO.read(fontResource);
+
+        int x = 0, y = 0;
+        for(int i = 0; i < fontMap.length();++i){
+            if(fontMap.charAt(i) == '\n'){
+                x = 0; y += 11;
+                continue;
+            }
+            characters.put(fontMap.charAt(i),font.getSubimage(x,y,5, 11));
+            x += 5;
+        }
+
+        return characters;
     }
 }

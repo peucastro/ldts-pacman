@@ -1,6 +1,5 @@
 package pt.up.fe.ldts.pacman.viewer;
 
-import org.w3c.dom.Text;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
@@ -44,9 +43,9 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() {
+    public static Map<Class<?>, Viewer<TextBox>> createMainMenuViewers() throws IOException {
         Map<Class<?>, Viewer<TextBox>> viewers = new HashMap<>();
-        viewers.put(TextBox.class, new TextBoxViewer());
+        viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
         return viewers;
     }
 }
