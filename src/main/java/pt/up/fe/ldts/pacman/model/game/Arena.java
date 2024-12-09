@@ -1,10 +1,12 @@
 package pt.up.fe.ldts.pacman.model.game;
 
+import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,8 @@ import java.util.Set;
 public class Arena {
     private final Pacman pacman;
     private final int width, height;
+    private int score;
+    private int lives;
     private Set<Ghost> ghosts;
     private Set<Wall> walls;
     private Set<Collectible> collectibles;
@@ -19,6 +23,9 @@ public class Arena {
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
+
+        this.score = 0;
+        this.lives = 3;
 
         this.pacman = new Pacman(new Position(0, 0));
 
@@ -92,5 +99,29 @@ public class Arena {
             if (ghost.getPosition().equals(position))
                 return true;
         return false;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void incrementScore(int increment){
+        this.score += increment;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void incrementLives(int increment){
+        this.lives += increment;
     }
 }

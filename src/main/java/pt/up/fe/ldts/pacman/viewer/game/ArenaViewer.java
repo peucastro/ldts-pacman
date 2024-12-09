@@ -1,9 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
 
+import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
@@ -31,6 +34,8 @@ public class ArenaViewer extends Viewer<Arena> {
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
         arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
         drawElement(gui, arena.getPacman());
+        drawElement(gui,new TextBox("Score:" + arena.getScore(), new Position(11,0), new TextColor.RGB(255,255,255)));
+        drawElement(gui,new TextBox("Lives:" + arena.getLives(), new Position(174,0), new TextColor.RGB(255,255,255)));
     }
 
     @Override
