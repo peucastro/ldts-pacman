@@ -27,21 +27,21 @@ public class ArenaLoaderTest {
 
         arenaLoader.loadMap("src/main/resources/Maps/testmap.txt");
 
-        Assertions.assertEquals(new Position(10 * 11, 16 * 11), arena.getPacman().getPosition());
-        Assertions.assertTrue(arena.getCollectibles().contains(new Orange(new Position(3 * 11, 11 * 11))));
-        Assertions.assertTrue(arena.getCollectibles().contains(new Apple(new Position(3 * 11, 12 * 11))));
-        Assertions.assertTrue(arena.getCollectibles().contains(new Cherry(new Position(3 * 11, 13 * 11))));
-        Assertions.assertTrue(arena.getCollectibles().contains(new Key(new Position(4 * 11, 13 * 11))));
-        Assertions.assertTrue(arena.getCollectibles().contains(new Strawberry(new Position(5 * 11, 13 * 11))));
-        Assertions.assertTrue(arena.getCollectibles().contains(new Coin(new Position(6 * 11, 13 * 11))));
-        Assertions.assertTrue(arena.getGhosts().contains(new Pinky(new Position(8 * 11, 11 * 11))));
-        Assertions.assertTrue(arena.getGhosts().contains(new Inky(new Position(9 * 11, 11 * 11))));
-        Assertions.assertTrue(arena.getGhosts().contains(new Clyde(new Position(10 * 11, 11 * 11))));
-        Assertions.assertTrue(arena.getGhosts().contains(new Blinky(new Position(9 * 11, 10 * 11))));
+        Assertions.assertEquals(new Position(10, 16), arena.getPacman().getPosition());
+        Assertions.assertTrue(arena.getCollectibles().contains(new Orange(new Position(3, 11))));
+        Assertions.assertTrue(arena.getCollectibles().contains(new Apple(new Position(3, 12))));
+        Assertions.assertTrue(arena.getCollectibles().contains(new Cherry(new Position(3, 13))));
+        Assertions.assertTrue(arena.getCollectibles().contains(new Key(new Position(4, 13))));
+        Assertions.assertTrue(arena.getCollectibles().contains(new Strawberry(new Position(5, 13))));
+        Assertions.assertTrue(arena.getCollectibles().contains(new Coin(new Position(6, 13))));
+        Assertions.assertTrue(arena.getGhosts().contains(new Pinky(new Position(8, 11))));
+        Assertions.assertTrue(arena.getGhosts().contains(new Inky(new Position(9, 11))));
+        Assertions.assertTrue(arena.getGhosts().contains(new Clyde(new Position(10, 11))));
+        Assertions.assertTrue(arena.getGhosts().contains(new Blinky(new Position(9, 10))));
         Assertions.assertTrue(arena.getWalls().contains(new Wall(new Position(0, 0))));
 
         String output = outputStream.toString(StandardCharsets.UTF_8);
-        Assertions.assertEquals("Unknown element '*' at (11, 11)\n", output);
+        Assertions.assertEquals("Unknown element '*' at (1, 1)\n", output);
 
         System.setOut(originalOut);
     }

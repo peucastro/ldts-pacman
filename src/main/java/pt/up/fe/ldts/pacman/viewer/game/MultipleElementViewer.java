@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.viewer.game;
 
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.MultipleElementStrategy;
 
@@ -21,7 +22,8 @@ public class MultipleElementViewer extends Viewer<Element> {
     public void drawElement(GUI gui, Element element) {
         BufferedImage image = strategy.getCurrentImage(element, images);
         if (image != null) {
-            gui.drawImage(element.getPosition(), image);
+            Position drawPos = new Position(element.getPosition().getX() * 11, element.getPosition().getY() * 11);
+            gui.drawImage(drawPos, image);
         }
     }
 }

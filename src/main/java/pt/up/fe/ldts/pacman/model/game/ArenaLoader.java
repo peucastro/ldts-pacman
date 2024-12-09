@@ -40,7 +40,7 @@ public class ArenaLoader {
     }
 
     private void loadElementAt(int col, int row, char element) {
-        Position position = new Position(col * 11, row * 11);
+        Position position = new Position(col, row);
 
         switch (element) {
             case 'W':
@@ -92,17 +92,17 @@ public class ArenaLoader {
 }
 
 /*
-Map of the keys to the elements:
-W = wall
-P = pacman
-o = coin
-A = apple
-C = cherry
-K = key
-O = orange
-S = strawberry
-p = pinky
-i = inky
-c = clyde
-b = blinky
- */
+    Map of the keys to the elements:
+    W = wall
+    P = pacman
+    o = coin
+    A = apple
+    C = cherry
+    K = key
+    O = orange
+    S = strawberry
+    p = pinky
+    i = inky
+    c = clyde
+    b = blinky
+*/
