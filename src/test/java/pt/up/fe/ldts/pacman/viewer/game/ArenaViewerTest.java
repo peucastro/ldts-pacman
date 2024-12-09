@@ -4,11 +4,12 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
-import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Set;
@@ -31,7 +32,7 @@ class ArenaViewerTest {
         arenaViewer.drawElements(mockGUI, mockArena);
 
         // Verifies a Pacman is drawn
-        verify(mockGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
     }
 
     @Test
@@ -44,7 +45,10 @@ class ArenaViewerTest {
         ArenaViewer arenaViewer = new ArenaViewer();
         arenaViewer.drawElements(mockGUI, arena);
 
-        // Verify the number of elements drawn (total number of elements = 20*20 - 2 empty spaces)
-        verify(mockGUI, times(20 * 20 - 2)).drawImage((Position) any(), (BasicTextImage) any());
+        // Verify the number of static elements drawn (total number of static elements = 20*20 - 5 (movables) - 2 (empty spaces))
+        verify(mockGUI, times(20 * 20 - 5 - 2)).drawImage((Position) any(), (BasicTextImage) any());
+        // Verify the number of movable elements drawn (total number of movable elements = 5)
+        verify(mockGUI, times(5)).drawImage((Position) any(), (BufferedImage) any());
+
     }
 }
