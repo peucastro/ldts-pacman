@@ -1,6 +1,6 @@
-package pt.up.fe.ldts.pacman.model.game;
+package pt.up.fe.ldts.pacman.model;
 
-import pt.up.fe.ldts.pacman.model.game.element.Element;
+import com.googlecode.lanterna.TerminalPosition;
 
 import java.util.Objects;
 
@@ -21,17 +21,37 @@ public class Position {
         this.x = x;
     }
 
-    public void setPosition(Position other) {
-        this.x = other.x;
-        this.y = other.y;
-    }
-
     public int getY() {
         return y;
     }
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Position getLeft() {
+        return new Position(x - 1, y);
+    }
+
+    public Position getRight() {
+        return new Position(x + 1, y);
+    }
+
+    public Position getUp() {
+        return new Position(x, y - 1);
+    }
+
+    public Position getDown() {
+        return new Position(x, y + 1);
+    }
+
+    public void setPosition(Position other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+
+    public TerminalPosition toTerminalPosition() {
+        return new TerminalPosition(x, y);
     }
 
     @Override

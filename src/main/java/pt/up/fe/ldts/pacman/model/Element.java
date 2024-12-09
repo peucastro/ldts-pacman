@@ -1,6 +1,4 @@
-package pt.up.fe.ldts.pacman.model.game.element;
-
-import pt.up.fe.ldts.pacman.model.game.Position;
+package pt.up.fe.ldts.pacman.model;
 
 import java.util.Objects;
 
@@ -14,15 +12,15 @@ public abstract class Element {
         position = pos;
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
     public void setPosition(Position other) {
         if (other.getY() < 0 || other.getX() < 0) {
             throw new IllegalArgumentException("Element position cannot have negatives values: " + other);
         }
         position.setPosition(other);
-    }
-
-    public Position getPosition() {
-        return position;
     }
 
     @Override

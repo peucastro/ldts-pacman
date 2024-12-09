@@ -1,10 +1,11 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Test;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
-import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.HashSet;
 
@@ -52,15 +53,15 @@ public class ArenaTest {
     @Test
     void testAddWall() {
         Arena arena = new Arena(20, 15);
-        Wall wall = new Wall(new Position(10,10));
+        Wall wall = new Wall(new Position(10, 10));
         arena.addWall(wall);
-        assertTrue(arena.getWalls().contains(new Wall(new Position(10,10))));
+        assertTrue(arena.getWalls().contains(new Wall(new Position(10, 10))));
     }
 
     @Test
     void testSetPacmanPosition() {
         Arena arena = new Arena(20, 15);
-        Position position = new Position(10,10);
+        Position position = new Position(10, 10);
         arena.setPacmanPosition(position);
         assertEquals(position, arena.getPacman().getPosition());
     }
@@ -70,12 +71,12 @@ public class ArenaTest {
         Arena arena = new Arena(20, 15);
         HashSet<Collectible> testCollectibles = new HashSet<>();
 
-        Collectible c1 = new Apple(new Position(10,10));
-        Collectible c2 = new Cherry(new Position(5,5));
-        Collectible c3 = new Strawberry(new Position(1,1));
-        Collectible c4 = new Coin(new Position(15,15));
-        Collectible c5 = new Key(new Position(2,9));
-        Collectible c6 = new Orange(new Position(2,3));
+        Collectible c1 = new Apple(new Position(10, 10));
+        Collectible c2 = new Cherry(new Position(5, 5));
+        Collectible c3 = new Strawberry(new Position(1, 1));
+        Collectible c4 = new Coin(new Position(15, 15));
+        Collectible c5 = new Key(new Position(2, 9));
+        Collectible c6 = new Orange(new Position(2, 3));
         testCollectibles.add(c1);
         testCollectibles.add(c2);
         testCollectibles.add(c3);
@@ -96,10 +97,10 @@ public class ArenaTest {
         Arena arena = new Arena(20, 15);
         HashSet<Ghost> testGhost = new HashSet<>();
 
-        Ghost g1 = new Clyde(new Position(10,10));
-        Ghost g2 = new Pinky(new Position(5,5));
-        Ghost g3 = new Inky(new Position(1,1));
-        Ghost g4 = new Blinky(new Position(15,15));
+        Ghost g1 = new Clyde(new Position(10, 10));
+        Ghost g2 = new Pinky(new Position(5, 5));
+        Ghost g3 = new Inky(new Position(1, 1));
+        Ghost g4 = new Blinky(new Position(15, 15));
         testGhost.add(g1);
         testGhost.add(g2);
         testGhost.add(g3);
@@ -115,16 +116,16 @@ public class ArenaTest {
 
     @Test
     void testAddCollectible() {
-        Arena arena = new Arena(20,20);
-        Collectible collectible = new Apple(new Position(10,10));
+        Arena arena = new Arena(20, 20);
+        Collectible collectible = new Apple(new Position(10, 10));
         arena.addCollectible(collectible);
         assertTrue(arena.getCollectibles().contains(collectible));
     }
 
     @Test
     void testAddGhost() {
-        Arena arena = new Arena(20,20);
-        Ghost ghost = new Blinky(new Position(10,10));
+        Arena arena = new Arena(20, 20);
+        Ghost ghost = new Blinky(new Position(10, 10));
         arena.addGhost(ghost);
         assertTrue(arena.getGhosts().contains(ghost));
     }

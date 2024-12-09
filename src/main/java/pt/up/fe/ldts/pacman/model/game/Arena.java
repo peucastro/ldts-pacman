@@ -1,21 +1,20 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
-import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Arena {
     private final Pacman pacman;
-
+    private final int width, height;
     private Set<Ghost> ghosts;
     private Set<Wall> walls;
     private Set<Collectible> collectibles;
-
-    private final int width, height;
 
     public Arena(int width, int height) {
         this.width = width;
@@ -36,12 +35,24 @@ public class Arena {
         return ghosts;
     }
 
+    public void setGhosts(Set<Ghost> ghosts) {
+        this.ghosts = ghosts;
+    }
+
     public Set<Wall> getWalls() {
         return walls;
     }
 
+    public void setWalls(Set<Wall> walls) {
+        this.walls = walls;
+    }
+
     public Set<Collectible> getCollectibles() {
         return collectibles;
+    }
+
+    public void setCollectibles(Set<Collectible> collectibles) {
+        this.collectibles = collectibles;
     }
 
     public int getWidth() {
@@ -50,18 +61,6 @@ public class Arena {
 
     public int getHeight() {
         return height;
-    }
-
-    public void setWalls(Set<Wall> walls) {
-        this.walls = walls;
-    }
-
-    public void setCollectibles(Set<Collectible> collectibles) {
-        this.collectibles = collectibles;
-    }
-
-    public void setGhosts(Set<Ghost> ghosts) {
-        this.ghosts = ghosts;
     }
 
     public void addWall(Wall wall) {
@@ -78,5 +77,20 @@ public class Arena {
 
     public void setPacmanPosition(Position position) {
         pacman.setPosition(position);
+    }
+
+    public boolean isEmpty(Position position) {
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isGhost(Position position) {
+        for (Ghost ghost : ghosts)
+            if (ghost.getPosition().equals(position))
+                return true;
+        return false;
     }
 }

@@ -1,9 +1,9 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
 
+import pt.up.fe.ldts.pacman.gui.GUI;
+import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.element.Element;
-import pt.up.fe.ldts.pacman.viewer.Renderer;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
@@ -11,28 +11,36 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-public class ArenaViewer extends Viewer {
-    private final Arena arena;
-    private final Map<Class<?>, Viewer> viewers;
+public class ArenaViewer extends Viewer<Arena> {
+    private final Map<Class<?>, Viewer<Element>> viewers;
 
-    public ArenaViewer(Renderer renderer, Arena arena) throws IOException, URISyntaxException {
-        super(renderer);
-        this.arena = arena;
-        this.viewers = ViewerFactory.createViewers(renderer);
+    public ArenaViewer() throws IOException, URISyntaxException {
+        this.viewers = ViewerFactory.createArenaViewers();
     }
 
-    @Override
-    public void drawElement(Element element) {
-        Viewer drawer = viewers.get(element.getClass());
-        if (drawer != null) {
-            drawer.drawElement(element);
+
+    public void drawElement(GUI gui, Element element) {
+        Viewer<Element> viewer = viewers.get(element.getClass());
+        if (viewer != null) {
+            viewer.drawElement(gui, element);
         }
     }
 
-    public void drawElements() {
-        arena.getWalls().forEach(this::drawElement);
-        arena.getCollectibles().forEach(this::drawElement);
-        arena.getGhosts().forEach(this::drawElement);
-        drawElement(arena.getPacman());
+    public void drawElements(GUI gui, Arena arena) {
+        arena.getWalls().forEach(wall -> drawElement(gui, wall));
+        arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
+        arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
+        drawElement(gui, arena.getPacman());
+    }
+
+    @Override
+    public void drawElement(GUI gui, Arena arena) {
+        gui.clear();
+        drawElements(gui, arena);
+        try {
+            gui.refresh();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,8 +1,12 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import pt.up.fe.ldts.pacman.model.game.element.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +40,7 @@ public class ArenaLoader {
     }
 
     private void loadElementAt(int col, int row, char element) {
-        Position position = new Position(col*14, row*14);
+        Position position = new Position(col, row);
 
         switch (element) {
             case 'W':
@@ -88,17 +92,17 @@ public class ArenaLoader {
 }
 
 /*
-Map of the keys to the elements:
-W = wall
-P = pacman
-o = coin
-A = apple
-C = cherry
-K = key
-O = orange
-S = strawberry
-p = pinky
-i = inky
-c = clyde
-b = blinky
- */
+    Map of the keys to the elements:
+    W = wall
+    P = pacman
+    o = coin
+    A = apple
+    C = cherry
+    K = key
+    O = orange
+    S = strawberry
+    p = pinky
+    i = inky
+    c = clyde
+    b = blinky
+*/
