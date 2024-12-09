@@ -1,11 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ class ArenaViewerTest {
         arenaViewer.drawElements(mockGUI, mockArena);
 
         // Verifies a Pacman is drawn
-        verify(mockGUI, times(1)).drawImage(any(), any());
+        verify(mockGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
     }
 
     @Test
@@ -44,6 +45,6 @@ class ArenaViewerTest {
         arenaViewer.drawElements(mockGUI, arena);
 
         // Verify the number of elements drawn (total number of elements = 20*20 - 2 empty spaces)
-        verify(mockGUI, times(20 * 20 - 2)).drawImage(any(), any());
+        verify(mockGUI, times(20 * 20 - 2)).drawImage((Position) any(), (BasicTextImage) any());
     }
 }

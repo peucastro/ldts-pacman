@@ -1,23 +1,23 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Orange;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 class ElementViewerTest {
@@ -35,9 +35,13 @@ class ElementViewerTest {
         assert orangeResource != null;
         assert wallResource != null;
 
-        ElementViewer cherryViewer = new ElementViewer(ImageIO.read(new File(cherryResource.toURI())));
-        ElementViewer orangeViewer = new ElementViewer(ImageIO.read(new File(orangeResource.toURI())));
-        ElementViewer wallViewer = new ElementViewer(ImageIO.read(new File(wallResource.toURI())));
+        BasicTextImage cherryImage = ImageLoader.loadTextImage("PNGs/items/cherry.png");
+        BasicTextImage orangeImage = ImageLoader.loadTextImage("PNGs/items/orange.png");
+        BasicTextImage wallImage = ImageLoader.loadTextImage("PNGs/wall.png");
+
+        ElementViewer cherryViewer = new ElementViewer(cherryImage);
+        ElementViewer orangeViewer = new ElementViewer(orangeImage);
+        ElementViewer wallViewer = new ElementViewer(wallImage);
 
         Cherry cherry = new Cherry(new Position(0, 0));
         Orange orange = new Orange(new Position(0, 0));
@@ -46,16 +50,16 @@ class ElementViewerTest {
         // Draw Cherry
         cherryViewer.drawElement(mockLanternaGUI, cherry);
 
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Orange
         orangeViewer.drawElement(mockLanternaGUI, orange);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Wall
         wallViewer.drawElement(mockLanternaGUI, wall);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
     }
 }
