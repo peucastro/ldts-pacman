@@ -11,6 +11,7 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -30,12 +31,12 @@ class GhostViewerTest {
 
         // Test Pinky Alive
         ghostViewer.drawElement(mockLanternaGUI, pinky);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Test Pinky Dead
         pinky.setState(GhostState.DEAD);
         ghostViewer.drawElement(mockLanternaGUI, pinky);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
     }
 }

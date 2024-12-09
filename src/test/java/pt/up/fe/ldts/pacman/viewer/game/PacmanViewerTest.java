@@ -11,6 +11,7 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -29,12 +30,12 @@ class PacmanViewerTest {
 
         // Draw Pacman (Left)
         pacmanViewer.drawElement(mockLanternaGUI, pacman);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Up)
         pacman.setDirection(Direction.UP);
         pacmanViewer.drawElement(mockLanternaGUI, pacman);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
     }
 }
