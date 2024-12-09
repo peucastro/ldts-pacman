@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.viewer;
 
 import pt.up.fe.ldts.pacman.model.Element;
+import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
@@ -11,7 +12,6 @@ import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.game.ElementViewer;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 import pt.up.fe.ldts.pacman.viewer.game.MultipleElementViewer;
-import pt.up.fe.ldts.pacman.model.game.element.*;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 import pt.up.fe.ldts.pacman.viewer.menu.TextBoxViewer;
@@ -25,13 +25,13 @@ public class ViewerFactory {
     public static Map<Class<?>, Viewer<Element>> createArenaViewers() throws IOException, URISyntaxException {
         Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
 
-        viewers.put(Wall.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/wall.png")));
-        viewers.put(Coin.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/coin.png")));
-        viewers.put(Apple.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/apple.png")));
-        viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/cherry.png")));
-        viewers.put(Key.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/key.png")));
-        viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/orange.png")));
-        viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage( "PNGs/items/strawberry.png")));
+        viewers.put(Wall.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/wall.png")));
+        viewers.put(Coin.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/coin.png")));
+        viewers.put(Apple.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/apple.png")));
+        viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/cherry.png")));
+        viewers.put(Key.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/key.png")));
+        viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/orange.png")));
+        viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/strawberry.png")));
 
         viewers.put(Pacman.class, new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 

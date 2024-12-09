@@ -11,12 +11,10 @@ import java.util.Set;
 
 public class Arena {
     private final Pacman pacman;
-
+    private final int width, height;
     private Set<Ghost> ghosts;
     private Set<Wall> walls;
     private Set<Collectible> collectibles;
-
-    private final int width, height;
 
     public Arena(int width, int height) {
         this.width = width;
@@ -37,12 +35,24 @@ public class Arena {
         return ghosts;
     }
 
+    public void setGhosts(Set<Ghost> ghosts) {
+        this.ghosts = ghosts;
+    }
+
     public Set<Wall> getWalls() {
         return walls;
     }
 
+    public void setWalls(Set<Wall> walls) {
+        this.walls = walls;
+    }
+
     public Set<Collectible> getCollectibles() {
         return collectibles;
+    }
+
+    public void setCollectibles(Set<Collectible> collectibles) {
+        this.collectibles = collectibles;
     }
 
     public int getWidth() {
@@ -51,18 +61,6 @@ public class Arena {
 
     public int getHeight() {
         return height;
-    }
-
-    public void setWalls(Set<Wall> walls) {
-        this.walls = walls;
-    }
-
-    public void setCollectibles(Set<Collectible> collectibles) {
-        this.collectibles = collectibles;
-    }
-
-    public void setGhosts(Set<Ghost> ghosts) {
-        this.ghosts = ghosts;
     }
 
     public void addWall(Wall wall) {

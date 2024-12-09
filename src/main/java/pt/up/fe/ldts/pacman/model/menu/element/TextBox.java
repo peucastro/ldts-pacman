@@ -7,6 +7,7 @@ import pt.up.fe.ldts.pacman.model.Position;
 public class TextBox extends Element {
     private String text;
     private TextColor color;
+
     public TextBox(String text, Position pos, TextColor color) {
         super(pos);
         this.text = text;

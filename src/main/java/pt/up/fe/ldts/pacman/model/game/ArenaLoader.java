@@ -1,9 +1,12 @@
 package pt.up.fe.ldts.pacman.model.game;
 
 import pt.up.fe.ldts.pacman.model.Position;
-import pt.up.fe.ldts.pacman.model.game.element.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +40,7 @@ public class ArenaLoader {
     }
 
     private void loadElementAt(int col, int row, char element) {
-        Position position = new Position(col*11, row*11);
+        Position position = new Position(col * 11, row * 11);
 
         switch (element) {
             case 'W':

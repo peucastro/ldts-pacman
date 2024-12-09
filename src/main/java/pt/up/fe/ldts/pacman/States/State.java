@@ -19,15 +19,17 @@ public abstract class State<T> {
         this.controller = createController();
     }
 
-    public T getModel(){
+    public T getModel() {
         return model;
     }
+
     public abstract Viewer<T> createViewer() throws IOException, URISyntaxException;
+
     public abstract Controller<T> createController();
 
     public void step(TempDrawFrame game, GUI gui, long frameTime) throws IOException {
         GUI.ACTION action = gui.getNextAction();
-        controller.step(game,action,frameTime);
-        viewer.drawElement(gui,model);
+        controller.step(game, action, frameTime);
+        viewer.drawElement(gui, model);
     }
 }

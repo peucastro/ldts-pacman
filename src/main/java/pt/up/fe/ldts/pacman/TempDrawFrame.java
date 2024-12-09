@@ -1,13 +1,9 @@
 package pt.up.fe.ldts.pacman;
 
-import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
-import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 
 import java.awt.*;
@@ -18,6 +14,7 @@ import java.net.URISyntaxException;
 public class TempDrawFrame {
     public GUI gui;
     public State state;
+
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
         /*
         LanternaGUI gui = new LanternaGUI(280,280);
@@ -43,25 +40,21 @@ public class TempDrawFrame {
          */
 
         TempDrawFrame tdf = new TempDrawFrame();
-        tdf.gui = new LanternaGUI(220,220);
-
+        tdf.gui = new LanternaGUI(220, 220);
 
 
         tdf.state = new MainMenuState(new MainMenu());
 
 
         int i = 0;
-        long start = System.currentTimeMillis();
-        long frameTime = 1000/30;
+        long frameTime = 1000 / 30;
         while (i < 500 && tdf.state != null) {
             long startTime = System.currentTimeMillis();
-            tdf.state.step(tdf,tdf.gui,i);
+            tdf.state.step(tdf, tdf.gui, i);
             i++;
             long ellapsedTime = System.currentTimeMillis() - startTime;
-            if(ellapsedTime < frameTime) Thread.sleep(frameTime - ellapsedTime);
-            System.out.println(frameTime - ellapsedTime);
+            if (ellapsedTime < frameTime) Thread.sleep(frameTime - ellapsedTime);
         }
-        System.out.println((System.currentTimeMillis() - start)/(double)1000);
         tdf.gui.close();
     }
 }

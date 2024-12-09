@@ -3,7 +3,8 @@ package pt.up.fe.ldts.pacman.model.game;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PositionTest {
 
@@ -42,40 +43,40 @@ class PositionTest {
     @Test
     void testEqualsWithSameObject() {
         Position position = new Position(1, 1);
-        assertTrue(position.equals(position));
+        assertEquals(position, position);
     }
 
     @Test
     void testEqualsWithNull() {
         Position position = new Position(1, 1);
-        assertFalse(position.equals(null));
+        assertNotEquals(null, position);
     }
 
     @Test
     void testEqualsWithDifferentClass() {
         Position position = new Position(1, 1);
-        assertFalse(position.equals("Not a Position object"));
+        assertNotEquals("Not a Position object", position);
     }
 
     @Test
     void testEqualsWithDifferentX() {
         Position position1 = new Position(1, 2);
         Position position2 = new Position(2, 2);
-        assertFalse(position1.equals(position2));
+        assertNotEquals(position1, position2);
     }
 
     @Test
     void testEqualsWithDifferentY() {
         Position position1 = new Position(1, 2);
         Position position2 = new Position(1, 3);
-        assertFalse(position1.equals(position2));
+        assertNotEquals(position1, position2);
     }
 
     @Test
     void testEqualsWithSameCoordinates() {
         Position position1 = new Position(1, 2);
         Position position2 = new Position(1, 2);
-        assertTrue(position1.equals(position2));
+        assertEquals(position1, position2);
     }
 
     @Test

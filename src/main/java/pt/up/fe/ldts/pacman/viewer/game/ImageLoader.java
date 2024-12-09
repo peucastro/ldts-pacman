@@ -69,41 +69,43 @@ public class ImageLoader {
         return toTextImage(ImageIO.read(resource));
     }
 
-    private static BasicTextImage toTextImage(BufferedImage image){
-        BasicTextImage textImage = new BasicTextImage(11,11);
+    private static BasicTextImage toTextImage(BufferedImage image) {
+        BasicTextImage textImage = new BasicTextImage(11, 11);
 
         for (int y = 0; y < 11; y++) {
             for (int x = 0; x < 11; x++) {
                 if (image.getRGB(x, y) == 0) continue;
 
-                int RGB = image.getRGB(x,y);
+                int RGB = image.getRGB(x, y);
                 int red = RGB >> 16 & 0xFF;
                 int green = RGB >> 8 & 0xFF;
                 int blue = RGB & 0xFF;
 
-                textImage.setCharacterAt(x,y,new TextCharacter(' ', null, new TextColor.RGB(red,green,blue)));
+                textImage.setCharacterAt(x, y, new TextCharacter(' ', null, new TextColor.RGB(red, green, blue)));
             }
         }
         return textImage;
     }
 
-    public static Map<Character,BufferedImage> loadFontImages() throws IOException {
+    public static Map<Character, BufferedImage> loadFontImages() throws IOException {
         InputStream fontMapResource = ImageLoader.class.getClassLoader().getResourceAsStream("Fonts/ingamefontmap.txt");
         URL fontResource = ImageLoader.class.getClassLoader().getResource("Fonts/ingamefont.png");
         assert fontMapResource != null;
         assert fontResource != null;
 
         Map<Character, BufferedImage> characters = new HashMap<>();
-        String fontMap = new Scanner(fontMapResource, StandardCharsets.UTF_8).next(); fontMapResource.close();
+        String fontMap = new Scanner(fontMapResource, StandardCharsets.UTF_8).next();
+        fontMapResource.close();
         BufferedImage font = ImageIO.read(fontResource);
 
         int x = 0, y = 0;
-        for(int i = 0; i < fontMap.length();++i){
-            if(fontMap.charAt(i) == '\n'){
-                x = 0; y += 11;
+        for (int i = 0; i < fontMap.length(); ++i) {
+            if (fontMap.charAt(i) == '\n') {
+                x = 0;
+                y += 11;
                 continue;
             }
-            characters.put(fontMap.charAt(i),font.getSubimage(x,y,5, 11));
+            characters.put(fontMap.charAt(i), font.getSubimage(x, y, 5, 11));
             x += 5;
         }
 

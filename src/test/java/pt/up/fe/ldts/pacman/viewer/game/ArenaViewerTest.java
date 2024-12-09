@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class ArenaViewerTest {
@@ -32,7 +31,7 @@ class ArenaViewerTest {
         arenaViewer.drawElements(mockGUI, mockArena);
 
         // Verifies a Pacman is drawn
-        verify(mockGUI, times(1)).drawImage((Position) any(), (BufferedImage) any());
+        verify(mockGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 
     @Test
@@ -46,9 +45,9 @@ class ArenaViewerTest {
         arenaViewer.drawElements(mockGUI, arena);
 
         // Verify the number of static elements drawn (total number of static elements = 20*20 - 5 (movables) - 2 (empty spaces))
-        verify(mockGUI, times(20 * 20 - 5 - 2)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockGUI, times(20 * 20 - 5 - 2)).drawImage(any(), (BasicTextImage) any());
         // Verify the number of movable elements drawn (total number of movable elements = 5)
-        verify(mockGUI, times(5)).drawImage((Position) any(), (BufferedImage) any());
+        verify(mockGUI, times(5)).drawImage(any(), (BufferedImage) any());
 
     }
 }

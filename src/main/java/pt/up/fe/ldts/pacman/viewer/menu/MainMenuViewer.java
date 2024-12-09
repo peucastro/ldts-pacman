@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
-import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
@@ -25,15 +24,15 @@ public class MainMenuViewer extends Viewer<MainMenu> {
     }
 
     public void drawElements(GUI gui, MainMenu menu) {
-        menu.getOptions().forEach(textBox -> drawElement(gui,textBox));
-        drawElement(gui,menu.getPacman());
-        drawElement(gui,menu.getTitle());
+        menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
+        drawElement(gui, menu.getPacman());
+        drawElement(gui, menu.getTitle());
     }
 
     @Override
     public void drawElement(GUI gui, MainMenu menu) {
         gui.clear();
-        drawElements(gui,menu);
+        drawElements(gui, menu);
         try {
             gui.refresh();
         } catch (IOException e) {

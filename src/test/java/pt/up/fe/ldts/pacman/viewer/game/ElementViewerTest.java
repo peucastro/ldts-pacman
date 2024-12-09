@@ -1,7 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
 import com.googlecode.lanterna.graphics.BasicTextImage;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -24,7 +23,6 @@ class ElementViewerTest {
 
     @Test
     void testDrawElement() throws IOException, URISyntaxException {
-        TextGraphics mockGraphics = Mockito.mock(TextGraphics.class);
         GUI mockLanternaGUI = Mockito.mock(LanternaGUI.class);
 
         URL cherryResource = ImageLoader.class.getClassLoader().getResource("PNGs/items/cherry.png");
@@ -50,16 +48,16 @@ class ElementViewerTest {
         // Draw Cherry
         cherryViewer.drawElement(mockLanternaGUI, cherry);
 
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Orange
         orangeViewer.drawElement(mockLanternaGUI, orange);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Wall
         wallViewer.drawElement(mockLanternaGUI, wall);
-        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
     }
 }

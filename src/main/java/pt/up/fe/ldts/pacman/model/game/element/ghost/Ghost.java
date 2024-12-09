@@ -17,6 +17,9 @@ public abstract class Ghost extends MovableElement {
         return state;
     }
 
+    public void setState(GhostState ghostState) {
+        this.state = ghostState;
+    }
 
     public boolean isDead() {
         return state == GhostState.DEAD;
@@ -24,9 +27,5 @@ public abstract class Ghost extends MovableElement {
 
     public boolean isScared() {
         return state == GhostState.SCARED;
-    }
-
-    public void setState(GhostState ghostState) {
-        this.state = ghostState;
     }
 }

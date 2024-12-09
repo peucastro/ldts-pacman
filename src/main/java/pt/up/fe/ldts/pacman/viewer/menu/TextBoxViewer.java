@@ -12,19 +12,19 @@ import java.util.Map;
 public class TextBoxViewer extends Viewer<Element> {
     private final Map<Character, BufferedImage> characters;
 
-    public TextBoxViewer(Map<Character, BufferedImage> characters){
+    public TextBoxViewer(Map<Character, BufferedImage> characters) {
         this.characters = characters;
     }
 
     @Override
     public void drawElement(GUI gui, Element element) {
-        TextBox textBox = (TextBox)element;
+        TextBox textBox = (TextBox) element;
         String text = textBox.getText();
         int posX = textBox.getPosition().getX(), posY = textBox.getPosition().getY();
-        for(int x = 0; x < text.length(); ++x){
+        for (int x = 0; x < text.length(); ++x) {
             BufferedImage character = characters.get(Character.toUpperCase(text.charAt(x)));
-            if(character != null){
-                gui.drawCharacter(new Position(posX + 5*x,posY),character,textBox.getColor());
+            if (character != null) {
+                gui.drawCharacter(new Position(posX + 5 * x, posY), character, textBox.getColor());
             }
         }
     }

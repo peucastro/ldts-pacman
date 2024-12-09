@@ -17,8 +17,16 @@ public class Position {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getY() {
         return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Position getLeft() {
@@ -37,22 +45,15 @@ public class Position {
         return new Position(x, y + 2);
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public void setPosition(Position other) {
         this.x = other.x;
         this.y = other.y;
     }
 
-    public TerminalPosition toTerminalPosition(){
-        return new TerminalPosition(x,y);
+    public TerminalPosition toTerminalPosition() {
+        return new TerminalPosition(x, y);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
