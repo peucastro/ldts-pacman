@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.viewer.game.strategies;
 
-import pt.up.fe.ldts.pacman.model.game.element.Element;
+import com.googlecode.lanterna.graphics.BasicTextImage;
+import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.awt.image.BufferedImage;

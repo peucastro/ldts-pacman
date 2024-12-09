@@ -3,7 +3,7 @@ package pt.up.fe.ldts.pacman.controller.game.element;
 import pt.up.fe.ldts.pacman.TempDrawFrame;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 
 import java.io.IOException;
 

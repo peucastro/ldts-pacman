@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.model.game;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
