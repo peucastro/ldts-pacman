@@ -1,11 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
@@ -29,12 +30,12 @@ class GhostViewerTest {
 
         // Test Pinky Alive
         ghostViewer.drawElement(mockLanternaGUI, pinky);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Test Pinky Dead
         pinky.setState(GhostState.DEAD);
         ghostViewer.drawElement(mockLanternaGUI, pinky);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
     }
 }

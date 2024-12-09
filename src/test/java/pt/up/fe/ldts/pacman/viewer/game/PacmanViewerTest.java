@@ -1,11 +1,12 @@
 package pt.up.fe.ldts.pacman.viewer.game;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
-import pt.up.fe.ldts.pacman.model.game.Position;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
@@ -28,12 +29,12 @@ class PacmanViewerTest {
 
         // Draw Pacman (Left)
         pacmanViewer.drawElement(mockLanternaGUI, pacman);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Up)
         pacman.setDirection(Direction.UP);
         pacmanViewer.drawElement(mockLanternaGUI, pacman);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), any());
+        verify(mockLanternaGUI, times(1)).drawImage((Position) any(), (BasicTextImage) any());
     }
 }
