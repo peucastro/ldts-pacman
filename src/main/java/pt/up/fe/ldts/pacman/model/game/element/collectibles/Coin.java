@@ -4,7 +4,6 @@ import pt.up.fe.ldts.pacman.model.Position;
 
 public class Coin extends Collectible {
     public Coin(Position pos) {
-        super(pos);
-        this.value = 1;
+        super(pos,1);
     }
 }
