@@ -3,17 +3,18 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
+import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class MainMenuViewer extends Viewer<MainMenu> {
+public class PauseMenuViewer extends Viewer<PauseMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
 
-    public MainMenuViewer() throws IOException {
-        this.viewers = ViewerFactory.createPauseMenuViewers();
+    public PauseMenuViewer() throws IOException {
+        this.viewers = ViewerFactory.createMainMenuViewers();
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -23,14 +24,14 @@ public class MainMenuViewer extends Viewer<MainMenu> {
         }
     }
 
-    public void drawElements(GUI gui, MainMenu menu) {
+    public void drawElements(GUI gui, PauseMenu menu) {
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
-        drawElement(gui, menu.getPacman());
+        drawElement(gui, menu.getPauseSign());
         drawElement(gui, menu.getTitle());
     }
 
     @Override
-    public void drawElement(GUI gui, MainMenu menu) {
+    public void drawElement(GUI gui, PauseMenu menu) {
         gui.clear();
         drawElements(gui, menu);
         try {

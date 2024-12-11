@@ -6,12 +6,14 @@ import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import java.util.List;
 
 public abstract class Menu {
+    private final TextBox title;
     private List<TextBox> options;
     private int selectedOption;
 
     public Menu() {
         selectedOption = 0;
         setOptions(createOptions());
+        this.title = createTitle();
     }
 
     public List<TextBox> getOptions() {
@@ -47,5 +49,11 @@ public abstract class Menu {
         options.get(selectedOption).setColor(new TextColor.RGB(255, 255, 0));
     }
 
-    public abstract List<TextBox> createOptions();
+    protected abstract List<TextBox> createOptions();
+
+    protected abstract TextBox createTitle();
+
+    public TextBox getTitle() {
+        return title;
+    }
 }
