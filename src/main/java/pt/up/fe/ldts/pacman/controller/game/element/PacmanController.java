@@ -9,9 +9,11 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import java.io.IOException;
 
 public class PacmanController extends GameController {
+    Direction currentDirection;
 
     public PacmanController(Arena arena) {
         super(arena);
+        this.currentDirection = Direction.RIGHT;
     }
 
     public void movePacmanLeft() {
@@ -38,11 +40,28 @@ public class PacmanController extends GameController {
         }
     }
 
+    public void moveInCurrentDirection() {
+        if (currentDirection == null) return;
+        Position nextPosition = switch (currentDirection) {
+            case UP -> getModel().getPacman().getPosition().getUp();
+            case DOWN -> getModel().getPacman().getPosition().getDown();
+            case LEFT -> getModel().getPacman().getPosition().getLeft();
+            case RIGHT -> getModel().getPacman().getPosition().getRight();
+        };
+        movePacman(nextPosition, currentDirection);
+    }
+
     @Override
-    public void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException {
-        if (action == GUI.ACTION.UP) movePacmanUp();
-        if (action == GUI.ACTION.RIGHT) movePacmanRight();
-        if (action == GUI.ACTION.DOWN) movePacmanDown();
-        if (action == GUI.ACTION.LEFT) movePacmanLeft();
+    @SuppressWarnings("MissingCasesInEnumSwitch")
+    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        switch (action) {
+            case UP -> currentDirection = Direction.UP;
+            case DOWN -> currentDirection = Direction.DOWN;
+            case LEFT -> currentDirection = Direction.LEFT;
+            case RIGHT -> currentDirection = Direction.RIGHT;
+            case NONE -> {
+            }
+        }
+        moveInCurrentDirection();
     }
 }

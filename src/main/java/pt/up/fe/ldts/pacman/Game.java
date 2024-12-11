@@ -47,7 +47,7 @@ public class TempDrawFrame {
 
 
         int i = 0;
-        long frameTime = 1000 / 30;
+        long frameTime = 1000 / 120;
         while (i < 500 && tdf.state != null) {
             long startTime = System.currentTimeMillis();
             tdf.state.step(tdf, tdf.gui, i);
