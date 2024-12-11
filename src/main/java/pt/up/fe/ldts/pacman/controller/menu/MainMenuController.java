@@ -16,7 +16,7 @@ public class MainMenuController extends MenuController<MainMenu> {
     }
 
     @Override
-    public void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException {
+    public void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
         if (action == GUI.ACTION.UP) getModel().selectPreviousOption();
         if (action == GUI.ACTION.DOWN) getModel().selectNextOption();
         if (action == GUI.ACTION.SELECT) {
@@ -24,11 +24,7 @@ public class MainMenuController extends MenuController<MainMenu> {
                 Arena arena = new Arena(20, 20);
                 ArenaLoader arenaLoader = new ArenaLoader(arena);
                 arenaLoader.loadMap("src/main/resources/Maps/map.txt");
-                try {
-                    game.state = new GameState(arena);
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException(e);
-                }
+                game.state = new GameState(arena);
             } else if (getModel().ExitSelected()) game.state = null;
         }
     }

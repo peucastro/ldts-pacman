@@ -27,7 +27,7 @@ public abstract class State<T> {
 
     public abstract Controller<T> createController();
 
-    public void step(TempDrawFrame game, GUI gui, long frameTime) throws IOException {
+    public void step(TempDrawFrame game, GUI gui, long frameTime) throws IOException, URISyntaxException {
         GUI.ACTION action = gui.getNextAction();
         controller.step(game, action, frameTime);
         viewer.drawElement(gui, model);

@@ -1,11 +1,10 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.TempDrawFrame;
+import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-
-import java.io.IOException;
 
 public class PacmanController extends GameController {
 
@@ -37,7 +36,7 @@ public class PacmanController extends GameController {
     }
 
     @Override
-    public void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException {
+    public void step(TempDrawFrame game, GUI.ACTION action, long time){
         if (action == GUI.ACTION.UP) movePacmanUp();
         if (action == GUI.ACTION.RIGHT) movePacmanRight();
         if (action == GUI.ACTION.DOWN) movePacmanDown();
