@@ -1,7 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
+import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
-import pt.up.fe.ldts.pacman.TempDrawFrame;
 import pt.up.fe.ldts.pacman.controller.game.element.CollectibleController;
 import pt.up.fe.ldts.pacman.controller.game.element.PacmanController;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -22,8 +22,8 @@ public class ArenaController extends GameController{
     }
 
     @Override
-    public void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if(action == GUI.ACTION.QUIT) game.state = new MainMenuState(new MainMenu());
+    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
+        if(action == GUI.ACTION.QUIT) game.setState(new MainMenuState(new MainMenu()));
         else{
             //all the controllers here me thinks
             pacmanController.step(game,action,time);

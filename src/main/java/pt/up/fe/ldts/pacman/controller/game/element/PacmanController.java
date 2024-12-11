@@ -1,45 +1,72 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
-import pt.up.fe.ldts.pacman.TempDrawFrame;
+import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
 
 public class PacmanController extends GameController {
+    private Direction currentDirection;
 
     public PacmanController(Arena arena) {
         super(arena);
+        this.currentDirection = Direction.RIGHT;
     }
 
-    public void movePacmanLeft() {
-        movePacman(getModel().getPacman().getPosition().getLeft());
-    }
-
-    public void movePacmanRight() {
-        movePacman(getModel().getPacman().getPosition().getRight());
-    }
-
-    public void movePacmanUp() {
-        movePacman(getModel().getPacman().getPosition().getUp());
-    }
-
-    public void movePacmanDown() {
-        movePacman(getModel().getPacman().getPosition().getDown());
-    }
-
-    private void movePacman(Position position) {
+    private void movePacman(Position position, Direction direction) {
         if (getModel().isEmpty(position)) {
             getModel().getPacman().setPosition(position);
+            getModel().getPacman().setDirection(direction);
             if (getModel().isGhost(position)) getModel().getPacman().decreaseLife();
         }
     }
 
+    public void moveInCurrentDirection() {
+        if (currentDirection == null) return;
+        Position nextPosition = switch (currentDirection) {
+            case UP -> getModel().getPacman().getPosition().getUp();
+            case DOWN -> getModel().getPacman().getPosition().getDown();
+            case LEFT -> getModel().getPacman().getPosition().getLeft();
+            case RIGHT -> getModel().getPacman().getPosition().getRight();
+        };
+        movePacman(nextPosition, currentDirection);
+    }
+
+    private Position getNextPosition(Direction direction) {
+        Position currentPosition = getModel().getPacman().getPosition();
+        return switch (direction) {
+            case UP -> currentPosition.getUp();
+            case DOWN -> currentPosition.getDown();
+            case LEFT -> currentPosition.getLeft();
+            case RIGHT -> currentPosition.getRight();
+        };
+    }
+
+    private boolean isDirectionValid(Direction direction) {
+        Position nextPosition = getNextPosition(direction);
+        return getModel().isEmpty(nextPosition);
+    }
+
+
     @Override
-    public void step(TempDrawFrame game, GUI.ACTION action, long time){
-        if (action == GUI.ACTION.UP) movePacmanUp();
-        if (action == GUI.ACTION.RIGHT) movePacmanRight();
-        if (action == GUI.ACTION.DOWN) movePacmanDown();
-        if (action == GUI.ACTION.LEFT) movePacmanLeft();
+    @SuppressWarnings("MissingCasesInEnumSwitch")
+    public void step(Game game, GUI.ACTION action, long time) {
+        Direction newDirection = null;
+        switch (action) {
+            case UP -> newDirection = Direction.UP;
+            case DOWN -> newDirection = Direction.DOWN;
+            case LEFT -> newDirection = Direction.LEFT;
+            case RIGHT -> newDirection = Direction.RIGHT;
+            case NONE -> {
+            }
+        }
+
+        if (newDirection != null && isDirectionValid(newDirection)) {
+            currentDirection = newDirection;
+        }
+
+        moveInCurrentDirection();
     }
 }

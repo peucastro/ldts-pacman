@@ -14,7 +14,7 @@ repositories {
 }
 
 application { //temporary class
-    mainClass.set("pt.up.fe.ldts.pacman.TempDrawFrame")
+    mainClass.set("pt.up.fe.ldts.pacman.Game")
 }
 
 dependencies {
