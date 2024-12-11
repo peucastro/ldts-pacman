@@ -15,7 +15,7 @@ public class MainMenu extends Menu {
     public MainMenu() {
         super();
         title = new TextBox("PACMAN", new Position(95, 30), new TextColor.RGB(255, 255, 255));
-        pacman = new Pacman(new Position(104, 41));
+        pacman = new Pacman(new Position(104, 41)); //todo: fix this after fixing the intermediate positions
     }
 
     @Override
@@ -23,8 +23,7 @@ public class MainMenu extends Menu {
         return new ArrayList<>(List.of(
                 new TextBox("Start", new Position(98, 100), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Settings", new Position(90, 111), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit", new Position(100, 122), new TextColor.RGB(255, 255, 255)),
-                new TextBox("abcdefghijklmnopqrstuvwxyz0123456789", new Position(0, 0), new TextColor.RGB(255, 255, 255))
+                new TextBox("Exit", new Position(100, 122), new TextColor.RGB(255, 255, 255))
         ));
     }
 

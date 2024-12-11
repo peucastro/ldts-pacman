@@ -32,7 +32,7 @@ public class Game {
         this.state = state;
     }
 
-    private void start() throws IOException, InterruptedException {
+    private void start() throws IOException, InterruptedException, URISyntaxException {
         int FPS = 10;
         int frameTime = 1000 / FPS;
 

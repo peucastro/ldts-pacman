@@ -1,12 +1,11 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
-
-import java.io.IOException;
 
 public class PacmanController extends GameController {
     private Direction currentDirection;
@@ -53,7 +52,7 @@ public class PacmanController extends GameController {
 
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
-    public void step(Game game, GUI.ACTION action, long time) throws IOException {
+    public void step(Game game, GUI.ACTION action, long time) {
         Direction newDirection = null;
         switch (action) {
             case UP -> newDirection = Direction.UP;

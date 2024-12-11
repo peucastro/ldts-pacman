@@ -33,6 +33,8 @@ public class ViewerFactory {
         viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/orange.png")));
         viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/strawberry.png")));
 
+        viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
+
         viewers.put(Pacman.class, new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 
         viewers.put(Blinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
