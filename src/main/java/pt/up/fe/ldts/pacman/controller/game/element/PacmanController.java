@@ -9,27 +9,11 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import java.io.IOException;
 
 public class PacmanController extends GameController {
-    Direction currentDirection;
+    private Direction currentDirection;
 
     public PacmanController(Arena arena) {
         super(arena);
         this.currentDirection = Direction.RIGHT;
-    }
-
-    public void movePacmanLeft() {
-        movePacman(getModel().getPacman().getPosition().getLeft(), Direction.LEFT);
-    }
-
-    public void movePacmanRight() {
-        movePacman(getModel().getPacman().getPosition().getRight(), Direction.RIGHT);
-    }
-
-    public void movePacmanUp() {
-        movePacman(getModel().getPacman().getPosition().getUp(), Direction.UP);
-    }
-
-    public void movePacmanDown() {
-        movePacman(getModel().getPacman().getPosition().getDown(), Direction.DOWN);
     }
 
     private void movePacman(Position position, Direction direction) {
@@ -51,17 +35,39 @@ public class PacmanController extends GameController {
         movePacman(nextPosition, currentDirection);
     }
 
+    private Position getNextPosition(Direction direction) {
+        Position currentPosition = getModel().getPacman().getPosition();
+        return switch (direction) {
+            case UP -> currentPosition.getUp();
+            case DOWN -> currentPosition.getDown();
+            case LEFT -> currentPosition.getLeft();
+            case RIGHT -> currentPosition.getRight();
+        };
+    }
+
+    private boolean isDirectionValid(Direction direction) {
+        Position nextPosition = getNextPosition(direction);
+        return getModel().isEmpty(nextPosition);
+    }
+
+
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, GUI.ACTION action, long time) throws IOException {
+        Direction newDirection = null;
         switch (action) {
-            case UP -> currentDirection = Direction.UP;
-            case DOWN -> currentDirection = Direction.DOWN;
-            case LEFT -> currentDirection = Direction.LEFT;
-            case RIGHT -> currentDirection = Direction.RIGHT;
+            case UP -> newDirection = Direction.UP;
+            case DOWN -> newDirection = Direction.DOWN;
+            case LEFT -> newDirection = Direction.LEFT;
+            case RIGHT -> newDirection = Direction.RIGHT;
             case NONE -> {
             }
         }
+
+        if (newDirection != null && isDirectionValid(newDirection)) {
+            currentDirection = newDirection;
+        }
+
         moveInCurrentDirection();
     }
 }
