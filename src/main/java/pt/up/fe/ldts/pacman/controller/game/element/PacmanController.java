@@ -4,6 +4,7 @@ import pt.up.fe.ldts.pacman.TempDrawFrame;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
 
 import java.io.IOException;
 
@@ -14,24 +15,25 @@ public class PacmanController extends GameController {
     }
 
     public void movePacmanLeft() {
-        movePacman(getModel().getPacman().getPosition().getLeft());
+        movePacman(getModel().getPacman().getPosition().getLeft(), Direction.LEFT);
     }
 
     public void movePacmanRight() {
-        movePacman(getModel().getPacman().getPosition().getRight());
+        movePacman(getModel().getPacman().getPosition().getRight(), Direction.RIGHT);
     }
 
     public void movePacmanUp() {
-        movePacman(getModel().getPacman().getPosition().getUp());
+        movePacman(getModel().getPacman().getPosition().getUp(), Direction.UP);
     }
 
     public void movePacmanDown() {
-        movePacman(getModel().getPacman().getPosition().getDown());
+        movePacman(getModel().getPacman().getPosition().getDown(), Direction.DOWN);
     }
 
-    private void movePacman(Position position) {
+    private void movePacman(Position position, Direction direction) {
         if (getModel().isEmpty(position)) {
             getModel().getPacman().setPosition(position);
+            getModel().getPacman().setDirection(direction);
             if (getModel().isGhost(position)) getModel().getPacman().decreaseLife();
         }
     }
