@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.States;
 
-import pt.up.fe.ldts.pacman.TempDrawFrame;
+import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
@@ -27,7 +27,7 @@ public abstract class State<T> {
 
     public abstract Controller<T> createController();
 
-    public void step(TempDrawFrame game, GUI gui, long frameTime) throws IOException {
+    public void step(Game game, GUI gui, long frameTime) throws IOException {
         GUI.ACTION action = gui.getNextAction();
         controller.step(game, action, frameTime);
         viewer.drawElement(gui, model);

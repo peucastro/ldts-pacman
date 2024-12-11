@@ -11,50 +11,43 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-public class TempDrawFrame {
-    public GUI gui;
-    public State state;
+public class Game {
+    private final GUI gui;
+    private State state;
+
+    public Game() throws IOException, URISyntaxException, FontFormatException {
+        this.gui = new LanternaGUI(220, 220);
+        this.state = new MainMenuState(new MainMenu());
+    }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        /*
-        LanternaGUI gui = new LanternaGUI(280,280);
+        new Game().start();
+    }
 
-        Arena arena = new Arena(20, 20);
-        ArenaLoader arenaLoader = new ArenaLoader(arena);
-        arenaLoader.loadMap("src/main/resources/Maps/map.txt");
+    public State getState() {
+        return state;
+    }
 
-        State<Arena> state = new GameState(arena);
+    public void setState(State state) {
+        this.state = state;
+    }
 
+    private void start() throws IOException, InterruptedException {
+        int FPS = 10;
+        int frameTime = 1000 / FPS;
 
-        int i = 0;
-        long start = System.currentTimeMillis();
-        while (i < 300) {
-            state.step(new TempDrawFrame(),gui,i);
-            if(i == 50){
-                arena.getGhosts().forEach(ghost -> ghost.setState(GhostState.SCARED));
-            }
-            i++;
-        }
-        System.out.println((System.currentTimeMillis() - start)/(double)1000);
-        gui.close();
-         */
-
-        TempDrawFrame tdf = new TempDrawFrame();
-        tdf.gui = new LanternaGUI(220, 220);
-
-
-        tdf.state = new MainMenuState(new MainMenu());
-
-
-        int i = 0;
-        long frameTime = 1000 / 120;
-        while (i < 500 && tdf.state != null) {
+        while (this.state != null) {
             long startTime = System.currentTimeMillis();
-            tdf.state.step(tdf, tdf.gui, i);
-            i++;
-            long ellapsedTime = System.currentTimeMillis() - startTime;
-            if (ellapsedTime < frameTime) Thread.sleep(frameTime - ellapsedTime);
+
+            state.step(this, gui, startTime);
+
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            long sleepTime = frameTime - elapsedTime;
+
+
+            if (sleepTime > 0) Thread.sleep(sleepTime);
         }
-        tdf.gui.close();
+
+        gui.close();
     }
 }

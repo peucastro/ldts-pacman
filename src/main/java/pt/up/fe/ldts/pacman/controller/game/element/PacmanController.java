@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
-import pt.up.fe.ldts.pacman.TempDrawFrame;
+import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;

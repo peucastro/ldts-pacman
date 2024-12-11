@@ -1,6 +1,6 @@
 package pt.up.fe.ldts.pacman.controller;
 
-import pt.up.fe.ldts.pacman.TempDrawFrame;
+import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.gui.GUI;
 
 import java.io.IOException;
@@ -16,5 +16,5 @@ public abstract class Controller<T> {
         return model;
     }
 
-    public abstract void step(TempDrawFrame game, GUI.ACTION action, long time) throws IOException;
+    public abstract void step(Game game, GUI.ACTION action, long time) throws IOException;
 }
