@@ -34,6 +34,7 @@ public class ViewerFactory {
         viewers.put(Key.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/key.png")));
         viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/orange.png")));
         viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/strawberry.png")));
+        viewers.put(PowerUp.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/powerup.png")));
 
         viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
 

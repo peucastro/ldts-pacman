@@ -82,6 +82,9 @@ public class ArenaLoader {
             case 'D':
                 arena.setGhostGatePosition(position);
                 break;
+            case 'u':
+                arena.addCollectible(new PowerUp(position));
+                break;
             /*case 'T': para caso usemos no futuro
                 arena.addElement(new Teleporter(position));
                 break; */
@@ -108,4 +111,6 @@ public class ArenaLoader {
     i = inky
     c = clyde
     b = blinky
+    D = ghost door/gate
+    u = power up
 */
