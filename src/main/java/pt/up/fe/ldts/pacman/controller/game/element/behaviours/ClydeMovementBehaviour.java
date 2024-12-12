@@ -17,10 +17,4 @@ public class ClydeMovementBehaviour extends GhostMovementBehaviour{
             return new Position(0, arena.getHeight());
         }
     }
-
-
-    @Override
-    protected Position getDeadPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 }

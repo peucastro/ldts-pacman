@@ -28,9 +28,4 @@ public class InkyMovementBehaviour extends GhostMovementBehaviour{
         return new Position(newX,newY);
     }
 
-
-    @Override
-    protected Position getDeadPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 }

@@ -19,9 +19,4 @@ public class PinkyMovementBehaviour extends GhostMovementBehaviour{
         };
         return new Position(newX,newY);
     }
-
-    @Override
-    protected Position getDeadPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 }

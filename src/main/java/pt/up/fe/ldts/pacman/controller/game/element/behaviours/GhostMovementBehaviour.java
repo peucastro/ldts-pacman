@@ -9,13 +9,10 @@ public abstract class GhostMovementBehaviour {
     public Position getTargetPosition(Ghost ghost, Arena arena){
         return switch (ghost.getState()){
             case ALIVE -> getAlivePosition(ghost,arena);
-            case DEAD -> getDeadPosition(ghost,arena);
+            case DEAD -> arena.getGhostGate().getPosition();
             case SCARED -> new Position((int)(Math.random()*20),(int)(Math.random()*20));
         };
     }
 
     protected abstract Position getAlivePosition(Ghost ghost, Arena arena);
-
-
-    protected abstract Position getDeadPosition(Ghost ghost, Arena arena);
 }

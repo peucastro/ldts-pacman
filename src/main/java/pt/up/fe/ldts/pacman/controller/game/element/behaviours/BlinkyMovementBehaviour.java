@@ -10,10 +10,4 @@ public class BlinkyMovementBehaviour extends GhostMovementBehaviour{
         if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
         else return arena.getPacman().getPosition();
     }
-
-
-    @Override
-    protected Position getDeadPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 }
