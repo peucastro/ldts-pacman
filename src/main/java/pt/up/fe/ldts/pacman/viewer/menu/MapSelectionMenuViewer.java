@@ -2,19 +2,18 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
-import pt.up.fe.ldts.pacman.model.menu.MainMenu;
-import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
+import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class PauseMenuViewer extends Viewer<PauseMenu> {
+public class MapSelectionMenuViewer extends Viewer<MapSelectionMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
 
-    public PauseMenuViewer() throws IOException {
-        this.viewers = ViewerFactory.createPauseMenuViewers();
+    public MapSelectionMenuViewer() throws IOException {
+        this.viewers = ViewerFactory.createMapSelectionMenuViewers();
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -24,14 +23,13 @@ public class PauseMenuViewer extends Viewer<PauseMenu> {
         }
     }
 
-    public void drawElements(GUI gui, PauseMenu menu) {
+    public void drawElements(GUI gui, MapSelectionMenu menu) {
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
-        drawElement(gui, menu.getPauseSign());
         drawElement(gui, menu.getTitle());
     }
 
     @Override
-    public void drawElement(GUI gui, PauseMenu menu) {
+    public void drawElement(GUI gui, MapSelectionMenu menu) {
         gui.clear();
         drawElements(gui, menu);
         try {

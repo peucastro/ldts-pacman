@@ -57,4 +57,10 @@ public class ViewerFactory {
         viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
         return viewers;
     }
+
+    public static Map<Class<?>, Viewer<Element>> createMapSelectionMenuViewers() throws IOException {
+        Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
+        viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
+        return viewers;
+    }
 }

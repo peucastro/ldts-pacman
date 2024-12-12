@@ -40,7 +40,7 @@ class ArenaViewerTest {
         GUI mockGUI = mock(LanternaGUI.class);
 
         // Simulate map loading
-        new ArenaLoader(arena).loadMap("src/main/resources/Maps/map.txt");
+        new ArenaLoader(arena).loadMap("src/main/resources/Maps/map1.txt");
         ArenaViewer arenaViewer = new ArenaViewer();
         arenaViewer.drawElements(mockGUI, arena);
 
