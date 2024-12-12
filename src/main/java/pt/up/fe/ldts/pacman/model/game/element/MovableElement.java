@@ -18,4 +18,13 @@ public abstract class MovableElement extends Element {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+
+    public Position getNextPosition() {
+        return switch (direction) {
+            case UP -> getPosition().getUp();
+            case DOWN -> getPosition().getDown();
+            case LEFT -> getPosition().getLeft();
+            case RIGHT -> getPosition().getRight();
+        };
+    }
 }

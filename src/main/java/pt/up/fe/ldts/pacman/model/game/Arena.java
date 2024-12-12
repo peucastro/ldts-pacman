@@ -110,4 +110,5 @@ public class Arena {
     public void incrementScore(int increment){
         this.score += increment;
     }
+
 }
