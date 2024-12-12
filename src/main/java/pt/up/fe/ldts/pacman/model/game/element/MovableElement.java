@@ -25,5 +25,23 @@ public abstract class MovableElement extends Element {
 
     public void setCounter(int counter) { this.counter = counter; }
 
-    public void incrementCounter() {this.counter++;}
+    public void incrementCounter() {
+        if (counter < 11)
+            this.counter++;
+        else counter = 0;
+    }
+
+    public int getCounterX() {
+        if (this.direction == Direction.LEFT) return -counter;
+        if (this.direction == Direction.RIGHT) return counter;
+        return 0;
+    }
+
+    public int getCounterY() {
+        if (this.direction == Direction.UP) return -counter;
+        if (this.direction == Direction.DOWN) return counter;
+        return 0;
+    }
+
+
 }
