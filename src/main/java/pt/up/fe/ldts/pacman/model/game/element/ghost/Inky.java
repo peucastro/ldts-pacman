@@ -7,8 +7,4 @@ public class Inky extends Ghost {
         super(pos);
     }
 
-    @Override
-    public Class<? extends Ghost> getGhostClass() {
-        return this.getClass();
-    }
 }

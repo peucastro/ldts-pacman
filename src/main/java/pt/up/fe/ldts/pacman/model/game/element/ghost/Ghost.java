@@ -29,5 +29,4 @@ public abstract class Ghost extends MovableElement {
         return state == GhostState.SCARED;
     }
 
-    public abstract Class<? extends Ghost> getGhostClass();
 }
