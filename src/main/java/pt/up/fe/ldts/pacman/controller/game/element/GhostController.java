@@ -26,6 +26,7 @@ public class GhostController extends GameController {
                 getModel().getPacman().decreaseLife();
                 getModel().getPacman().setPosition(new Position(9,16));
             }
+            ghost.setCounter(0);
         }
     }
 
@@ -51,6 +52,7 @@ public class GhostController extends GameController {
 
     public void moveGhosts() {
         for (Ghost ghost : getModel().getGhosts()) {
+            if (ghost.getCounter() < 11) {ghost.incrementCounter(); continue;}
             if (isInsideGate(ghost.getPosition())) {
                 Position nextPosition = getNextPosition(ghost, getDirectionTowards(ghost, GATE_EXIT));
                 moveGhost(ghost, nextPosition);
