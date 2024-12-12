@@ -18,6 +18,7 @@ public class CollectibleController extends GameController {
         getModel().getCollectibles().removeIf(collectible -> {
             if (pacman.getPosition().equals(collectible.getPosition())) {
                 getModel().incrementScore(collectible.getValue());
+                getModel().incrementCollectedCollectibles();
                 return true;
             }
             return false;

@@ -79,6 +79,9 @@ public class ArenaLoader {
             case 'b':
                 arena.addGhost(new Blinky(position));
                 break;
+            case 'D':
+                arena.setGhostGatePosition(position);
+                break;
             /*case 'T': para caso usemos no futuro
                 arena.addElement(new Teleporter(position));
                 break; */

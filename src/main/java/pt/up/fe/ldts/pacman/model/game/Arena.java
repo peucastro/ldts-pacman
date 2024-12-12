@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.model.game;
 
 import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
@@ -15,6 +16,8 @@ public class Arena {
     private final Pacman pacman;
     private final int width, height;
     private int score;
+    private int collectedCollectibles;
+    private final GhostGate ghostGate;
     private Set<Ghost> ghosts;
     private Set<Wall> walls;
     private Set<Collectible> collectibles;
@@ -24,8 +27,10 @@ public class Arena {
         this.height = height;
 
         this.score = 0;
+        this.collectedCollectibles = 0;
 
         this.pacman = new Pacman(new Position(0, 0));
+        this.ghostGate = new GhostGate(new Position(0,0));
 
         this.ghosts = new HashSet<>();
         this.walls = new HashSet<>();
@@ -111,4 +116,19 @@ public class Arena {
         this.score += increment;
     }
 
+    public int getCollectedCollectibles() {
+        return collectedCollectibles;
+    }
+
+    public void incrementCollectedCollectibles(){
+        ++collectedCollectibles;
+    }
+
+    public GhostGate getGhostGate() {
+        return ghostGate;
+    }
+
+    public void setGhostGatePosition(Position position){
+        this.ghostGate.setPosition(position);
+    }
 }
