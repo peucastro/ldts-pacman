@@ -12,11 +12,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import java.util.Map;
 
 public class GhostController extends GameController {
-    private static final Position GATE_EXIT = new Position(9, 9);
-    private static final int GATE_MIN_X = 7;
-    private static final int GATE_MAX_X = 11;
-    private static final int GATE_MIN_Y = 9;
-    private static final int GATE_MAX_Y = 12;
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
 
     public GhostController(Arena arena) {
@@ -38,33 +33,27 @@ public class GhostController extends GameController {
         };
     }
 
-    private void moveGhost(Ghost ghost, Direction newDirection) {
+    private void moveGhost(Ghost ghost, Direction newDirection) {//checks if the ghost can move in newDirection and moves it if it can
         Position newPosition = getNextPosition(ghost.getPosition(),newDirection);
         if (getModel().isEmpty(newPosition)) {
             ghost.setPosition(newPosition);
             ghost.setDirection(newDirection);
-            if (newPosition.equals(getModel().getPacman().getPosition())) {
-                getModel().getPacman().decreaseLife();
-                getModel().getPacman().setPosition(new Position(9,16));
-            }
         }
+        if(newPosition.equals(getModel().getGhostGate().getPosition())) ghost.setOutsideGate();
     }
 
-    private boolean isInsideGate(Position position) {
-        return position.getX() >= GATE_MIN_X && position.getX() <= GATE_MAX_X &&
-                position.getY() >= GATE_MIN_Y && position.getY() <= GATE_MAX_Y;
-    }
-
-    private Direction getDirectionTowards(Ghost ghost, Position targetPosition) {
+    private Direction getDirectionTowards(Ghost ghost, Position targetPosition) {//choose new direction to follow (the one with the minimum linear distance from target)
         Direction currentDirection = ghost.getDirection();
         Direction nextDirection = Direction.UP;
         double minimumDistance = Double.MAX_VALUE;
         double tempDistance;
         for(Direction direction : Direction.values()){
             Position testPosition = getNextPosition(ghost.getPosition(),direction);
-            if(!direction.isOpposite(currentDirection) &&
-               getModel().isEmpty(testPosition) &&
-               (tempDistance = testPosition.squaredDistance(targetPosition)) < minimumDistance){
+            if(!direction.isOpposite(currentDirection) && //can't move in opposite direction
+               (tempDistance = testPosition.squaredDistance(targetPosition)) < minimumDistance && //can't move in a direction that is farther away from target
+               getModel().isEmpty(testPosition) && //can't move in a direction where there is a wall
+               (!testPosition.equals(getModel().getGhostGate().getPosition()) || ghost.isInsideGate())) //can't move to the ghost gate, unless the ghost is inside
+            {
                 minimumDistance = tempDistance;
                 nextDirection = direction;
             }
@@ -75,15 +64,15 @@ public class GhostController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
         for (Ghost ghost : getModel().getGhosts()) {
-
             Direction nextDirection;
-            if (isInsideGate(ghost.getPosition())) {
-                nextDirection = getDirectionTowards(ghost, GATE_EXIT);
-                moveGhost(ghost, nextDirection);
-            } else {
-                Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost,getModel());
+            if(time%2 == 1){ //temporarily move slower
+                Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
                 nextDirection = getDirectionTowards(ghost,targetPosition);
                 moveGhost(ghost, nextDirection);
+            }
+            if (ghost.getPosition().equals(getModel().getPacman().getPosition())) {
+                getModel().getPacman().decreaseLife();
+                getModel().getPacman().setPosition(new Position(9,16));
             }
         }
     }

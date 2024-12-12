@@ -8,8 +8,11 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 public class InkyMovementBehaviour extends GhostMovementBehaviour{
     @Override
     protected Position getAlivePosition(Ghost ghost, Arena arena) {
-        Blinky blinky = null;
-        for(Ghost g : arena.getGhosts()) if(g.getClass() == Blinky.class){blinky = (Blinky)g; break;}
+        if(arena.getCollectedCollectibles() < 25) return new Position(8,11);
+        else if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
+
+        Ghost blinky = null;
+        for(Ghost g : arena.getGhosts()) if(g.getClass() == Blinky.class){blinky = g; break;}
         assert blinky != null;
         Position pacmanNextPos = arena.getPacman().getNextPosition();
 
@@ -25,10 +28,6 @@ public class InkyMovementBehaviour extends GhostMovementBehaviour{
         return new Position(newX,newY);
     }
 
-    @Override
-    protected Position getScaredPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 
     @Override
     protected Position getDeadPosition(Ghost ghost, Arena arena) {

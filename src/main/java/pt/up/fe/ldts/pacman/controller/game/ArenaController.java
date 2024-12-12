@@ -29,8 +29,8 @@ public class ArenaController extends GameController{
         if(action == GUI.ACTION.QUIT || getModel().getPacman().getLife() == 0) game.setState(new MainMenuState(new MainMenu()));
         else{
             //all the controllers here me thinks
-            ghostController.step(game,action,time);
             pacmanController.step(game,action,time);
+            ghostController.step(game,action,time);
             collectibleController.step(game,action,time);
         }
     }

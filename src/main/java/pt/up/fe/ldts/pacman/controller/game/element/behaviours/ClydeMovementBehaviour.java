@@ -7,7 +7,10 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 public class ClydeMovementBehaviour extends GhostMovementBehaviour{
     @Override
     protected Position getAlivePosition(Ghost ghost, Arena arena) {
-        if(ghost.getPosition().squaredDistance(arena.getPacman().getPosition()) >= 64){//8 or more tiles away
+        if(arena.getCollectedCollectibles() < 60) return new Position(10,11);
+        else if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
+
+        if(ghost.getPosition().squaredDistance(arena.getPacman().getPosition()) >= 36){//6 or more tiles away
             return arena.getPacman().getPosition();
         }
         else{
@@ -15,10 +18,6 @@ public class ClydeMovementBehaviour extends GhostMovementBehaviour{
         }
     }
 
-    @Override
-    protected Position getScaredPosition(Ghost ghost, Arena arena) {
-        return null;
-    }
 
     @Override
     protected Position getDeadPosition(Ghost ghost, Arena arena) {

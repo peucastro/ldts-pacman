@@ -28,12 +28,7 @@ public class PacmanController extends GameController {
 
     public void moveInCurrentDirection() {
         if (currentDirection == null) return;
-        Position nextPosition = switch (currentDirection) {
-            case UP -> getModel().getPacman().getPosition().getUp();
-            case DOWN -> getModel().getPacman().getPosition().getDown();
-            case LEFT -> getModel().getPacman().getPosition().getLeft();
-            case RIGHT -> getModel().getPacman().getPosition().getRight();
-        };
+        Position nextPosition = getNextPosition(currentDirection);
         movePacman(nextPosition, currentDirection);
     }
 
@@ -49,7 +44,7 @@ public class PacmanController extends GameController {
 
     private boolean isDirectionValid(Direction direction) {
         Position nextPosition = getNextPosition(direction);
-        return getModel().isEmpty(nextPosition);
+        return getModel().isEmpty(nextPosition) && !getModel().getGhostGate().getPosition().equals(nextPosition);
     }
 
 
