@@ -19,7 +19,10 @@ public class PacmanController extends GameController {
         if (getModel().isEmpty(position)) {
             getModel().getPacman().setPosition(position);
             getModel().getPacman().setDirection(direction);
-            if (getModel().isGhost(position)) getModel().getPacman().decreaseLife();
+            if (getModel().isGhost(position)) {
+                getModel().getPacman().decreaseLife();
+                getModel().getPacman().setPosition(new Position(9,16));
+            }
         }
     }
 

@@ -6,4 +6,9 @@ public class Pinky extends Ghost {
     public Pinky(Position pos) {
         super(pos);
     }
+
+    @Override
+    public Class<? extends Ghost> getGhostClass() {
+        return this.getClass();
+    }
 }

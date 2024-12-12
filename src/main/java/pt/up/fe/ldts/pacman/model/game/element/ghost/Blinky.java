@@ -6,4 +6,10 @@ public class Blinky extends Ghost {
     public Blinky(Position pos) {
         super(pos);
     }
+
+    @Override
+    public Class<? extends Ghost> getGhostClass() {
+        return this.getClass();
+    }
+
 }
