@@ -26,9 +26,12 @@ public abstract class MovableElement extends Element {
     public void setCounter(int counter) { this.counter = counter; }
 
     public void incrementCounter() {
-        if (counter < 11)
+        if (counter < 10)
             this.counter++;
-        else counter = 0;
+        else{
+            counter = 0;
+            setPosition(getNextPosition());
+        }
     }
 
     public int getCounterX() {
@@ -43,5 +46,13 @@ public abstract class MovableElement extends Element {
         return 0;
     }
 
+    private Position getNextPosition() {
+        return switch (direction) {
+            case UP -> getPosition().getUp();
+            case DOWN -> getPosition().getDown();
+            case LEFT -> getPosition().getLeft();
+            case RIGHT -> getPosition().getRight();
+        };
+    }
 
 }

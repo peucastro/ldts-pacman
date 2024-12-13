@@ -82,6 +82,6 @@ public class GhostController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
-        moveGhosts();
+        //moveGhosts();
     }
 }

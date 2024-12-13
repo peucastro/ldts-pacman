@@ -6,84 +6,64 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 public class PacmanController extends GameController {
     private static final Position RESPAWN_POSITION = new Position(9, 16);
-
-    private Direction currentDirection;
     private Direction desiredDirection;
-    private Position nextpos;
 
     public PacmanController(Arena arena) {
         super(arena);
-        this.currentDirection = Direction.RIGHT;
         this.desiredDirection = Direction.RIGHT;
-        this.nextpos = new Position(getModel().getPacman().getPosition().getX() + 1, getModel().getPacman().getPosition().getY());
     }
 
     private void movePacman() {
+        Pacman pacman = getModel().getPacman();
 
-        if (getModel().getPacman().getCounter() < 11 && isDirectionValid(currentDirection)) {
-            getModel().getPacman().setDirection(currentDirection);
-            getModel().getPacman().incrementCounter();
+        if (pacman.getCounter() > 0) {
+            pacman.incrementCounter();
             return;
         }
-        if (getModel().isGhost(nextpos)) {
-            getModel().getPacman().decreaseLife();
-            getModel().getPacman().setPosition(RESPAWN_POSITION);
-        } else if (getModel().isEmpty(nextpos)) {
-            getModel().getPacman().setPosition(nextpos);
+
+        if(desiredDirection != null && //desired direction exists
+           !desiredDirection.isOpposite(pacman.getDirection()) && //desired direction cannot be opposite to the current direction
+           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection))) //the position where the desired direction is faced has to be empty
+                pacman.setDirection(desiredDirection);
+
+        Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
+
+        if (getModel().isEmpty(nextPosition)) {
+            pacman.incrementCounter();
         }
 
-        getModel().getPacman().setCounter(0);
-        nextpos = calculateNextPosition(currentDirection);
+        desiredDirection = null;
     }
 
-    private boolean isDirectionValid(Direction direction) {
-        if (getModel().getPacman().getCounter() < 11 && direction != currentDirection) {
-            return false;
-        }
-        Position nextPosition = calculateNextPosition(direction);
-        return getModel().isEmpty(nextPosition);
-    }
-
-    public void moveInCurrentDirection() {
-        movePacman();
-    }
-
-
-    private Position calculateNextPosition(Direction direction) {
-
+    private Position calculateNextPosition(Position position,Direction direction) {
         return switch (direction) {
-            case UP -> nextpos.getUp();
-            case DOWN -> nextpos.getDown();
-            case LEFT -> nextpos.getLeft();
-            case RIGHT -> nextpos.getRight();
+            case UP -> position.getUp();
+            case DOWN -> position.getDown();
+            case LEFT -> position.getLeft();
+            case RIGHT -> position.getRight();
         };
     }
-
 
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, GUI.ACTION action, long time) {
-        Direction newDirection = null;
-
         switch (action) {
-            case UP -> newDirection = Direction.UP;
-            case DOWN -> newDirection = Direction.DOWN;
-            case LEFT -> newDirection = Direction.LEFT;
-            case RIGHT -> newDirection = Direction.RIGHT;
+            case UP -> desiredDirection= Direction.UP;
+            case DOWN -> desiredDirection = Direction.DOWN;
+            case LEFT -> desiredDirection = Direction.LEFT;
+            case RIGHT -> desiredDirection = Direction.RIGHT;
             case NONE -> { }
         }
 
-        if (newDirection != null) {
-            desiredDirection = newDirection;
-        }
+        movePacman();
 
-        if (isDirectionValid(desiredDirection)) {
-            currentDirection = desiredDirection;
+        if(getModel().isGhost(getModel().getPacman().getPosition())){
+            getModel().getPacman().decreaseLife();
+            getModel().getPacman().setPosition(RESPAWN_POSITION);
         }
-
-        moveInCurrentDirection();
     }
 }
