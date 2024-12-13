@@ -33,7 +33,7 @@ public class Game {
     }
 
     private void start() throws IOException, InterruptedException, URISyntaxException {
-        int FPS = 10;
+        int FPS = 60;
         int frameTime = 1000 / FPS;
 
         while (this.state != null) {

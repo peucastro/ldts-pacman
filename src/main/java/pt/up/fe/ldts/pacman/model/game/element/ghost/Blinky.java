@@ -6,4 +6,5 @@ public class Blinky extends Ghost {
     public Blinky(Position pos) {
         super(pos);
     }
+
 }

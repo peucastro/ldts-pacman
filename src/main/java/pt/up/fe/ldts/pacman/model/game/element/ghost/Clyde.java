@@ -6,4 +6,5 @@ public class Clyde extends Ghost {
     public Clyde(Position pos) {
         super(pos);
     }
+
 }

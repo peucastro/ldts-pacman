@@ -6,4 +6,5 @@ public class Pinky extends Ghost {
     public Pinky(Position pos) {
         super(pos);
     }
+
 }
