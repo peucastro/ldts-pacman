@@ -30,7 +30,7 @@ public class PacmanController extends GameController {
 
         if(desiredDirection != null && //desired direction exists
            getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection)) && //the position where the desired direction is faced has to be empty
-           getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
+           !getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
                 pacman.setDirection(desiredDirection);
 
         Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
