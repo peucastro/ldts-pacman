@@ -22,6 +22,8 @@ public class ArenaController extends GameController{
         this.pacmanController = new PacmanController(arena);
         this.collectibleController = new CollectibleController(arena);
         this.ghostController = new GhostController(arena);
+        GhostController.setGhostsEaten(0);
+        GhostController.setScaredTimeLeft(0);
     }
 
     @Override

@@ -6,6 +6,8 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 
@@ -26,9 +28,10 @@ public class PacmanController extends GameController {
             return;
         }
 
-        if(desiredDirection != null && //current direction exists
-                getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection))) //the position where the current direction is faced has to be empty
-            pacman.setDirection(desiredDirection);
+        if(desiredDirection != null && //desired direction exists
+           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection)) && //the position where the desired direction is faced has to be empty
+           getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
+                pacman.setDirection(desiredDirection);
 
         Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
 
@@ -58,10 +61,20 @@ public class PacmanController extends GameController {
         }
 
         movePacman();
-
-        if(getModel().isGhost(getModel().getPacman().getPosition())){
-            getModel().getPacman().decreaseLife();
-            getModel().getPacman().setPosition(RESPAWN_POSITION);
+        Ghost ghost;
+        if((ghost = getModel().isGhost(getModel().getPacman().getPosition())) != null){ // handle collisions with ghosts
+            switch (ghost.getState()){
+                case ALIVE:
+                    getModel().getPacman().decreaseLife();
+                    getModel().getPacman().setPosition(RESPAWN_POSITION);
+                    break;
+                case SCARED:
+                    ghost.setState(GhostState.DEAD);
+                    GhostController.incrementGhostsEaten();
+                    getModel().incrementScore((int)(200 * Math.pow(2,GhostController.getGhostsEaten())));
+                    break;
+                default: break;
+            }
         }
     }
 }

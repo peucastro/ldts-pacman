@@ -97,11 +97,11 @@ public class Arena {
         return true;
     }
 
-    public boolean isGhost(Position position) {
+    public Ghost isGhost(Position position) {
         for (Ghost ghost : ghosts)
             if (ghost.getPosition().equals(position))
-                return true;
-        return false;
+                return ghost;
+        return null;
     }
 
     public int getScore() {

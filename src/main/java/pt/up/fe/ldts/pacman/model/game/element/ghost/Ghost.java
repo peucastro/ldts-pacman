@@ -42,4 +42,10 @@ public abstract class Ghost extends MovableElement {
     public void setOutsideGate(){
         this.insideGate = false;
     }
+
+    public void invertDirection(){
+        setPosition(getNextPosition());
+        setDirection(getDirection().getOpposite());
+        setCounter(11 - getCounter());
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class GhostController extends GameController {
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
-    private int ghostsEaten; //ghosts eaten in current scared state
+    private static int ghostsEaten = 0; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
 
     public GhostController(Arena arena) {
@@ -24,7 +24,6 @@ public class GhostController extends GameController {
                 Inky.class, new InkyMovementBehaviour(),
                 Clyde.class, new ClydeMovementBehaviour()
         );
-        this.ghostsEaten = 0;
     }
 
     private Position getNextPosition(Position position, Direction direction) {
@@ -44,7 +43,13 @@ public class GhostController extends GameController {
         Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
         Direction nextDirection = getDirectionTowards(ghost,targetPosition);
         ghost.setDirection(nextDirection);
-        if(ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.setOutsideGate();
+        if(ghost.getPosition().equals(getModel().getGhostGate().getPosition())) {
+            if(ghost.isDead()) { //dead ghost arrives at the ghost gate
+                ghost.setState(GhostState.ALIVE);
+                ghost.setInsideGate();
+            }
+            else ghost.setOutsideGate();
+        }
         ghost.incrementCounter();
     }
 
@@ -87,12 +92,6 @@ public class GhostController extends GameController {
                 }
             }
 
-            if(ghost.isDead() && ghost.getPosition().equals(getModel().getGhostGate().getPosition())) { //dead ghost arrives at the ghost gate
-                ghost.setState(GhostState.ALIVE);
-                ghost.setInsideGate();
-            }
-
-            System.out.println(scaredTimeLeft);
             if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
                 getModel().getGhosts().forEach(ghost1 -> {
                     if (ghost1.isScared()) ghost1.setState(GhostState.ALIVE);
@@ -104,5 +103,17 @@ public class GhostController extends GameController {
 
     public static void setScaredTimeLeft(int scaredTimeLeft) {
         GhostController.scaredTimeLeft = scaredTimeLeft;
+    }
+
+    public static void incrementGhostsEaten(){
+        ++ghostsEaten;
+    }
+
+    public static int getGhostsEaten() {
+        return ghostsEaten;
+    }
+
+    public static void setGhostsEaten(int ghostsEaten) {
+        GhostController.ghostsEaten = ghostsEaten;
     }
 }

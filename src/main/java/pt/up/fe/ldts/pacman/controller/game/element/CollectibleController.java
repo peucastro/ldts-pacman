@@ -20,10 +20,10 @@ public class CollectibleController extends GameController {
         getModel().getCollectibles().removeIf(collectible -> {
             if (pacman.getPosition().equals(collectible.getPosition())) {
                 if(collectible.getClass() == PowerUp.class) getModel().getGhosts().forEach(ghost -> {
-                 GhostController.setScaredTimeLeft(1000);
+                 GhostController.setScaredTimeLeft(3000);
                  if(!ghost.isDead()) {
                      ghost.setState(GhostState.SCARED);
-                     ghost.setDirection(ghost.getDirection().getOpposite());
+                     ghost.invertDirection();
                  }
                 });
                 getModel().incrementScore(collectible.getValue());
