@@ -14,7 +14,7 @@ import java.util.Map;
 public class GhostController extends GameController {
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
     private int ghostsEaten; //ghosts eaten in current scared state
-    private int scaredTimeLeft;
+    private static int scaredTimeLeft = 0;
 
     public GhostController(Arena arena) {
         super(arena);
@@ -25,7 +25,6 @@ public class GhostController extends GameController {
                 Clyde.class, new ClydeMovementBehaviour()
         );
         this.ghostsEaten = 0;
-        this.scaredTimeLeft = 0;
     }
 
     private Position getNextPosition(Position position, Direction direction) {
@@ -37,13 +36,16 @@ public class GhostController extends GameController {
         };
     }
 
-    private void moveGhost(Ghost ghost, Direction newDirection) {//checks if the ghost can move in newDirection and moves it if it can
-        Position newPosition = getNextPosition(ghost.getPosition(),newDirection);
-        if (getModel().isEmpty(newPosition)) {
-            ghost.setPosition(newPosition);
-            ghost.setDirection(newDirection);
+    private void moveGhost(Ghost ghost) {//checks if the ghost can move in newDirection and moves it if it can
+        if (ghost.getCounter() > 0) {
+            ghost.incrementCounter();
+            return;
         }
-        if(newPosition.equals(getModel().getGhostGate().getPosition())) ghost.setOutsideGate();
+        Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
+        Direction nextDirection = getDirectionTowards(ghost,targetPosition);
+        ghost.setDirection(nextDirection);
+        if(ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.setOutsideGate();
+        ghost.incrementCounter();
     }
 
     private Direction getDirectionTowards(Ghost ghost, Position targetPosition) {//choose new direction to follow (the one with the minimum linear distance from target)
@@ -68,12 +70,8 @@ public class GhostController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
         for (Ghost ghost : getModel().getGhosts()) {
-            Direction nextDirection;
-            if(time%2 == 1){ //temporarily move slower
-                Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
-                nextDirection = getDirectionTowards(ghost,targetPosition);
-                moveGhost(ghost, nextDirection);
-            }
+
+            moveGhost(ghost);
 
             if (ghost.getPosition().equals(getModel().getPacman().getPosition())) { //collision with pacman
                 switch (ghost.getState()){
@@ -94,16 +92,17 @@ public class GhostController extends GameController {
                 ghost.setInsideGate();
             }
 
+            System.out.println(scaredTimeLeft);
             if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
                 getModel().getGhosts().forEach(ghost1 -> {
                     if (ghost1.isScared()) ghost1.setState(GhostState.ALIVE);
                 });
                 ghostsEaten = 0;
             }
-
-            if(ghost.isScared() && scaredTimeLeft == 0){ //detects if scared time has started
-                scaredTimeLeft = 200;
-            }
         }
+    }
+
+    public static void setScaredTimeLeft(int scaredTimeLeft) {
+        GhostController.scaredTimeLeft = scaredTimeLeft;
     }
 }
