@@ -10,11 +10,13 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 public class PacmanController extends GameController {
     private static final Position RESPAWN_POSITION = new Position(9, 16);
+    private Direction currentDirection;
     private Direction desiredDirection;
 
     public PacmanController(Arena arena) {
         super(arena);
         this.desiredDirection = Direction.RIGHT;
+        this.currentDirection = Direction.RIGHT;
     }
 
     private void movePacman() {
@@ -25,10 +27,10 @@ public class PacmanController extends GameController {
             return;
         }
 
-        if(desiredDirection != null && //desired direction exists
-           !desiredDirection.isOpposite(pacman.getDirection()) && //desired direction cannot be opposite to the current direction
-           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection))) //the position where the desired direction is faced has to be empty
-                pacman.setDirection(desiredDirection);
+        if(currentDirection != null && //desired direction exists
+           !currentDirection.isOpposite(pacman.getDirection()) && //desired direction cannot be opposite to the current direction
+           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),currentDirection))) //the position where the desired direction is faced has to be empty
+                pacman.setDirection(currentDirection);
 
         Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
 
@@ -36,7 +38,7 @@ public class PacmanController extends GameController {
             pacman.incrementCounter();
         }
 
-        desiredDirection = null;
+        currentDirection = null;
     }
 
     private Position calculateNextPosition(Position position,Direction direction) {
@@ -57,6 +59,10 @@ public class PacmanController extends GameController {
             case LEFT -> desiredDirection = Direction.LEFT;
             case RIGHT -> desiredDirection = Direction.RIGHT;
             case NONE -> { }
+        }
+
+        if (desiredDirection != null && getModel().isEmpty(calculateNextPosition(getModel().getPacman().getPosition(),desiredDirection))) {
+            currentDirection = desiredDirection;
         }
 
         movePacman();
