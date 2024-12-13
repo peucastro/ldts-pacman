@@ -8,59 +8,60 @@ import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 
 public class PacmanController extends GameController {
+    private static final Position RESPAWN_POSITION = new Position(9, 16);
+
     private Direction currentDirection;
     private Direction desiredDirection;
+    private Position nextpos;
 
     public PacmanController(Arena arena) {
         super(arena);
         this.currentDirection = Direction.RIGHT;
         this.desiredDirection = Direction.RIGHT;
+        this.nextpos = new Position(getModel().getPacman().getPosition().getX() + 1, getModel().getPacman().getPosition().getY());
     }
 
-    private void movePacman(Position position, Direction direction) {
-        if (getModel().getPacman().getCounter() < 11) {
+    private void movePacman() {
+
+        if (getModel().getPacman().getCounter() < 11 && isDirectionValid(currentDirection)) {
+            getModel().getPacman().setDirection(currentDirection);
             getModel().getPacman().incrementCounter();
             return;
         }
-
-        if (getModel().isEmpty(position)) {
-            getModel().getPacman().setPosition(position);
-            getModel().getPacman().setDirection(direction);
-            if (getModel().isGhost(position)) {
-                getModel().getPacman().decreaseLife();
-                getModel().getPacman().setPosition(new Position(9, 16)); // Respawn position
-            }
-            getModel().getPacman().setCounter(0);
+        if (getModel().isGhost(nextpos)) {
+            getModel().getPacman().decreaseLife();
+            getModel().getPacman().setPosition(RESPAWN_POSITION);
+        } else if (getModel().isEmpty(nextpos)) {
+            getModel().getPacman().setPosition(nextpos);
         }
-    }
 
-    public void moveInCurrentDirection() {
-        if (currentDirection == null) return;
-
-        Position nextPosition = switch (currentDirection) {
-            case UP -> getModel().getPacman().getPosition().getUp();
-            case DOWN -> getModel().getPacman().getPosition().getDown();
-            case LEFT -> getModel().getPacman().getPosition().getLeft();
-            case RIGHT -> getModel().getPacman().getPosition().getRight();
-        };
-
-        movePacman(nextPosition, currentDirection);
-    }
-
-    private Position getNextPosition(Direction direction) {
-        Position currentPosition = getModel().getPacman().getPosition();
-        return switch (direction) {
-            case UP -> currentPosition.getUp();
-            case DOWN -> currentPosition.getDown();
-            case LEFT -> currentPosition.getLeft();
-            case RIGHT -> currentPosition.getRight();
-        };
+        getModel().getPacman().setCounter(0);
+        nextpos = calculateNextPosition(currentDirection);
     }
 
     private boolean isDirectionValid(Direction direction) {
-        Position nextPosition = getNextPosition(direction);
+        if (getModel().getPacman().getCounter() < 11 && direction != currentDirection) {
+            return false;
+        }
+        Position nextPosition = calculateNextPosition(direction);
         return getModel().isEmpty(nextPosition);
     }
+
+    public void moveInCurrentDirection() {
+        movePacman();
+    }
+
+
+    private Position calculateNextPosition(Direction direction) {
+
+        return switch (direction) {
+            case UP -> nextpos.getUp();
+            case DOWN -> nextpos.getDown();
+            case LEFT -> nextpos.getLeft();
+            case RIGHT -> nextpos.getRight();
+        };
+    }
+
 
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
@@ -72,19 +73,15 @@ public class PacmanController extends GameController {
             case DOWN -> newDirection = Direction.DOWN;
             case LEFT -> newDirection = Direction.LEFT;
             case RIGHT -> newDirection = Direction.RIGHT;
-            case NONE -> { /* No change in direction */}
+            case NONE -> { }
         }
 
         if (newDirection != null) {
-            this.desiredDirection = newDirection;
+            desiredDirection = newDirection;
         }
 
-        if (newDirection != null && isDirectionValid(newDirection)) {
-            this.currentDirection = newDirection;
-        }
-
-        if (this.currentDirection != this.desiredDirection && isDirectionValid(this.desiredDirection)) {
-            this.currentDirection = this.desiredDirection;
+        if (isDirectionValid(desiredDirection)) {
+            currentDirection = desiredDirection;
         }
 
         moveInCurrentDirection();
