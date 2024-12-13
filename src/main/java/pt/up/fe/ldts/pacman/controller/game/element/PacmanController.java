@@ -27,10 +27,9 @@ public class PacmanController extends GameController {
             return;
         }
 
-        if(currentDirection != null && //desired direction exists
-           !currentDirection.isOpposite(pacman.getDirection()) && //desired direction cannot be opposite to the current direction
-           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),currentDirection))) //the position where the desired direction is faced has to be empty
-                pacman.setDirection(currentDirection);
+        if(currentDirection != null && //current direction exists
+            getModel().isEmpty(calculateNextPosition(pacman.getPosition(),currentDirection))) //the position where the current direction is faced has to be empty
+            pacman.setDirection(currentDirection);
 
         Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
 
