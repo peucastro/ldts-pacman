@@ -54,4 +54,16 @@ public class ViewerFactory {
         viewers.put(Pacman.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/pacman/pacmanright.png")));
         return viewers;
     }
+
+    public static Map<Class<?>, Viewer<Element>> createPauseMenuViewers() throws IOException {
+        Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
+        viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
+        return viewers;
+    }
+
+    public static Map<Class<?>, Viewer<Element>> createMapSelectionMenuViewers() throws IOException {
+        Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
+        viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
+        return viewers;
+    }
 }

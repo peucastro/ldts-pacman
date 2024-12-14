@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenu extends Menu {
-    private final TextBox title;
     private final Pacman pacman;
 
     public MainMenu() {
         super();
-        title = new TextBox("PACMAN", new Position(95, 30), new TextColor.RGB(255, 255, 255));
         pacman = new Pacman(new Position(104, 41)); //todo: fix this after fixing the intermediate positions
     }
 
@@ -25,6 +23,11 @@ public class MainMenu extends Menu {
                 new TextBox("Settings", new Position(90, 111), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Exit", new Position(100, 122), new TextColor.RGB(255, 255, 255))
         ));
+    }
+
+    @Override
+    protected TextBox createTitle() {
+        return new TextBox("PACMAN", new Position(95, 30), new TextColor.RGB(255, 255, 255));
     }
 
     public boolean StartSelected() {
@@ -42,9 +45,5 @@ public class MainMenu extends Menu {
 
     public Pacman getPacman() {
         return pacman;
-    }
-
-    public TextBox getTitle() {
-        return title;
     }
 }
