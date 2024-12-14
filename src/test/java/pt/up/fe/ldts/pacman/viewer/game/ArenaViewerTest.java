@@ -4,6 +4,7 @@ import com.googlecode.lanterna.graphics.BasicTextImage;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
@@ -25,14 +26,16 @@ class ArenaViewerTest {
         when(mockArena.getWalls()).thenReturn(Set.of());
         when(mockArena.getCollectibles()).thenReturn(Set.of());
         when(mockArena.getGhosts()).thenReturn(Set.of());
+        when(mockArena.getGhostGate()).thenReturn(mock(GhostGate.class)); // Add this
         when(mockArena.getPacman()).thenReturn(new Pacman(new Position(0, 0)));
-
+        
         ArenaViewer arenaViewer = new ArenaViewer();
         arenaViewer.drawElements(mockGUI, mockArena);
 
-        // Verifies a Pacman is drawn
+        // Verify Pacman is drawn
         verify(mockGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
+
 
     @Test
     void testDrawElementCallCountWithMapLoading() throws IOException, URISyntaxException {
