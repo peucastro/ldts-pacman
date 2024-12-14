@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.viewer;
 
 import pt.up.fe.ldts.pacman.model.Element;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
@@ -26,12 +27,14 @@ public class ViewerFactory {
         Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
 
         viewers.put(Wall.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/wall.png")));
+        viewers.put(GhostGate.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/ghostgate.png")));
         viewers.put(Coin.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/coin.png")));
         viewers.put(Apple.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/apple.png")));
         viewers.put(Cherry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/cherry.png")));
         viewers.put(Key.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/key.png")));
         viewers.put(Orange.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/orange.png")));
         viewers.put(Strawberry.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/strawberry.png")));
+        viewers.put(PowerUp.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/items/powerup.png")));
 
         viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
 

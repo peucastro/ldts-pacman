@@ -46,7 +46,7 @@ public abstract class MovableElement extends Element {
         return 0;
     }
 
-    private Position getNextPosition() {
+    public Position getNextPosition() {
         return switch (direction) {
             case UP -> getPosition().getUp();
             case DOWN -> getPosition().getDown();

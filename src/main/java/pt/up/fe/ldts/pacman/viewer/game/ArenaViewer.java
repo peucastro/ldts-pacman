@@ -31,6 +31,7 @@ public class ArenaViewer extends Viewer<Arena> {
 
     public void drawElements(GUI gui, Arena arena) {
         arena.getWalls().forEach(wall -> drawElement(gui, wall));
+        drawElement(gui, arena.getGhostGate());
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
         arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
         drawElement(gui, arena.getPacman());
