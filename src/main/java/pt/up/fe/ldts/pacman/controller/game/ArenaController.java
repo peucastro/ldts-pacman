@@ -24,13 +24,12 @@ public class ArenaController extends GameController{
         this.pacmanController = new PacmanController(arena);
         this.collectibleController = new CollectibleController(arena);
         this.ghostController = new GhostController(arena);
-        GhostController.setGhostsEaten(0);
         GhostController.setScaredTimeLeft(0);
     }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if(getModel().getPacman().getLife() == 0) game.setState(new MainMenuState(new MainMenu()));
+        if(getModel().getPacman().getLife() <= 0) game.setState(new MainMenuState(new MainMenu()));
         else if(action == GUI.ACTION.QUIT) game.setState(new PauseMenuState(new PauseMenu(game.getState())));
         else{
             //all the controllers here me thinks

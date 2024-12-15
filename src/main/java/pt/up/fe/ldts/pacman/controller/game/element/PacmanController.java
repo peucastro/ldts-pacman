@@ -12,7 +12,7 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 
 public class PacmanController extends GameController {
-    private static final Position RESPAWN_POSITION = new Position(9, 16);
+    public static final Position RESPAWN_POSITION = new Position(9, 16);
     private Direction desiredDirection;
 
     public PacmanController(Arena arena) {
@@ -33,7 +33,7 @@ public class PacmanController extends GameController {
            !getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
                 pacman.setDirection(desiredDirection);
 
-        Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
+        Position nextPosition = pacman.getNextPosition();
 
         if (getModel().isEmpty(nextPosition)) {
             pacman.incrementCounter();
@@ -62,21 +62,5 @@ public class PacmanController extends GameController {
         }
 
         if(time%pacman.getSpeed() != 1) movePacman();
-        Ghost ghost;
-        if((ghost = getModel().isGhost(pacman.getPosition())) != null){ // handle collisions with ghosts
-            switch (ghost.getState()){
-                case ALIVE:
-                    pacman.decreaseLife();
-                    pacman.setPosition(RESPAWN_POSITION);
-                    break;
-                case SCARED:
-                    ghost.setState(GhostState.DEAD);
-                    ghost.setSpeed(1);
-                    GhostController.incrementGhostsEaten();
-                    getModel().incrementScore((int)(200 * Math.pow(2,GhostController.getGhostsEaten())));
-                    break;
-                default: break;
-            }
-        }
     }
 }
