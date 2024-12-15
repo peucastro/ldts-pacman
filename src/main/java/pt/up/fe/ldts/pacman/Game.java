@@ -34,7 +34,7 @@ public class Game {
     }
 
     private void start() throws IOException, InterruptedException, URISyntaxException {
-        int FPS = 1000; //framerate máxima possível
+        int FPS = 120;
         long frameTime = 1000 / FPS;
         long frameCount = 0;
 

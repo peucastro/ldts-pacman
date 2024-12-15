@@ -52,6 +52,7 @@ public class PacmanController extends GameController {
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, GUI.ACTION action, long time) {
+        Pacman pacman = getModel().getPacman();
         switch (action) {
             case UP -> desiredDirection= Direction.UP;
             case DOWN -> desiredDirection = Direction.DOWN;
@@ -60,16 +61,17 @@ public class PacmanController extends GameController {
             case NONE -> { }
         }
 
-        movePacman();
+        if(time%pacman.getSpeed() != 1) movePacman();
         Ghost ghost;
-        if((ghost = getModel().isGhost(getModel().getPacman().getPosition())) != null){ // handle collisions with ghosts
+        if((ghost = getModel().isGhost(pacman.getPosition())) != null){ // handle collisions with ghosts
             switch (ghost.getState()){
                 case ALIVE:
-                    getModel().getPacman().decreaseLife();
-                    getModel().getPacman().setPosition(RESPAWN_POSITION);
+                    pacman.decreaseLife();
+                    pacman.setPosition(RESPAWN_POSITION);
                     break;
                 case SCARED:
                     ghost.setState(GhostState.DEAD);
+                    ghost.setSpeed(1);
                     GhostController.incrementGhostsEaten();
                     getModel().incrementScore((int)(200 * Math.pow(2,GhostController.getGhostsEaten())));
                     break;

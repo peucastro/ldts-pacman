@@ -1,18 +1,24 @@
 package pt.up.fe.ldts.pacman.model.game;
 
-import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Arena {
+    //due to how the module operator works, the higher the speed the faster the element goes, except 1 which is the highest speed
+    public static final int PACMAN_BOOSTED_SPEED = 6;
+    public static final int PACMAN_NORMAL_SPEED = 4;
+    public static final int GHOST_NORMAL_SPEED = 3;
+    public static final int GHOST_SCARED_SPEED = 2;
+    public static final int GHOST_DEAD_SPEED = 1;
+
+
     private final Pacman pacman;
     private final int width, height;
     private int score;

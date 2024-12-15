@@ -24,9 +24,11 @@ public class CollectibleController extends GameController {
                  GhostController.setScaredTimeLeft(3000);
                  if(!ghost.isDead()) {
                      ghost.setState(GhostState.SCARED);
+                     ghost.setSpeed(Arena.GHOST_SCARED_SPEED);
                      ghost.invertDirection();
                  }
                 });
+                pacman.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
                 getModel().addBlankPosition(new Position(collectible.getPosition()));
                 getModel().incrementScore(collectible.getValue());
                 getModel().incrementCollectedCollectibles();

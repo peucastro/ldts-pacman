@@ -47,6 +47,7 @@ public class GhostController extends GameController {
             if(ghost.isDead()) { //dead ghost arrives at the ghost gate
                 ghost.setState(GhostState.ALIVE);
                 ghost.setInsideGate();
+                ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
             }
             else ghost.setOutsideGate();
         }
@@ -76,7 +77,7 @@ public class GhostController extends GameController {
     public void step(Game game, GUI.ACTION action, long time) {
         for (Ghost ghost : getModel().getGhosts()) {
 
-            moveGhost(ghost);
+            if(time%ghost.getSpeed() != 1) moveGhost(ghost);
 
             if (ghost.getPosition().equals(getModel().getPacman().getPosition())) { //collision with pacman
                 switch (ghost.getState()){
@@ -86,6 +87,7 @@ public class GhostController extends GameController {
                         break;
                     case SCARED:
                         ghost.setState(GhostState.DEAD);
+                        ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
                         getModel().incrementScore((int)(200 * Math.pow(2,ghostsEaten++)));
                         break;
                     default: break;
@@ -94,8 +96,12 @@ public class GhostController extends GameController {
 
             if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
                 getModel().getGhosts().forEach(ghost1 -> {
-                    if (ghost1.isScared()) ghost1.setState(GhostState.ALIVE);
+                    if (ghost1.isScared()) {
+                        ghost1.setState(GhostState.ALIVE);
+                        ghost1.setSpeed(Arena.GHOST_NORMAL_SPEED);
+                    }
                 });
+                getModel().getPacman().setSpeed(Arena.PACMAN_NORMAL_SPEED);
                 ghostsEaten = 0;
             }
         }
