@@ -11,9 +11,11 @@ import java.util.Map;
 
 public class MapSelectionMenuViewer extends Viewer<MapSelectionMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
+    private boolean initialClear;
 
     public MapSelectionMenuViewer() throws IOException {
         this.viewers = ViewerFactory.createMapSelectionMenuViewers();
+        this.initialClear = false;
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -30,7 +32,7 @@ public class MapSelectionMenuViewer extends Viewer<MapSelectionMenu> {
 
     @Override
     public void drawElement(GUI gui, MapSelectionMenu menu) {
-        gui.clear();
+        if(!initialClear) {gui.clear(); initialClear = true;}
         drawElements(gui, menu);
         try {
             gui.refresh();

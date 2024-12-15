@@ -16,9 +16,11 @@ import java.util.Map;
 
 public class ArenaViewer extends Viewer<Arena> {
     private final Map<Class<?>, Viewer<Element>> viewers;
+    private boolean initialClear;
 
     public ArenaViewer() throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createArenaViewers();
+        this.initialClear = false;
     }
 
 
@@ -43,7 +45,7 @@ public class ArenaViewer extends Viewer<Arena> {
 
     @Override
     public void drawElement(GUI gui, Arena arena) {
-        //gui.clear();
+        if(!initialClear) {gui.clear(); initialClear = true;}
         drawElements(gui, arena);
         try {
             gui.refresh();
