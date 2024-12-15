@@ -30,6 +30,8 @@ public class ArenaViewer extends Viewer<Arena> {
     }
 
     public void drawElements(GUI gui, Arena arena) {
+        //antes de desenhar os elementos todos apaga as posições em branco
+        arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
         arena.getWalls().forEach(wall -> drawElement(gui, wall));
         drawElement(gui, arena.getGhostGate());
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
@@ -41,7 +43,7 @@ public class ArenaViewer extends Viewer<Arena> {
 
     @Override
     public void drawElement(GUI gui, Arena arena) {
-        gui.clear();
+        //gui.clear();
         drawElements(gui, arena);
         try {
             gui.refresh();

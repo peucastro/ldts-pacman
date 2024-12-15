@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman;
 
+import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -33,7 +34,7 @@ public class Game {
     }
 
     private void start() throws IOException, InterruptedException, URISyntaxException {
-        int FPS = 60;
+        int FPS = 1000; //framerate máxima possível
         long frameTime = 1000 / FPS;
         long frameCount = 0;
 

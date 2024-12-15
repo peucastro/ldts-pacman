@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman.controller.game.element;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
@@ -26,6 +27,7 @@ public class CollectibleController extends GameController {
                      ghost.invertDirection();
                  }
                 });
+                getModel().addBlankPosition(new Position(collectible.getPosition()));
                 getModel().incrementScore(collectible.getValue());
                 getModel().incrementCollectedCollectibles();
                 return true;

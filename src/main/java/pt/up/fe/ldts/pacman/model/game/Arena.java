@@ -18,6 +18,7 @@ public class Arena {
     private int score;
     private int collectedCollectibles;
     private final GhostGate ghostGate;
+    private Set<Position> blankPositions;
     private Set<Ghost> ghosts;
     private Set<Wall> walls;
     private Set<Collectible> collectibles;
@@ -35,6 +36,7 @@ public class Arena {
         this.ghosts = new HashSet<>();
         this.walls = new HashSet<>();
         this.collectibles = new HashSet<>();
+        this.blankPositions = new HashSet<>();
     }
 
     public Pacman getPacman() {
@@ -130,5 +132,13 @@ public class Arena {
 
     public void setGhostGatePosition(Position position){
         this.ghostGate.setPosition(position);
+    }
+
+    public Set<Position> getBlankPositions() {
+        return blankPositions;
+    }
+
+    public void addBlankPosition(Position position){
+        blankPositions.add(position);
     }
 }

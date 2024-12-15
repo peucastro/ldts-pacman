@@ -124,6 +124,13 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
+    public void erase(Position position) {
+        TextGraphics tg = screen.newTextGraphics();
+        tg.setBackgroundColor(new TextColor.RGB(0,0,0));
+        tg.fillRectangle(position.toTerminalPosition(), new TerminalSize(11,11), ' ');
+    }
+
+    @Override
     public void clear() {
         screen.clear();
     }
