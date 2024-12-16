@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman.States;
 
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.controller.menu.MapSelectionMenuController;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
@@ -10,8 +11,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class MapSelectionMenuState extends State<MapSelectionMenu> {
-    public MapSelectionMenuState(MapSelectionMenu model) throws IOException, URISyntaxException {
-        super(model);
+    public MapSelectionMenuState(MapSelectionMenu model, AudioManager audioManager) throws IOException, URISyntaxException {
+        super(model, audioManager);
     }
 
     @Override
@@ -20,7 +21,7 @@ public class MapSelectionMenuState extends State<MapSelectionMenu> {
     }
 
     @Override
-    public Controller<MapSelectionMenu> createController() {
-        return new MapSelectionMenuController(getModel());
+    public Controller<MapSelectionMenu> createController(AudioManager audioManager) {
+        return new MapSelectionMenuController(getModel(), audioManager);
     }
 }

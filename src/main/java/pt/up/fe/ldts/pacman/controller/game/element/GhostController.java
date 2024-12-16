@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.controller.game.element.behaviours.*;
@@ -16,15 +17,23 @@ import java.util.Map;
 public class GhostController extends GameController{
     private final AudioPlayer ghostsAliveSiren;
     private final AudioPlayer ghostsScaredSiren;
+    private final AudioPlayer ghostEatenAudio;
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
     private int ghostsEaten; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
 
-    public GhostController(Arena arena) {
+    public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
-        this.ghostsAliveSiren = new AudioPlayer("Audio/ghostsAlive.wav");
-        this.ghostsScaredSiren = new AudioPlayer("Audio/ghostsScared.wav");
-        this.ghostsScaredSiren.setVolume(0.5f);
+
+        if(!audioManager.audioExists("ghostsAliveSiren")) audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        if(!audioManager.audioExists("ghostsScared")) audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
+        if(!audioManager.audioExists("ghostEaten")) audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
+        this.ghostsScaredSiren = audioManager.getAudio("ghostsScared");
+        this.ghostsScaredSiren.setVolume(0.35f);
+        this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
+        this.ghostEatenAudio.setVolume(0.20f);
+
         this.movementBehaviours = Map.of(
                 Blinky.class, new BlinkyMovementBehaviour(),
                 Pinky.class, new PinkyMovementBehaviour(),
@@ -92,6 +101,7 @@ public class GhostController extends GameController{
                     pacman.setPosition(getModel().getRespawnPosition());
                     break;
                 case SCARED:
+                    ghostEatenAudio.playOnce();
                     ghost.setState(GhostState.DEAD);
                     ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
                     getModel().incrementScore((int)(200 * Math.pow(2,ghostsEaten++)));
@@ -103,7 +113,10 @@ public class GhostController extends GameController{
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
-        if(!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) ghostsAliveSiren.playInLoop();
+        if(!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()){
+            if(scaredTimeLeft == 0) ghostsAliveSiren.playInLoop();
+            else ghostsScaredSiren.playInLoop();
+        }
 
         if(scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
             ghostsEaten = 0;

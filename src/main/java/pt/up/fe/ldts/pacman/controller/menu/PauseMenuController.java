@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
@@ -15,7 +16,7 @@ import java.net.URISyntaxException;
 
 public class PauseMenuController extends MenuController<PauseMenu> {
 
-    public PauseMenuController(PauseMenu pauseMenu) {
+    public PauseMenuController(PauseMenu pauseMenu, AudioManager audioManager) {
         super(pauseMenu);
     }
 
@@ -26,7 +27,7 @@ public class PauseMenuController extends MenuController<PauseMenu> {
         if (action == GUI.ACTION.SELECT) {
             if (getModel().ResumeSelected()) {
                 game.setState(getModel().getPausedState());
-            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu()));
+            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu(),game.getAudioManager()));
         }
     }
 }

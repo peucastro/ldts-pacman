@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman;
 import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
@@ -16,12 +17,14 @@ import java.net.URISyntaxException;
 public class Game {
     private final GUI gui;
     private State state;
+    private AudioManager audioManager;
     private static final int SCREEN_WIDTH = 320;
     private static final int SCREEN_HEIGHT = 180;
 
     public Game() throws IOException, URISyntaxException, FontFormatException {
+        this.audioManager = new AudioManager();
         this.gui = new LanternaGUI(SCREEN_WIDTH,SCREEN_HEIGHT);
-        this.state = new MainMenuState(new MainMenu());
+        this.state = new MainMenuState(new MainMenu(), audioManager);
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
@@ -36,6 +39,10 @@ public class Game {
         this.state = state;
     }
 
+    public AudioManager getAudioManager() {
+        return audioManager;
+    }
+
     private void start() throws IOException, InterruptedException, URISyntaxException {
         int FPS = 60;
         long frameTime = 1000 / FPS;
@@ -44,6 +51,7 @@ public class Game {
         AudioPlayer mainMusic = new AudioPlayer("Audio/music.wav");
         mainMusic.setVolume(0.2f);
         mainMusic.playInLoop();
+        audioManager.setMainMusic(mainMusic);
 
         while (this.state != null) {
             long startTime = System.currentTimeMillis();

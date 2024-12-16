@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -14,9 +15,10 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 public class CollectibleController extends GameController {
     private final AudioPlayer eatingSound;
 
-    public CollectibleController(Arena arena) {
+    public CollectibleController(Arena arena, AudioManager audioManager) {
         super(arena);
-        this.eatingSound = new AudioPlayer("Audio/eatingSound.wav");
+        if(!audioManager.audioExists("eatingSound")) audioManager.addAudio("eatingSound", new AudioPlayer("Audio/eatingSound.wav"));
+        this.eatingSound = audioManager.getAudio("eatingSound");
         eatingSound.setVolume(0.65f);
     }
 
