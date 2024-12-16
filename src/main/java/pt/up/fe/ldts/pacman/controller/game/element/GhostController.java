@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.controller.game.element.behaviours.*;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -12,13 +13,18 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.Map;
 
-public class GhostController extends GameController {
+public class GhostController extends GameController{
+    private final AudioPlayer ghostsAliveSiren;
+    private final AudioPlayer ghostsScaredSiren;
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
     private int ghostsEaten; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
 
     public GhostController(Arena arena) {
         super(arena);
+        this.ghostsAliveSiren = new AudioPlayer("Audio/ghostsAlive.wav");
+        this.ghostsScaredSiren = new AudioPlayer("Audio/ghostsScared.wav");
+        this.ghostsScaredSiren.setVolume(0.5f);
         this.movementBehaviours = Map.of(
                 Blinky.class, new BlinkyMovementBehaviour(),
                 Pinky.class, new PinkyMovementBehaviour(),
@@ -27,6 +33,8 @@ public class GhostController extends GameController {
         );
         this.ghostsEaten = 0;
     }
+
+
 
     private Position getNextPosition(Position position, Direction direction) {
         return switch (direction) {
@@ -95,7 +103,13 @@ public class GhostController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
-        if(scaredTimeLeft == 3000) ghostsEaten = 0; //whenever a powerUp gets eaten the counter gets reset
+        if(!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) ghostsAliveSiren.playInLoop();
+
+        if(scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
+            ghostsEaten = 0;
+            ghostsAliveSiren.stopPlaying();
+            if(!ghostsScaredSiren.isPlaying()) ghostsScaredSiren.playInLoop();
+        }
 
         if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
             getModel().getGhosts().forEach(ghost -> {
@@ -104,6 +118,8 @@ public class GhostController extends GameController {
                     ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
                 }
             });
+            ghostsScaredSiren.stopPlaying();
+            ghostsAliveSiren.playInLoop();
             getModel().getPacman().setSpeed(Arena.PACMAN_NORMAL_SPEED);
             ghostsEaten = 0;
         }

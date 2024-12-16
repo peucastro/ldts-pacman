@@ -42,7 +42,7 @@ public class Game {
         long frameCount = 0;
 
         AudioPlayer mainMusic = new AudioPlayer("Audio/music.wav");
-        mainMusic.setVolume(0.4f);
+        mainMusic.setVolume(0.2f);
         mainMusic.playInLoop();
 
         while (this.state != null) {

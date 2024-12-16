@@ -17,6 +17,7 @@ public class CollectibleController extends GameController {
     public CollectibleController(Arena arena) {
         super(arena);
         this.eatingSound = new AudioPlayer("Audio/eatingSound.wav");
+        eatingSound.setVolume(0.65f);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CollectibleController extends GameController {
         getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
             if (pacman.getPosition().equals(collectible.getPosition())) {
                 if(collectible.getClass() == PowerUp.class) getModel().getGhosts().forEach(ghost -> {
-                 GhostController.setScaredTimeLeft(3000); //start scared time
+                 GhostController.setScaredTimeLeft(1500); //start scared time
                  if(!ghost.isDead()) {
                      ghost.setState(GhostState.SCARED);
                      ghost.setSpeed(Arena.GHOST_SCARED_SPEED);

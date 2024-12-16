@@ -42,6 +42,7 @@ public class AudioPlayer {
 
     public void playInLoop(){
         audio.stop();
+        audio.setFramePosition(0);
         audio.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
@@ -49,5 +50,9 @@ public class AudioPlayer {
         if(volume < 0 || volume > 1) return;
         FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
+    public boolean isPlaying() {
+        return audio.isActive();
     }
 }
