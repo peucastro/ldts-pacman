@@ -60,7 +60,7 @@ public class LanternaGUI implements GUI {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 6);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
