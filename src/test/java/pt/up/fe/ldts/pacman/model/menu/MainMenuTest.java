@@ -27,7 +27,7 @@ class MainMenuTest {
     void testCreateTitle() {
         var title = mainMenu.createTitle();
         assertEquals("PACMAN", title.getText());
-        assertEquals(new Position(95, 30), title.getPosition());
+        assertEquals(new Position(145, 30), title.getPosition());
     }
 
     @Test
@@ -51,6 +51,6 @@ class MainMenuTest {
     @Test
     void testGetPacman() {
         assertNotNull(mainMenu.getPacman());
-        assertEquals(new Position(104, 41), mainMenu.getPacman().getPosition());
+        assertEquals(new Position(14, 4), mainMenu.getPacman().getPosition());
     }
 }

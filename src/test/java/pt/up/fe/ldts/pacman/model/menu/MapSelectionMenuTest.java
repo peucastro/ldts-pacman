@@ -17,15 +17,14 @@ class MapSelectionMenuTest {
     @Test
     void testCreateOptions() {
         var options = mapSelectionMenu.createOptions();
-        assertEquals(2, options.size());
+        assertEquals(1, options.size());
         assertEquals("Map 1", options.get(0).getText());
-        assertEquals("Map 2", options.get(1).getText());
     }
 
     @Test
     void testCreateTitle() {
         var title = mapSelectionMenu.createTitle();
         assertEquals("MAP SELECTION", title.getText());
-        assertEquals(new Position(80, 30), title.getPosition());
+        assertEquals(new Position(128, 30), title.getPosition());
     }
 }

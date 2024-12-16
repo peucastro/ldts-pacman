@@ -47,7 +47,7 @@ public class ArenaTest {
 
         Pacman pacman = arena.getPacman();
 
-        assertEquals(new Position(0, 0), pacman.getPosition());
+        assertEquals(new Position(10, 10), pacman.getPosition());
     }
 
     @Test

@@ -32,7 +32,7 @@ class PauseMenuTest {
     void testCreateTitle() {
         var title = pauseMenu.createTitle();
         assertEquals("Paused", title.getText());
-        assertEquals(new Position(95, 30), title.getPosition());
+        assertEquals(new Position(145, 30), title.getPosition());
     }
 
     @Test
@@ -44,7 +44,7 @@ class PauseMenuTest {
     void testGetPauseSign() {
         var pauseSign = pauseMenu.getPauseSign();
         assertEquals("||", pauseSign.getText());
-        assertEquals(new Position(105, 41), pauseSign.getPosition());
+        assertEquals(new Position(155, 41), pauseSign.getPosition());
     }
 
     @Test

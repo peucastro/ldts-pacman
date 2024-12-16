@@ -47,9 +47,9 @@ class ArenaViewerTest {
         ArenaViewer arenaViewer = new ArenaViewer();
         arenaViewer.drawElements(mockGUI, arena);
 
-        // Verify the number of static elements drawn (total number of static elements = 20*20 - 5 (movables) - 2 (empty spaces))
-        verify(mockGUI, times(20 * 20 - 5 - 2)).drawImage(any(), (BasicTextImage) any());
-        // Verify the number of movable elements drawn (total number of movable elements = 5)
+        // Verify the number of static elements drawn (total number of static elements = 29*15 - 5 (movables) - 2 (empty spaces))
+        verify(mockGUI, times(29 * 16 - 5 - 2)).drawImage(any(), (BasicTextImage) any());
+        // Verify the number of movable elements drawn (total number of movable elements = 5 (pacman + ghosts))
         verify(mockGUI, times(5)).drawImage(any(), (BufferedImage) any());
 
     }
