@@ -95,6 +95,8 @@ public class GhostController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
+        if(scaredTimeLeft == 3000) ghostsEaten = 0; //whenever a powerUp gets eaten the counter gets reset
+
         if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
             getModel().getGhosts().forEach(ghost -> {
                 if (ghost.isScared()) {
