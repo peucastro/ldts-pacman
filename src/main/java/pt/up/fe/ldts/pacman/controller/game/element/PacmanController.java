@@ -59,7 +59,7 @@ public class PacmanController extends GameController {
             case RIGHT -> desiredDirection = Direction.RIGHT;
             case NONE -> { }
         }
-
+        pacman.updateMouthState();
         if(time%pacman.getSpeed() != 1) movePacman();
     }
 }
