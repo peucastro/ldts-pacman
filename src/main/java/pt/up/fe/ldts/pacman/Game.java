@@ -36,7 +36,7 @@ public class Game {
     }
 
     private void start() throws IOException, InterruptedException, URISyntaxException {
-        int FPS = 120;
+        int FPS = 60;
         long frameTime = 1000 / FPS;
         long frameCount = 0;
 
