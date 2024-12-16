@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman;
 import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
@@ -40,6 +41,10 @@ public class Game {
         long frameTime = 1000 / FPS;
         long frameCount = 0;
 
+        AudioPlayer mainMusic = new AudioPlayer("Audio/music.wav");
+        mainMusic.setVolume(0.4f);
+        mainMusic.playInLoop();
+
         while (this.state != null) {
             long startTime = System.currentTimeMillis();
 
@@ -54,6 +59,7 @@ public class Game {
             ++frameCount;
         }
 
+        mainMusic.stopPlaying();
         gui.close();
     }
 }
