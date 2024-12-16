@@ -9,6 +9,7 @@ public class Pacman extends MovableElement {
     public Pacman(Position pos) {
         super(pos);
         this.life = 3;
+        setSpeed(4);
     }
 
     public void decreaseLife() {

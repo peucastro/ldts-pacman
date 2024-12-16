@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman;
 
+import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -14,9 +15,11 @@ import java.net.URISyntaxException;
 public class Game {
     private final GUI gui;
     private State state;
+    private static final int SCREEN_WIDTH = 320;
+    private static final int SCREEN_HEIGHT = 180;
 
     public Game() throws IOException, URISyntaxException, FontFormatException {
-        this.gui = new LanternaGUI(220, 220);
+        this.gui = new LanternaGUI(SCREEN_WIDTH,SCREEN_HEIGHT);
         this.state = new MainMenuState(new MainMenu());
     }
 

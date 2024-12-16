@@ -15,13 +15,12 @@ public class MapSelectionMenu extends Menu {
     @Override
     protected List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Map 1", new Position(90, 100), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Map 2", new Position(90, 111), new TextColor.RGB(255, 255, 255))
+                new TextBox("Map 1", new Position(148, 80), new TextColor.RGB(255, 255, 255))
         ));
     }
 
     @Override
     protected TextBox createTitle() {
-        return new TextBox("MAP SELECTION", new Position(80, 30), new TextColor.RGB(255, 255, 255));
+        return new TextBox("MAP SELECTION", new Position(128, 30), new TextColor.RGB(255, 255, 255));
     }
 }

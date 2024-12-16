@@ -48,6 +48,8 @@ public class ArenaLoader {
                 break;
             case 'P':
                 arena.setPacmanPosition(position);
+                arena.addBlankPosition(new Position(position));
+                arena.setRespawnPosition(new Position(position));
                 break;
             case 'o':
                 arena.addCollectible(new Coin(position));
@@ -69,15 +71,19 @@ public class ArenaLoader {
                 break;
             case 'p':
                 arena.addGhost(new Pinky(position));
+                arena.addBlankPosition(new Position(position));
                 break;
             case 'i':
                 arena.addGhost(new Inky(position));
+                arena.addBlankPosition(new Position(position));
                 break;
             case 'c':
                 arena.addGhost(new Clyde(position));
+                arena.addBlankPosition(new Position(position));
                 break;
             case 'b':
                 arena.addGhost(new Blinky(position));
+                arena.addBlankPosition(new Position(position));
                 break;
             case 'D':
                 arena.setGhostGatePosition(position);
@@ -89,8 +95,10 @@ public class ArenaLoader {
                 arena.addElement(new Teleporter(position));
                 break; */
             case ' ':
+                arena.addBlankPosition(position);
                 break;
             default:
+                arena.addBlankPosition(position);
                 System.out.println("Unknown element '" + element + "' at (" + position.getX() + ", " + position.getY() + ")");
                 break;
         }

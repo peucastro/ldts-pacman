@@ -12,7 +12,6 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 
 public class PacmanController extends GameController {
-    private static final Position RESPAWN_POSITION = new Position(9, 16);
     private Direction desiredDirection;
 
     public PacmanController(Arena arena) {
@@ -33,7 +32,7 @@ public class PacmanController extends GameController {
            !getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
                 pacman.setDirection(desiredDirection);
 
-        Position nextPosition = calculateNextPosition(pacman.getPosition(),pacman.getDirection());
+        Position nextPosition = pacman.getNextPosition();
 
         if (getModel().isEmpty(nextPosition)) {
             pacman.incrementCounter();
@@ -52,6 +51,7 @@ public class PacmanController extends GameController {
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, GUI.ACTION action, long time) {
+        Pacman pacman = getModel().getPacman();
         switch (action) {
             case UP -> desiredDirection= Direction.UP;
             case DOWN -> desiredDirection = Direction.DOWN;
@@ -60,21 +60,6 @@ public class PacmanController extends GameController {
             case NONE -> { }
         }
 
-        movePacman();
-        Ghost ghost;
-        if((ghost = getModel().isGhost(getModel().getPacman().getPosition())) != null){ // handle collisions with ghosts
-            switch (ghost.getState()){
-                case ALIVE:
-                    getModel().getPacman().decreaseLife();
-                    getModel().getPacman().setPosition(RESPAWN_POSITION);
-                    break;
-                case SCARED:
-                    ghost.setState(GhostState.DEAD);
-                    GhostController.incrementGhostsEaten();
-                    getModel().incrementScore((int)(200 * Math.pow(2,GhostController.getGhostsEaten())));
-                    break;
-                default: break;
-            }
-        }
+        if(time%pacman.getSpeed() != 1) movePacman();
     }
 }

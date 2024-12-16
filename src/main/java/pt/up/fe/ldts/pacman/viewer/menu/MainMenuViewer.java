@@ -11,9 +11,11 @@ import java.util.Map;
 
 public class MainMenuViewer extends Viewer<MainMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
+    private boolean initialClear;
 
     public MainMenuViewer() throws IOException {
         this.viewers = ViewerFactory.createMainMenuViewers();
+        this.initialClear = false;
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -31,7 +33,7 @@ public class MainMenuViewer extends Viewer<MainMenu> {
 
     @Override
     public void drawElement(GUI gui, MainMenu menu) {
-        gui.clear();
+        if(!initialClear) {gui.clear(); initialClear = true;}
         drawElements(gui, menu);
         try {
             gui.refresh();

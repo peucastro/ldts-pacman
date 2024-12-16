@@ -12,7 +12,7 @@ public abstract class Ghost extends MovableElement {
         super(pos);
         state = GhostState.ALIVE;
         this.insideGate = true;
-
+        setSpeed(3);
     }
 
     public GhostState getState() {

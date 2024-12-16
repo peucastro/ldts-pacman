@@ -18,6 +18,8 @@ public interface GUI {
 
     void clear();
 
+    void erase(Position position);
+
     void refresh() throws IOException;
 
     void close() throws IOException;

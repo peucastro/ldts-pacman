@@ -16,9 +16,11 @@ import java.util.Map;
 
 public class ArenaViewer extends Viewer<Arena> {
     private final Map<Class<?>, Viewer<Element>> viewers;
+    private boolean initialClear;
 
     public ArenaViewer() throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createArenaViewers();
+        this.initialClear = false;
     }
 
 
@@ -30,18 +32,20 @@ public class ArenaViewer extends Viewer<Arena> {
     }
 
     public void drawElements(GUI gui, Arena arena) {
+        //antes de desenhar os elementos todos apaga as posições em branco
+        arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
         arena.getWalls().forEach(wall -> drawElement(gui, wall));
         drawElement(gui, arena.getGhostGate());
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
         arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
         drawElement(gui, arena.getPacman());
         drawElement(gui,new TextBox("Score:" + arena.getScore(), new Position(11,0), new TextColor.RGB(255,255,255)));
-        drawElement(gui,new TextBox("Lives:" + arena.getPacman().getLife(), new Position(174,0), new TextColor.RGB(255,255,255)));
+        drawElement(gui,new TextBox("Lives:" + arena.getPacman().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
     }
 
     @Override
     public void drawElement(GUI gui, Arena arena) {
-        gui.clear();
+        if(!initialClear) {gui.clear(); initialClear = true;}
         drawElements(gui, arena);
         try {
             gui.refresh();

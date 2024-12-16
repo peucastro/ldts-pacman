@@ -60,7 +60,7 @@ public class LanternaGUI implements GUI {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 4);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
@@ -121,6 +121,13 @@ public class LanternaGUI implements GUI {
                 tg.setCharacter(posX + x, posY + y, ' ');
             }
         }
+    }
+
+    @Override
+    public void erase(Position position) {
+        TextGraphics tg = screen.newTextGraphics();
+        tg.setBackgroundColor(new TextColor.RGB(0,0,0));
+        tg.fillRectangle(position.toTerminalPosition(), new TerminalSize(11,11), ' ');
     }
 
     @Override

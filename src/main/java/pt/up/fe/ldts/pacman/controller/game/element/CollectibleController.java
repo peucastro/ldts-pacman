@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman.controller.game.element;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.gui.GUI;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
@@ -23,9 +24,12 @@ public class CollectibleController extends GameController {
                  GhostController.setScaredTimeLeft(3000);
                  if(!ghost.isDead()) {
                      ghost.setState(GhostState.SCARED);
+                     ghost.setSpeed(Arena.GHOST_SCARED_SPEED);
                      ghost.invertDirection();
                  }
                 });
+                pacman.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
+                getModel().addBlankPosition(new Position(collectible.getPosition()));
                 getModel().incrementScore(collectible.getValue());
                 getModel().incrementCollectedCollectibles();
                 return true;

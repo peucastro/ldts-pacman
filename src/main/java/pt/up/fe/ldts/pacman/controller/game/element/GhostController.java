@@ -8,12 +8,13 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.Map;
 
 public class GhostController extends GameController {
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
-    private static int ghostsEaten = 0; //ghosts eaten in current scared state
+    private int ghostsEaten; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
 
     public GhostController(Arena arena) {
@@ -24,6 +25,7 @@ public class GhostController extends GameController {
                 Inky.class, new InkyMovementBehaviour(),
                 Clyde.class, new ClydeMovementBehaviour()
         );
+        this.ghostsEaten = 0;
     }
 
     private Position getNextPosition(Position position, Direction direction) {
@@ -47,6 +49,7 @@ public class GhostController extends GameController {
             if(ghost.isDead()) { //dead ghost arrives at the ghost gate
                 ghost.setState(GhostState.ALIVE);
                 ghost.setInsideGate();
+                ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
             }
             else ghost.setOutsideGate();
         }
@@ -72,48 +75,48 @@ public class GhostController extends GameController {
         return nextDirection;
     }
 
+    private void processCollisionWithPacman(Ghost ghost){
+        Pacman pacman = getModel().getPacman();
+        if (ghost.getPosition().equals(pacman.getPosition())) {
+            switch (ghost.getState()){
+                case ALIVE:
+                    pacman.decreaseLife();
+                    pacman.setPosition(getModel().getRespawnPosition());
+                    break;
+                case SCARED:
+                    ghost.setState(GhostState.DEAD);
+                    ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
+                    getModel().incrementScore((int)(200 * Math.pow(2,ghostsEaten++)));
+                    break;
+                default: break;
+            }
+        }
+    }
+
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
-        for (Ghost ghost : getModel().getGhosts()) {
-
-            moveGhost(ghost);
-
-            if (ghost.getPosition().equals(getModel().getPacman().getPosition())) { //collision with pacman
-                switch (ghost.getState()){
-                    case ALIVE:
-                        getModel().getPacman().decreaseLife();
-                        getModel().getPacman().setPosition(new Position(9,16));
-                        break;
-                    case SCARED:
-                        ghost.setState(GhostState.DEAD);
-                        getModel().incrementScore((int)(200 * Math.pow(2,ghostsEaten++)));
-                        break;
-                    default: break;
+        if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
+            getModel().getGhosts().forEach(ghost -> {
+                if (ghost.isScared()) {
+                    ghost.setState(GhostState.ALIVE);
+                    ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
                 }
-            }
+            });
+            getModel().getPacman().setSpeed(Arena.PACMAN_NORMAL_SPEED);
+            ghostsEaten = 0;
+        }
 
-            if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
-                getModel().getGhosts().forEach(ghost1 -> {
-                    if (ghost1.isScared()) ghost1.setState(GhostState.ALIVE);
-                });
-                ghostsEaten = 0;
-            }
+        for (Ghost ghost : getModel().getGhosts()) {//move all ghosts
+            processCollisionWithPacman(ghost);
+
+            if(time%ghost.getSpeed() != 1) moveGhost(ghost);
+
+            processCollisionWithPacman(ghost);
+
         }
     }
 
     public static void setScaredTimeLeft(int scaredTimeLeft) {
         GhostController.scaredTimeLeft = scaredTimeLeft;
-    }
-
-    public static void incrementGhostsEaten(){
-        ++ghostsEaten;
-    }
-
-    public static int getGhostsEaten() {
-        return ghostsEaten;
-    }
-
-    public static void setGhostsEaten(int ghostsEaten) {
-        GhostController.ghostsEaten = ghostsEaten;
     }
 }
