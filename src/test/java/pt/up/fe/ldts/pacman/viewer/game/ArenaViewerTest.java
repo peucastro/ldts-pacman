@@ -39,7 +39,7 @@ class ArenaViewerTest {
 
     @Test
     void testDrawElementCallCountWithMapLoading() throws IOException, URISyntaxException {
-        Arena arena = new Arena(20, 20);
+        Arena arena = new Arena(29, 16);
         GUI mockGUI = mock(LanternaGUI.class);
 
         // Simulate map loading
