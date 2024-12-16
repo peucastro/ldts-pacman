@@ -14,21 +14,21 @@ public class PauseMenu extends Menu{
 
     public PauseMenu(State<?> pausedState){
         this.pausedState = pausedState;
-        this.pauseSign = new TextBox("||",new Position(105,41), new TextColor.RGB(255,255,255));
+        this.pauseSign = new TextBox("||",new Position(155,41), new TextColor.RGB(255,255,255));
     }
 
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Resume", new Position(95, 100), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Settings", new Position(90, 111), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit to main menu", new Position(68, 122), new TextColor.RGB(255, 255, 255))
+                new TextBox("Resume", new Position(145, 80), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Settings", new Position(140, 91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Exit to main menu", new Position(118, 102), new TextColor.RGB(255, 255, 255))
         ));
     }
 
     @Override
     protected TextBox createTitle() {
-        return new TextBox("Paused", new Position(95, 30), new TextColor.RGB(255, 255, 255));
+        return new TextBox("Paused", new Position(145, 30), new TextColor.RGB(255, 255, 255));
     }
 
     public State<?> getPausedState() {

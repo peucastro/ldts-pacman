@@ -18,7 +18,7 @@ public class Arena {
     public static final int GHOST_SCARED_SPEED = 2;
     public static final int GHOST_DEAD_SPEED = 1;
 
-
+    private Position respawnPosition;
     private final Pacman pacman;
     private final int width, height;
     private int score;
@@ -35,9 +35,10 @@ public class Arena {
 
         this.score = 0;
         this.collectedCollectibles = 0;
+        this.respawnPosition = new Position(10,10);
 
-        this.pacman = new Pacman(new Position(0, 0));
-        this.ghostGate = new GhostGate(new Position(0,0));
+        this.pacman = new Pacman(new Position(10, 10));
+        this.ghostGate = new GhostGate(new Position(10,10));
 
         this.ghosts = new HashSet<>();
         this.walls = new HashSet<>();
@@ -146,5 +147,13 @@ public class Arena {
 
     public void addBlankPosition(Position position){
         blankPositions.add(position);
+    }
+
+    public Position getRespawnPosition() {
+        return respawnPosition;
+    }
+
+    public void setRespawnPosition(Position respawnPosition) {
+        this.respawnPosition = respawnPosition;
     }
 }

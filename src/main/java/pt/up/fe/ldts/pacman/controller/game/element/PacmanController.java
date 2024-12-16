@@ -12,7 +12,6 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 
 public class PacmanController extends GameController {
-    public static final Position RESPAWN_POSITION = new Position(9, 16);
     private Direction desiredDirection;
 
     public PacmanController(Arena arena) {

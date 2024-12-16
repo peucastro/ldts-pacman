@@ -81,7 +81,7 @@ public class GhostController extends GameController {
             switch (ghost.getState()){
                 case ALIVE:
                     pacman.decreaseLife();
-                    pacman.setPosition(PacmanController.RESPAWN_POSITION);
+                    pacman.setPosition(getModel().getRespawnPosition());
                     break;
                 case SCARED:
                     ghost.setState(GhostState.DEAD);

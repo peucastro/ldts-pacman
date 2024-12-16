@@ -49,6 +49,7 @@ public class ArenaLoader {
             case 'P':
                 arena.setPacmanPosition(position);
                 arena.addBlankPosition(new Position(position));
+                arena.setRespawnPosition(new Position(position));
                 break;
             case 'o':
                 arena.addCollectible(new Coin(position));

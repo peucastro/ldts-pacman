@@ -13,21 +13,21 @@ public class MainMenu extends Menu {
 
     public MainMenu() {
         super();
-        pacman = new Pacman(new Position(104, 41)); //todo: fix this after fixing the intermediate positions
+        pacman = new Pacman(new Position(14, 4));
     }
 
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Start", new Position(98, 100), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Settings", new Position(90, 111), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit", new Position(100, 122), new TextColor.RGB(255, 255, 255))
+                new TextBox("Start", new Position(148, 80), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Settings", new Position(140, 91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Exit", new Position(150, 102), new TextColor.RGB(255, 255, 255))
         ));
     }
 
     @Override
     protected TextBox createTitle() {
-        return new TextBox("PACMAN", new Position(95, 30), new TextColor.RGB(255, 255, 255));
+        return new TextBox("PACMAN", new Position(145, 30), new TextColor.RGB(255, 255, 255));
     }
 
     public boolean StartSelected() {

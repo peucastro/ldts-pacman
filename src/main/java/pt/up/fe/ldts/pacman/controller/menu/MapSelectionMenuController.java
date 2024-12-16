@@ -20,14 +20,11 @@ public class MapSelectionMenuController extends MenuController<MapSelectionMenu>
         if (action == GUI.ACTION.UP) getModel().selectPreviousOption();
         if (action == GUI.ACTION.DOWN) getModel().selectNextOption();
         if (action == GUI.ACTION.SELECT) {
-            Arena arena = new Arena(20, 20);
+            Arena arena = new Arena(29, 16);
             ArenaLoader arenaLoader = new ArenaLoader(arena);
             switch (getModel().getSelectedOption()) {
                 case 0:
                     arenaLoader.loadMap("src/main/resources/Maps/map1.txt");
-                    break;
-                case 1:
-                    arenaLoader.loadMap("src/main/resources/Maps/map2.txt");
                     break;
             }
 
