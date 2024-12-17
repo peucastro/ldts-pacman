@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman.States;
 
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.controller.menu.MainMenuController;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
@@ -11,8 +12,8 @@ import java.net.URISyntaxException;
 
 public class MainMenuState extends State<MainMenu> {
 
-    public MainMenuState(MainMenu model) throws IOException, URISyntaxException {
-        super(model);
+    public MainMenuState(MainMenu model, AudioManager audioManager) throws IOException, URISyntaxException {
+        super(model, audioManager);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class MainMenuState extends State<MainMenu> {
     }
 
     @Override
-    public Controller<MainMenu> createController() {
-        return new MainMenuController(getModel());
+    public Controller<MainMenu> createController(AudioManager audioManager) {
+        return new MainMenuController(getModel(), audioManager);
     }
 }

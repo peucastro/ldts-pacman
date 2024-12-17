@@ -22,14 +22,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class LanternaGUI implements GUI {
-    private final Screen screen;
+    private Screen screen;
 
     public LanternaGUI(Screen screen) {
         this.screen = screen;
     }
 
-    public LanternaGUI(int width, int height) throws IOException, FontFormatException, URISyntaxException {
-        AWTTerminalFontConfiguration fontConfig = loadSquareFont();
+    public LanternaGUI(int width, int height, SCREEN_RESOLUTION resolution) throws IOException, FontFormatException, URISyntaxException {
+        AWTTerminalFontConfiguration fontConfig = loadSquareFont(resolutionToFontSize(resolution));
         Terminal terminal = createTerminal(width, height, fontConfig);
         this.screen = createScreen(terminal);
     }
@@ -51,7 +51,7 @@ public class LanternaGUI implements GUI {
         return terminalFactory.createTerminal();
     }
 
-    private AWTTerminalFontConfiguration loadSquareFont() throws URISyntaxException, FontFormatException, IOException {
+    private AWTTerminalFontConfiguration loadSquareFont(int fontSize) throws URISyntaxException, FontFormatException, IOException {
         URL resource = getClass().getClassLoader().getResource("Fonts/square.ttf");
         assert resource != null;
         File fontFile = new File(resource.toURI());
@@ -60,8 +60,28 @@ public class LanternaGUI implements GUI {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 5);
+        Font loadedFont = font.deriveFont(Font.PLAIN, fontSize);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
+    }
+
+    @Override
+    public void resizeScreen(int width, int height, SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException {
+        screen.close();
+        AWTTerminalFontConfiguration fontConfig = loadSquareFont(resolutionToFontSize(newResolution));
+        Terminal terminal = createTerminal(width, height, fontConfig);
+        this.screen = createScreen(terminal);
+    }
+
+    private int resolutionToFontSize(SCREEN_RESOLUTION resolution){
+        return switch (resolution){
+            case _360p -> 2;
+            case _540p -> 3;
+            case _720p -> 4;
+            case _900p -> 5;
+            case _1080p -> 6;
+            case _1440p -> 8;
+            case _2160p -> 12;
+        };
     }
 
     @Override

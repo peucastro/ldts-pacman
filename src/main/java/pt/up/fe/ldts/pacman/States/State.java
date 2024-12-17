@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.States;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
@@ -13,10 +14,10 @@ public abstract class State<T> {
     private final Viewer<T> viewer;
     private final Controller<T> controller;
 
-    public State(T model) throws IOException, URISyntaxException {
+    public State(T model, AudioManager audioManager) throws IOException, URISyntaxException {
         this.model = model;
         this.viewer = createViewer();
-        this.controller = createController();
+        this.controller = createController(audioManager);
     }
 
     public T getModel() {
@@ -25,7 +26,7 @@ public abstract class State<T> {
 
     public abstract Viewer<T> createViewer() throws IOException, URISyntaxException;
 
-    public abstract Controller<T> createController();
+    public abstract Controller<T> createController(AudioManager audioManager);
 
     public void step(Game game, GUI gui, long frameTime) throws IOException, URISyntaxException {
         GUI.ACTION action = gui.getNextAction();
