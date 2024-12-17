@@ -24,6 +24,7 @@ public class GhostController extends GameController {
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
     private int ghostsEaten; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
+    private int frameCount; //useful for alternating between chase and scatter states when ghosts are alive
 
     public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
@@ -48,6 +49,7 @@ public class GhostController extends GameController {
                 Clyde.class, new ClydeMovementBehaviour()
         );
         this.ghostsEaten = 0;
+        this.frameCount = 0;
     }
 
 
@@ -65,7 +67,7 @@ public class GhostController extends GameController {
             ghost.incrementCounter();
             return;
         }
-        Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
+        Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel(), isChaseMode());
         Direction nextDirection = getDirectionTowards(ghost, targetPosition);
         ghost.setDirection(nextDirection);
         if (ghost.getPosition().equals(getModel().getGhostGate().getPosition())) {
@@ -76,6 +78,10 @@ public class GhostController extends GameController {
             } else ghost.setOutsideGate();
         }
         ghost.incrementCounter();
+    }
+
+    private boolean isChaseMode(){
+        return ((frameCount >= 600 && frameCount < 2500) || frameCount >= 3200);
     }
 
     private Direction getDirectionTowards(Ghost ghost, Position targetPosition) {//choose new direction to follow (the one with the minimum linear distance from target)
@@ -122,9 +128,12 @@ public class GhostController extends GameController {
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
         if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
-            if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop();
-            else ghostsScaredSiren.playInLoop();
+            if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop(); //start of the game or leaving pause menu
+            else ghostsScaredSiren.playInLoop(); //leaving pause menu and scared state was on before
         }
+
+        if((frameCount == 600 || frameCount == 2500 || frameCount == 3200) && scaredTimeLeft == 0)
+            getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
 
         if (scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
             ghostsEaten = 0;
@@ -151,8 +160,9 @@ public class GhostController extends GameController {
             if (time % ghost.getSpeed() != 1) moveGhost(ghost);
 
             if (processCollisionWithPacman(game, ghost)) return;
-
         }
+
+        ++frameCount;
     }
 
     public static void setScaredTimeLeft(int scaredTimeLeft) {

@@ -6,8 +6,9 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 
 public class BlinkyMovementBehaviour extends GhostMovementBehaviour{
     @Override
-    protected Position getAlivePosition(Ghost ghost, Arena arena) {
+    protected Position getAlivePosition(Ghost ghost, Arena arena, boolean chaseMode) {
         if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
-        else return arena.getPacman().getPosition();
+        if(!chaseMode) return new Position(arena.getWidth(),0);
+        return arena.getPacman().getPosition();
     }
 }

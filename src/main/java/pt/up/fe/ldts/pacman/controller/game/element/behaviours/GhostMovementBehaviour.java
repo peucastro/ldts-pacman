@@ -6,13 +6,13 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 
 
 public abstract class GhostMovementBehaviour {
-    public Position getTargetPosition(Ghost ghost, Arena arena){
+    public Position getTargetPosition(Ghost ghost, Arena arena, boolean chaseMode){
         return switch (ghost.getState()){
-            case ALIVE -> getAlivePosition(ghost,arena);
+            case ALIVE -> getAlivePosition(ghost,arena,chaseMode);
             case DEAD -> arena.getGhostGate().getPosition();
-            case SCARED -> (ghost.isInsideGate() ? getAlivePosition(ghost,arena) : new Position((int)(Math.random()*20),(int)(Math.random()*20)));
+            case SCARED -> (ghost.isInsideGate() ? getAlivePosition(ghost,arena,chaseMode) : new Position((int)(Math.random()*20),(int)(Math.random()*20)));
         };
     }
 
-    protected abstract Position getAlivePosition(Ghost ghost, Arena arena);
+    protected abstract Position getAlivePosition(Ghost ghost, Arena arena, boolean chaseMode);
 }

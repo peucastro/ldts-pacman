@@ -6,9 +6,10 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 
 public class ClydeMovementBehaviour extends GhostMovementBehaviour{
     @Override
-    protected Position getAlivePosition(Ghost ghost, Arena arena) {
+    protected Position getAlivePosition(Ghost ghost, Arena arena, boolean chaseMode) {
         if(arena.getCollectedCollectibles() < 60) return new Position(10,11);
-        else if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
+        if(!chaseMode) return new Position(0, arena.getHeight());
+        if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
 
         if(ghost.getPosition().squaredDistance(arena.getPacman().getPosition()) >= 36){//6 or more tiles away
             return arena.getPacman().getPosition();
