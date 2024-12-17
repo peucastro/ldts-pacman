@@ -13,14 +13,21 @@ import java.net.URISyntaxException;
 
 public class MapSelectionMenuController extends MenuController<MapSelectionMenu> {
     public MapSelectionMenuController(MapSelectionMenu model, AudioManager audioManager) {
-        super(model);
+        super(model,audioManager);
     }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if (action == GUI.ACTION.UP) getModel().selectPreviousOption();
-        if (action == GUI.ACTION.DOWN) getModel().selectNextOption();
+        if (action == GUI.ACTION.UP) {
+            menuSelect.playOnce();
+            getModel().selectPreviousOption();
+        }
+        if (action == GUI.ACTION.DOWN) {
+            menuSelect.playOnce();
+            getModel().selectNextOption();
+        }
         if (action == GUI.ACTION.SELECT) {
+            menuConfirmSelection.playOnce();
             Arena arena = new Arena(29, 16);
             ArenaLoader arenaLoader = new ArenaLoader(arena);
             switch (getModel().getSelectedOption()) {
