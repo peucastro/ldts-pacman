@@ -59,7 +59,7 @@ public class Game {
         long frameCount = 0;
 
         AudioPlayer mainMusic = new AudioPlayer("Audio/music.wav");
-        mainMusic.setVolume(0.2f);
+        mainMusic.setVolume(0.05f);
         mainMusic.playInLoop();
         audioManager.setMainMusic(mainMusic);
 

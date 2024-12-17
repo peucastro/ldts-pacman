@@ -25,9 +25,9 @@ public class GhostController extends GameController{
     public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
 
-        if(!audioManager.audioExists("ghostsAliveSiren")) audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
-        if(!audioManager.audioExists("ghostsScared")) audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
-        if(!audioManager.audioExists("ghostEaten")) audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
+        audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScared");
         this.ghostsScaredSiren.setVolume(0.35f);

@@ -17,9 +17,9 @@ public class CollectibleController extends GameController {
 
     public CollectibleController(Arena arena, AudioManager audioManager) {
         super(arena);
-        if(!audioManager.audioExists("eatingSound")) audioManager.addAudio("eatingSound", new AudioPlayer("Audio/eatingSound.wav"));
+        audioManager.addAudio("eatingSound", new AudioPlayer("Audio/eatingSound.wav"));
         this.eatingSound = audioManager.getAudio("eatingSound");
-        eatingSound.setVolume(0.65f);
+        eatingSound.setVolume(0.25f);
     }
 
     @Override

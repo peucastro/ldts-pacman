@@ -12,9 +12,11 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
     public MenuController(T model, AudioManager audioManager) {
         super(model);
 
-        if(!audioManager.audioExists("menuSelect")) audioManager.addAudio("menuSelect", new AudioPlayer("Audio/menuSelect.wav"));
+        audioManager.addAudio("menuSelect", new AudioPlayer("Audio/menuSelect.wav"));
         this.menuSelect = audioManager.getAudio("menuSelect");
-        if(!audioManager.audioExists("menuConfirmSelection")) audioManager.addAudio("menuConfirmSelection", new AudioPlayer("Audio/menuConfirmSelection.wav"));
+        this.menuSelect.setVolume(0.25f);
+        audioManager.addAudio("menuConfirmSelection", new AudioPlayer("Audio/menuConfirmSelection.wav"));
         this.menuConfirmSelection = audioManager.getAudio("menuConfirmSelection");
+        this.menuConfirmSelection.setVolume(0.2f);
     }
 }
