@@ -48,13 +48,15 @@ public class ImageLoader {
         BufferedImage downResource = loadBufferedImage("PNGs/pacman/pacmandown.png");
         BufferedImage rightResource = loadBufferedImage("PNGs/pacman/pacmanright.png");
         BufferedImage closedResource = loadBufferedImage("PNGs/pacman/pacmanclosed.png");
+        BufferedImage deadResource = loadBufferedImage("PNGs/pacman/pacmandead.png");
 
         return Map.of(
                 'L', leftResource,
                 'U', upResource,
                 'D', downResource,
                 'R', rightResource,
-                'C', closedResource
+                'C', closedResource,
+                'X', deadResource
         );
     }
 

@@ -28,9 +28,13 @@ public class DyingStateController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if (stateTimeCounter == -1) stateTimeCounter = 110;
+        if (stateTimeCounter == -1) {
+            stateTimeCounter = 110;
+            getModel().getPacman().setDying(true);
+        }
 
         if (stateTimeCounter == 0) {
+            getModel().getPacman().setDying(false);
             if (getModel().getPacman().getLife() <= 0) {
                 game.getAudioManager().stopAllAudios();
                 game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
