@@ -49,6 +49,15 @@ public class MainMenuController extends MenuController<MainMenu> {
                     throw new RuntimeException(e);
                 }
             }
+            else if(getModel().MasterVolumeSelected()){
+                game.getGui().clear();
+                float newVolume;
+                if(game.getAudioManager().getMasterVolume() == 1f) newVolume = 0.1f;
+                else newVolume = Math.round((game.getAudioManager().getMasterVolume()+0.1f)*10)/(float)10;
+
+                getModel().setMasterVolume(newVolume);
+                game.getAudioManager().setMasterVolume(newVolume);
+            }
         }
     }
 }

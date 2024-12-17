@@ -13,10 +13,11 @@ public class PauseMenu extends Menu{
     private final TextBox pauseSign;
     private final State<?> pausedState;
 
-    public PauseMenu(State<?> pausedState, GUI.SCREEN_RESOLUTION resolution){
+    public PauseMenu(State<?> pausedState, GUI.SCREEN_RESOLUTION resolution, float volume){
         this.pausedState = pausedState;
         this.pauseSign = new TextBox("||",new Position(155,41), new TextColor.RGB(255,255,255));
         setResolution(resolution);
+        setMasterVolume(volume);
     }
 
     @Override
@@ -24,7 +25,8 @@ public class PauseMenu extends Menu{
         return new ArrayList<>(List.of(
                 new TextBox("Resume", new Position(145, 80), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Resolution: 900p", new Position(118, 91), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit to main menu", new Position(118, 102), new TextColor.RGB(255, 255, 255))
+                new TextBox("Master Volume: 10", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Exit to main menu", new Position(118, 113), new TextColor.RGB(255, 255, 255))
         ));
     }
 
@@ -49,11 +51,17 @@ public class PauseMenu extends Menu{
         return getSelectedOption() == 1;
     }
 
+    public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
+
     public boolean ExitSelected() {
-        return getSelectedOption() == 2;
+        return getSelectedOption() == 3;
     }
 
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
         getOptions().get(1).setText("Resolution: " + newResolution);
+    }
+
+    public void setMasterVolume(float volume){
+        getOptions().get(2).setText("Master Volume: " + (int)(volume*10));
     }
 }

@@ -25,7 +25,7 @@ public class Game {
     public Game() throws IOException, URISyntaxException, FontFormatException {
         this.audioManager = new AudioManager();
         this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, resolution);
-        this.state = new MainMenuState(new MainMenu(resolution), audioManager);
+        this.state = new MainMenuState(new MainMenu(resolution, audioManager.getMasterVolume()), audioManager);
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
@@ -42,6 +42,10 @@ public class Game {
 
     public AudioManager getAudioManager() {
         return audioManager;
+    }
+
+    public final GUI getGui() {
+        return gui;
     }
 
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException {

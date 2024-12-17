@@ -6,14 +6,17 @@ import java.util.Map;
 public class AudioManager {
     private AudioPlayer mainMusic;
     private Map<String,AudioPlayer> audios;
+    private float masterVolume;
 
     public AudioManager(){
         this.audios = new HashMap<>();
+        this.masterVolume = 0.5f;
     }
 
 
     public void addAudio(String key, AudioPlayer audio){
         audios.put(key,audio);
+        audio.setVolume(audio.getVolume()*masterVolume);
     }
 
     public void stopAllAudios(){
@@ -25,6 +28,7 @@ public class AudioManager {
     }
 
     public void setMainMusic(AudioPlayer mainMusic) {
+        mainMusic.setVolume(mainMusic.getVolume()*masterVolume);
         this.mainMusic = mainMusic;
     }
 
@@ -34,5 +38,16 @@ public class AudioManager {
 
     public AudioPlayer getAudio(String key){
         return audios.get(key);
+    }
+
+    public void setMasterVolume(float volume){
+        if(volume <= 0 || volume > 1) return;
+        if(mainMusic != null) mainMusic.setVolume(mainMusic.getVolume()*volume/masterVolume);
+        audios.forEach((s, audio) -> audio.setVolume(audio.getVolume()*volume/masterVolume));
+        this.masterVolume = volume;
+    }
+
+    public float getMasterVolume() {
+        return masterVolume;
     }
 }

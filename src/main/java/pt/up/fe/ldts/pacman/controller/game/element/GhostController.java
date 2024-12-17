@@ -30,9 +30,9 @@ public class GhostController extends GameController{
         audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScared");
-        this.ghostsScaredSiren.setVolume(0.35f);
+        this.ghostsScaredSiren.setVolume(0.70f);
         this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
-        this.ghostEatenAudio.setVolume(0.20f);
+        this.ghostEatenAudio.setVolume(0.40f);
 
         this.movementBehaviours = Map.of(
                 Blinky.class, new BlinkyMovementBehaviour(),

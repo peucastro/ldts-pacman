@@ -35,7 +35,7 @@ public class PauseMenuController extends MenuController<PauseMenu> {
             menuConfirmSelection.playOnce();
             if (getModel().ResumeSelected()) {
                 game.setState(getModel().getPausedState());
-            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu(game.getResolution()),game.getAudioManager()));
+            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()),game.getAudioManager()));
             else if(getModel().ResolutionSelected()){
                 GUI.SCREEN_RESOLUTION newResolution = switch (game.getResolution()){
                     case _360p -> GUI.SCREEN_RESOLUTION._540p;
@@ -52,6 +52,15 @@ public class PauseMenuController extends MenuController<PauseMenu> {
                 } catch (FontFormatException e) {
                     throw new RuntimeException(e);
                 }
+            }
+            else if(getModel().MasterVolumeSelected()){
+                game.getGui().clear();
+                float newVolume;
+                if(game.getAudioManager().getMasterVolume() == 1f) newVolume = 0.1f;
+                else newVolume = Math.round((game.getAudioManager().getMasterVolume()+0.1f)*10)/(float)10;
+
+                getModel().setMasterVolume(newVolume);
+                game.getAudioManager().setMasterVolume(newVolume);
             }
         }
     }

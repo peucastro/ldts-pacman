@@ -32,11 +32,11 @@ public class ArenaController extends GameController{
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
         if(getModel().getPacman().getLife() <= 0) {
             game.getAudioManager().stopAllAudios();
-            game.setState(new MainMenuState(new MainMenu(game.getResolution()), game.getAudioManager()));
+            game.setState(new MainMenuState(new MainMenu(game.getResolution(),game.getAudioManager().getMasterVolume()), game.getAudioManager()));
         }
         else if(action == GUI.ACTION.QUIT) {
             game.getAudioManager().stopAllAudios();
-            game.setState(new PauseMenuState(new PauseMenu(game.getState(),game.getResolution()), game.getAudioManager()));
+            game.setState(new PauseMenuState(new PauseMenu(game.getState(),game.getResolution(),game.getAudioManager().getMasterVolume()), game.getAudioManager()));
         }
         else{
             //all the controllers here me thinks
