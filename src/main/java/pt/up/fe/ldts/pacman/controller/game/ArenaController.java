@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.States.DyingState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.PauseMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
@@ -32,9 +33,9 @@ public class ArenaController extends GameController{
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
         if(getModel().getPacman().getLife() <= 0) {
             game.getAudioManager().stopAllAudios();
-            game.setState(new MainMenuState(new MainMenu(game.getResolution()), game.getAudioManager()));
+            game.setState(new DyingState(getModel(), game.getAudioManager()));
         }
-        else if(action == GUI.ACTION.QUIT) {
+        if(action == GUI.ACTION.QUIT) {
             game.getAudioManager().stopAllAudios();
             game.setState(new PauseMenuState(new PauseMenu(game.getState(),game.getResolution()), game.getAudioManager()));
         }
