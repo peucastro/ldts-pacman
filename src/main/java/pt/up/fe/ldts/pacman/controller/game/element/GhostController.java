@@ -1,6 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.States.DyingState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
@@ -12,6 +13,8 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Map;
 
 public class GhostController extends GameController {
@@ -93,14 +96,15 @@ public class GhostController extends GameController {
         return nextDirection;
     }
 
-    private void processCollisionWithPacman(Ghost ghost) {
+    private boolean processCollisionWithPacman(Game game, Ghost ghost) throws IOException, URISyntaxException {
         Pacman pacman = getModel().getPacman();
         if (ghost.getPosition().equals(pacman.getPosition())) {
             switch (ghost.getState()) {
                 case ALIVE:
-                    pacman.decreaseLife();
-                    pacman.setPosition(getModel().getRespawnPosition());
-                    break;
+                    getModel().getPacman().decreaseLife();
+                    game.getAudioManager().stopAllAudios();
+                    game.setState(new DyingState(getModel(), game.getAudioManager()));
+                    return true;
                 case SCARED:
                     ghostEatenAudio.playOnce();
                     ghost.setState(GhostState.DEAD);
@@ -111,10 +115,11 @@ public class GhostController extends GameController {
                     break;
             }
         }
+        return false;
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) {
+    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
         if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
             if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop();
             else ghostsScaredSiren.playInLoop();
@@ -140,11 +145,11 @@ public class GhostController extends GameController {
         }
 
         for (Ghost ghost : getModel().getGhosts()) {//move all ghosts
-            processCollisionWithPacman(ghost);
+            if (processCollisionWithPacman(game, ghost)) return;
 
             if (time % ghost.getSpeed() != 1) moveGhost(ghost);
 
-            processCollisionWithPacman(ghost);
+            if (processCollisionWithPacman(game, ghost)) return;
 
         }
     }
