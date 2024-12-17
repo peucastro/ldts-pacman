@@ -22,7 +22,7 @@ public class DyingState extends State<Arena>{
 
     @Override
     public Controller<Arena> createController(AudioManager audioManager) {
-        return new DyingStateController(getModel());
+        return new DyingStateController(getModel(), audioManager);
     }
 
 }
