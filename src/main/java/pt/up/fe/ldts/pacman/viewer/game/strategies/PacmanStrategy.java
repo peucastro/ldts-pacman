@@ -11,10 +11,10 @@ public class PacmanStrategy extends MultipleElementStrategy {
     @Override
     public BufferedImage getCurrentImage(Element element, Map<Character, BufferedImage> images) {
         Pacman pacman = (Pacman) element;
-        if (pacman.isMouthOpen()) {
-            return images.get('C');
-        } else if (pacman.isDying()) {
+        if (pacman.isDying()) {
             return images.get('X');
+        } else if (pacman.isMouthOpen()) {
+            return images.get('C');
         }
         return switch (pacman.getDirection()) {
             case UP -> images.get('U');
