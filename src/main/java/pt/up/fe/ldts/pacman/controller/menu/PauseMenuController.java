@@ -10,6 +10,7 @@ import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class PauseMenuController extends MenuController<PauseMenu> {
 
@@ -18,20 +19,22 @@ public class PauseMenuController extends MenuController<PauseMenu> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException, FontFormatException {
-        super.step(game, action, time);
-        if (action == GUI.ACTION.SELECT) {
-            menuConfirmSelection.playOnce();
-            if (getModel().ResumeSelected()) {
-                game.setState(getModel().getPausedState());
-            } else if (getModel().ExitSelected())
-                game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
-            else if (getModel().ResolutionSelected()) {
-                GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
-                getModel().setResolution(newResolution);
-            } else if (getModel().MasterVolumeSelected()) {
-                float newVolume = super.handleVolumeChange(game);
-                getModel().setMasterVolume(newVolume);
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
+        super.step(game, actions, time);
+        for (GUI.ACTION action : actions) {
+            if (action == GUI.ACTION.SELECT) {
+                menuConfirmSelection.playOnce();
+                if (getModel().ResumeSelected()) {
+                    game.setState(getModel().getPausedState());
+                } else if (getModel().ExitSelected())
+                    game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
+                else if (getModel().ResolutionSelected()) {
+                    GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
+                    getModel().setResolution(newResolution);
+                } else if (getModel().MasterVolumeSelected()) {
+                    float newVolume = super.handleVolumeChange(game);
+                    getModel().setMasterVolume(newVolume);
+                }
             }
         }
     }

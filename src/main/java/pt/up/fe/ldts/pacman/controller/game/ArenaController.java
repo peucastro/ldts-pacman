@@ -13,6 +13,7 @@ import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class ArenaController extends GameController {
     private final PacmanController pacmanController;
@@ -28,15 +29,17 @@ public class ArenaController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if (action == GUI.ACTION.QUIT) {
-            game.getAudioManager().stopAllAudios();
-            game.setState(new PauseMenuState(new PauseMenu(game.getState(), game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
-        } else {
-            //all the controllers here me thinks
-            pacmanController.step(game, action, time);
-            ghostController.step(game, action, time);
-            collectibleController.step(game, action, time);
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
+        for(GUI.ACTION action : actions) {
+            if (action == GUI.ACTION.QUIT) {
+                game.getAudioManager().stopAllAudios();
+                game.setState(new PauseMenuState(new PauseMenu(game.getState(), game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
+                return;
+            }
         }
+        //all the controllers here me thinks
+        pacmanController.step(game, actions, time);
+        ghostController.step(game, actions, time);
+        collectibleController.step(game, actions, time);
     }
 }

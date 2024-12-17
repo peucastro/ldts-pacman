@@ -14,6 +14,7 @@ import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class DyingStateController extends GameController {
     private int stateTimeCounter;
@@ -29,7 +30,7 @@ public class DyingStateController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         if (stateTimeCounter == -1) stateTimeCounter = 110;
 
         if (stateTimeCounter == 0) {

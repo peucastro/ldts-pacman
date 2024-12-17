@@ -8,9 +8,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public interface GUI {
-    ACTION getNextAction() throws IOException;
+    List<ACTION> getNextAction() throws IOException;
 
     void drawImage(Position position, BasicTextImage image);
 

@@ -53,18 +53,21 @@ public class PacmanController extends GameController {
 
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
-    public void step(Game game, GUI.ACTION action, long time) {
-        switch (action) {
-            case UP -> desiredDirections.set(0,Direction.UP);
-            case DOWN -> desiredDirections.set(0,Direction.DOWN);
-            case LEFT -> desiredDirections.set(0,Direction.LEFT);
-            case RIGHT -> desiredDirections.set(0,Direction.RIGHT);
-            case W -> desiredDirections.set(1,Direction.UP);
-            case A -> desiredDirections.set(1,Direction.LEFT);
-            case S -> desiredDirections.set(1,Direction.DOWN);
-            case D -> desiredDirections.set(1,Direction.RIGHT);
+    public void step(Game game, List<GUI.ACTION> actions, long time) {
+        for(GUI.ACTION action : actions) {
+            switch (action) {
+                case UP -> desiredDirections.set(0, Direction.UP);
+                case DOWN -> desiredDirections.set(0, Direction.DOWN);
+                case LEFT -> desiredDirections.set(0, Direction.LEFT);
+                case RIGHT -> desiredDirections.set(0, Direction.RIGHT);
+                case W -> desiredDirections.set(1, Direction.UP);
+                case A -> desiredDirections.set(1, Direction.LEFT);
+                case S -> desiredDirections.set(1, Direction.DOWN);
+                case D -> desiredDirections.set(1, Direction.RIGHT);
 
-            case NONE -> { }
+                case NONE -> {
+                }
+            }
         }
         for(int i = 0; i < getModel().getPacmans().size(); ++i) {
             Pacman pacman = getModel().getPacmans().get(i);

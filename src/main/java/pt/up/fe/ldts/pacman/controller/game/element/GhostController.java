@@ -15,6 +15,7 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 
 public class GhostController extends GameController {
@@ -137,7 +138,7 @@ public class GhostController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
             if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop(); //start of the game or leaving pause menu
             else ghostsScaredSiren.playInLoop(); //leaving pause menu and scared state was on before

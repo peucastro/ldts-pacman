@@ -16,6 +16,7 @@ import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class MainMenuController extends MenuController<MainMenu> {
     public MainMenuController(MainMenu model, AudioManager audioManager) {
@@ -23,21 +24,23 @@ public class MainMenuController extends MenuController<MainMenu> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws URISyntaxException, IOException, FontFormatException {
-        super.step(game, action, time);
-        if (action == GUI.ACTION.SELECT) {
-            menuConfirmSelection.playOnce();
-            if (getModel().StartSelected()) {
-                MapSelectionMenu mapSelectionMenu = new MapSelectionMenu(); // Create a new map selection menu model
-                game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
-            } else if (getModel().ExitSelected()) {
-                game.setState(null);
-            } else if (getModel().ResolutionSelected()) {
-                GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
-                getModel().setResolution(newResolution);
-            } else if (getModel().MasterVolumeSelected()) {
-                float newVolume = super.handleVolumeChange(game);
-                getModel().setMasterVolume(newVolume);
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws URISyntaxException, IOException, FontFormatException {
+        super.step(game, actions, time);
+        for(GUI.ACTION action : actions) {
+            if (action == GUI.ACTION.SELECT) {
+                menuConfirmSelection.playOnce();
+                if (getModel().StartSelected()) {
+                    MapSelectionMenu mapSelectionMenu = new MapSelectionMenu(); // Create a new map selection menu model
+                    game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
+                } else if (getModel().ExitSelected()) {
+                    game.setState(null);
+                } else if (getModel().ResolutionSelected()) {
+                    GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
+                    getModel().setResolution(newResolution);
+                } else if (getModel().MasterVolumeSelected()) {
+                    float newVolume = super.handleVolumeChange(game);
+                    getModel().setMasterVolume(newVolume);
+                }
             }
         }
 

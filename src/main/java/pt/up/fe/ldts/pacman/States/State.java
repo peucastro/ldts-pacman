@@ -9,6 +9,7 @@ import pt.up.fe.ldts.pacman.viewer.Viewer;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public abstract class State<T> {
     private final T model;
@@ -30,8 +31,9 @@ public abstract class State<T> {
     public abstract Controller<T> createController(AudioManager audioManager);
 
     public void step(Game game, GUI gui, long frameTime) throws IOException, URISyntaxException, FontFormatException {
-        GUI.ACTION action = gui.getNextAction();
-        controller.step(game, action, frameTime);
+        List<GUI.ACTION> actions = gui.getNextAction();
+        controller.step(game, actions, frameTime);
         viewer.drawElement(gui, model);
+        actions.clear();
     }
 }

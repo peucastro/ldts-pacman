@@ -10,6 +10,7 @@ import pt.up.fe.ldts.pacman.model.menu.Menu;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public abstract class MenuController<T extends Menu> extends Controller<T> {
     protected final AudioPlayer menuSelect;
@@ -52,13 +53,15 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws URISyntaxException, IOException, FontFormatException {
-        if (action == GUI.ACTION.UP) {
-            menuSelect.playOnce();
-            getModel().selectPreviousOption();
-        } else if (action == GUI.ACTION.DOWN) {
-            menuSelect.playOnce();
-            getModel().selectNextOption();
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws URISyntaxException, IOException, FontFormatException {
+        for(GUI.ACTION action : actions) {
+            if (action == GUI.ACTION.UP) {
+                menuSelect.playOnce();
+                getModel().selectPreviousOption();
+            } else if (action == GUI.ACTION.DOWN) {
+                menuSelect.playOnce();
+                getModel().selectNextOption();
+            }
         }
     }
 }

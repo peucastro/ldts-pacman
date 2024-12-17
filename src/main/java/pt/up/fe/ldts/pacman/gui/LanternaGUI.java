@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LanternaGUI implements GUI {
     private Screen screen;
@@ -85,27 +87,28 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public ACTION getNextAction() throws IOException {
-        KeyStroke keyStroke = screen.pollInput();
-        if (keyStroke == null) return ACTION.NONE;
+    public List<ACTION> getNextAction() throws IOException {
+        List<ACTION> actions = new ArrayList<>();
+        KeyStroke keyStroke;
+        while((keyStroke = screen.pollInput()) != null){
+            if (keyStroke.getKeyType() == KeyType.EOF || keyStroke.getKeyType() == KeyType.Escape) actions.add(ACTION.QUIT);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') actions.add(ACTION.QUIT);
 
-        if (keyStroke.getKeyType() == KeyType.EOF || keyStroke.getKeyType() == KeyType.Escape) return ACTION.QUIT;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') return ACTION.QUIT;
+            else if (keyStroke.getKeyType() == KeyType.ArrowUp) actions.add(ACTION.UP);
+            else if (keyStroke.getKeyType() == KeyType.ArrowRight) actions.add(ACTION.RIGHT);
+            else if (keyStroke.getKeyType() == KeyType.ArrowDown) actions.add(ACTION.DOWN);
+            else if (keyStroke.getKeyType() == KeyType.ArrowLeft) actions.add(ACTION.LEFT);
 
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) return ACTION.UP;
-        if (keyStroke.getKeyType() == KeyType.ArrowRight) return ACTION.RIGHT;
-        if (keyStroke.getKeyType() == KeyType.ArrowDown) return ACTION.DOWN;
-        if (keyStroke.getKeyType() == KeyType.ArrowLeft) return ACTION.LEFT;
-
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') return ACTION.W;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') return ACTION.A;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') return ACTION.S;
-        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') return ACTION.D;
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') actions.add(ACTION.W);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') actions.add(ACTION.A);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') actions.add(ACTION.S);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') actions.add(ACTION.D);
 
 
-        if (keyStroke.getKeyType() == KeyType.Enter) return ACTION.SELECT;
+            else if (keyStroke.getKeyType() == KeyType.Enter) actions.add(ACTION.SELECT);
+        }
 
-        return ACTION.NONE;
+        return actions;
     }
 
     @Override

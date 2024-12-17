@@ -11,6 +11,8 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.util.List;
+
 
 public class CollectibleController extends GameController {
     private final AudioPlayer eatingSound;
@@ -24,7 +26,7 @@ public class CollectibleController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) {
+    public void step(Game game, List<GUI.ACTION> actions, long time) {
         for(Pacman pacman : getModel().getPacmans()) {
             getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
                 if (pacman.getPosition().equals(collectible.getPosition())) {
