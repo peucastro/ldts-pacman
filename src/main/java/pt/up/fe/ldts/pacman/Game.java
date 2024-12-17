@@ -20,11 +20,12 @@ public class Game {
     private AudioManager audioManager;
     private static final int SCREEN_WIDTH = 320;
     private static final int SCREEN_HEIGHT = 180;
+    private GUI.SCREEN_RESOLUTION resolution = GUI.SCREEN_RESOLUTION._900p;
 
     public Game() throws IOException, URISyntaxException, FontFormatException {
         this.audioManager = new AudioManager();
-        this.gui = new LanternaGUI(SCREEN_WIDTH,SCREEN_HEIGHT);
-        this.state = new MainMenuState(new MainMenu(), audioManager);
+        this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, resolution);
+        this.state = new MainMenuState(new MainMenu(resolution), audioManager);
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
@@ -41,6 +42,15 @@ public class Game {
 
     public AudioManager getAudioManager() {
         return audioManager;
+    }
+
+    public void setResolution(GUI.SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException {
+        this.resolution = newResolution;
+        gui.resizeScreen(SCREEN_WIDTH, SCREEN_HEIGHT, newResolution);
+    }
+
+    public GUI.SCREEN_RESOLUTION getResolution() {
+        return resolution;
     }
 
     private void start() throws IOException, InterruptedException, URISyntaxException {

@@ -11,6 +11,7 @@ import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.Menu;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -34,7 +35,24 @@ public class PauseMenuController extends MenuController<PauseMenu> {
             menuConfirmSelection.playOnce();
             if (getModel().ResumeSelected()) {
                 game.setState(getModel().getPausedState());
-            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu(),game.getAudioManager()));
+            } else if (getModel().ExitSelected()) game.setState(new MainMenuState(new MainMenu(game.getResolution()),game.getAudioManager()));
+            else if(getModel().ResolutionSelected()){
+                GUI.SCREEN_RESOLUTION newResolution = switch (game.getResolution()){
+                    case _360p -> GUI.SCREEN_RESOLUTION._540p;
+                    case _540p -> GUI.SCREEN_RESOLUTION._720p;
+                    case _720p -> GUI.SCREEN_RESOLUTION._900p;
+                    case _900p -> GUI.SCREEN_RESOLUTION._1080p;
+                    case _1080p -> GUI.SCREEN_RESOLUTION._1440p;
+                    case _1440p -> GUI.SCREEN_RESOLUTION._2160p;
+                    case _2160p -> GUI.SCREEN_RESOLUTION._360p;
+                };
+                try {
+                    game.setResolution(newResolution);
+                    getModel().setResolution(newResolution);
+                } catch (FontFormatException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 }
