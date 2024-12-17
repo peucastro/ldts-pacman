@@ -4,6 +4,12 @@ import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.States.MapSelectionMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
+import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 
@@ -34,5 +40,21 @@ public class MainMenuController extends MenuController<MainMenu> {
                 getModel().setMasterVolume(newVolume);
             }
         }
+
+        Blinky blinky = getModel().getBlinky(); blinky.incrementCounter();
+        if(blinky.getPosition().equals(new Position(3,4))) blinky.setDirection(Direction.RIGHT);
+        else if(blinky.getPosition().equals(new Position(7,4))) blinky.setDirection(Direction.LEFT);
+
+        Inky inky = getModel().getInky(); inky.incrementCounter();
+        if(inky.getPosition().equals(new Position(5,8))) inky.setDirection(Direction.DOWN);
+        else if(inky.getPosition().equals(new Position(5,13))) inky.setDirection(Direction.UP);
+
+        Pinky pinky = getModel().getPinky(); pinky.incrementCounter();
+        if(pinky.getPosition().equals(new Position(19,13))) pinky.setDirection(Direction.RIGHT);
+        else if(pinky.getPosition().equals(new Position(26,13))) pinky.setDirection(Direction.LEFT);
+
+        Clyde clyde = getModel().getClyde(); clyde.incrementCounter();
+        if(clyde.getPosition().equals(new Position(24,3))) clyde.setDirection(Direction.DOWN);
+        else if(clyde.getPosition().equals(new Position(24,10))) clyde.setDirection(Direction.UP);
     }
 }
