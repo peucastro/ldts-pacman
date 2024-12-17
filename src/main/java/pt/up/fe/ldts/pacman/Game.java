@@ -1,6 +1,5 @@
 package pt.up.fe.ldts.pacman;
 
-import pt.up.fe.ldts.pacman.States.GameState;
 import pt.up.fe.ldts.pacman.States.MainMenuState;
 import pt.up.fe.ldts.pacman.States.State;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
@@ -57,7 +56,7 @@ public class Game {
         return resolution;
     }
 
-    private void start() throws IOException, InterruptedException, URISyntaxException {
+    private void start() throws IOException, InterruptedException, URISyntaxException, FontFormatException {
         int FPS = 60;
         long frameTime = 1000 / FPS;
         long frameCount = 0;

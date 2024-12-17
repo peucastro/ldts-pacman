@@ -6,6 +6,7 @@ import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -28,7 +29,7 @@ public abstract class State<T> {
 
     public abstract Controller<T> createController(AudioManager audioManager);
 
-    public void step(Game game, GUI gui, long frameTime) throws IOException, URISyntaxException {
+    public void step(Game game, GUI gui, long frameTime) throws IOException, URISyntaxException, FontFormatException {
         GUI.ACTION action = gui.getNextAction();
         controller.step(game, action, frameTime);
         viewer.drawElement(gui, model);

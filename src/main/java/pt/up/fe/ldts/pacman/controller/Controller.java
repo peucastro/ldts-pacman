@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman.controller;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.gui.GUI;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -17,5 +18,5 @@ public abstract class Controller<T> {
         return model;
     }
 
-    public abstract void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException;
+    public abstract void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException, FontFormatException;
 }

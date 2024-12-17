@@ -18,7 +18,7 @@ public class PauseMenuController extends MenuController<PauseMenu> {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
+    public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException, FontFormatException {
         super.step(game, action, time);
         if (action == GUI.ACTION.SELECT) {
             menuConfirmSelection.playOnce();
@@ -27,29 +27,11 @@ public class PauseMenuController extends MenuController<PauseMenu> {
             } else if (getModel().ExitSelected())
                 game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
             else if (getModel().ResolutionSelected()) {
-                GUI.SCREEN_RESOLUTION newResolution = switch (game.getResolution()) {
-                    case _360p -> GUI.SCREEN_RESOLUTION._540p;
-                    case _540p -> GUI.SCREEN_RESOLUTION._720p;
-                    case _720p -> GUI.SCREEN_RESOLUTION._900p;
-                    case _900p -> GUI.SCREEN_RESOLUTION._1080p;
-                    case _1080p -> GUI.SCREEN_RESOLUTION._1440p;
-                    case _1440p -> GUI.SCREEN_RESOLUTION._2160p;
-                    case _2160p -> GUI.SCREEN_RESOLUTION._360p;
-                };
-                try {
-                    game.setResolution(newResolution);
-                    getModel().setResolution(newResolution);
-                } catch (FontFormatException e) {
-                    throw new RuntimeException(e);
-                }
+                GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
+                getModel().setResolution(newResolution);
             } else if (getModel().MasterVolumeSelected()) {
-                game.getGui().clear();
-                float newVolume;
-                if (game.getAudioManager().getMasterVolume() == 1f) newVolume = 0.1f;
-                else newVolume = Math.round((game.getAudioManager().getMasterVolume() + 0.1f) * 10) / (float) 10;
-
+                float newVolume = super.handleVolumeChange(game);
                 getModel().setMasterVolume(newVolume);
-                game.getAudioManager().setMasterVolume(newVolume);
             }
         }
     }
