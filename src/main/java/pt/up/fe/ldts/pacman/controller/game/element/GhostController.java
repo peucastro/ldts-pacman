@@ -14,7 +14,7 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.util.Map;
 
-public class GhostController extends GameController{
+public class GhostController extends GameController {
     private final AudioPlayer ghostsAliveSiren;
     private final AudioPlayer ghostsScaredSiren;
     private final AudioPlayer ghostEatenAudio;
@@ -25,9 +25,12 @@ public class GhostController extends GameController{
     public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
 
-        audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
-        audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
-        audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        if (!audioManager.audioExists("ghostsAliveSiren"))
+            audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        if (!audioManager.audioExists("ghostsScared"))
+            audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
+        if (!audioManager.audioExists("ghostEaten"))
+            audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScared");
         this.ghostsScaredSiren.setVolume(0.70f);
@@ -42,7 +45,6 @@ public class GhostController extends GameController{
         );
         this.ghostsEaten = 0;
     }
-
 
 
     private Position getNextPosition(Position position, Direction direction) {
@@ -60,15 +62,14 @@ public class GhostController extends GameController{
             return;
         }
         Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel());
-        Direction nextDirection = getDirectionTowards(ghost,targetPosition);
+        Direction nextDirection = getDirectionTowards(ghost, targetPosition);
         ghost.setDirection(nextDirection);
-        if(ghost.getPosition().equals(getModel().getGhostGate().getPosition())) {
-            if(ghost.isDead()) { //dead ghost arrives at the ghost gate
+        if (ghost.getPosition().equals(getModel().getGhostGate().getPosition())) {
+            if (ghost.isDead()) { //dead ghost arrives at the ghost gate
                 ghost.setState(GhostState.ALIVE);
                 ghost.setInsideGate();
                 ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
-            }
-            else ghost.setOutsideGate();
+            } else ghost.setOutsideGate();
         }
         ghost.incrementCounter();
     }
@@ -78,12 +79,12 @@ public class GhostController extends GameController{
         Direction nextDirection = Direction.UP;
         double minimumDistance = Double.MAX_VALUE;
         double tempDistance;
-        for(Direction direction : Direction.values()){
-            Position testPosition = getNextPosition(ghost.getPosition(),direction);
-            if(!direction.isOpposite(currentDirection) && //can't move in opposite direction
-               (tempDistance = testPosition.squaredDistance(targetPosition)) < minimumDistance && //can't move in a direction that is farther away from target
-               getModel().isEmpty(testPosition) && //can't move in a direction where there is a wall
-               (!testPosition.equals(getModel().getGhostGate().getPosition()) || ghost.isInsideGate() || ghost.isDead())) //can't move to the ghost gate, unless the ghost is inside
+        for (Direction direction : Direction.values()) {
+            Position testPosition = getNextPosition(ghost.getPosition(), direction);
+            if (!direction.isOpposite(currentDirection) && //can't move in opposite direction
+                    (tempDistance = testPosition.squaredDistance(targetPosition)) < minimumDistance && //can't move in a direction that is farther away from target
+                    getModel().isEmpty(testPosition) && //can't move in a direction where there is a wall
+                    (!testPosition.equals(getModel().getGhostGate().getPosition()) || ghost.isInsideGate() || ghost.isDead())) //can't move to the ghost gate, unless the ghost is inside
             {
                 minimumDistance = tempDistance;
                 nextDirection = direction;
@@ -92,10 +93,10 @@ public class GhostController extends GameController{
         return nextDirection;
     }
 
-    private void processCollisionWithPacman(Ghost ghost){
+    private void processCollisionWithPacman(Ghost ghost) {
         Pacman pacman = getModel().getPacman();
         if (ghost.getPosition().equals(pacman.getPosition())) {
-            switch (ghost.getState()){
+            switch (ghost.getState()) {
                 case ALIVE:
                     pacman.decreaseLife();
                     pacman.setPosition(getModel().getRespawnPosition());
@@ -104,27 +105,28 @@ public class GhostController extends GameController{
                     ghostEatenAudio.playOnce();
                     ghost.setState(GhostState.DEAD);
                     ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
-                    getModel().incrementScore((int)(200 * Math.pow(2,ghostsEaten++)));
+                    getModel().incrementScore((int) (200 * Math.pow(2, ghostsEaten++)));
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
     }
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) {
-        if(!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()){
-            if(scaredTimeLeft == 0) ghostsAliveSiren.playInLoop();
+        if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
+            if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop();
             else ghostsScaredSiren.playInLoop();
         }
 
-        if(scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
+        if (scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
             ghostsEaten = 0;
             ghostsAliveSiren.stopPlaying();
-            if(!ghostsScaredSiren.isPlaying()) ghostsScaredSiren.playInLoop();
+            if (!ghostsScaredSiren.isPlaying()) ghostsScaredSiren.playInLoop();
         }
 
-        if(scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
+        if (scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
             getModel().getGhosts().forEach(ghost -> {
                 if (ghost.isScared()) {
                     ghost.setState(GhostState.ALIVE);
@@ -140,7 +142,7 @@ public class GhostController extends GameController{
         for (Ghost ghost : getModel().getGhosts()) {//move all ghosts
             processCollisionWithPacman(ghost);
 
-            if(time%ghost.getSpeed() != 1) moveGhost(ghost);
+            if (time % ghost.getSpeed() != 1) moveGhost(ghost);
 
             processCollisionWithPacman(ghost);
 
