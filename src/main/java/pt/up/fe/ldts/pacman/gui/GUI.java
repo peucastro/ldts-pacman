@@ -28,7 +28,7 @@ public interface GUI {
 
     void resizeScreen(int width, int height, SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException;
 
-    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT}
+    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, W, A, S, D}
 
     enum SCREEN_RESOLUTION {
         _360p,

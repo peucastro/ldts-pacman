@@ -10,17 +10,20 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class PacmanController extends GameController {
-    private Direction desiredDirection;
+    private List<Direction> desiredDirections; //one for each pacman
 
     public PacmanController(Arena arena) {
         super(arena);
-        this.desiredDirection = Direction.RIGHT;
+        this.desiredDirections = Arrays.asList(null,null);
     }
 
-    private void movePacman() {
-        Pacman pacman = getModel().getPacman();
+    private void movePacman(Pacman pacman, Direction desiredDirection) {
 
         if (pacman.getCounter() > 0) {
             pacman.incrementCounter();
@@ -51,15 +54,22 @@ public class PacmanController extends GameController {
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, GUI.ACTION action, long time) {
-        Pacman pacman = getModel().getPacman();
         switch (action) {
-            case UP -> desiredDirection= Direction.UP;
-            case DOWN -> desiredDirection = Direction.DOWN;
-            case LEFT -> desiredDirection = Direction.LEFT;
-            case RIGHT -> desiredDirection = Direction.RIGHT;
+            case UP -> desiredDirections.set(0,Direction.UP);
+            case DOWN -> desiredDirections.set(0,Direction.DOWN);
+            case LEFT -> desiredDirections.set(0,Direction.LEFT);
+            case RIGHT -> desiredDirections.set(0,Direction.RIGHT);
+            case W -> desiredDirections.set(1,Direction.UP);
+            case A -> desiredDirections.set(1,Direction.LEFT);
+            case S -> desiredDirections.set(1,Direction.DOWN);
+            case D -> desiredDirections.set(1,Direction.RIGHT);
+
             case NONE -> { }
         }
-        pacman.updateMouthState();
-        if(time%pacman.getSpeed() != 1) movePacman();
+        for(int i = 0; i < getModel().getPacmans().size(); ++i) {
+            Pacman pacman = getModel().getPacmans().get(i);
+            pacman.updateMouthState();
+            if (time % pacman.getSpeed() != 1 && !pacman.isDying()) movePacman(pacman, desiredDirections.get(i));
+        }
     }
 }

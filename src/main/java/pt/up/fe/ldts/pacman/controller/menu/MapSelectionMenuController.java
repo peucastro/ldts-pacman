@@ -27,6 +27,9 @@ public class MapSelectionMenuController extends MenuController<MapSelectionMenu>
             if (getModel().getSelectedOption() == 0) {
                 arenaLoader.loadMap("src/main/resources/Maps/map1.txt");
             }
+            else if(getModel().getSelectedOption() == 1){
+                arenaLoader.loadMap("src/main/resources/Maps/map2.txt");
+            }
 
             game.setState(new GameState(arena, game.getAudioManager()));
         }

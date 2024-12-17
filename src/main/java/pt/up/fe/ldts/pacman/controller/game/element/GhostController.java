@@ -25,6 +25,8 @@ public class GhostController extends GameController {
     private int ghostsEaten; //ghosts eaten in current scared state
     private static int scaredTimeLeft = 0;
     private int frameCount; //useful for alternating between chase and scatter states when ghosts are alive
+    private int deadPacmanCounter; //for multiplayer
+    private int targetPacman;
 
     public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
@@ -50,6 +52,8 @@ public class GhostController extends GameController {
         );
         this.ghostsEaten = 0;
         this.frameCount = 0;
+        this.deadPacmanCounter = 0;
+        this.targetPacman = 0;
     }
 
 
@@ -67,7 +71,7 @@ public class GhostController extends GameController {
             ghost.incrementCounter();
             return;
         }
-        Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel(), isChaseMode());
+        Position targetPosition = movementBehaviours.get(ghost.getClass()).getTargetPosition(ghost, getModel(), getModel().getPacmans().get(targetPacman), isChaseMode());
         Direction nextDirection = getDirectionTowards(ghost, targetPosition);
         ghost.setDirection(nextDirection);
         if (ghost.getPosition().equals(getModel().getGhostGate().getPosition())) {
@@ -103,26 +107,33 @@ public class GhostController extends GameController {
         return nextDirection;
     }
 
-    private boolean processCollisionWithPacman(Game game, Ghost ghost) throws IOException, URISyntaxException {
-        Pacman pacman = getModel().getPacman();
-        if (ghost.getPosition().equals(pacman.getPosition())) {
-            switch (ghost.getState()) {
-                case ALIVE:
-                    getModel().getPacman().decreaseLife();
-                    game.getAudioManager().stopAllAudios();
-                    game.setState(new DyingState(getModel(), game.getAudioManager()));
-                    return true;
-                case SCARED:
-                    ghostEatenAudio.playOnce();
-                    ghost.setState(GhostState.DEAD);
-                    ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
-                    getModel().incrementScore((int) (200 * Math.pow(2, ghostsEaten++)));
-                    break;
-                default:
-                    break;
+    private void processCollisionWithPacmans(Game game, Ghost ghost) throws IOException, URISyntaxException {
+        for(Pacman pacman : getModel().getPacmans()) {
+            if(pacman.isDying()) continue; //don't process collisions with dead pacmans
+            if (ghost.getPosition().equals(pacman.getPosition())) {
+                switch (ghost.getState()) {
+                    case ALIVE:
+                        pacman.decreaseLife();
+                        pacman.setDying(true);
+                        int alivePacmans = 0; //number of pacmans still alive
+                        for(Pacman pacman1 : getModel().getPacmans()) if(!pacman1.isDying()) ++alivePacmans;
+                        if(alivePacmans == 0) { //if no pacman is alive go to dying state, else just keep going and "stun" the dead pacman
+                            game.getAudioManager().stopAllAudios();
+                            game.setState(new DyingState(getModel(), game.getAudioManager()));
+                        }
+                        else deadPacmanCounter = 110;
+                        break;
+                    case SCARED:
+                        ghostEatenAudio.playOnce();
+                        ghost.setState(GhostState.DEAD);
+                        ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
+                        getModel().incrementScore((int) (200 * Math.pow(2, ghostsEaten++)));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-        return false;
     }
 
     @Override
@@ -135,13 +146,24 @@ public class GhostController extends GameController {
         if((frameCount == 600 || frameCount == 2500 || frameCount == 3200) && scaredTimeLeft == 0)
             getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
 
+        //change the target pacman from time to time on multiplayer
+        if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1) targetPacman = (targetPacman == 0 ? 1 : 0);
+
         if (scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
             ghostsEaten = 0;
             ghostsAliveSiren.stopPlaying();
             if (!ghostsScaredSiren.isPlaying()) ghostsScaredSiren.playInLoop();
         }
 
-        if (scaredTimeLeft > 0 && --scaredTimeLeft == 0) { //if scared time reaches 0 then all scared ghosts go back to normal
+        if(deadPacmanCounter > 0 && --deadPacmanCounter == 0){//when playing multiplayer and one pacman is still alive, the other comes to life
+            for (Pacman pacman : getModel().getPacmans()) if(pacman.isDying() && pacman.getLife() > 0){
+                pacman.setDying(false);
+                pacman.setPosition(pacman.getRespawnPosition());
+                pacman.setCounter(0);
+            }
+        }
+
+        if ((scaredTimeLeft > 0 && --scaredTimeLeft == 0) || ghostsEaten == getModel().getGhosts().size()) { //if scared time reaches 0 then all scared ghosts go back to normal
             getModel().getGhosts().forEach(ghost -> {
                 if (ghost.isScared()) {
                     ghost.setState(GhostState.ALIVE);
@@ -150,16 +172,16 @@ public class GhostController extends GameController {
             });
             ghostsScaredSiren.stopPlaying();
             ghostsAliveSiren.playInLoop();
-            getModel().getPacman().setSpeed(Arena.PACMAN_NORMAL_SPEED);
+            for(Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
             ghostsEaten = 0;
         }
 
         for (Ghost ghost : getModel().getGhosts()) {//move all ghosts
-            if (processCollisionWithPacman(game, ghost)) return;
+            processCollisionWithPacmans(game, ghost);
 
             if (time % ghost.getSpeed() != 1) moveGhost(ghost);
 
-            if (processCollisionWithPacman(game, ghost)) return;
+            processCollisionWithPacmans(game, ghost);
         }
 
         ++frameCount;

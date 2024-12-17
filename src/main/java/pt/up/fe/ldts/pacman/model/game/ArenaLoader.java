@@ -3,10 +3,8 @@ package pt.up.fe.ldts.pacman.model.game;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,9 +45,11 @@ public class ArenaLoader {
                 arena.addWall(new Wall(position));
                 break;
             case 'P':
-                arena.setPacmanPosition(position);
+                if(arena.getPacmans().size() == 2) return;
+                Pacman pacman = new Pacman(position);
+                pacman.setRespawnPosition(new Position(position));
+                arena.addPacman(pacman);
                 arena.addBlankPosition(new Position(position));
-                arena.setRespawnPosition(new Position(position));
                 break;
             case 'o':
                 arena.addCollectible(new Coin(position));
@@ -70,19 +70,27 @@ public class ArenaLoader {
                 arena.addCollectible(new Strawberry(position));
                 break;
             case 'p':
-                arena.addGhost(new Pinky(position));
+                Pinky pinky = new Pinky(position);
+                pinky.setRespawnPosition(new Position(position));
+                arena.addGhost(pinky);
                 arena.addBlankPosition(new Position(position));
                 break;
             case 'i':
-                arena.addGhost(new Inky(position));
+                Ghost inky = new Inky(position);
+                inky.setRespawnPosition(new Position(position));
+                arena.addGhost(inky);
                 arena.addBlankPosition(new Position(position));
                 break;
             case 'c':
-                arena.addGhost(new Clyde(position));
+                Clyde clyde = new Clyde(position);
+                clyde.setRespawnPosition(new Position(position));
+                arena.addGhost(clyde);
                 arena.addBlankPosition(new Position(position));
                 break;
             case 'b':
-                arena.addGhost(new Blinky(position));
+                Blinky blinky = new Blinky(position);
+                blinky.setRespawnPosition(new Position(position));
+                arena.addGhost(blinky);
                 arena.addBlankPosition(new Position(position));
                 break;
             case 'D':

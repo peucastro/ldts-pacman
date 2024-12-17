@@ -7,6 +7,8 @@ public class Pacman extends MovableElement {
     private int life;
     private boolean mouthOpen; // State to track whether the mouth is open or closed
     private int frameCounter;  // Counter to manage mouth animation
+    private boolean isDying;
+    private Position respawnPosition;
 
     public Pacman(Position pos) {
         super(pos);
@@ -44,5 +46,21 @@ public class Pacman extends MovableElement {
 
     public void setLife(int life) {
         this.life = life;
+    }
+
+    public Position getRespawnPosition() {
+        return respawnPosition;
+    }
+
+    public void setRespawnPosition(Position respawnPosition) {
+        this.respawnPosition = respawnPosition;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        isDying = dying;
     }
 }

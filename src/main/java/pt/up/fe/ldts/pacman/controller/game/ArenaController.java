@@ -29,10 +29,6 @@ public class ArenaController extends GameController {
 
     @Override
     public void step(Game game, GUI.ACTION action, long time) throws IOException, URISyntaxException {
-        if (getModel().getPacman().getLife() <= 0) {
-            game.getAudioManager().stopAllAudios();
-            game.setState(new DyingState(getModel(), game.getAudioManager()));
-        }
         if (action == GUI.ACTION.QUIT) {
             game.getAudioManager().stopAllAudios();
             game.setState(new PauseMenuState(new PauseMenu(game.getState(), game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));

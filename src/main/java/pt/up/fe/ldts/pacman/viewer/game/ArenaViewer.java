@@ -38,9 +38,9 @@ public class ArenaViewer extends Viewer<Arena> {
         drawElement(gui, arena.getGhostGate());
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
         arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
-        drawElement(gui, arena.getPacman());
+        arena.getPacmans().forEach(pacman -> drawElement(gui,pacman));
         drawElement(gui,new TextBox("Score:" + arena.getScore(), new Position(11,0), new TextColor.RGB(255,255,255)));
-        drawElement(gui,new TextBox("Lives:" + arena.getPacman().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
+        drawElement(gui,new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
     }
 
     @Override
