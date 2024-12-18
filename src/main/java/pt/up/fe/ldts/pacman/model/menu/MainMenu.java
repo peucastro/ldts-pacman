@@ -11,7 +11,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
-import java.io.IOError;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,10 +42,11 @@ public class MainMenu extends Menu implements MenuOptions {
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Start", new Position(148, 80), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Resolution: 900p", new Position(118, 91), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Master Volume: 10", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit", new Position(150, 113), new TextColor.RGB(255, 255, 255))
+                new TextBox("Single player", new Position(118, 80), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Multi player", new Position(118,91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Resolution: 900p", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Master Volume: 10", new Position(118, 113), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Exit", new Position(150, 124), new TextColor.RGB(255, 255, 255))
         ));
     }
 
@@ -64,8 +64,12 @@ public class MainMenu extends Menu implements MenuOptions {
         return blankPos;
     }
 
-    public boolean StartSelected() {
+    public boolean singlePLayerSelected() {
         return getSelectedOption() == 0;
+    }
+
+    public boolean multiplayerSelected() {
+        return getSelectedOption() == 1;
     }
 
     @Override

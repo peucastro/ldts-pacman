@@ -29,10 +29,14 @@ public class MainMenuController extends MenuController<MainMenu> {
         for(GUI.ACTION action : actions) {
             if (action == GUI.ACTION.SELECT) {
                 menuConfirmSelection.playOnce();
-                if (getModel().StartSelected()) {
-                    MapSelectionMenu mapSelectionMenu = new MapSelectionMenu(); // Create a new map selection menu model
+                if (getModel().singlePLayerSelected()) {
+                    MapSelectionMenu mapSelectionMenu = new MapSelectionMenu("singleplayer"); // Create a new map selection menu model
                     game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
-                } else if (getModel().ExitSelected()) {
+                } else if (getModel().multiplayerSelected()) {
+                    MapSelectionMenu mapSelectionMenu = new MapSelectionMenu("multiplayer"); // Create a new map selection menu model
+                    game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
+                }
+                else if (getModel().ExitSelected()) {
                     game.setState(null);
                 } else if (getModel().ResolutionSelected()) {
                     GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
