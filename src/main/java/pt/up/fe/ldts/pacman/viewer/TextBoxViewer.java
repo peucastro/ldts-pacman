@@ -1,10 +1,9 @@
-package pt.up.fe.ldts.pacman.viewer.menu;
+package pt.up.fe.ldts.pacman.viewer;
 
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
-import pt.up.fe.ldts.pacman.viewer.Viewer;
 
 import java.awt.image.BufferedImage;
 import java.util.Map;

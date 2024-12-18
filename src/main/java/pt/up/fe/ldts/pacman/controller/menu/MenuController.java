@@ -24,6 +24,7 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
             audioManager.addAudio("menuSelect", new AudioPlayer("Audio/menuSelect.wav"));
         this.menuSelect = audioManager.getAudio("menuSelect");
         this.menuSelect.setVolume(0.25f);
+
         if (!audioManager.audioExists("menuConfirmSelection"))
             audioManager.addAudio("menuConfirmSelection", new AudioPlayer("Audio/menuConfirmSelection.wav"));
         this.menuConfirmSelection = audioManager.getAudio("menuConfirmSelection");

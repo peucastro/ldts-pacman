@@ -1,7 +1,9 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
 import pt.up.fe.ldts.pacman.states.game.GameState;
+import pt.up.fe.ldts.pacman.states.menu.GameOverMenuState;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
@@ -42,11 +44,11 @@ public class DyingStateController extends GameController {
                     ++alivePacmans;
                 }
             }
-            if(alivePacmans == 0){
+            if(alivePacmans == 0){ //no pacman alive: game over
                 game.getAudioManager().stopAllAudios();
-                game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
+                game.setState(new GameOverMenuState(new GameOverMenu(getModel()),game.getAudioManager()));
             }
-            else{
+            else{ //there is still at least one pacman with more than one life: keep playing
                 getModel().getGhosts().forEach(ghost -> {
                     ghost.setState(GhostState.ALIVE);
                     ghost.setPosition(ghost.getRespawnPosition());
