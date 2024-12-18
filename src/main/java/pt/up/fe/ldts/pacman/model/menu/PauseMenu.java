@@ -9,7 +9,7 @@ import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PauseMenu extends Menu{
+public class PauseMenu extends Menu implements MenuOptions {
     private final TextBox pauseSign;
     private final State<?> pausedState;
 
@@ -47,20 +47,24 @@ public class PauseMenu extends Menu{
         return getSelectedOption() == 0;
     }
 
+    @Override
     public boolean ResolutionSelected() {
         return getSelectedOption() == 1;
     }
 
+    @Override
     public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
 
     public boolean ExitSelected() {
         return getSelectedOption() == 3;
     }
 
+    @Override
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
         getOptions().get(1).setText("Resolution: " + newResolution);
     }
 
+    @Override
     public void setMasterVolume(float volume){
         getOptions().get(2).setText("Master Volume: " + (int)(volume*10));
     }
