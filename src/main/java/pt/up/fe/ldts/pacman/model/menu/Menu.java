@@ -12,7 +12,6 @@ public abstract class Menu {
 
     public Menu() {
         selectedOption = 0;
-        setOptions(createOptions());
         this.title = createTitle();
     }
 
@@ -27,6 +26,10 @@ public abstract class Menu {
             options.getFirst().setColor(new TextColor.RGB(255, 255, 0));
             selectedOption = 0;
         }
+    }
+
+    public void initializeOptions() {
+        setOptions(createOptions());
     }
 
     public int getSelectedOption() {

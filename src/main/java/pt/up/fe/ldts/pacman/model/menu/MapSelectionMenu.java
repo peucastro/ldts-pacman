@@ -14,6 +14,7 @@ public class MapSelectionMenu extends Menu {
     public MapSelectionMenu(String folderstring) {
         super();
         this.folderstring = folderstring;
+        initializeOptions();
     }
 
     @Override
@@ -21,7 +22,6 @@ public class MapSelectionMenu extends Menu {
         List<TextBox> options = new ArrayList<>();
         int y = 80;
         String folderpath = "src/main/resources/Maps/" + folderstring;
-        System.out.println(folderpath);
         File mapFolder = new File("src/main/resources/Maps/" + folderstring);
         for (final File fileEntry : Objects.requireNonNull(mapFolder.listFiles())) {
             if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".txt")) {

@@ -18,6 +18,7 @@ public class PauseMenu extends Menu implements MenuOptions {
         this.pauseSign = new TextBox("||",new Position(155,41), new TextColor.RGB(255,255,255));
         setResolution(resolution);
         setMasterVolume(volume);
+        initializeOptions();
     }
 
     @Override

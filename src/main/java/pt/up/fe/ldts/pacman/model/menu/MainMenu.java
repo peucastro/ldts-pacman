@@ -27,6 +27,7 @@ public class MainMenu extends Menu implements MenuOptions {
 
     public MainMenu(GUI.SCREEN_RESOLUTION resolution, float volume) {
         super();
+        initializeOptions();
         blankPositions = createBlankPosition();
         pacman = new Pacman(new Position(14, 4));
 

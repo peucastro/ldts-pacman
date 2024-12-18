@@ -13,6 +13,7 @@ public class GameOverMenu extends Menu{
     public GameOverMenu(Arena arena){
         super();
         this.arena = arena;
+        initializeOptions();
     }
 
     @Override
