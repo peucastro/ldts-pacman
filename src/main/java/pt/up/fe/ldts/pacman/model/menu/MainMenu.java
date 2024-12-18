@@ -97,7 +97,7 @@ public class MainMenu extends Menu implements MenuOptions {
 
     @Override
     public void setMasterVolume(float volume){
-        getOptions().get(2).setText("Master Volume: " + (int)(volume*10));
+        getOptions().get(3).setText("Master Volume: " + (int)(volume*10));
     }
 
     public Blinky getBlinky() {return blinky;}
