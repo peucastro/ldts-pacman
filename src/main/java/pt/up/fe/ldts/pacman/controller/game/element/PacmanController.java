@@ -6,11 +6,8 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,29 +17,42 @@ public class PacmanController extends GameController {
 
     public PacmanController(Arena arena) {
         super(arena);
-        this.desiredDirections = Arrays.asList(null,null);
+        this.desiredDirections = Arrays.asList(null, null);
     }
 
     private void movePacman(Pacman pacman, Direction desiredDirection) {
-
         if (pacman.getCounter() > 0) {
             pacman.incrementCounter();
             return;
         }
 
-        if(desiredDirection != null && //desired direction exists
-           getModel().isEmpty(calculateNextPosition(pacman.getPosition(),desiredDirection)) && //the position where the desired direction is faced has to be empty
-           !getModel().getGhostGate().getPosition().equals(calculateNextPosition(pacman.getPosition(),desiredDirection))) //cannot go inside the ghost gate
+        if (desiredDirection != null) {
+            Position nextDesiredPosition = calculateNextPosition(pacman.getPosition(), desiredDirection);
+
+            boolean isPositionValid = getModel().isEmpty(nextDesiredPosition) &&
+                    getModel().getPacmans().stream()
+                            .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
+                            .noneMatch(other -> other.getNextPosition().equals(nextDesiredPosition));
+
+            if (isPositionValid &&
+                    !getModel().getGhostGate().getPosition().equals(nextDesiredPosition)) {
                 pacman.setDirection(desiredDirection);
+            }
+        }
 
         Position nextPosition = pacman.getNextPosition();
 
-        if (getModel().isEmpty(nextPosition)) {
+        // Ensure the next position is valid for movement
+        if (getModel().isEmpty(nextPosition) &&
+                getModel().getPacmans().stream()
+                        .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
+                        .noneMatch(other -> other.getNextPosition().equals(nextPosition))) {
             pacman.incrementCounter();
         }
     }
 
-    private Position calculateNextPosition(Position position,Direction direction) {
+
+    private Position calculateNextPosition(Position position, Direction direction) {
         return switch (direction) {
             case UP -> position.getUp();
             case DOWN -> position.getDown();
@@ -54,7 +64,7 @@ public class PacmanController extends GameController {
     @Override
     @SuppressWarnings("MissingCasesInEnumSwitch")
     public void step(Game game, List<GUI.ACTION> actions, long time) {
-        for(GUI.ACTION action : actions) {
+        for (GUI.ACTION action : actions) {
             switch (action) {
                 case UP -> desiredDirections.set(0, Direction.UP);
                 case DOWN -> desiredDirections.set(0, Direction.DOWN);
@@ -69,7 +79,7 @@ public class PacmanController extends GameController {
                 }
             }
         }
-        for(int i = 0; i < getModel().getPacmans().size(); ++i) {
+        for (int i = 0; i < getModel().getPacmans().size(); ++i) {
             Pacman pacman = getModel().getPacmans().get(i);
             pacman.updateMouthState();
             if (time % pacman.getSpeed() != 1 && !pacman.isDying()) movePacman(pacman, desiredDirections.get(i));
