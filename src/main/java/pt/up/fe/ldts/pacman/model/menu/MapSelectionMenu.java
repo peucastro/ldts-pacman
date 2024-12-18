@@ -37,4 +37,8 @@ public class MapSelectionMenu extends Menu {
     protected TextBox createTitle() {
         return new TextBox("MAP SELECTION", new Position(128, 30), new TextColor.RGB(255, 255, 255));
     }
+
+    public String getFolderstring() {
+        return folderstring;
+    }
 }
