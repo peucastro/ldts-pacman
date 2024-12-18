@@ -31,7 +31,7 @@ public class DyingStateController extends GameController {
 
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
-        if (stateTimeCounter == -1) stateTimeCounter = 110;
+        if (stateTimeCounter == -1) { stateTimeCounter = 110; }
 
         if (stateTimeCounter == 0) {
             int alivePacmans = 0; //number of still alive pacmans

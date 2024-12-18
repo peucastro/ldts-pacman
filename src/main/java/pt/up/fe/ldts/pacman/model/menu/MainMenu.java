@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MainMenu extends Menu {
+public class MainMenu extends Menu implements MenuOptions {
     private final Set<Position> blankPositions;
     private final Pacman pacman;
 
@@ -68,10 +68,12 @@ public class MainMenu extends Menu {
         return getSelectedOption() == 0;
     }
 
+    @Override
     public boolean ResolutionSelected() {
         return getSelectedOption() == 1;
     }
 
+    @Override
     public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
 
     public boolean ExitSelected() {
@@ -83,10 +85,12 @@ public class MainMenu extends Menu {
         return pacman;
     }
 
+    @Override
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
         getOptions().get(1).setText("Resolution: " + newResolution);
     }
 
+    @Override
     public void setMasterVolume(float volume){
         getOptions().get(2).setText("Master Volume: " + (int)(volume*10));
     }
