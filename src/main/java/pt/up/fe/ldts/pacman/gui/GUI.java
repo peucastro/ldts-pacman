@@ -8,13 +8,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public interface GUI {
-    ACTION getNextAction() throws IOException;
+    List<ACTION> getNextAction() throws IOException;
 
     void drawImage(Position position, BasicTextImage image);
 
     void drawImage(Position position, BufferedImage image);
+
+    void drawImage(Position position, BufferedImage image, int width, int height);
 
     void drawCharacter(Position position, BufferedImage character, TextColor color);
 
@@ -28,7 +31,7 @@ public interface GUI {
 
     void resizeScreen(int width, int height, SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException;
 
-    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT}
+    enum ACTION {UP, RIGHT, DOWN, LEFT, NONE, QUIT, SELECT, W, A, S, D}
 
     enum SCREEN_RESOLUTION {
         _360p,

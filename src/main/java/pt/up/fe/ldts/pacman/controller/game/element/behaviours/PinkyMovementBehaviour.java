@@ -7,11 +7,12 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
 public class PinkyMovementBehaviour extends GhostMovementBehaviour{
     @Override
-    protected Position getAlivePosition(Ghost ghost, Arena arena) {
+    protected Position getAlivePosition(Ghost ghost, Arena arena, Pacman targetPacman,  boolean chaseMode) {
         if(ghost.isInsideGate()) return arena.getGhostGate().getPosition();
+        if(!chaseMode) return new Position(0,0);
 
-        int newX = arena.getPacman().getPosition().getX(), newY = arena.getPacman().getPosition().getY();
-        switch(arena.getPacman().getDirection()){
+        int newX = targetPacman.getPosition().getX(), newY = targetPacman.getPosition().getY();
+        switch(targetPacman.getDirection()){
             case UP -> newY = Math.max(0, newY - 3);
             case DOWN -> newY = Math.max(arena.getHeight(), newY + 3);
             case RIGHT -> newX = Math.max(arena.getWidth(), newX + 3);

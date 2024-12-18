@@ -7,6 +7,7 @@ import pt.up.fe.ldts.pacman.model.game.element.MovableElement;
 public abstract class Ghost extends MovableElement {
     private GhostState state;
     private Boolean insideGate;
+    private Position respawnPosition;
 
     public Ghost(Position pos) {
         super(pos);
@@ -47,5 +48,13 @@ public abstract class Ghost extends MovableElement {
         setPosition(getNextPosition());
         setDirection(getDirection().getOpposite());
         setCounter(11 - getCounter());
+    }
+
+    public void setRespawnPosition(Position respawnPosition) {
+        this.respawnPosition = respawnPosition;
+    }
+
+    public Position getRespawnPosition() {
+        return respawnPosition;
     }
 }

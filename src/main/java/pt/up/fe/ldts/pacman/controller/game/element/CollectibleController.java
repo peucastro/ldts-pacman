@@ -11,6 +11,8 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.util.List;
+
 
 public class CollectibleController extends GameController {
     private final AudioPlayer eatingSound;
@@ -24,26 +26,27 @@ public class CollectibleController extends GameController {
     }
 
     @Override
-    public void step(Game game, GUI.ACTION action, long time) {
-        Pacman pacman = getModel().getPacman();
-        getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
-            if (pacman.getPosition().equals(collectible.getPosition())) {
-                if (collectible.getClass() == PowerUp.class) getModel().getGhosts().forEach(ghost -> {
-                    GhostController.setScaredTimeLeft(1500); //start scared time
-                    if (!ghost.isDead()) {
-                        ghost.setState(GhostState.SCARED);
-                        ghost.setSpeed(Arena.GHOST_SCARED_SPEED);
-                        ghost.invertDirection();
-                    }
-                });
-                eatingSound.playOnce();
-                pacman.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
-                getModel().addBlankPosition(new Position(collectible.getPosition()));
-                getModel().incrementScore(collectible.getValue());
-                getModel().incrementCollectedCollectibles();
-                return true;
-            }
-            return false;
-        });
+    public void step(Game game, List<GUI.ACTION> actions, long time) {
+        for(Pacman pacman : getModel().getPacmans()) {
+            getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
+                if (pacman.getPosition().equals(collectible.getPosition())) {
+                    if (collectible.getClass() == PowerUp.class) getModel().getGhosts().forEach(ghost -> {
+                        GhostController.setScaredTimeLeft(1500); //start scared time
+                        if (!ghost.isDead()) {
+                            ghost.setState(GhostState.SCARED);
+                            ghost.setSpeed(Arena.GHOST_SCARED_SPEED);
+                            ghost.invertDirection();
+                        }
+                    });
+                    eatingSound.playOnce();
+                    for(Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
+                    getModel().addBlankPosition(new Position(collectible.getPosition()));
+                    getModel().incrementScore(collectible.getValue());
+                    getModel().incrementCollectedCollectibles();
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 }

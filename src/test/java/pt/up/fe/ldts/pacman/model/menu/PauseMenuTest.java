@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.model.menu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pt.up.fe.ldts.pacman.States.State;
+import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.model.Position;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

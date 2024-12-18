@@ -7,7 +7,9 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Arena {
@@ -18,10 +20,9 @@ public class Arena {
     public static final int GHOST_SCARED_SPEED = 2;
     public static final int GHOST_DEAD_SPEED = 1;
 
-    private Position respawnPosition;
-    private final Pacman pacman;
+    private final List<Pacman> pacmans;
     private final int width, height;
-    private int score;
+    private long score;
     private int collectedCollectibles;
     private final GhostGate ghostGate;
     private Set<Position> blankPositions;
@@ -35,9 +36,8 @@ public class Arena {
 
         this.score = 0;
         this.collectedCollectibles = 0;
-        this.respawnPosition = new Position(10,10);
 
-        this.pacman = new Pacman(new Position(10, 10));
+        this.pacmans = new ArrayList<>();
         this.ghostGate = new GhostGate(new Position(10,10));
 
         this.ghosts = new HashSet<>();
@@ -46,8 +46,8 @@ public class Arena {
         this.blankPositions = new HashSet<>();
     }
 
-    public Pacman getPacman() {
-        return pacman;
+    public List<Pacman> getPacmans() {
+        return pacmans;
     }
 
     public Set<Ghost> getGhosts() {
@@ -94,8 +94,8 @@ public class Arena {
         ghosts.add(ghost);
     }
 
-    public void setPacmanPosition(Position position) {
-        pacman.setPosition(position);
+    public void addPacman(Pacman pacman) {
+        pacmans.add(pacman);
     }
 
     public boolean isEmpty(Position position) {
@@ -113,15 +113,15 @@ public class Arena {
         return null;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
-    public void incrementScore(int increment){
+    public void incrementScore(long increment){
         this.score += increment;
     }
 
@@ -147,13 +147,5 @@ public class Arena {
 
     public void addBlankPosition(Position position){
         blankPositions.add(position);
-    }
-
-    public Position getRespawnPosition() {
-        return respawnPosition;
-    }
-
-    public void setRespawnPosition(Position respawnPosition) {
-        this.respawnPosition = respawnPosition;
     }
 }

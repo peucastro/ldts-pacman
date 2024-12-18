@@ -3,8 +3,8 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.MainMenuState;
-import pt.up.fe.ldts.pacman.States.State;
+import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
+import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 
