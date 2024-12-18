@@ -57,7 +57,6 @@ public class ImageLoader {
                 'U', Arrays.asList(upResource,closedResource),
                 'D', Arrays.asList(downResource,closedResource),
                 'R', Arrays.asList(rightResource,closedResource),
-                'C', Arrays.asList(closedResource,closedResource),
                 'X', Collections.singletonList(deadResource)
         );
     }

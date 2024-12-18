@@ -90,7 +90,6 @@ public class PacmanController extends GameController {
         }
         for (int i = 0; i < getModel().getPacmans().size(); ++i) {
             Pacman pacman = getModel().getPacmans().get(i);
-            pacman.updateMouthState();
             if (time % pacman.getSpeed() != 1 && !pacman.isDying()) movePacman(pacman, desiredDirections.get(i));
         }
     }

@@ -12,16 +12,16 @@ public class PacmanStrategy extends MultipleElementStrategy {
     @Override
     public BufferedImage getCurrentImage(Element element, Map<Character, List<BufferedImage>> images, long frameCount) {
         Pacman pacman = (Pacman) element;
-        if (pacman.isDying()) {
+        int index = (frameCount%20 < 10 ? 0 : 1);
+        if (pacman.isDying())
             return images.get('X').getFirst();
-        } else if (pacman.isMouthOpen()) {
-            return images.get('C').getFirst();
-        }
+
         return switch (pacman.getDirection()) {
-            case UP -> images.get('U').getFirst();
-            case DOWN -> images.get('D').getFirst();
-            case RIGHT -> images.get('R').getFirst();
-            case LEFT -> images.get('L').getFirst();
+            case UP -> images.get('U').get(index);
+            case DOWN -> images.get('D').get(index);
+            case RIGHT -> images.get('R').get(index);
+            case LEFT -> images.get('L').get(index);
         };
+
     }
 }
