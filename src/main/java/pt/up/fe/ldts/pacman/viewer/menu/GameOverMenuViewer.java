@@ -9,16 +9,21 @@ import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
+import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
 public class GameOverMenuViewer extends Viewer<GameOverMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
+    private final BufferedImage gameOverText;
 
     public GameOverMenuViewer() throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createGameOverMenuViewers();
+        this.gameOverText = ImageLoader.loadBufferedImage("PNGs/gameover.png");
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -43,7 +48,7 @@ public class GameOverMenuViewer extends Viewer<GameOverMenu> {
         }
         else drawElement(gui,new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
 
-        drawElement(gui,menu.getTitle());
+        gui.drawImage(new Position(121,44), gameOverText, gameOverText.getWidth(), gameOverText.getHeight());
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
     }
 
