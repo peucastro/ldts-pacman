@@ -24,7 +24,7 @@ public class MultipleElementViewer extends Viewer<Element> {
         BufferedImage image = strategy.getCurrentImage(element, images);
         if (element instanceof MovableElement movableElement) {
             if (image != null) {
-                Position drawPos = new Position(movableElement.getPosition().getX() * 11 + movableElement.getCounterX(), element.getPosition().getY() * 11 + movableElement.getCounterY());
+                Position drawPos = ((MovableElement) element).getRealPosition();
                 gui.drawImage(drawPos, image);
                 return;
             }

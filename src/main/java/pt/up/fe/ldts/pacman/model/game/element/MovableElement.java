@@ -56,6 +56,16 @@ public abstract class MovableElement extends Element {
         };
     }
 
+    public void invertDirection(){
+        setPosition(getNextPosition());
+        setDirection(getDirection().getOpposite());
+        setCounter(11 - getCounter());
+    }
+
+    public Position getRealPosition(){
+        return new Position(getPosition().getX() * 11 + getCounterX(), getPosition().getY() * 11 + getCounterY());
+    }
+
     public int getSpeed() {
         return speed;
     }
