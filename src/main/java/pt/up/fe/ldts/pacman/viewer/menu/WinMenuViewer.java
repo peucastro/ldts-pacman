@@ -5,7 +5,7 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
+import pt.up.fe.ldts.pacman.model.menu.WinMenu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
@@ -16,13 +16,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-public class GameOverMenuViewer extends Viewer<GameOverMenu> {
+public class WinMenuViewer extends Viewer<WinMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
-    private final BufferedImage gameOverText;
+    private final BufferedImage winText;
 
-    public GameOverMenuViewer() throws IOException, URISyntaxException {
+    public WinMenuViewer() throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createGameOverMenuViewers();
-        this.gameOverText = ImageLoader.loadBufferedImage("PNGs/gameover.png");
+        this.winText = ImageLoader.loadBufferedImage("PNGs/youwin.png");
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -32,7 +32,7 @@ public class GameOverMenuViewer extends Viewer<GameOverMenu> {
         }
     }
 
-    public void drawElements(GUI gui, GameOverMenu menu) {
+    public void drawElements(GUI gui, WinMenu menu) {
         Arena arena = menu.getArena();
         arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
         arena.getWalls().forEach(wall -> drawElement(gui, wall));
@@ -47,12 +47,14 @@ public class GameOverMenuViewer extends Viewer<GameOverMenu> {
         }
         else drawElement(gui,new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
 
-        gui.drawImage(new Position(121,44), gameOverText, gameOverText.getWidth(), gameOverText.getHeight());
+        gui.drawImage(new Position(60,38), winText, winText.getWidth(), winText.getHeight());
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
+
+        if(menu.getMaxScore() != null) drawElement(gui, menu.getMaxScore());
     }
 
     @Override
-    public void drawElement(GUI gui, GameOverMenu menu) {
+    public void drawElement(GUI gui, WinMenu menu) {
         drawElements(gui, menu);
         try {
             gui.refresh();

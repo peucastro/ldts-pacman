@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.states.menu;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.controller.menu.GameOverMenuController;
-import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
 import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.viewer.Viewer;

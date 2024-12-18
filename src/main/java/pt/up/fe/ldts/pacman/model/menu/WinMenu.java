@@ -7,13 +7,15 @@ import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.util.List;
 
-public class GameOverMenu extends Menu{
+public class WinMenu extends Menu{
     private final Arena arena;
+    private TextBox maxScore = null;
 
-    public GameOverMenu(Arena arena){
+    public WinMenu(Arena arena, boolean maxScore){
         super();
         this.arena = arena;
         initializeOptions();
+        if(maxScore) this.maxScore = new TextBox("Highest score!!!", new Position(100,0), new TextColor.RGB(255,255,0));
     }
 
     @Override
@@ -36,4 +38,8 @@ public class GameOverMenu extends Menu{
     public boolean PlayAgainSelected(){return getSelectedOption() == 0;}
 
     public boolean ExitSelected(){return getSelectedOption() == 1;}
+
+    public TextBox getMaxScore() {
+        return maxScore;
+    }
 }

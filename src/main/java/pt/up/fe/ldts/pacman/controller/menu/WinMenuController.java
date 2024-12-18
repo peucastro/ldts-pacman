@@ -3,9 +3,9 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
+import pt.up.fe.ldts.pacman.model.menu.WinMenu;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class GameOverMenuController extends MenuController<GameOverMenu> {
-    public GameOverMenuController(GameOverMenu model, AudioManager audioManager) {
+public class WinMenuController extends MenuController<WinMenu> {
+    public WinMenuController(WinMenu model, AudioManager audioManager) {
         super(model, audioManager);
     }
 
