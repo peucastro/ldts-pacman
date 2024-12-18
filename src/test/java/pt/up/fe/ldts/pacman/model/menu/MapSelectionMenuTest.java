@@ -11,7 +11,7 @@ class MapSelectionMenuTest {
 
     @BeforeEach
     void setUp() {
-        mapSelectionMenu = new MapSelectionMenu();
+        mapSelectionMenu = new MapSelectionMenu("singleplayer");
     }
 
     @Test

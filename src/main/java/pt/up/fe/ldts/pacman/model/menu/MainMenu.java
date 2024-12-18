@@ -11,7 +11,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
-import java.io.IOError;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +27,7 @@ public class MainMenu extends Menu implements MenuOptions {
 
     public MainMenu(GUI.SCREEN_RESOLUTION resolution, float volume) {
         super();
+        initializeOptions();
         blankPositions = createBlankPosition();
         pacman = new Pacman(new Position(14, 4));
 
@@ -43,10 +43,11 @@ public class MainMenu extends Menu implements MenuOptions {
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Start", new Position(148, 80), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Resolution: 900p", new Position(118, 91), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Master Volume: 10", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Exit", new Position(150, 113), new TextColor.RGB(255, 255, 255))
+                new TextBox("Single player", new Position(130, 80), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Multi player", new Position(132,91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Resolution: 900p", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Master Volume: 10", new Position(118, 113), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Exit", new Position(150, 124), new TextColor.RGB(255, 255, 255))
         ));
     }
 
@@ -64,20 +65,24 @@ public class MainMenu extends Menu implements MenuOptions {
         return blankPos;
     }
 
-    public boolean StartSelected() {
+    public boolean singlePLayerSelected() {
         return getSelectedOption() == 0;
     }
 
-    @Override
-    public boolean ResolutionSelected() {
+    public boolean multiplayerSelected() {
         return getSelectedOption() == 1;
     }
 
     @Override
-    public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
+    public boolean ResolutionSelected() {
+        return getSelectedOption() == 2;
+    }
+
+    @Override
+    public boolean MasterVolumeSelected() {return getSelectedOption() == 3;}
 
     public boolean ExitSelected() {
-        return getSelectedOption() == 3;
+        return getSelectedOption() == 4;
     }
 
 
@@ -87,7 +92,7 @@ public class MainMenu extends Menu implements MenuOptions {
 
     @Override
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
-        getOptions().get(1).setText("Resolution: " + newResolution);
+        getOptions().get(2).setText("Resolution: " + newResolution);
     }
 
     @Override

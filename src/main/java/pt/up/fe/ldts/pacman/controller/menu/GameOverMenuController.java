@@ -27,7 +27,7 @@ public class GameOverMenuController extends MenuController<GameOverMenu> {
                 menuConfirmSelection.playOnce();
                 if(getModel().PlayAgainSelected()){
                     game.getAudioManager().stopAllAudios();
-                    game.setState(new MapSelectionMenuState(new MapSelectionMenu(), game.getAudioManager()));
+                    game.setState(new MapSelectionMenuState(new MapSelectionMenu("singleplayer"), game.getAudioManager()));
                 }
                 else if(getModel().ExitSelected()){
                     game.getAudioManager().stopAllAudios();

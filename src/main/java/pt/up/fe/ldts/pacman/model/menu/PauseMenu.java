@@ -16,6 +16,7 @@ public class PauseMenu extends Menu implements MenuOptions {
     public PauseMenu(State<?> pausedState, GUI.SCREEN_RESOLUTION resolution, float volume){
         this.pausedState = pausedState;
         this.pauseSign = new TextBox("||",new Position(155,41), new TextColor.RGB(255,255,255));
+        initializeOptions();
         setResolution(resolution);
         setMasterVolume(volume);
     }
