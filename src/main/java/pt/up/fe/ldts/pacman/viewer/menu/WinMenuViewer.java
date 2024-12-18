@@ -25,37 +25,37 @@ public class WinMenuViewer extends Viewer<WinMenu> {
         this.winText = ImageLoader.loadBufferedImage("PNGs/youwin.png");
     }
 
-    public void drawElement(GUI gui, Element element) {
+    public void drawElement(GUI gui, Element element, long frameCount) {
         Viewer<Element> viewer = viewers.get(element.getClass());
         if (viewer != null) {
-            viewer.drawElement(gui, element);
+            viewer.drawElement(gui, element, frameCount);
         }
     }
 
-    public void drawElements(GUI gui, WinMenu menu) {
+    public void drawElements(GUI gui, WinMenu menu, long frameCount) {
         Arena arena = menu.getArena();
         arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
-        arena.getWalls().forEach(wall -> drawElement(gui, wall));
-        drawElement(gui, arena.getGhostGate());
-        arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible));
-        arena.getGhosts().forEach(ghost -> drawElement(gui, ghost));
-        arena.getPacmans().forEach(pacman -> drawElement(gui,pacman));
-        drawElement(gui,new TextBox("Score:" + arena.getScore(), new Position(11,0), new TextColor.RGB(255,255,255)));
+        arena.getWalls().forEach(wall -> drawElement(gui, wall, frameCount));
+        drawElement(gui, arena.getGhostGate(), frameCount);
+        arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible, frameCount));
+        arena.getGhosts().forEach(ghost -> drawElement(gui, ghost, frameCount));
+        arena.getPacmans().forEach(pacman -> drawElement(gui,pacman, frameCount));
+        drawElement(gui,new TextBox("Score:" + arena.getScore(), new Position(11,0), new TextColor.RGB(255,255,255)), frameCount);
         if(arena.getPacmans().size() == 2) {
-            drawElement(gui,new TextBox("Lives P1:" + arena.getPacmans().getFirst().getLife(), new Position(199,0), new TextColor.RGB(255,255,255)));
-            drawElement(gui,new TextBox("Lives P2:" + arena.getPacmans().get(1).getLife(), new Position(259,0), new TextColor.RGB(255,255,255)));
+            drawElement(gui,new TextBox("Lives P1:" + arena.getPacmans().getFirst().getLife(), new Position(199,0), new TextColor.RGB(255,255,255)), frameCount);
+            drawElement(gui,new TextBox("Lives P2:" + arena.getPacmans().get(1).getLife(), new Position(259,0), new TextColor.RGB(255,255,255)), frameCount);
         }
-        else drawElement(gui,new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)));
+        else drawElement(gui,new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274,0), new TextColor.RGB(255,255,255)), frameCount);
 
         gui.drawImage(new Position(60,38), winText, winText.getWidth(), winText.getHeight());
-        menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
+        menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
 
-        if(menu.getMaxScore() != null) drawElement(gui, menu.getMaxScore());
+        if(menu.getMaxScore() != null) drawElement(gui, menu.getMaxScore(), frameCount);
     }
 
     @Override
-    public void drawElement(GUI gui, WinMenu menu) {
-        drawElements(gui, menu);
+    public void drawElement(GUI gui, WinMenu menu, long frameCount) {
+        drawElements(gui, menu, frameCount);
         try {
             gui.refresh();
         } catch (IOException e) {

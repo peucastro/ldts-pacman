@@ -14,7 +14,7 @@ public class ElementViewer extends Viewer<Element> {
     }
 
     @Override
-    public void drawElement(GUI gui, Element element) {
+    public void drawElement(GUI gui, Element element, long frameCount) {
         Position drawPos = new Position(element.getPosition().getX() * 11, element.getPosition().getY() * 11);
         gui.drawImage(drawPos, image);
     }

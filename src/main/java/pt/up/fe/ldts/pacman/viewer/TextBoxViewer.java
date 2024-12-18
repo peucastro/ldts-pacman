@@ -16,7 +16,7 @@ public class TextBoxViewer extends Viewer<Element> {
     }
 
     @Override
-    public void drawElement(GUI gui, Element element) {
+    public void drawElement(GUI gui, Element element, long frameCount) {
         TextBox textBox = (TextBox) element;
         String text = textBox.getText();
         int posX = textBox.getPosition().getX(), posY = textBox.getPosition().getY();

@@ -18,22 +18,22 @@ public class MapSelectionMenuViewer extends Viewer<MapSelectionMenu> {
         this.initialClear = false;
     }
 
-    public void drawElement(GUI gui, Element element) {
+    public void drawElement(GUI gui, Element element, long frameCount) {
         Viewer<Element> viewer = viewers.get(element.getClass());
         if (viewer != null) {
-            viewer.drawElement(gui, element);
+            viewer.drawElement(gui, element, frameCount);
         }
     }
 
-    public void drawElements(GUI gui, MapSelectionMenu menu) {
-        menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
-        drawElement(gui, menu.getTitle());
+    public void drawElements(GUI gui, MapSelectionMenu menu, long frameCount) {
+        menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
+        drawElement(gui, menu.getTitle(), frameCount);
     }
 
     @Override
-    public void drawElement(GUI gui, MapSelectionMenu menu) {
+    public void drawElement(GUI gui, MapSelectionMenu menu, long frameCount) {
         if(!initialClear) {gui.clear(); initialClear = true;}
-        drawElements(gui, menu);
+        drawElements(gui, menu, frameCount);
         try {
             gui.refresh();
         } catch (IOException e) {

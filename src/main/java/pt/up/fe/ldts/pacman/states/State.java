@@ -33,7 +33,7 @@ public abstract class State<T> {
     public void step(Game game, GUI gui, long frameTime) throws IOException, URISyntaxException, FontFormatException {
         List<GUI.ACTION> actions = gui.getNextAction();
         controller.step(game, actions, frameTime);
-        viewer.drawElement(gui, model);
+        viewer.drawElement(gui, model, frameTime);
         actions.clear();
     }
 }

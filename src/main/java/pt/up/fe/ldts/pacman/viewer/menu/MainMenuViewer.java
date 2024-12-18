@@ -20,30 +20,30 @@ public class MainMenuViewer extends Viewer<MainMenu> {
         this.initialClear = false;
     }
 
-    public void drawElement(GUI gui, Element element) {
+    public void drawElement(GUI gui, Element element, long frameCount) {
         Viewer<Element> viewer = viewers.get(element.getClass());
         if (viewer != null) {
-            viewer.drawElement(gui, element);
+            viewer.drawElement(gui, element, frameCount);
         }
     }
 
-    public void drawElements(GUI gui, MainMenu menu) {
+    public void drawElements(GUI gui, MainMenu menu, long frameCount) {
         menu.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
-        menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
-        drawElement(gui, menu.getPacman());
+        menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
+        drawElement(gui, menu.getPacman(), frameCount);
 
-        drawElement(gui, menu.getBlinky());
-        drawElement(gui, menu.getPinky());
-        drawElement(gui, menu.getInky());
-        drawElement(gui, menu.getClyde());
+        drawElement(gui, menu.getBlinky(), frameCount);
+        drawElement(gui, menu.getPinky(), frameCount);
+        drawElement(gui, menu.getInky(), frameCount);
+        drawElement(gui, menu.getClyde(), frameCount);
 
-        drawElement(gui, menu.getTitle());
+        drawElement(gui, menu.getTitle(), frameCount);
     }
 
     @Override
-    public void drawElement(GUI gui, MainMenu menu) {
+    public void drawElement(GUI gui, MainMenu menu, long frameCount) {
         if(!initialClear) {gui.clear(); initialClear = true;}
-        drawElements(gui, menu);
+        drawElements(gui, menu, frameCount);
         try {
             gui.refresh();
         } catch (IOException e) {
