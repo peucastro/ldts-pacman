@@ -24,7 +24,8 @@ public class ImageLoader {
         BufferedImage upResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up2.png");
         BufferedImage downResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down2.png");
         BufferedImage rightResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right2.png");
-        BufferedImage scaredResource = loadBufferedImage("PNGs/ghosts/common/scaredghost.png");
+        BufferedImage scaredResource1 = loadBufferedImage("PNGs/ghosts/common/scaredghost1.png");
+        BufferedImage scaredResource2 = loadBufferedImage("PNGs/ghosts/common/scaredghost2.png");
         BufferedImage deadRightResource = loadBufferedImage("PNGs/ghosts/common/deadghostright.png");
         BufferedImage deadLeftResource = loadBufferedImage("PNGs/ghosts/common/deadghostleft.png");
         BufferedImage deadUpResource = loadBufferedImage("PNGs/ghosts/common/deadghostup.png");
@@ -36,11 +37,11 @@ public class ImageLoader {
                 'U', Arrays.asList(upResource1,upResource2),
                 'D', Arrays.asList(downResource1,downResource2),
                 'R', Arrays.asList(rightResource1,rightResource2),
-                'S', Arrays.asList(scaredResource),
-                'r', Arrays.asList(deadRightResource),
-                'l', Arrays.asList(deadLeftResource),
-                'u', Arrays.asList(deadUpResource),
-                'd', Arrays.asList(deadDownResource)
+                'S', Arrays.asList(scaredResource1, scaredResource2),
+                'r', Collections.singletonList(deadRightResource),
+                'l', Collections.singletonList(deadLeftResource),
+                'u', Collections.singletonList(deadUpResource),
+                'd', Collections.singletonList(deadDownResource)
         );
     }
 
