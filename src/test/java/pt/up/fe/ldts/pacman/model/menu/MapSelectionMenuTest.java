@@ -18,7 +18,7 @@ class MapSelectionMenuTest {
     void testCreateOptions() {
         var options = mapSelectionMenu.createOptions();
         assertEquals(1, options.size());
-        assertEquals("Map 1", options.get(0).getText());
+        assertEquals("Map 1", options.getFirst().getText());
     }
 
     @Test

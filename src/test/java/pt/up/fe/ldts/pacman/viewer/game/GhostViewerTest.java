@@ -26,13 +26,13 @@ class GhostViewerTest {
         Pinky pinky = new Pinky(new Position(0, 0));
 
         // Test Pinky Alive
-        ghostViewer.drawElement(mockLanternaGUI, pinky);
+        ghostViewer.drawElement(mockLanternaGUI, pinky,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Test Pinky Dead
         pinky.setState(GhostState.DEAD);
-        ghostViewer.drawElement(mockLanternaGUI, pinky);
+        ghostViewer.drawElement(mockLanternaGUI, pinky,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 }

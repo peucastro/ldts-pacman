@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.model.menu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ class MainMenuTest {
 
     @BeforeEach
     void setUp() {
-        mainMenu = new MainMenu();
+        mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._900p, 0);
     }
 
     @Test
@@ -31,20 +32,32 @@ class MainMenuTest {
     }
 
     @Test
-    void testStartSelected() {
+    void testSinglePlayerSelected() {
         mainMenu.setSelectedOption(0);
-        assertTrue(mainMenu.StartSelected());
+        assertTrue(mainMenu.singlePLayerSelected());
     }
 
     @Test
-    void testSettingsSelected() {
+    void testMultiplayerSelected() {
         mainMenu.setSelectedOption(1);
-        assertTrue(mainMenu.SettingsSelected());
+        assertTrue(mainMenu.multiplayerSelected());
+    }
+
+    @Test
+    void testResolutionSelected() {
+        mainMenu.setSelectedOption(2);
+        assertTrue(mainMenu.ResolutionSelected());
+    }
+
+    @Test
+    void testMasterVolumeSelected() {
+        mainMenu.setSelectedOption(3);
+        assertTrue(mainMenu.MasterVolumeSelected());
     }
 
     @Test
     void testExitSelected() {
-        mainMenu.setSelectedOption(2);
+        mainMenu.setSelectedOption(4);
         assertTrue(mainMenu.ExitSelected());
     }
 

@@ -13,6 +13,7 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
@@ -27,10 +28,10 @@ class ArenaViewerTest {
         when(mockArena.getCollectibles()).thenReturn(Set.of());
         when(mockArena.getGhosts()).thenReturn(Set.of());
         when(mockArena.getGhostGate()).thenReturn(mock(GhostGate.class)); // Add this
-        when(mockArena.getPacman()).thenReturn(new Pacman(new Position(0, 0)));
+        when(mockArena.getPacmans()).thenReturn(new ArrayList<>());
         
         ArenaViewer arenaViewer = new ArenaViewer();
-        arenaViewer.drawElements(mockGUI, mockArena);
+        arenaViewer.drawElements(mockGUI, mockArena,0);
 
         // Verify Pacman is drawn
         verify(mockGUI, times(1)).drawImage(any(), (BufferedImage) any());
@@ -45,7 +46,7 @@ class ArenaViewerTest {
         // Simulate map loading
         new ArenaLoader(arena).loadMap("src/main/resources/Maps/map1.txt");
         ArenaViewer arenaViewer = new ArenaViewer();
-        arenaViewer.drawElements(mockGUI, arena);
+        arenaViewer.drawElements(mockGUI, arena,0);
 
         // Verify the number of static elements drawn (total number of static elements = 29*15 - 5 (movables) - 2 (empty spaces))
         verify(mockGUI, times(29 * 16 - 5 - 2)).drawImage(any(), (BasicTextImage) any());

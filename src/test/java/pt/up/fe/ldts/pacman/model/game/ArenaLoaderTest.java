@@ -27,7 +27,7 @@ public class ArenaLoaderTest {
 
         arenaLoader.loadMap("src/main/resources/Maps/testmap.txt");
 
-        Assertions.assertEquals(new Position(10, 16), arena.getPacman().getPosition());
+        Assertions.assertEquals(new Position(10, 16), arena.getPacmans().getFirst().getPosition());
         Assertions.assertTrue(arena.getCollectibles().contains(new Orange(new Position(3, 11))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Apple(new Position(3, 12))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Cherry(new Position(3, 13))));
