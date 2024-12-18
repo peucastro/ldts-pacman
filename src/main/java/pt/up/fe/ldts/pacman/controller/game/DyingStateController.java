@@ -1,12 +1,11 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.GameState;
-import pt.up.fe.ldts.pacman.States.MainMenuState;
+import pt.up.fe.ldts.pacman.states.game.GameState;
+import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;

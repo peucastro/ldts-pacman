@@ -1,7 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.DyingState;
+import pt.up.fe.ldts.pacman.states.game.DyingState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;

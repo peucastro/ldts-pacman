@@ -103,10 +103,6 @@ public class Arena {
             if (wall.getPosition().equals(position))
                 return false;
         }
-        for (Pacman pm: pacmans) {
-            if (pm.getPosition().equals(position))
-                return false;
-        }
         return true;
     }
 

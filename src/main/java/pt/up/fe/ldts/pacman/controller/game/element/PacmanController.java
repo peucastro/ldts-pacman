@@ -26,28 +26,30 @@ public class PacmanController extends GameController {
             return;
         }
 
-        if (desiredDirection != null) {
+        if (desiredDirection != null) { //try to go in the desired direction
             Position nextDesiredPosition = calculateNextPosition(pacman.getPosition(), desiredDirection);
 
             boolean isPositionValid = getModel().isEmpty(nextDesiredPosition) &&
                     getModel().getPacmans().stream()
                             .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
-                            .noneMatch(other -> other.getNextPosition().equals(nextDesiredPosition));
+                            .noneMatch(other -> other.getPosition().equals(nextDesiredPosition) || other.getNextPosition().equals(nextDesiredPosition));
 
             if (isPositionValid &&
                     !getModel().getGhostGate().getPosition().equals(nextDesiredPosition)) {
                 pacman.setDirection(desiredDirection);
+                pacman.incrementCounter();
             }
         }
+        else { //if the desired direction was invalid, try to go the in the current direction
+            Position nextPosition = pacman.getNextPosition();
 
-        Position nextPosition = pacman.getNextPosition();
-
-        // Ensure the next position is valid for movement
-        if (getModel().isEmpty(nextPosition) &&
-                getModel().getPacmans().stream()
-                        .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
-                        .noneMatch(other -> other.getNextPosition().equals(nextPosition))) {
-            pacman.incrementCounter();
+            // Ensure the next position is valid for movement
+            if (getModel().isEmpty(nextPosition) &&
+                    getModel().getPacmans().stream()
+                            .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
+                            .noneMatch(other -> other.getPosition().equals(nextPosition) || other.getNextPosition().equals(nextPosition))) {
+                pacman.incrementCounter();
+            }
         }
     }
 

@@ -1,9 +1,10 @@
-package pt.up.fe.ldts.pacman.States;
+package pt.up.fe.ldts.pacman.states.menu;
 
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.controller.menu.PauseMenuController;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
+import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.menu.PauseMenuViewer;
 

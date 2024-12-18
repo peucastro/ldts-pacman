@@ -1,15 +1,12 @@
 package pt.up.fe.ldts.pacman.controller.menu;
 
-import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.GameState;
+import pt.up.fe.ldts.pacman.states.game.GameState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
-import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.awt.*;
 import java.io.File;

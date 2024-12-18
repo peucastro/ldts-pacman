@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.States;
+package pt.up.fe.ldts.pacman.states;
 
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;

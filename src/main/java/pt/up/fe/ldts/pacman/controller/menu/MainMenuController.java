@@ -1,7 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.menu;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.MapSelectionMenuState;
+import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;

@@ -1,8 +1,7 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.States.DyingState;
-import pt.up.fe.ldts.pacman.States.PauseMenuState;
+import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.game.element.CollectibleController;
 import pt.up.fe.ldts.pacman.controller.game.element.GhostController;
