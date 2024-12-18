@@ -1,28 +1,33 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'net.ltgt.errorprone' version '4.1.0'
-    id 'jacoco'
-    id 'info.solidsoft.pitest' version '1.15.0'
+    id "java"
+    id "application"
+    id "net.ltgt.errorprone" version "4.1.0"
+    id "jacoco"
+    id "info.solidsoft.pitest" version "1.15.0"
 }
 
-group = 'pt.up.fe.ldts'
-version = '1.0-SNAPSHOT'
+group = "pt.up.fe.ldts"
+version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenCentral()
 }
 
-application { //temporary class
+application {
     mainClass.set("pt.up.fe.ldts.pacman.Game")
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.1"
+    testImplementation "org.mockito:mockito-core:5.8.0"
     errorprone "com.google.errorprone:error_prone_core:2.30.0"
-    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.2'
+    implementation group: "com.googlecode.lanterna", name: "lanterna", version: "3.1.2"
 }
 
 compileJava {
@@ -32,16 +37,29 @@ compileJava {
 test {
     useJUnitPlatform()
     testLogging {
-        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+        exceptionFormat = "full"
+        showStandardStreams = true
     }
     finalizedBy jacocoTestReport
 }
 
-pitest {
-    junit5PluginVersion = '1.2.0'
-    pitestVersion = '1.15.0'
-}
-
 jacocoTestReport {
     dependsOn test
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.70
+            }
+        }
+    }
+}
+
+pitest {
+    junit5PluginVersion = "1.2.0"
+    pitestVersion = "1.15.0"
+    targetClasses = ["pt.up.fe.ldts.pacman.test"]
 }
