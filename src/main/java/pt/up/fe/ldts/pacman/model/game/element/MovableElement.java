@@ -66,6 +66,10 @@ public abstract class MovableElement extends Element {
         return new Position(getPosition().getX() * 11 + getCounterX(), getPosition().getY() * 11 + getCounterY());
     }
 
+    public boolean collidingWith(MovableElement other){
+        return  getRealPosition().squaredDistance(other.getRealPosition()) < 121;
+    }
+
     public int getSpeed() {
         return speed;
     }

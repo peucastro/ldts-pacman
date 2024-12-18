@@ -59,7 +59,7 @@ public class CollisionController extends GameController {
         for(Pacman pacman : getModel().getPacmans()){
             if(pacman.isDying()) continue; //don't process collisions with dead pacmans
             for(Ghost ghost : getModel().getGhosts()){
-                if (ghost.getPosition().equals(pacman.getPosition())) {
+                if (ghost.collidingWith(pacman)) {
                     switch (ghost.getState()) {
                         case ALIVE:
                             pacman.decreaseLife();
