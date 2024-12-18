@@ -22,7 +22,7 @@ public class Arena {
 
     private final List<Pacman> pacmans;
     private final int width, height;
-    private int score;
+    private long score;
     private int collectedCollectibles;
     private final GhostGate ghostGate;
     private Set<Position> blankPositions;
@@ -113,15 +113,15 @@ public class Arena {
         return null;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
-    public void incrementScore(int increment){
+    public void incrementScore(long increment){
         this.score += increment;
     }
 

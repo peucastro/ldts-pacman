@@ -22,7 +22,7 @@ public class ArenaController extends GameController {
     private final PacmanController pacmanController;
     private final CollectibleController collectibleController;
     private final GhostController ghostController;
-    private int maxScore;
+    private long maxScore;
 
     public ArenaController(Arena arena, AudioManager audioManager) {
         super(arena);
@@ -33,12 +33,12 @@ public class ArenaController extends GameController {
         this.maxScore = calculateMaxScore();
     }
 
-    private int calculateMaxScore(){
-        int score = 0;
+    private long calculateMaxScore(){
+        long score = 0;
         for(Collectible collectible : getModel ().getCollectibles()){
             score += collectible.getValue();
             //every ghost is eaten every time a power up is consumed
-            if(collectible.getClass() == PowerUp.class) score += 3000;
+            if(collectible.getClass() == PowerUp.class) score += (long) (200*((1-Math.pow(2,getModel().getGhosts().size()))/-1));
         }
         return score;
     }
