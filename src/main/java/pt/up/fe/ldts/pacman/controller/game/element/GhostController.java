@@ -148,7 +148,8 @@ public class GhostController extends GameController {
             getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
 
         //change the target pacman from time to time on multiplayer
-        if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1) targetPacman = (targetPacman == 0 ? 1 : 0);
+        if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
+            targetPacman = (targetPacman == 0 ? 1 : 0);
 
         if (scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
             ghostsEaten = 0;
