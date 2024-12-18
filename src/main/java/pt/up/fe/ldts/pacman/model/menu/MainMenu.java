@@ -42,8 +42,8 @@ public class MainMenu extends Menu implements MenuOptions {
     @Override
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
-                new TextBox("Single player", new Position(118, 80), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Multi player", new Position(118,91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Single player", new Position(130, 80), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Multi player", new Position(132,91), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Resolution: 900p", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Master Volume: 10", new Position(118, 113), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Exit", new Position(150, 124), new TextColor.RGB(255, 255, 255))
@@ -74,14 +74,14 @@ public class MainMenu extends Menu implements MenuOptions {
 
     @Override
     public boolean ResolutionSelected() {
-        return getSelectedOption() == 1;
+        return getSelectedOption() == 2;
     }
 
     @Override
-    public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
+    public boolean MasterVolumeSelected() {return getSelectedOption() == 3;}
 
     public boolean ExitSelected() {
-        return getSelectedOption() == 3;
+        return getSelectedOption() == 4;
     }
 
 
@@ -91,7 +91,7 @@ public class MainMenu extends Menu implements MenuOptions {
 
     @Override
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
-        getOptions().get(1).setText("Resolution: " + newResolution);
+        getOptions().get(2).setText("Resolution: " + newResolution);
     }
 
     @Override
