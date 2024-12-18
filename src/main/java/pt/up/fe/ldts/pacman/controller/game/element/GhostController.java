@@ -19,41 +19,19 @@ import java.util.List;
 import java.util.Map;
 
 public class GhostController extends GameController {
-    private final AudioPlayer ghostsAliveSiren;
-    private final AudioPlayer ghostsScaredSiren;
-    private final AudioPlayer ghostEatenAudio;
     private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
-    private int ghostsEaten; //ghosts eaten in current scared state
-    private static int scaredTimeLeft = 0;
     private int frameCount; //useful for alternating between chase and scatter states when ghosts are alive
-    private int deadPacmanCounter; //for multiplayer
     private int targetPacman;
 
     public GhostController(Arena arena, AudioManager audioManager) {
         super(arena);
-
-        if (!audioManager.audioExists("ghostsAliveSiren"))
-            audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
-        if (!audioManager.audioExists("ghostsScared"))
-            audioManager.addAudio("ghostsScared", new AudioPlayer("Audio/ghostsScared.wav"));
-        if (!audioManager.audioExists("ghostEaten"))
-            audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
-        this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
-        this.ghostsAliveSiren.setVolume(0.2f);
-        this.ghostsScaredSiren = audioManager.getAudio("ghostsScared");
-        this.ghostsScaredSiren.setVolume(0.25f);
-        this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
-        this.ghostEatenAudio.setVolume(0.40f);
-
         this.movementBehaviours = Map.of(
                 Blinky.class, new BlinkyMovementBehaviour(),
                 Pinky.class, new PinkyMovementBehaviour(),
                 Inky.class, new InkyMovementBehaviour(),
                 Clyde.class, new ClydeMovementBehaviour()
         );
-        this.ghostsEaten = 0;
         this.frameCount = 0;
-        this.deadPacmanCounter = 0;
         this.targetPacman = 0;
     }
 
@@ -86,7 +64,7 @@ public class GhostController extends GameController {
     }
 
     private boolean isChaseMode(){
-        return ((frameCount >= 600 && frameCount < 2500) || frameCount >= 3200);
+        return ((frameCount >= 450 && frameCount < 2700) || frameCount >= 3200);
     }
 
     private Direction getDirectionTowards(Ghost ghost, Position targetPosition) {//choose new direction to follow (the one with the minimum linear distance from target)
@@ -108,88 +86,20 @@ public class GhostController extends GameController {
         return nextDirection;
     }
 
-    private void processCollisionWithPacmans(Game game, Ghost ghost) throws IOException, URISyntaxException {
-        for(Pacman pacman : getModel().getPacmans()) {
-            if(pacman.isDying()) continue; //don't process collisions with dead pacmans
-            if (ghost.getPosition().equals(pacman.getPosition())) {
-                switch (ghost.getState()) {
-                    case ALIVE:
-                        pacman.decreaseLife();
-                        pacman.setDying(true);
-                        int alivePacmans = 0; //number of pacmans still alive
-                        for(Pacman pacman1 : getModel().getPacmans()) if(!pacman1.isDying()) ++alivePacmans;
-                        if(alivePacmans == 0) { //if no pacman is alive go to dying state, else just keep going and "stun" the dead pacman
-                            game.getAudioManager().stopAllAudios();
-                            game.setState(new DyingState(getModel(), game.getAudioManager()));
-                        }
-                        else deadPacmanCounter = 110;
-                        break;
-                    case SCARED:
-                        ghostEatenAudio.playOnce();
-                        ghost.setState(GhostState.DEAD);
-                        ghost.setSpeed(Arena.GHOST_DEAD_SPEED);
-                        getModel().incrementScore((int) (200 * Math.pow(2, ghostsEaten++)));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
-        if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
-            if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop(); //start of the game or leaving pause menu
-            else ghostsScaredSiren.playInLoop(); //leaving pause menu and scared state was on before
-        }
-
-        if((frameCount == 600 || frameCount == 2500 || frameCount == 3200) && scaredTimeLeft == 0)
+        if(frameCount == 450 || frameCount == 2700 || frameCount == 3200)
             getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
 
         //change the target pacman from time to time on multiplayer
         if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
             targetPacman = (targetPacman == 0 ? 1 : 0);
 
-        if (scaredTimeLeft == 1500) { //whenever a powerUp gets eaten the counter gets reset
-            ghostsEaten = 0;
-            ghostsAliveSiren.stopPlaying();
-            if (!ghostsScaredSiren.isPlaying()) ghostsScaredSiren.playInLoop();
-        }
-
-        if(deadPacmanCounter > 0 && --deadPacmanCounter == 0){//when playing multiplayer and one pacman is still alive, the other comes to life
-            for (Pacman pacman : getModel().getPacmans()) if(pacman.isDying() && pacman.getLife() > 0){
-                pacman.setDying(false);
-                pacman.setPosition(pacman.getRespawnPosition());
-                pacman.setCounter(0);
-            }
-        }
-
-        if ((scaredTimeLeft > 0 && --scaredTimeLeft == 0) || ghostsEaten == getModel().getGhosts().size()) { //if scared time reaches 0 then all scared ghosts go back to normal
-            getModel().getGhosts().forEach(ghost -> {
-                if (ghost.isScared()) {
-                    ghost.setState(GhostState.ALIVE);
-                    ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
-                }
-            });
-            ghostsScaredSiren.stopPlaying();
-            ghostsAliveSiren.playInLoop();
-            for(Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
-            ghostsEaten = 0;
-        }
 
         for (Ghost ghost : getModel().getGhosts()) {//move all ghosts
-            processCollisionWithPacmans(game, ghost);
-
             if (time % ghost.getSpeed() != 1) moveGhost(ghost);
-
-            processCollisionWithPacmans(game, ghost);
         }
 
         ++frameCount;
-    }
-
-    public static void setScaredTimeLeft(int scaredTimeLeft) {
-        GhostController.scaredTimeLeft = scaredTimeLeft;
     }
 }
