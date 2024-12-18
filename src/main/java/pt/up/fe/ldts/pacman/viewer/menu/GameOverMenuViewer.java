@@ -2,36 +2,27 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 
 import com.googlecode.lanterna.TextColor;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.menu.GameOverMenu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
-import pt.up.fe.ldts.pacman.viewer.Viewer;
+import pt.up.fe.ldts.pacman.viewer.ModelViewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Map;
 
-public class GameOverMenuViewer extends Viewer<GameOverMenu> {
-    private final Map<Class<?>, Viewer<Element>> viewers;
+public class GameOverMenuViewer extends ModelViewer<GameOverMenu> {
     private final BufferedImage gameOverText;
 
     public GameOverMenuViewer() throws IOException, URISyntaxException {
-        this.viewers = ViewerFactory.createGameOverMenuViewers();
+        super(ViewerFactory.createGameOverMenuViewers());
         this.gameOverText = ImageLoader.loadBufferedImage("PNGs/gameover.png");
     }
 
-    public void drawElement(GUI gui, Element element, long frameCount) {
-        Viewer<Element> viewer = viewers.get(element.getClass());
-        if (viewer != null) {
-            viewer.drawElement(gui, element, frameCount);
-        }
-    }
-
+    @Override
     public void drawElements(GUI gui, GameOverMenu menu, long frameCount) {
         Arena arena = menu.getArena();
         arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
@@ -51,13 +42,4 @@ public class GameOverMenuViewer extends Viewer<GameOverMenu> {
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
     }
 
-    @Override
-    public void drawElement(GUI gui, GameOverMenu menu, long frameCount) {
-        drawElements(gui, menu, frameCount);
-        try {
-            gui.refresh();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

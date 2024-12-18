@@ -7,6 +7,7 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.menu.WinMenu;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
+import pt.up.fe.ldts.pacman.viewer.ModelViewer;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
@@ -14,24 +15,16 @@ import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Map;
 
-public class WinMenuViewer extends Viewer<WinMenu> {
-    private final Map<Class<?>, Viewer<Element>> viewers;
+public class WinMenuViewer extends ModelViewer<WinMenu> {
     private final BufferedImage winText;
 
     public WinMenuViewer() throws IOException, URISyntaxException {
-        this.viewers = ViewerFactory.createGameOverMenuViewers();
+        super(ViewerFactory.createGameOverMenuViewers());
         this.winText = ImageLoader.loadBufferedImage("PNGs/youwin.png");
     }
 
-    public void drawElement(GUI gui, Element element, long frameCount) {
-        Viewer<Element> viewer = viewers.get(element.getClass());
-        if (viewer != null) {
-            viewer.drawElement(gui, element, frameCount);
-        }
-    }
-
+    @Override
     public void drawElements(GUI gui, WinMenu menu, long frameCount) {
         Arena arena = menu.getArena();
         arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
@@ -51,15 +44,5 @@ public class WinMenuViewer extends Viewer<WinMenu> {
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
 
         if(menu.getMaxScore() != null) drawElement(gui, menu.getMaxScore(), frameCount);
-    }
-
-    @Override
-    public void drawElement(GUI gui, WinMenu menu, long frameCount) {
-        drawElements(gui, menu, frameCount);
-        try {
-            gui.refresh();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
