@@ -87,7 +87,7 @@ public class ImageLoader {
                 int green = RGB >> 8 & 0xFF;
                 int blue = RGB & 0xFF;
 
-                textImage.setCharacterAt(x, y, new TextCharacter(' ', null, new TextColor.RGB(red, green, blue)));
+                textImage.setCharacterAt(x, y, TextCharacter.fromCharacter(' ', null, new TextColor.RGB(red, green, blue))[0]);
             }
         }
         return textImage;
