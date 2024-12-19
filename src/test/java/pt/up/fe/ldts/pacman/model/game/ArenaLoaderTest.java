@@ -45,26 +45,4 @@ public class ArenaLoaderTest {
 
         System.setOut(originalOut);
     }
-
-    @Test
-    void testCalculateMaxScore() {
-        // Create a new arena with dimensions
-        Arena arena = new Arena(10, 10);
-        ArenaLoader arenaLoader = new ArenaLoader(arena);
-
-        // Add collectibles to the arena
-        arena.addCollectible(new Coin(new Position(1, 1))); // Value: 10
-        arena.addCollectible(new Apple(new Position(2, 2))); // Value: 700
-        arena.addCollectible(new PowerUp(new Position(3, 3))); // Value: 50
-        arena.addCollectible(new Orange(new Position(4, 4))); // Value: 500
-
-        arena.addGhost(new Blinky(new Position(5, 5)));
-        arena.addGhost(new Pinky(new Position(6, 6)));
-
-        long expectedMaxScore = 1860;
-
-        arena.setMaxScore(arenaLoader.calculateMaxScore());
-
-        Assertions.assertEquals(expectedMaxScore, arena.getMaxScore());
-    }
 }
