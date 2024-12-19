@@ -1,18 +1,16 @@
 package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.controller.game.element.CollisionController;
-import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
-import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
-import pt.up.fe.ldts.pacman.model.menu.WinMenu;
-import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
+import pt.up.fe.ldts.pacman.controller.game.element.CollisionController;
 import pt.up.fe.ldts.pacman.controller.game.element.GhostController;
 import pt.up.fe.ldts.pacman.controller.game.element.PacmanController;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
-import pt.up.fe.ldts.pacman.states.menu.WinMenuState;
+import pt.up.fe.ldts.pacman.states.menu.AlertMenuState;
+import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 
 import java.awt.*;
 import java.io.IOException;
@@ -32,19 +30,18 @@ public class ArenaController extends GameController {
         this.ghostController = new GhostController(arena, audioManager);
     }
 
-
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
-        for(GUI.ACTION action : actions) {
+        for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.QUIT) {
                 game.getAudioManager().stopAllAudios();
                 game.setState(new PauseMenuState(new PauseMenu(game.getState(), game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
                 return;
             }
         }
-        if(getModel().getCollectibles().isEmpty()){
+        if (getModel().getCollectibles().isEmpty()) {
             game.getAudioManager().stopAllAudios();
-            game.setState(new WinMenuState(new WinMenu(getModel(), getModel().getScore() == getModel().getMaxScore()), game.getAudioManager()));
+            game.setState(new AlertMenuState(new AlertMenu(getModel(), "PNGs/youwin.png"), game.getAudioManager()));
             return;
         }
         //all the controllers here me thinks

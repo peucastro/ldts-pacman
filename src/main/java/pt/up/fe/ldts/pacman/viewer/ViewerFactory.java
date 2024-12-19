@@ -73,7 +73,7 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<Element>> createGameOverMenuViewers() throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer<Element>> createAlertMenuViewers() throws IOException, URISyntaxException {
         return createArenaViewers();
     }
 }
