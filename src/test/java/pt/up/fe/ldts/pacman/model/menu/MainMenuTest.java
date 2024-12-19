@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,10 +21,13 @@ class MainMenuTest {
     @Test
     void testCreateOptions() {
         var options = mainMenu.createOptions();
-        assertEquals(3, options.size());
-        assertEquals("Start", options.get(0).getText());
-        assertEquals("Settings", options.get(1).getText());
-        assertEquals("Exit", options.get(2).getText());
+        assertEquals(5, options.size());
+        assertEquals("Single player", options.get(0).getText());
+        assertEquals("Multi player", options.get(1).getText());
+        assertEquals("Resolution: 900p", options.get(2).getText());
+        assertEquals("Master Volume: 10", options.get(3).getText());
+        assertEquals("Exit", options.get(4).getText());
+
     }
 
     @Test
@@ -66,4 +72,56 @@ class MainMenuTest {
         assertNotNull(mainMenu.getPacman());
         assertEquals(new Position(14, 4), mainMenu.getPacman().getPosition());
     }
+
+    @Test
+    void testSetResolution() {
+        mainMenu.setResolution(GUI.SCREEN_RESOLUTION._1080p);
+        assertEquals("Resolution: 1080p", mainMenu.getOptions().get(2).getText());
+    }
+
+    @Test
+    void testSetMasterVolume() {
+        mainMenu.setMasterVolume(0.7f);
+        assertEquals("Master Volume: 7", mainMenu.getOptions().get(3).getText());
+    }
+
+    @Test
+    void testGetBlinky() {
+        assertNotNull(mainMenu.getBlinky());
+        assertEquals(new Position(7, 4), mainMenu.getBlinky().getPosition());
+        assertEquals(Direction.LEFT, mainMenu.getBlinky().getDirection());
+    }
+
+    @Test
+    void testGetInky() {
+        assertNotNull(mainMenu.getInky());
+        assertEquals(new Position(5, 8), mainMenu.getInky().getPosition());
+        assertEquals(Direction.DOWN, mainMenu.getInky().getDirection());
+    }
+
+    @Test
+    void testGetPinky() {
+        assertNotNull(mainMenu.getPinky());
+        assertEquals(new Position(21, 13), mainMenu.getPinky().getPosition());
+        assertEquals(Direction.RIGHT, mainMenu.getPinky().getDirection());
+    }
+
+    @Test
+    void testGetClyde() {
+        assertNotNull(mainMenu.getClyde());
+        assertEquals(new Position(24, 10), mainMenu.getClyde().getPosition());
+        assertEquals(Direction.UP, mainMenu.getClyde().getDirection());
+    }
+
+    @Test
+    void testGetBlankPositions() {
+        Set<Position> blankPositions = mainMenu.getBlankPositions();
+        assertNotNull(blankPositions);
+
+        assertTrue(blankPositions.contains(new Position(7, 4))); // Blinky's path
+        assertTrue(blankPositions.contains(new Position(5, 8))); // Inky's path
+        assertTrue(blankPositions.contains(new Position(21, 13))); // Pinky's path
+        assertTrue(blankPositions.contains(new Position(24, 10))); // Clyde's path
+    }
+
 }
