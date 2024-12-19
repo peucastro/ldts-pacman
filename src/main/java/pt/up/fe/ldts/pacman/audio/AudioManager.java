@@ -24,17 +24,9 @@ public class AudioManager {
         audios.forEach((s, audioPlayer) -> audioPlayer.stopPlaying());
     }
 
-    public AudioPlayer getMainMusic() {
-        return mainMusic;
-    }
-
     public void setMainMusic(AudioPlayer mainMusic) {
         mainMusic.setVolume(mainMusic.getVolume() * masterVolume);
         this.mainMusic = mainMusic;
-    }
-
-    public boolean audioExists(String key) {
-        return audios.containsKey(key);
     }
 
     public AudioPlayer getAudio(String key) {
