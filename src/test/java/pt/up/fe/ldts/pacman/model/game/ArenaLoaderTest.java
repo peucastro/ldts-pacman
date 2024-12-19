@@ -25,7 +25,7 @@ public class ArenaLoaderTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        arenaLoader.loadMap("src/main/resources/Maps/singleplayer/testmap.txt");
+        arenaLoader.loadMap("src/main/resources/Maps/testmap.txt");
 
         Assertions.assertEquals(new Position(14, 13), arena.getPacmans().getFirst().getPosition());
         Assertions.assertTrue(arena.getCollectibles().contains(new Orange(new Position(15, 10))));
