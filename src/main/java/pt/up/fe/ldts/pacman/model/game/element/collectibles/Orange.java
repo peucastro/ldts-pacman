@@ -4,6 +4,6 @@ import pt.up.fe.ldts.pacman.model.Position;
 
 public class Orange extends Collectible {
     public Orange(Position pos) {
-        super(pos,500);
+        super(pos, 500);
     }
 }

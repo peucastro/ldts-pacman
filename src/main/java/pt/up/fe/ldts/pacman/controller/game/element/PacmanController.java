@@ -21,7 +21,7 @@ public class PacmanController extends GameController {
     }
 
     private void movePacman(Pacman pacman, Direction desiredDirection) {
-        if(desiredDirection != null && desiredDirection.isOpposite(pacman.getDirection())){
+        if (desiredDirection != null && desiredDirection.isOpposite(pacman.getDirection())) {
             //pacman can invert direction whenever
             pacman.invertDirection();
             desiredDirection = null;

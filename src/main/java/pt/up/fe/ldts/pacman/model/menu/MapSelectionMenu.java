@@ -11,6 +11,7 @@ import java.util.Objects;
 
 public class MapSelectionMenu extends Menu {
     private final String folderstring;
+
     public MapSelectionMenu(String folderstring) {
         this.folderstring = folderstring;
         initializeOptions();
@@ -23,9 +24,9 @@ public class MapSelectionMenu extends Menu {
         File mapFolder = new File("src/main/resources/Maps/" + folderstring);
         for (final File fileEntry : Objects.requireNonNull(mapFolder.listFiles())) {
             if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".txt")) {
-                options.add(new TextBox(fileEntry.getName().substring(0,fileEntry.getName().length() - 4),
-                            new Position(160 - ((fileEntry.getName().length() - 4)*5)/2, y), //math to center the text box
-                            new TextColor.RGB(255, 255, 255)));
+                options.add(new TextBox(fileEntry.getName().substring(0, fileEntry.getName().length() - 4),
+                        new Position(160 - ((fileEntry.getName().length() - 4) * 5) / 2, y), //math to center the text box
+                        new TextColor.RGB(255, 255, 255)));
                 y += 11;
             }
         }

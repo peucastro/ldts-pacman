@@ -32,10 +32,10 @@ public class ImageLoader {
 
 
         return Map.of(
-                'L', Arrays.asList(leftResource1,leftResource2),
-                'U', Arrays.asList(upResource1,upResource2),
-                'D', Arrays.asList(downResource1,downResource2),
-                'R', Arrays.asList(rightResource1,rightResource2),
+                'L', Arrays.asList(leftResource1, leftResource2),
+                'U', Arrays.asList(upResource1, upResource2),
+                'D', Arrays.asList(downResource1, downResource2),
+                'R', Arrays.asList(rightResource1, rightResource2),
                 'S', Arrays.asList(scaredResource1, scaredResource2),
                 'r', Collections.singletonList(deadRightResource),
                 'l', Collections.singletonList(deadLeftResource),
@@ -53,10 +53,10 @@ public class ImageLoader {
         BufferedImage deadResource = loadBufferedImage("PNGs/pacman/pacmandead.png");
 
         return Map.of(
-                'L', Arrays.asList(leftResource,closedResource),
-                'U', Arrays.asList(upResource,closedResource),
-                'D', Arrays.asList(downResource,closedResource),
-                'R', Arrays.asList(rightResource,closedResource),
+                'L', Arrays.asList(leftResource, closedResource),
+                'U', Arrays.asList(upResource, closedResource),
+                'D', Arrays.asList(downResource, closedResource),
+                'R', Arrays.asList(rightResource, closedResource),
                 'X', Collections.singletonList(deadResource)
         );
     }

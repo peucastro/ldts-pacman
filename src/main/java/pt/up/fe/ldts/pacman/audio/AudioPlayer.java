@@ -10,7 +10,7 @@ public class AudioPlayer {
     private final Clip audio;
     private float volume;
 
-    public AudioPlayer(Clip audio){
+    public AudioPlayer(Clip audio) {
         this.audio = audio;
         this.volume = 1f;
     }
@@ -20,7 +20,7 @@ public class AudioPlayer {
         this.volume = 1f;
     }
 
-    private Clip loadAudioFile(String audioFilepath){
+    private Clip loadAudioFile(String audioFilepath) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(audioFilepath);
             assert inputStream != null;
@@ -35,27 +35,20 @@ public class AudioPlayer {
         }
     }
 
-    public void playOnce(){
+    public void playOnce() {
         audio.stop();
         audio.setFramePosition(0);
         audio.start();
     }
 
-    public void stopPlaying(){
+    public void stopPlaying() {
         audio.stop();
     }
 
-    public void playInLoop(){
+    public void playInLoop() {
         audio.stop();
         audio.setFramePosition(0);
         audio.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public void setVolume(float volume){
-        if(volume < 0 || volume > 1) return;
-        this.volume = volume;
-        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
     public boolean isPlaying() {
@@ -64,5 +57,12 @@ public class AudioPlayer {
 
     public float getVolume() {
         return volume;
+    }
+
+    public void setVolume(float volume) {
+        if (volume < 0 || volume > 1) return;
+        this.volume = volume;
+        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 }

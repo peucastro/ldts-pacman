@@ -36,19 +36,19 @@ public abstract class Ghost extends MovableElement {
         return insideGate;
     }
 
-    public void setInsideGate(){
+    public void setInsideGate() {
         this.insideGate = true;
     }
 
-    public void setOutsideGate(){
+    public void setOutsideGate() {
         this.insideGate = false;
-    }
-
-    public void setRespawnPosition(Position respawnPosition) {
-        this.respawnPosition = respawnPosition;
     }
 
     public Position getRespawnPosition() {
         return respawnPosition;
+    }
+
+    public void setRespawnPosition(Position respawnPosition) {
+        this.respawnPosition = respawnPosition;
     }
 }

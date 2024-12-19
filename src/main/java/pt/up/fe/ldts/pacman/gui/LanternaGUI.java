@@ -70,8 +70,8 @@ public class LanternaGUI implements GUI {
         this.screen = createScreen(terminal);
     }
 
-    private int resolutionToFontSize(SCREEN_RESOLUTION resolution){
-        return switch (resolution){
+    private int resolutionToFontSize(SCREEN_RESOLUTION resolution) {
+        return switch (resolution) {
             case _360p -> 2;
             case _540p -> 3;
             case _720p -> 4;
@@ -86,19 +86,25 @@ public class LanternaGUI implements GUI {
     public List<ACTION> getNextAction() throws IOException {
         List<ACTION> actions = new ArrayList<>();
         KeyStroke keyStroke;
-        while((keyStroke = screen.pollInput()) != null){
-            if (keyStroke.getKeyType() == KeyType.EOF || keyStroke.getKeyType() == KeyType.Escape) actions.add(ACTION.QUIT);
-            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q') actions.add(ACTION.QUIT);
+        while ((keyStroke = screen.pollInput()) != null) {
+            if (keyStroke.getKeyType() == KeyType.EOF || keyStroke.getKeyType() == KeyType.Escape)
+                actions.add(ACTION.QUIT);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'q')
+                actions.add(ACTION.QUIT);
 
             else if (keyStroke.getKeyType() == KeyType.ArrowUp) actions.add(ACTION.UP);
             else if (keyStroke.getKeyType() == KeyType.ArrowRight) actions.add(ACTION.RIGHT);
             else if (keyStroke.getKeyType() == KeyType.ArrowDown) actions.add(ACTION.DOWN);
             else if (keyStroke.getKeyType() == KeyType.ArrowLeft) actions.add(ACTION.LEFT);
 
-            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w') actions.add(ACTION.W);
-            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a') actions.add(ACTION.A);
-            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's') actions.add(ACTION.S);
-            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd') actions.add(ACTION.D);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'w')
+                actions.add(ACTION.W);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'a')
+                actions.add(ACTION.A);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 's')
+                actions.add(ACTION.S);
+            else if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == 'd')
+                actions.add(ACTION.D);
 
 
             else if (keyStroke.getKeyType() == KeyType.Enter) actions.add(ACTION.SELECT);
@@ -172,8 +178,8 @@ public class LanternaGUI implements GUI {
     @Override
     public void erase(Position position) {
         TextGraphics tg = screen.newTextGraphics();
-        tg.setBackgroundColor(new TextColor.RGB(0,0,0));
-        tg.fillRectangle(position.toTerminalPosition(), new TerminalSize(11,11), ' ');
+        tg.setBackgroundColor(new TextColor.RGB(0, 0, 0));
+        tg.fillRectangle(position.toTerminalPosition(), new TerminalSize(11, 11), ' ');
     }
 
     @Override

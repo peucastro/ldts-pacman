@@ -45,7 +45,7 @@ public class ArenaLoader {
                 arena.addWall(new Wall(position));
                 break;
             case 'P':
-                if(arena.getPacmans().size() == 2) return;
+                if (arena.getPacmans().size() == 2) return;
                 Pacman pacman = new Pacman(position);
                 pacman.setRespawnPosition(new Position(position));
                 arena.addPacman(pacman);

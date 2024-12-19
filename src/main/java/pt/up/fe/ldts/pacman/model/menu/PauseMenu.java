@@ -13,9 +13,9 @@ public class PauseMenu extends Menu implements MenuOptions {
     private final TextBox pauseSign;
     private final State<?> pausedState;
 
-    public PauseMenu(State<?> pausedState, GUI.SCREEN_RESOLUTION resolution, float volume){
+    public PauseMenu(State<?> pausedState, GUI.SCREEN_RESOLUTION resolution, float volume) {
         this.pausedState = pausedState;
-        this.pauseSign = new TextBox("||",new Position(155,41), new TextColor.RGB(255,255,255));
+        this.pauseSign = new TextBox("||", new Position(155, 41), new TextColor.RGB(255, 255, 255));
         initializeOptions();
         setResolution(resolution);
         setMasterVolume(volume);
@@ -54,19 +54,21 @@ public class PauseMenu extends Menu implements MenuOptions {
     }
 
     @Override
-    public boolean MasterVolumeSelected() {return getSelectedOption() == 2;}
+    public boolean MasterVolumeSelected() {
+        return getSelectedOption() == 2;
+    }
 
     public boolean ExitSelected() {
         return getSelectedOption() == 3;
     }
 
     @Override
-    public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
+    public void setResolution(GUI.SCREEN_RESOLUTION newResolution) {
         getOptions().get(1).setText("Resolution: " + newResolution);
     }
 
     @Override
-    public void setMasterVolume(float volume){
-        getOptions().get(2).setText("Master Volume: " + (int)(volume*10));
+    public void setMasterVolume(float volume) {
+        getOptions().get(2).setText("Master Volume: " + (int) (volume * 10));
     }
 }

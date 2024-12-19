@@ -13,7 +13,7 @@ public class Position {
         this.y = y;
     }
 
-    public Position(Position other){
+    public Position(Position other) {
         this.x = other.x;
         this.y = other.y;
     }
@@ -55,8 +55,8 @@ public class Position {
         this.y = other.y;
     }
 
-    public double squaredDistance(Position other){
-        return Math.pow(this.x - other.x,2) + Math.pow(this.y - other.y,2);
+    public double squaredDistance(Position other) {
+        return Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2);
     }
 
     public TerminalPosition toTerminalPosition() {

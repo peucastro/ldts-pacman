@@ -55,10 +55,10 @@ public class CollisionController extends GameController {
     }
 
     private void checkPacmanGhostCollision(Game game) throws IOException, URISyntaxException {
-        for(Pacman pacman : getModel().getPacmans()){
-            if(pacman.isDying()) continue; //don't process collisions with dead pacmans
+        for (Pacman pacman : getModel().getPacmans()) {
+            if (pacman.isDying()) continue; //don't process collisions with dead pacmans
             outer:
-            for(Ghost ghost : getModel().getGhosts()){
+            for (Ghost ghost : getModel().getGhosts()) {
                 if (ghost.collidingWith(pacman)) {
                     switch (ghost.getState()) {
                         case ALIVE:
@@ -66,7 +66,7 @@ public class CollisionController extends GameController {
                             pacman.setDying(true);
                             long alivePacmans = getModel().getPacmans().stream().filter(pacman1 -> !pacman1.isDying()).count();
                             //first condition is for multiplayer, second is for single player
-                            if(alivePacmans == 0) {
+                            if (alivePacmans == 0) {
                                 game.getAudioManager().stopAllAudios();
                                 game.setState(new DyingState(getModel(), game.getAudioManager()));
                             }
@@ -88,9 +88,9 @@ public class CollisionController extends GameController {
         }
     }
 
-    private void checkPacmanCollectibleCollision(){
-        for(Pacman pacman : getModel().getPacmans()) {
-            if(pacman.isDying()) continue;
+    private void checkPacmanCollectibleCollision() {
+        for (Pacman pacman : getModel().getPacmans()) {
+            if (pacman.isDying()) continue;
             getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
                 if (pacman.getPosition().equals(collectible.getPosition())) {
                     if (collectible.getClass() == PowerUp.class) {
@@ -108,7 +108,7 @@ public class CollisionController extends GameController {
                         });
                     }
                     collectibleEatenAudio.playOnce();
-                    for(Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
+                    for (Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
                     getModel().addBlankPosition(new Position(collectible.getPosition())); //new position to be cleared
                     getModel().incrementScore(collectible.getValue());
                     getModel().incrementCollectedCollectibles();
@@ -127,12 +127,13 @@ public class CollisionController extends GameController {
         }
 
         //when playing multiplayer and one pacman is still alive, the other comes to life
-        if(deadPacmanTimeCounter > 0 && --deadPacmanTimeCounter == 0){
-            for (Pacman pacman : getModel().getPacmans()) if(pacman.isDying() && pacman.getLife() > 0){
-                pacman.setDying(false);
-                pacman.setPosition(pacman.getRespawnPosition());
-                pacman.setCounter(0);
-            }
+        if (deadPacmanTimeCounter > 0 && --deadPacmanTimeCounter == 0) {
+            for (Pacman pacman : getModel().getPacmans())
+                if (pacman.isDying() && pacman.getLife() > 0) {
+                    pacman.setDying(false);
+                    pacman.setPosition(pacman.getRespawnPosition());
+                    pacman.setCounter(0);
+                }
         }
 
         //if scared time ends or if all ghosts are eaten scared time ends
@@ -145,7 +146,7 @@ public class CollisionController extends GameController {
             });
             ghostsScaredSiren.stopPlaying();
             ghostsAliveSiren.playInLoop();
-            for(Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
+            for (Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
             ghostsEaten = 0;
         }
 

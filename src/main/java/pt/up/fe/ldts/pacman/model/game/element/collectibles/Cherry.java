@@ -4,6 +4,6 @@ import pt.up.fe.ldts.pacman.model.Position;
 
 public class Cherry extends Collectible {
     public Cherry(Position pos) {
-        super(pos,100);
+        super(pos, 100);
     }
 }

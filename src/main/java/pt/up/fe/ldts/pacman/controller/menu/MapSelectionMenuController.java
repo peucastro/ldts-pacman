@@ -30,12 +30,11 @@ public class MapSelectionMenuController extends MenuController<MapSelectionMenu>
                 ArenaLoader arenaLoader = new ArenaLoader(arena);
 
                 arenaLoader.loadMap("src/main/resources/Maps/" + model.getFolderstring() + "/" +
-                                    model.getOptions().get(model.getSelectedOption()).getText() + ".txt");
+                        model.getOptions().get(model.getSelectedOption()).getText() + ".txt");
 
                 game.setState(new GameState(arena, game.getAudioManager()));
-            }
-            else if(action == GUI.ACTION.QUIT){
-                game.setState(new MainMenuState(new MainMenu(game.getResolution(),game.getAudioManager().getMasterVolume()),game.getAudioManager()));
+            } else if (action == GUI.ACTION.QUIT) {
+                game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
             }
         }
     }

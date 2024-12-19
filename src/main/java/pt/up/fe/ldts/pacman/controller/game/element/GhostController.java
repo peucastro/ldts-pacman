@@ -57,7 +57,7 @@ public class GhostController extends GameController {
         ghost.incrementCounter();
     }
 
-    private boolean isChaseMode(){
+    private boolean isChaseMode() {
         return ((frameCount >= 450 && frameCount < 2700) || frameCount >= 3200);
     }
 
@@ -82,12 +82,14 @@ public class GhostController extends GameController {
 
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) {
-        if(frameCount == 450 || frameCount == 2700 || frameCount == 3200)
+        if (frameCount == 450 || frameCount == 2700 || frameCount == 3200)
             //toggle between chase and scatter modes
-            getModel().getGhosts().forEach(ghost -> {if(!ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.invertDirection();});
+            getModel().getGhosts().forEach(ghost -> {
+                if (!ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.invertDirection();
+            });
 
         //change the target pacman from time to time on multiplayer
-        if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
+        if (frameCount % 2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
             targetPacman = (targetPacman == 0 ? 1 : 0);
 
 

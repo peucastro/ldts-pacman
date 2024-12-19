@@ -22,14 +22,18 @@ public abstract class MovableElement extends Element {
         this.direction = direction;
     }
 
-    public int getCounter() { return counter; }
+    public int getCounter() {
+        return counter;
+    }
 
-    public void setCounter(int counter) { this.counter = counter; }
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
     public void incrementCounter() {
         if (counter < 10)
             this.counter++;
-        else{
+        else {
             counter = 0;
             setPosition(getNextPosition());
         }
@@ -56,18 +60,18 @@ public abstract class MovableElement extends Element {
         };
     }
 
-    public void invertDirection(){
+    public void invertDirection() {
         setPosition(getNextPosition());
         setDirection(getDirection().getOpposite());
         setCounter(11 - getCounter());
     }
 
-    public Position getRealPosition(){
+    public Position getRealPosition() {
         return new Position(getPosition().getX() * 11 + getCounterX(), getPosition().getY() * 11 + getCounterY());
     }
 
-    public boolean collidingWith(MovableElement other){
-        return  getRealPosition().squaredDistance(other.getRealPosition()) < 121;
+    public boolean collidingWith(MovableElement other) {
+        return getRealPosition().squaredDistance(other.getRealPosition()) < 121;
     }
 
     public int getSpeed() {

@@ -26,7 +26,7 @@ public class MainMenuController extends MenuController<MainMenu> {
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws URISyntaxException, IOException, FontFormatException {
         super.step(game, actions, time);
-        for(GUI.ACTION action : actions) {
+        for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.SELECT) {
                 menuConfirmSelection.playOnce();
                 if (getModel().singlePLayerSelected()) {
@@ -35,8 +35,7 @@ public class MainMenuController extends MenuController<MainMenu> {
                 } else if (getModel().multiplayerSelected()) {
                     MapSelectionMenu mapSelectionMenu = new MapSelectionMenu("multiplayer"); // Create a new map selection menu model
                     game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
-                }
-                else if (getModel().ExitSelected()) { //exit game
+                } else if (getModel().ExitSelected()) { //exit game
                     game.setState(null);
                 } else if (getModel().ResolutionSelected()) { //change the resolution
                     GUI.SCREEN_RESOLUTION newResolution = incrementResolution(game.getResolution());
@@ -49,20 +48,24 @@ public class MainMenuController extends MenuController<MainMenu> {
             }
         }
 
-        Blinky blinky = getModel().getBlinky(); blinky.incrementCounter();
-        if(blinky.getPosition().equals(new Position(3,4))) blinky.setDirection(Direction.RIGHT);
-        else if(blinky.getPosition().equals(new Position(7,4))) blinky.setDirection(Direction.LEFT);
+        Blinky blinky = getModel().getBlinky();
+        blinky.incrementCounter();
+        if (blinky.getPosition().equals(new Position(3, 4))) blinky.setDirection(Direction.RIGHT);
+        else if (blinky.getPosition().equals(new Position(7, 4))) blinky.setDirection(Direction.LEFT);
 
-        Inky inky = getModel().getInky(); inky.incrementCounter();
-        if(inky.getPosition().equals(new Position(5,8))) inky.setDirection(Direction.DOWN);
-        else if(inky.getPosition().equals(new Position(5,13))) inky.setDirection(Direction.UP);
+        Inky inky = getModel().getInky();
+        inky.incrementCounter();
+        if (inky.getPosition().equals(new Position(5, 8))) inky.setDirection(Direction.DOWN);
+        else if (inky.getPosition().equals(new Position(5, 13))) inky.setDirection(Direction.UP);
 
-        Pinky pinky = getModel().getPinky(); pinky.incrementCounter();
-        if(pinky.getPosition().equals(new Position(19,13))) pinky.setDirection(Direction.RIGHT);
-        else if(pinky.getPosition().equals(new Position(26,13))) pinky.setDirection(Direction.LEFT);
+        Pinky pinky = getModel().getPinky();
+        pinky.incrementCounter();
+        if (pinky.getPosition().equals(new Position(19, 13))) pinky.setDirection(Direction.RIGHT);
+        else if (pinky.getPosition().equals(new Position(26, 13))) pinky.setDirection(Direction.LEFT);
 
-        Clyde clyde = getModel().getClyde(); clyde.incrementCounter();
-        if(clyde.getPosition().equals(new Position(24,3))) clyde.setDirection(Direction.DOWN);
-        else if(clyde.getPosition().equals(new Position(24,10))) clyde.setDirection(Direction.UP);
+        Clyde clyde = getModel().getClyde();
+        clyde.incrementCounter();
+        if (clyde.getPosition().equals(new Position(24, 3))) clyde.setDirection(Direction.DOWN);
+        else if (clyde.getPosition().equals(new Position(24, 10))) clyde.setDirection(Direction.UP);
     }
 }

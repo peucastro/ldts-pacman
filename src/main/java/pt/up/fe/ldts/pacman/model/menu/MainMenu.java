@@ -30,10 +30,14 @@ public class MainMenu extends Menu implements MenuOptions {
         blankPositions = createBlankPosition();
         pacman = new Pacman(new Position(14, 4));
 
-        blinky = new Blinky(new Position(7,4)); blinky.setDirection(Direction.LEFT);
-        inky = new Inky(new Position(5,8)); inky.setDirection(Direction.DOWN);
-        pinky = new Pinky(new Position(21,13)); pinky.setDirection(Direction.RIGHT);
-        clyde = new Clyde(new Position(24,10)); clyde.setDirection(Direction.UP);
+        blinky = new Blinky(new Position(7, 4));
+        blinky.setDirection(Direction.LEFT);
+        inky = new Inky(new Position(5, 8));
+        inky.setDirection(Direction.DOWN);
+        pinky = new Pinky(new Position(21, 13));
+        pinky.setDirection(Direction.RIGHT);
+        clyde = new Clyde(new Position(24, 10));
+        clyde.setDirection(Direction.UP);
 
         setResolution(resolution);
         setMasterVolume(volume);
@@ -43,7 +47,7 @@ public class MainMenu extends Menu implements MenuOptions {
     public List<TextBox> createOptions() {
         return new ArrayList<>(List.of(
                 new TextBox("Single player", new Position(130, 80), new TextColor.RGB(255, 255, 255)),
-                new TextBox("Multi player", new Position(132,91), new TextColor.RGB(255, 255, 255)),
+                new TextBox("Multi player", new Position(132, 91), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Resolution: 900p", new Position(118, 102), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Master Volume: 10", new Position(118, 113), new TextColor.RGB(255, 255, 255)),
                 new TextBox("Exit", new Position(150, 124), new TextColor.RGB(255, 255, 255))
@@ -55,12 +59,12 @@ public class MainMenu extends Menu implements MenuOptions {
         return new TextBox("PACMAN", new Position(145, 30), new TextColor.RGB(255, 255, 255));
     }
 
-    private Set<Position> createBlankPosition(){
+    private Set<Position> createBlankPosition() {
         HashSet<Position> blankPos = new HashSet<>();
-        for(int i = 3; i <= 7; ++i) blankPos.add(new Position(i,4)); //Blinky's movement
-        for(int i = 8; i <= 13; ++i) blankPos.add(new Position(5,i)); //Inky's movement
-        for(int i = 19; i <= 26; ++i) blankPos.add(new Position(i,13)); //Pinky's movement
-        for(int i = 3; i <= 10; ++i) blankPos.add(new Position(24,i)); //Clyde's movement
+        for (int i = 3; i <= 7; ++i) blankPos.add(new Position(i, 4)); //Blinky's movement
+        for (int i = 8; i <= 13; ++i) blankPos.add(new Position(5, i)); //Inky's movement
+        for (int i = 19; i <= 26; ++i) blankPos.add(new Position(i, 13)); //Pinky's movement
+        for (int i = 3; i <= 10; ++i) blankPos.add(new Position(24, i)); //Clyde's movement
         return blankPos;
     }
 
@@ -78,7 +82,9 @@ public class MainMenu extends Menu implements MenuOptions {
     }
 
     @Override
-    public boolean MasterVolumeSelected() {return getSelectedOption() == 3;}
+    public boolean MasterVolumeSelected() {
+        return getSelectedOption() == 3;
+    }
 
     public boolean ExitSelected() {
         return getSelectedOption() == 4;
@@ -90,22 +96,32 @@ public class MainMenu extends Menu implements MenuOptions {
     }
 
     @Override
-    public void setResolution(GUI.SCREEN_RESOLUTION newResolution){
+    public void setResolution(GUI.SCREEN_RESOLUTION newResolution) {
         getOptions().get(2).setText("Resolution: " + newResolution);
     }
 
     @Override
-    public void setMasterVolume(float volume){
-        getOptions().get(3).setText("Master Volume: " + (int)(volume*10));
+    public void setMasterVolume(float volume) {
+        getOptions().get(3).setText("Master Volume: " + (int) (volume * 10));
     }
 
-    public Blinky getBlinky() {return blinky;}
+    public Blinky getBlinky() {
+        return blinky;
+    }
 
-    public Clyde getClyde() {return clyde;}
+    public Clyde getClyde() {
+        return clyde;
+    }
 
-    public Pinky getPinky() {return pinky;}
+    public Pinky getPinky() {
+        return pinky;
+    }
 
-    public Inky getInky() {return inky;}
+    public Inky getInky() {
+        return inky;
+    }
 
-    public Set<Position> getBlankPositions() {return blankPositions;}
+    public Set<Position> getBlankPositions() {
+        return blankPositions;
+    }
 }
