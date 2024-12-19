@@ -23,7 +23,6 @@ public class ArenaController extends GameController {
     private final PacmanController pacmanController;
     private final CollisionController collisionController;
     private final GhostController ghostController;
-    private final long maxScore;
 
     public ArenaController(Arena arena, AudioManager audioManager) {
         super(arena);
@@ -31,19 +30,8 @@ public class ArenaController extends GameController {
         this.pacmanController = new PacmanController(arena);
         this.collisionController = new CollisionController(arena, audioManager);
         this.ghostController = new GhostController(arena, audioManager);
-
-        this.maxScore = calculateMaxScore();
     }
 
-    private long calculateMaxScore(){
-        long score = 0;
-        for(Collectible collectible : getModel ().getCollectibles()){
-            score += collectible.getValue();
-            //every ghost is eaten every time a power up is consumed
-            if(collectible.getClass() == PowerUp.class) score += (long) (200*((1-Math.pow(2,getModel().getGhosts().size()))/-1));
-        }
-        return score;
-    }
 
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
@@ -56,7 +44,7 @@ public class ArenaController extends GameController {
         }
         if(getModel().getCollectibles().isEmpty()){
             game.getAudioManager().stopAllAudios();
-            game.setState(new WinMenuState(new WinMenu(getModel(), getModel().getScore() == maxScore), game.getAudioManager()));
+            game.setState(new WinMenuState(new WinMenu(getModel(), getModel().getScore() == getModel().getMaxScore()), game.getAudioManager()));
             return;
         }
         //all the controllers here me thinks
