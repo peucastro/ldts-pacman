@@ -58,20 +58,22 @@ public class CollisionController extends GameController {
     private void checkPacmanGhostCollision(Game game) throws IOException, URISyntaxException {
         for(Pacman pacman : getModel().getPacmans()){
             if(pacman.isDying()) continue; //don't process collisions with dead pacmans
+            outer:
             for(Ghost ghost : getModel().getGhosts()){
                 if (ghost.collidingWith(pacman)) {
                     switch (ghost.getState()) {
                         case ALIVE:
                             pacman.decreaseLife();
                             pacman.setDying(true);
+                            long alivePacmans = getModel().getPacmans().stream().filter(pacman1 -> !pacman1.isDying()).count();
                             //first condition is for multiplayer, second is for single player
-                            if(deadPacmanTimeCounter != 0 || getModel().getPacmans().size() == 1) {
+                            if(alivePacmans == 0) {
                                 game.getAudioManager().stopAllAudios();
                                 game.setState(new DyingState(getModel(), game.getAudioManager()));
                             }
                             //if no pacman is dead before set counter to freeze the dead pacman (multiplayer only)
                             else deadPacmanTimeCounter = 110;
-                            break;
+                            break outer;
                         case SCARED:
                             ghostEatenAudio.playOnce();
                             ghost.setState(GhostState.DEAD);

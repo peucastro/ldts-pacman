@@ -47,6 +47,7 @@ public class DyingStateController extends GameController {
             } else { //there is still at least one pacman with more than one life: keep playing
                 getModel().getGhosts().forEach(ghost -> {
                     ghost.setState(GhostState.ALIVE);
+                    ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
                     ghost.setPosition(ghost.getRespawnPosition());
                     ghost.setCounter(0);
                     ghost.setInsideGate();

@@ -89,7 +89,8 @@ public class GhostController extends GameController {
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         if(frameCount == 450 || frameCount == 2700 || frameCount == 3200)
-            getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
+            //toggle between chase and scatter modes
+            getModel().getGhosts().forEach(ghost -> {if(!ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.invertDirection();});
 
         //change the target pacman from time to time on multiplayer
         if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
