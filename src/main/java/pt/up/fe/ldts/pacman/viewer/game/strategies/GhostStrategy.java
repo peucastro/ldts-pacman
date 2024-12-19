@@ -12,7 +12,7 @@ public class GhostStrategy extends MultipleElementStrategy {
     @Override
     public BufferedImage getCurrentImage(Element element, Map<Character, List<BufferedImage>> images, long frameCount) {
         Ghost ghost = (Ghost) element;
-        int index = (frameCount%20 < 10 ? 0 : 1);
+        int index = (ghost.getState() != GhostState.DEAD ? (frameCount%20 < 10 ? 0 : 1) : 0);
         if (ghost.isScared()) return images.get('S').get(index);
         return switch (ghost.getDirection()) {
             case UP -> images.get(ghost.getState() == GhostState.ALIVE ? 'U' : 'u').get(index);

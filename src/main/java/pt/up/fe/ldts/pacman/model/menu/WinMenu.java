@@ -15,7 +15,7 @@ public class WinMenu extends Menu{
         super();
         this.arena = arena;
         initializeOptions();
-        if(maxScore) this.maxScore = new TextBox("Highest score!!!", new Position(100,0), new TextColor.RGB(255,255,0));
+        if(maxScore) this.maxScore = new TextBox("Highest score!!!", new Position(120,0), new TextColor.RGB(255,255,0));
     }
 
     @Override
