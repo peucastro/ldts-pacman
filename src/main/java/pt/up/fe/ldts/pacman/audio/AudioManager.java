@@ -13,10 +13,11 @@ public class AudioManager {
         this.masterVolume = 0.5f;
     }
 
-
     public void addAudio(String key, AudioPlayer audio) {
-        audios.put(key, audio);
-        audio.setVolume(audio.getVolume() * masterVolume);
+        if (!audios.containsKey(key)) {
+            audios.put(key, audio);
+            audio.setVolume(audio.getVolume() * masterVolume);
+        }
     }
 
     public void stopAllAudios() {

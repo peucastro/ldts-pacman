@@ -29,23 +29,19 @@ public class CollisionController extends GameController {
     public CollisionController(Arena arena, AudioManager audioManager) {
         super(arena);
 
-        if (!audioManager.audioExists("ghostEaten"))
-            audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
         this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
         this.ghostEatenAudio.setVolume(0.40f);
 
-        if (!audioManager.audioExists("collectibleEaten"))
-            audioManager.addAudio("collectibleEaten", new AudioPlayer("Audio/collectibleEaten.wav"));
+        audioManager.addAudio("collectibleEaten", new AudioPlayer("Audio/collectibleEaten.wav"));
         this.collectibleEatenAudio = audioManager.getAudio("collectibleEaten");
         collectibleEatenAudio.setVolume(0.25f);
 
-        if (!audioManager.audioExists("ghostsAliveSiren"))
-            audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsAliveSiren.setVolume(0.2f);
 
-        if (!audioManager.audioExists("ghostsScaredSiren"))
-            audioManager.addAudio("ghostsScaredSiren", new AudioPlayer("Audio/ghostsScared.wav"));
+        audioManager.addAudio("ghostsScaredSiren", new AudioPlayer("Audio/ghostsScared.wav"));
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScaredSiren");
         this.ghostsScaredSiren.setVolume(0.25f);
 
