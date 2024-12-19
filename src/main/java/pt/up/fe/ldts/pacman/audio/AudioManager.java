@@ -4,22 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AudioManager {
+    private static AudioManager instance;
     private AudioPlayer mainMusic;
-    private Map<String,AudioPlayer> audios;
+    private final Map<String, AudioPlayer> audios;
     private float masterVolume;
 
-    public AudioManager(){
+    private AudioManager() {
         this.audios = new HashMap<>();
         this.masterVolume = 0.5f;
     }
 
-
-    public void addAudio(String key, AudioPlayer audio){
-        audios.put(key,audio);
-        audio.setVolume(audio.getVolume()*masterVolume);
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            instance = new AudioManager();
+        }
+        return instance;
     }
 
-    public void stopAllAudios(){
+    public void addAudio(String key, AudioPlayer audio) {
+        audios.put(key, audio);
+        audio.setVolume(audio.getVolume() * masterVolume);
+    }
+
+    public void stopAllAudios() {
         audios.forEach((s, audioPlayer) -> audioPlayer.stopPlaying());
     }
 
@@ -28,22 +35,22 @@ public class AudioManager {
     }
 
     public void setMainMusic(AudioPlayer mainMusic) {
-        mainMusic.setVolume(mainMusic.getVolume()*masterVolume);
+        mainMusic.setVolume(mainMusic.getVolume() * masterVolume);
         this.mainMusic = mainMusic;
     }
 
-    public boolean audioExists(String key){
+    public boolean audioExists(String key) {
         return audios.containsKey(key);
     }
 
-    public AudioPlayer getAudio(String key){
+    public AudioPlayer getAudio(String key) {
         return audios.get(key);
     }
 
-    public void setMasterVolume(float volume){
-        if(volume <= 0 || volume > 1) return;
-        if(mainMusic != null) mainMusic.setVolume(mainMusic.getVolume()*volume/masterVolume);
-        audios.forEach((s, audio) -> audio.setVolume(audio.getVolume()*volume/masterVolume));
+    public void setMasterVolume(float volume) {
+        if (volume <= 0 || volume > 1) return;
+        if (mainMusic != null) mainMusic.setVolume(mainMusic.getVolume() * volume / masterVolume);
+        audios.forEach((s, audio) -> audio.setVolume(audio.getVolume() * volume / masterVolume));
         this.masterVolume = volume;
     }
 
