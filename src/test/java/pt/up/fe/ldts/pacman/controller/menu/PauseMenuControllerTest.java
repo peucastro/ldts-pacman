@@ -25,7 +25,7 @@ class PauseMenuControllerTest {
     void setUp() {
         pauseMenu = mock(PauseMenu.class);
         game = mock(Game.class);
-        controller = new PauseMenuController(pauseMenu, new AudioManager());
+        controller = new PauseMenuController(pauseMenu, AudioManager.getInstance());
     }
 
     @Test

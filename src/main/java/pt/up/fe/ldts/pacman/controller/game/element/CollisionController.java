@@ -13,7 +13,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.states.game.DyingState;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -30,23 +29,19 @@ public class CollisionController extends GameController {
     public CollisionController(Arena arena, AudioManager audioManager) {
         super(arena);
 
-        if (!audioManager.audioExists("ghostEaten"))
-            audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        audioManager.addAudio("ghostEaten", "Audio/ghostEaten.wav");
         this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
         this.ghostEatenAudio.setVolume(0.40f);
 
-        if (!audioManager.audioExists("collectibleEaten"))
-            audioManager.addAudio("collectibleEaten", new AudioPlayer("Audio/collectibleEaten.wav"));
+        audioManager.addAudio("collectibleEaten", "Audio/collectibleEaten.wav");
         this.collectibleEatenAudio = audioManager.getAudio("collectibleEaten");
         collectibleEatenAudio.setVolume(0.25f);
 
-        if (!audioManager.audioExists("ghostsAliveSiren"))
-            audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        audioManager.addAudio("ghostsAliveSiren", "Audio/ghostsAlive.wav");
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsAliveSiren.setVolume(0.2f);
 
-        if (!audioManager.audioExists("ghostsScaredSiren"))
-            audioManager.addAudio("ghostsScaredSiren", new AudioPlayer("Audio/ghostsScared.wav"));
+        audioManager.addAudio("ghostsScaredSiren", "Audio/ghostsScared.wav");
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScaredSiren");
         this.ghostsScaredSiren.setVolume(0.25f);
 
@@ -56,22 +51,24 @@ public class CollisionController extends GameController {
     }
 
     private void checkPacmanGhostCollision(Game game) throws IOException, URISyntaxException {
-        for(Pacman pacman : getModel().getPacmans()){
-            if(pacman.isDying()) continue; //don't process collisions with dead pacmans
-            for(Ghost ghost : getModel().getGhosts()){
+        for (Pacman pacman : getModel().getPacmans()) {
+            if (pacman.isDying()) continue; //don't process collisions with dead pacmans
+            outer:
+            for (Ghost ghost : getModel().getGhosts()) {
                 if (ghost.collidingWith(pacman)) {
                     switch (ghost.getState()) {
                         case ALIVE:
                             pacman.decreaseLife();
                             pacman.setDying(true);
+                            long alivePacmans = getModel().getPacmans().stream().filter(pacman1 -> !pacman1.isDying()).count();
                             //first condition is for multiplayer, second is for single player
-                            if(deadPacmanTimeCounter != 0 || getModel().getPacmans().size() == 1) {
+                            if (alivePacmans == 0) {
                                 game.getAudioManager().stopAllAudios();
                                 game.setState(new DyingState(getModel(), game.getAudioManager()));
                             }
                             //if no pacman is dead before set counter to freeze the dead pacman (multiplayer only)
                             else deadPacmanTimeCounter = 110;
-                            break;
+                            break outer;
                         case SCARED:
                             ghostEatenAudio.playOnce();
                             ghost.setState(GhostState.DEAD);
@@ -87,9 +84,9 @@ public class CollisionController extends GameController {
         }
     }
 
-    private void checkPacmanCollectibleCollision(){
-        for(Pacman pacman : getModel().getPacmans()) {
-            if(pacman.isDying()) continue;
+    private void checkPacmanCollectibleCollision() {
+        for (Pacman pacman : getModel().getPacmans()) {
+            if (pacman.isDying()) continue;
             getModel().getCollectibles().removeIf(collectible -> { //safe remove while iterating
                 if (pacman.getPosition().equals(collectible.getPosition())) {
                     if (collectible.getClass() == PowerUp.class) {
@@ -107,7 +104,7 @@ public class CollisionController extends GameController {
                         });
                     }
                     collectibleEatenAudio.playOnce();
-                    for(Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
+                    for (Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
                     getModel().addBlankPosition(new Position(collectible.getPosition())); //new position to be cleared
                     getModel().incrementScore(collectible.getValue());
                     getModel().incrementCollectedCollectibles();
@@ -119,19 +116,20 @@ public class CollisionController extends GameController {
     }
 
     @Override
-    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
             if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop(); //start of the game or leaving pause menu
             else ghostsScaredSiren.playInLoop(); //leaving pause menu and scared state was on before
         }
 
         //when playing multiplayer and one pacman is still alive, the other comes to life
-        if(deadPacmanTimeCounter > 0 && --deadPacmanTimeCounter == 0){
-            for (Pacman pacman : getModel().getPacmans()) if(pacman.isDying() && pacman.getLife() > 0){
-                pacman.setDying(false);
-                pacman.setPosition(pacman.getRespawnPosition());
-                pacman.setCounter(0);
-            }
+        if (deadPacmanTimeCounter > 0 && --deadPacmanTimeCounter == 0) {
+            for (Pacman pacman : getModel().getPacmans())
+                if (pacman.isDying() && pacman.getLife() > 0) {
+                    pacman.setDying(false);
+                    pacman.setPosition(pacman.getRespawnPosition());
+                    pacman.setCounter(0);
+                }
         }
 
         //if scared time ends or if all ghosts are eaten scared time ends
@@ -144,7 +142,7 @@ public class CollisionController extends GameController {
             });
             ghostsScaredSiren.stopPlaying();
             ghostsAliveSiren.playInLoop();
-            for(Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
+            for (Pacman pacman : getModel().getPacmans()) pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
             ghostsEaten = 0;
         }
 

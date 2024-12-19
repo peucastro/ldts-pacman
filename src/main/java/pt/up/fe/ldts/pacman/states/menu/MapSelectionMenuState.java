@@ -17,7 +17,7 @@ public class MapSelectionMenuState extends State<MapSelectionMenu> {
     }
 
     @Override
-    public Viewer<MapSelectionMenu> createViewer() throws IOException, URISyntaxException {
+    public Viewer<MapSelectionMenu> createViewer() throws IOException {
         return new MapSelectionMenuViewer();
     }
 

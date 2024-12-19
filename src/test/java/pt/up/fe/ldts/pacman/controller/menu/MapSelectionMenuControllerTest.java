@@ -24,7 +24,7 @@ class MapSelectionMenuControllerTest {
     void setUp() {
         mapSelectionMenu = mock(MapSelectionMenu.class);
         game = mock(Game.class);
-        controller = new MapSelectionMenuController(mapSelectionMenu, new AudioManager());
+        controller = new MapSelectionMenuController(mapSelectionMenu, AudioManager.getInstance());
     }
 
     @Test

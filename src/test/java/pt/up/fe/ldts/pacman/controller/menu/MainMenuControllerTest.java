@@ -25,7 +25,7 @@ class MainMenuControllerTest {
     void setUp() {
         mainMenu = mock(MainMenu.class);
         game = mock(Game.class);
-        controller = new MainMenuController(mainMenu, new AudioManager());
+        controller = new MainMenuController(mainMenu, AudioManager.getInstance());
     }
 
     @Test

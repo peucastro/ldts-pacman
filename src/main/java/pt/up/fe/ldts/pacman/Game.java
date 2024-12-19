@@ -13,19 +13,18 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Game {
-    private static Game instance;
-    private State state;
-    private final GUI gui;
     private static final int SCREEN_WIDTH = 320;
     private static final int SCREEN_HEIGHT = 180;
-    private GUI.SCREEN_RESOLUTION resolution;
-
+    private static Game instance;
+    private final GUI gui;
     private final AudioManager audioManager;
+    private State state;
+    private GUI.SCREEN_RESOLUTION resolution;
 
 
     private Game() throws IOException, URISyntaxException, FontFormatException {
         this.resolution = GUI.SCREEN_RESOLUTION._900p;
-        this.audioManager = new AudioManager();
+        this.audioManager = AudioManager.getInstance();
         this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, resolution);
         this.state = createInitialState();
     }
@@ -37,16 +36,16 @@ public class Game {
         return instance;
     }
 
+    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        Game game = Game.getInstance();
+        game.start();
+    }
+
     private State createInitialState() throws IOException, URISyntaxException {
         return new MainMenuState(
                 new MainMenu(resolution, audioManager.getMasterVolume()),
                 audioManager
         );
-    }
-
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        Game game = Game.getInstance();
-        game.start();
     }
 
     public GUI getGui() {
@@ -61,12 +60,12 @@ public class Game {
         return state;
     }
 
-    public GUI.SCREEN_RESOLUTION getResolution() {
-        return resolution;
-    }
-
     public void setState(State state) {
         this.state = state;
+    }
+
+    public GUI.SCREEN_RESOLUTION getResolution() {
+        return resolution;
     }
 
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException {

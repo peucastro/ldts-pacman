@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -33,10 +32,10 @@ public class ImageLoader {
 
 
         return Map.of(
-                'L', Arrays.asList(leftResource1,leftResource2),
-                'U', Arrays.asList(upResource1,upResource2),
-                'D', Arrays.asList(downResource1,downResource2),
-                'R', Arrays.asList(rightResource1,rightResource2),
+                'L', Arrays.asList(leftResource1, leftResource2),
+                'U', Arrays.asList(upResource1, upResource2),
+                'D', Arrays.asList(downResource1, downResource2),
+                'R', Arrays.asList(rightResource1, rightResource2),
                 'S', Arrays.asList(scaredResource1, scaredResource2),
                 'r', Collections.singletonList(deadRightResource),
                 'l', Collections.singletonList(deadLeftResource),
@@ -45,7 +44,7 @@ public class ImageLoader {
         );
     }
 
-    public static Map<Character, List<BufferedImage>> loadPacmanImages() throws IOException, URISyntaxException {
+    public static Map<Character, List<BufferedImage>> loadPacmanImages() throws IOException {
         BufferedImage leftResource = loadBufferedImage("PNGs/pacman/pacmanleft.png");
         BufferedImage upResource = loadBufferedImage("PNGs/pacman/pacmanup.png");
         BufferedImage downResource = loadBufferedImage("PNGs/pacman/pacmandown.png");
@@ -54,10 +53,10 @@ public class ImageLoader {
         BufferedImage deadResource = loadBufferedImage("PNGs/pacman/pacmandead.png");
 
         return Map.of(
-                'L', Arrays.asList(leftResource,closedResource),
-                'U', Arrays.asList(upResource,closedResource),
-                'D', Arrays.asList(downResource,closedResource),
-                'R', Arrays.asList(rightResource,closedResource),
+                'L', Arrays.asList(leftResource, closedResource),
+                'U', Arrays.asList(upResource, closedResource),
+                'D', Arrays.asList(downResource, closedResource),
+                'R', Arrays.asList(rightResource, closedResource),
                 'X', Collections.singletonList(deadResource)
         );
     }
@@ -106,11 +105,7 @@ public class ImageLoader {
 
         int x = 0, y = 0;
         for (int i = 0; i < fontMap.length(); ++i) {
-            if (fontMap.charAt(i) == '\n') {
-                x = 0;
-                y += 11;
-                continue;
-            }
+            //for each character on the font map, load a 5*11 subimage which is the corresponding letter
             characters.put(fontMap.charAt(i), font.getSubimage(x, y, 5, 11));
             x += 5;
         }

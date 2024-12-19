@@ -12,7 +12,6 @@ import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 import pt.up.fe.ldts.pacman.states.menu.AlertMenuState;
 import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -27,11 +26,11 @@ public class ArenaController extends GameController {
 
         this.pacmanController = new PacmanController(arena);
         this.collisionController = new CollisionController(arena, audioManager);
-        this.ghostController = new GhostController(arena, audioManager);
+        this.ghostController = new GhostController(arena);
     }
 
     @Override
-    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.QUIT) {
                 game.getAudioManager().stopAllAudios();

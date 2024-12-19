@@ -1,24 +1,21 @@
 package pt.up.fe.ldts.pacman.audio;
 
-import javax.sound.sampled.*;
-import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.io.InputStream;
 
 public class AudioPlayer {
     private final Clip audio;
     private float volume;
 
-    public AudioPlayer(Clip audio){
-        this.audio = audio;
-        this.volume = 1f;
-    }
-
     public AudioPlayer(String audioFilepath) {
         this.audio = loadAudioFile(audioFilepath);
         this.volume = 1f;
     }
 
-    private Clip loadAudioFile(String audioFilepath){
+    private Clip loadAudioFile(String audioFilepath) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(audioFilepath);
             assert inputStream != null;
@@ -33,27 +30,20 @@ public class AudioPlayer {
         }
     }
 
-    public void playOnce(){
+    public void playOnce() {
         audio.stop();
         audio.setFramePosition(0);
         audio.start();
     }
 
-    public void stopPlaying(){
+    public void stopPlaying() {
         audio.stop();
     }
 
-    public void playInLoop(){
+    public void playInLoop() {
         audio.stop();
         audio.setFramePosition(0);
         audio.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public void setVolume(float volume){
-        if(volume < 0 || volume > 1) return;
-        this.volume = volume;
-        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
     public boolean isPlaying() {
@@ -62,5 +52,12 @@ public class AudioPlayer {
 
     public float getVolume() {
         return volume;
+    }
+
+    public void setVolume(float volume) {
+        if (volume < 0 || volume > 1) return;
+        this.volume = volume;
+        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 }

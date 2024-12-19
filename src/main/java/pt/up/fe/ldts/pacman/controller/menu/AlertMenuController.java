@@ -25,11 +25,11 @@ public class AlertMenuController extends MenuController<AlertMenu> {
         for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.SELECT) {
                 menuConfirmSelection.playOnce();
-                if (getModel().PlayAgainSelected()) {
+                if (getModel().PlayAgainSelected()) { //go back to map selection menu
                     game.getAudioManager().stopAllAudios();
                     String mode = (getModel().getArena().getPacmans().size() == 1 ? "singleplayer" : "multiplayer");
                     game.setState(new MapSelectionMenuState(new MapSelectionMenu(mode), game.getAudioManager()));
-                } else if (getModel().ExitSelected()) {
+                } else if (getModel().ExitSelected()) { //go back to main menu
                     game.getAudioManager().stopAllAudios();
                     game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
                 }

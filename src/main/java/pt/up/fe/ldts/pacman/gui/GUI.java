@@ -44,7 +44,7 @@ public interface GUI {
 
         @Override
         public String toString() {
-            return  switch (this){
+            return switch (this) {
                 case _360p -> "360p";
                 case _540p -> "540p";
                 case _720p -> "720p";
