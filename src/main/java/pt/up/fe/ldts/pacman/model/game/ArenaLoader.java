@@ -22,7 +22,7 @@ public class ArenaLoader {
         this.height = arena.getHeight();
     }
 
-    private long calculateMaxScore(){
+    protected long calculateMaxScore(){
         long score = 0;
         for(Collectible collectible : arena.getCollectibles()){
             score += collectible.getValue();
