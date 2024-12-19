@@ -22,16 +22,6 @@ public class ArenaLoader {
         this.height = arena.getHeight();
     }
 
-    private long calculateMaxScore(){
-        long score = 0;
-        for(Collectible collectible : arena.getCollectibles()){
-            score += collectible.getValue();
-            //every ghost is eaten every time a power up is consumed
-            if(collectible.getClass() == PowerUp.class) score += (long) (200*((1-Math.pow(2, arena.getGhosts().size()))/-1));
-        }
-        return score;
-    }
-
     public void loadMap(String mapFile) throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(mapFile))) {
             String line;
@@ -45,7 +35,6 @@ public class ArenaLoader {
                 row++;
             }
         }
-        arena.setMaxScore(calculateMaxScore());
     }
 
     private void loadElementAt(int col, int row, char element) {
@@ -110,9 +99,6 @@ public class ArenaLoader {
             case 'u':
                 arena.addCollectible(new PowerUp(position));
                 break;
-            /*case 'T': para caso usemos no futuro
-                arena.addElement(new Teleporter(position));
-                break; */
             case ' ':
                 arena.addBlankPosition(position);
                 break;

@@ -24,7 +24,6 @@ public class Arena {
     private final List<Pacman> pacmans;
     private final int width, height;
     private long score;
-    private long maxScore;
     private int collectedCollectibles;
     private final GhostGate ghostGate;
     private Set<Position> blankPositions;
@@ -37,7 +36,6 @@ public class Arena {
         this.height = height;
 
         this.score = 0;
-        this.maxScore = 0;
         this.collectedCollectibles = 0;
 
         this.pacmans = new ArrayList<>();
@@ -109,13 +107,6 @@ public class Arena {
         return true;
     }
 
-    public Ghost isGhost(Position position) {
-        for (Ghost ghost : ghosts)
-            if (ghost.getPosition().equals(position))
-                return ghost;
-        return null;
-    }
-
     public long getScore() {
         return score;
     }
@@ -152,11 +143,4 @@ public class Arena {
         blankPositions.add(position);
     }
 
-    public void setMaxScore(long maxScore) {
-        this.maxScore = maxScore;
-    }
-
-    public long getMaxScore() {
-        return maxScore;
-    }
 }

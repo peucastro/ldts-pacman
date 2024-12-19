@@ -31,16 +31,8 @@ public class MapSelectionMenuController extends MenuController<MapSelectionMenu>
                 Arena arena = new Arena(29, 16);
                 ArenaLoader arenaLoader = new ArenaLoader(arena);
 
-                int currentOption = 0;
-                File mapFolder = new File("src/main/resources/Maps/" + model.getFolderstring());
-                for (final File fileEntry : Objects.requireNonNull(mapFolder.listFiles())) {
-                    if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".txt")) {
-                        if(currentOption == getModel().getSelectedOption()){
-                            arenaLoader.loadMap("src/main/resources/Maps/" + model.getFolderstring() + "/" + fileEntry.getName());
-                        }
-                        ++currentOption;
-                    }
-                }
+                arenaLoader.loadMap("src/main/resources/Maps/" + model.getFolderstring() + "/" +
+                                    model.getOptions().get(model.getSelectedOption()).getText() + ".txt");
 
                 game.setState(new GameState(arena, game.getAudioManager()));
             }

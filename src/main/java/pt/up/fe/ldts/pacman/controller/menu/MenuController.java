@@ -31,20 +31,6 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
         this.menuConfirmSelection.setVolume(0.2f);
     }
 
-    protected GUI.SCREEN_RESOLUTION handleResolutionChange(Game game) throws FontFormatException, URISyntaxException, IOException {
-        GUI.SCREEN_RESOLUTION newResolution = switch (game.getResolution()) {
-            case _360p -> GUI.SCREEN_RESOLUTION._540p;
-            case _540p -> GUI.SCREEN_RESOLUTION._720p;
-            case _720p -> GUI.SCREEN_RESOLUTION._900p;
-            case _900p -> GUI.SCREEN_RESOLUTION._1080p;
-            case _1080p -> GUI.SCREEN_RESOLUTION._1440p;
-            case _1440p -> GUI.SCREEN_RESOLUTION._2160p;
-            case _2160p -> GUI.SCREEN_RESOLUTION._360p;
-        };
-        game.setResolution(newResolution);
-        return newResolution;
-    }
-
     protected float handleVolumeChange(Game game) {
         game.getGui().clear();
         float newVolume = game.getAudioManager().getMasterVolume() == 1f ? 0.1f
@@ -83,7 +69,7 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
         }
     }
 
-    private GUI.SCREEN_RESOLUTION incrementResolution(GUI.SCREEN_RESOLUTION current) {
+    protected GUI.SCREEN_RESOLUTION incrementResolution(GUI.SCREEN_RESOLUTION current) {
         return switch (current) {
             case _360p -> GUI.SCREEN_RESOLUTION._540p;
             case _540p -> GUI.SCREEN_RESOLUTION._720p;
@@ -95,7 +81,7 @@ public abstract class MenuController<T extends Menu> extends Controller<T> {
         };
     }
 
-    private GUI.SCREEN_RESOLUTION decrementResolution(GUI.SCREEN_RESOLUTION current) {
+    protected GUI.SCREEN_RESOLUTION decrementResolution(GUI.SCREEN_RESOLUTION current) {
         return switch (current) {
             case _360p -> GUI.SCREEN_RESOLUTION._2160p;
             case _540p -> GUI.SCREEN_RESOLUTION._360p;

@@ -13,7 +13,7 @@ import java.util.List;
 
 
 public class PacmanController extends GameController {
-    private List<Direction> desiredDirections; //one for each pacman
+    private final List<Direction> desiredDirections; //one for each pacman
 
     public PacmanController(Arena arena) {
         super(arena);

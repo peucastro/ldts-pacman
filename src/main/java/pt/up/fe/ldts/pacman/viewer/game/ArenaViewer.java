@@ -19,8 +19,9 @@ public class ArenaViewer extends ModelViewer<Arena> {
 
     @Override
     public void drawElements(GUI gui, Arena arena, long frameCount) {
-        //antes de desenhar os elementos todos apaga as posições em branco
+        //before drawing all the elements erase the blank positions
         arena.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
+
         arena.getWalls().forEach(wall -> drawElement(gui, wall, frameCount));
         drawElement(gui, arena.getGhostGate(), frameCount);
         arena.getCollectibles().forEach(collectible -> drawElement(gui, collectible, frameCount));

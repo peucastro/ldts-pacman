@@ -36,12 +36,13 @@ public class MainMenuController extends MenuController<MainMenu> {
                     MapSelectionMenu mapSelectionMenu = new MapSelectionMenu("multiplayer"); // Create a new map selection menu model
                     game.setState(new MapSelectionMenuState(mapSelectionMenu, game.getAudioManager())); // Switch to map selection menu
                 }
-                else if (getModel().ExitSelected()) {
+                else if (getModel().ExitSelected()) { //exit game
                     game.setState(null);
-                } else if (getModel().ResolutionSelected()) {
-                    GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
+                } else if (getModel().ResolutionSelected()) { //change the resolution
+                    GUI.SCREEN_RESOLUTION newResolution = incrementResolution(game.getResolution());
+                    game.setResolution(newResolution);
                     getModel().setResolution(newResolution);
-                } else if (getModel().MasterVolumeSelected()) {
+                } else if (getModel().MasterVolumeSelected()) { //change master volume
                     float newVolume = super.handleVolumeChange(game);
                     getModel().setMasterVolume(newVolume);
                 }

@@ -106,11 +106,7 @@ public class ImageLoader {
 
         int x = 0, y = 0;
         for (int i = 0; i < fontMap.length(); ++i) {
-            if (fontMap.charAt(i) == '\n') {
-                x = 0;
-                y += 11;
-                continue;
-            }
+            //for each character on the font map, load a 5*11 subimage which is the corresponding letter
             characters.put(fontMap.charAt(i), font.getSubimage(x, y, 5, 11));
             x += 5;
         }
