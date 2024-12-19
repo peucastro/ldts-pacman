@@ -45,7 +45,7 @@ public class ImageLoader {
         );
     }
 
-    public static Map<Character, List<BufferedImage>> loadPacmanImages() throws IOException, URISyntaxException {
+    public static Map<Character, List<BufferedImage>> loadPacmanImages() throws IOException {
         BufferedImage leftResource = loadBufferedImage("PNGs/pacman/pacmanleft.png");
         BufferedImage upResource = loadBufferedImage("PNGs/pacman/pacmanup.png");
         BufferedImage downResource = loadBufferedImage("PNGs/pacman/pacmandown.png");

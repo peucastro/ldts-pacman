@@ -26,10 +26,6 @@ import java.util.List;
 public class LanternaGUI implements GUI {
     private Screen screen;
 
-    public LanternaGUI(Screen screen) {
-        this.screen = screen;
-    }
-
     public LanternaGUI(int width, int height, SCREEN_RESOLUTION resolution) throws IOException, FontFormatException, URISyntaxException {
         AWTTerminalFontConfiguration fontConfig = loadSquareFont(resolutionToFontSize(resolution));
         Terminal terminal = createTerminal(width, height, fontConfig);

@@ -17,7 +17,7 @@ public class PinkyMovementBehaviour extends GhostMovementBehaviour{
             case DOWN -> newY = Math.max(arena.getHeight(), newY + 3);
             case RIGHT -> newX = Math.max(arena.getWidth(), newX + 3);
             case LEFT -> newX = Math.max(0, newX - 3);
-        };
+        }
         return new Position(newX,newY);
     }
 }

@@ -11,11 +11,9 @@ import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 
 public class MapSelectionMenuController extends MenuController<MapSelectionMenu> {
     public MapSelectionMenuController(MapSelectionMenu model, AudioManager audioManager) {

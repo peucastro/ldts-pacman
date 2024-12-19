@@ -13,7 +13,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.states.game.DyingState;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -121,7 +120,7 @@ public class CollisionController extends GameController {
     }
 
     @Override
-    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
         if (!ghostsAliveSiren.isPlaying() && !ghostsScaredSiren.isPlaying()) {
             if (scaredTimeLeft == 0) ghostsAliveSiren.playInLoop(); //start of the game or leaving pause menu
             else ghostsScaredSiren.playInLoop(); //leaving pause menu and scared state was on before
