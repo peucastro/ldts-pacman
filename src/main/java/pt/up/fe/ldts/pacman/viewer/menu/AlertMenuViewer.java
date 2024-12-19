@@ -18,11 +18,11 @@ import java.util.Map;
 
 public class AlertMenuViewer extends Viewer<AlertMenu> {
     private final Map<Class<?>, Viewer<Element>> viewers;
-    private final BufferedImage gameOverText;
+    private final BufferedImage alertText;
 
     public AlertMenuViewer(String filePath) throws IOException, URISyntaxException {
         this.viewers = ViewerFactory.createAlertMenuViewers();
-        this.gameOverText = ImageLoader.loadBufferedImage(filePath);
+        this.alertText = ImageLoader.loadBufferedImage(filePath);
     }
 
     public void drawElement(GUI gui, Element element) {
@@ -47,7 +47,7 @@ public class AlertMenuViewer extends Viewer<AlertMenu> {
         } else
             drawElement(gui, new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274, 0), new TextColor.RGB(255, 255, 255)));
 
-        gui.drawImage(new Position(121, 44), gameOverText, gameOverText.getWidth(), gameOverText.getHeight());
+        gui.drawImage(new Position(121, 44), alertText, alertText.getWidth(), alertText.getHeight());
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox));
     }
 
