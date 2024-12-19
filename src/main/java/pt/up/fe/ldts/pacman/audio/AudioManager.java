@@ -13,8 +13,9 @@ public class AudioManager {
         this.masterVolume = 0.5f;
     }
 
-    public void addAudio(String key, AudioPlayer audio) {
+    public void addAudio(String key, String audioPath) {
         if (!audios.containsKey(key)) {
+            AudioPlayer audio = new AudioPlayer(audioPath);
             audios.put(key, audio);
             audio.setVolume(audio.getVolume() * masterVolume);
         }

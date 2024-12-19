@@ -29,19 +29,19 @@ public class CollisionController extends GameController {
     public CollisionController(Arena arena, AudioManager audioManager) {
         super(arena);
 
-        audioManager.addAudio("ghostEaten", new AudioPlayer("Audio/ghostEaten.wav"));
+        audioManager.addAudio("ghostEaten", "Audio/ghostEaten.wav");
         this.ghostEatenAudio = audioManager.getAudio("ghostEaten");
         this.ghostEatenAudio.setVolume(0.40f);
 
-        audioManager.addAudio("collectibleEaten", new AudioPlayer("Audio/collectibleEaten.wav"));
+        audioManager.addAudio("collectibleEaten", "Audio/collectibleEaten.wav");
         this.collectibleEatenAudio = audioManager.getAudio("collectibleEaten");
         collectibleEatenAudio.setVolume(0.25f);
 
-        audioManager.addAudio("ghostsAliveSiren", new AudioPlayer("Audio/ghostsAlive.wav"));
+        audioManager.addAudio("ghostsAliveSiren", "Audio/ghostsAlive.wav");
         this.ghostsAliveSiren = audioManager.getAudio("ghostsAliveSiren");
         this.ghostsAliveSiren.setVolume(0.2f);
 
-        audioManager.addAudio("ghostsScaredSiren", new AudioPlayer("Audio/ghostsScared.wav"));
+        audioManager.addAudio("ghostsScaredSiren", "Audio/ghostsScared.wav");
         this.ghostsScaredSiren = audioManager.getAudio("ghostsScaredSiren");
         this.ghostsScaredSiren.setVolume(0.25f);
 

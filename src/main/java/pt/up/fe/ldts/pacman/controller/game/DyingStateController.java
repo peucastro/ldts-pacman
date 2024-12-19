@@ -22,7 +22,7 @@ public class DyingStateController extends GameController {
         super(arena);
         this.stateTimeCounter = 110;
 
-        audioManager.addAudio("deathAudio", new AudioPlayer("Audio/pacmanDeath.wav"));
+        audioManager.addAudio("deathAudio", "Audio/pacmanDeath.wav");
         AudioPlayer deathAudio = audioManager.getAudio("deathAudio");
         deathAudio.setVolume(1.0f);
         deathAudio.playOnce();
