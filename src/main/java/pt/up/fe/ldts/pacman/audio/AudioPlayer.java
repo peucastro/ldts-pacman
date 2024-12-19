@@ -10,11 +10,6 @@ public class AudioPlayer {
     private final Clip audio;
     private float volume;
 
-    public AudioPlayer(Clip audio) {
-        this.audio = audio;
-        this.volume = 1f;
-    }
-
     public AudioPlayer(String audioFilepath) {
         this.audio = loadAudioFile(audioFilepath);
         this.volume = 1f;

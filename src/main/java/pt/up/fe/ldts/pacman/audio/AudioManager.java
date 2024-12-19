@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AudioManager {
-    private final Map<String, AudioPlayer> audios;
+    private static AudioManager instance;
     private AudioPlayer mainMusic;
+    private final Map<String, AudioPlayer> audios;
     private float masterVolume;
 
-    public AudioManager() {
+    private AudioManager() {
         this.audios = new HashMap<>();
         this.masterVolume = 0.5f;
     }
@@ -19,6 +20,13 @@ public class AudioManager {
             audios.put(key, audio);
             audio.setVolume(audio.getVolume() * masterVolume);
         }
+    }
+
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            instance = new AudioManager();
+        }
+        return instance;
     }
 
     public void stopAllAudios() {
