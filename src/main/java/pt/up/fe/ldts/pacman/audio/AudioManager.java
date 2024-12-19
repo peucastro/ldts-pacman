@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class AudioManager {
     private AudioPlayer mainMusic;
-    private Map<String,AudioPlayer> audios;
+    private final Map<String,AudioPlayer> audios;
     private float masterVolume;
 
     public AudioManager(){

@@ -1,7 +1,6 @@
 package pt.up.fe.ldts.pacman.audio;
 
 import javax.sound.sampled.*;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class AudioPlayer {
