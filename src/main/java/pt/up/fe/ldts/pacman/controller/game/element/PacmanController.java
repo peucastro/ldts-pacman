@@ -53,6 +53,7 @@ public class PacmanController extends GameController {
 
         // Ensure the next position is valid for movement
         if (getModel().isEmpty(nextPosition) &&
+                !getModel().getGhostGate().getPosition().equals(nextPosition) &&
                 getModel().getPacmans().stream()
                         .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
                         .noneMatch(other -> other.collidingWith(new Pacman(nextPosition)))) {
