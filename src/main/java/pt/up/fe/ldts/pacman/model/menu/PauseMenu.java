@@ -1,10 +1,10 @@
 package pt.up.fe.ldts.pacman.model.menu;
 
 import com.googlecode.lanterna.TextColor;
-import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
+import pt.up.fe.ldts.pacman.states.State;
 
 import java.util.ArrayList;
 import java.util.List;

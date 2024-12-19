@@ -12,7 +12,6 @@ import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 import pt.up.fe.ldts.pacman.states.menu.AlertMenuState;
 import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;

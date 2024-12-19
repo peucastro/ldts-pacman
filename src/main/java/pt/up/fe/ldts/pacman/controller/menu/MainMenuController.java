@@ -1,7 +1,6 @@
 package pt.up.fe.ldts.pacman.controller.menu;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
@@ -12,6 +11,7 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
+import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
 import java.awt.*;
 import java.io.IOException;

@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.viewer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Element;
 
-
 import java.io.IOException;
 import java.util.Map;
 
