@@ -13,7 +13,7 @@ import java.util.List;
 
 
 public class PacmanController extends GameController {
-    private List<Direction> desiredDirections; //one for each pacman
+    private final List<Direction> desiredDirections; //one for each pacman
 
     public PacmanController(Arena arena) {
         super(arena);
@@ -21,7 +21,7 @@ public class PacmanController extends GameController {
     }
 
     private void movePacman(Pacman pacman, Direction desiredDirection) {
-        if(desiredDirection != null && desiredDirection.isOpposite(pacman.getDirection())){
+        if (desiredDirection != null && desiredDirection.isOpposite(pacman.getDirection())) {
             //pacman can invert direction whenever
             pacman.invertDirection();
             desiredDirection = null;
@@ -37,7 +37,7 @@ public class PacmanController extends GameController {
 
             boolean isPositionValid = getModel().isEmpty(nextDesiredPosition) &&
                     getModel().getPacmans().stream()
-                            .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
+                            .filter(other -> !other.equals(pacman) && !other.isDying()) // Ignore the current Pacman
                             .noneMatch(other -> other.collidingWith(new Pacman(nextDesiredPosition)));
 
             if (isPositionValid &&

@@ -46,18 +46,18 @@ public class AudioPlayer {
         audio.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void setVolume(float volume) {
-        if (volume < 0 || volume > 1) return;
-        this.volume = volume;
-        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
-    }
-
     public boolean isPlaying() {
         return audio.isActive();
     }
 
     public float getVolume() {
         return volume;
+    }
+
+    public void setVolume(float volume) {
+        if (volume < 0 || volume > 1) return;
+        this.volume = volume;
+        FloatControl gainControl = (FloatControl) audio.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 }

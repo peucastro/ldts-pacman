@@ -4,6 +4,6 @@ import pt.up.fe.ldts.pacman.model.Position;
 
 public class Strawberry extends Collectible {
     public Strawberry(Position pos) {
-        super(pos,300);
+        super(pos, 300);
     }
 }

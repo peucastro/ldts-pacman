@@ -12,7 +12,6 @@ public class AlertMenu extends Menu {
     private final String alertFilePath;
 
     public AlertMenu(Arena arena, String alertFilePath) {
-        super();
         this.arena = arena;
         this.alertFilePath = alertFilePath;
         initializeOptions();

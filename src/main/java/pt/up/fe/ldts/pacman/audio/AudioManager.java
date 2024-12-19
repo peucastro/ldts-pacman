@@ -14,6 +14,14 @@ public class AudioManager {
         this.masterVolume = 0.5f;
     }
 
+    public void addAudio(String key, String audioPath) {
+        if (!audios.containsKey(key)) {
+            AudioPlayer audio = new AudioPlayer(audioPath);
+            audios.put(key, audio);
+            audio.setVolume(audio.getVolume() * masterVolume);
+        }
+    }
+
     public static AudioManager getInstance() {
         if (instance == null) {
             instance = new AudioManager();
@@ -21,17 +29,8 @@ public class AudioManager {
         return instance;
     }
 
-    public void addAudio(String key, AudioPlayer audio) {
-        audios.put(key, audio);
-        audio.setVolume(audio.getVolume() * masterVolume);
-    }
-
     public void stopAllAudios() {
         audios.forEach((s, audioPlayer) -> audioPlayer.stopPlaying());
-    }
-
-    public AudioPlayer getMainMusic() {
-        return mainMusic;
     }
 
     public void setMainMusic(AudioPlayer mainMusic) {
@@ -39,12 +38,12 @@ public class AudioManager {
         this.mainMusic = mainMusic;
     }
 
-    public boolean audioExists(String key) {
-        return audios.containsKey(key);
-    }
-
     public AudioPlayer getAudio(String key) {
         return audios.get(key);
+    }
+
+    public float getMasterVolume() {
+        return masterVolume;
     }
 
     public void setMasterVolume(float volume) {
@@ -52,9 +51,5 @@ public class AudioManager {
         if (mainMusic != null) mainMusic.setVolume(mainMusic.getVolume() * volume / masterVolume);
         audios.forEach((s, audio) -> audio.setVolume(audio.getVolume() * volume / masterVolume));
         this.masterVolume = volume;
-    }
-
-    public float getMasterVolume() {
-        return masterVolume;
     }
 }

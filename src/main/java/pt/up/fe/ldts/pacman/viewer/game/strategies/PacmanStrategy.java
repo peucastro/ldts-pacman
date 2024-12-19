@@ -12,7 +12,8 @@ public class PacmanStrategy extends MultipleElementStrategy {
     @Override
     public BufferedImage getCurrentImage(Element element, Map<Character, List<BufferedImage>> images, long frameCount) {
         Pacman pacman = (Pacman) element;
-        int index = (frameCount%20 < 10 ? 0 : 1);
+        //first use the module operator to limit the value to only 20 different values, then assign the first ten to the first image and the rest to the second image
+        int index = (frameCount % 20 < 10 ? 0 : 1);
         if (pacman.isDying())
             return images.get('X').getFirst();
 

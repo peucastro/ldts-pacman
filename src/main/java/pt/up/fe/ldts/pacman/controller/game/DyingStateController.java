@@ -17,24 +17,20 @@ import java.util.List;
 
 public class DyingStateController extends GameController {
     private int stateTimeCounter;
-    private final AudioPlayer deathAudio;
 
     public DyingStateController(Arena arena, AudioManager audioManager) {
         super(arena);
-        this.stateTimeCounter = -1;
-        audioManager.addAudio("deathAudio", new AudioPlayer("Audio/pacmanDeath.wav"));
-        this.deathAudio = audioManager.getAudio("deathAudio");
-        this.deathAudio.setVolume(1.0f);
+        this.stateTimeCounter = 110;
+
+        audioManager.addAudio("deathAudio", "Audio/pacmanDeath.wav");
+        AudioPlayer deathAudio = audioManager.getAudio("deathAudio");
+        deathAudio.setVolume(1.0f);
         deathAudio.playOnce();
     }
 
     @Override
     public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
-        if (stateTimeCounter == -1) {
-            stateTimeCounter = 110;
-        }
-
-        if (stateTimeCounter == 0) {
+        if (--stateTimeCounter == 0) {
             int alivePacmans = 0; //number of still alive pacmans
             for (Pacman pacman : getModel().getPacmans()) {
                 if (pacman.getLife() > 0) {
@@ -50,6 +46,7 @@ public class DyingStateController extends GameController {
             } else { //there is still at least one pacman with more than one life: keep playing
                 getModel().getGhosts().forEach(ghost -> {
                     ghost.setState(GhostState.ALIVE);
+                    ghost.setSpeed(Arena.GHOST_NORMAL_SPEED);
                     ghost.setPosition(ghost.getRespawnPosition());
                     ghost.setCounter(0);
                     ghost.setInsideGate();
@@ -57,6 +54,5 @@ public class DyingStateController extends GameController {
                 game.setState(new GameState(getModel(), game.getAudioManager()));
             }
         }
-        stateTimeCounter--;
     }
 }

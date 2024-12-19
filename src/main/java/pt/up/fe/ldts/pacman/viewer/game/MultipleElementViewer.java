@@ -27,8 +27,7 @@ public class MultipleElementViewer extends Viewer<Element> {
         if (element instanceof MovableElement movableElement) {
             Position drawPos = movableElement.getRealPosition();
             gui.drawImage(drawPos, image);
-        }
-        else {
+        } else {
             Position drawPos = new Position(element.getPosition().getX() * 11, element.getPosition().getY() * 11);
             gui.drawImage(drawPos, image);
         }

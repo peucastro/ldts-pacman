@@ -1,11 +1,11 @@
 package pt.up.fe.ldts.pacman.controller.menu;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
+import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,14 +24,15 @@ public class PauseMenuController extends MenuController<PauseMenu> {
         for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.SELECT) {
                 menuConfirmSelection.playOnce();
-                if (getModel().ResumeSelected()) {
+                if (getModel().ResumeSelected()) { //return to the game
                     game.setState(getModel().getPausedState());
-                } else if (getModel().ExitSelected())
+                } else if (getModel().ExitSelected()) { //go to main menu
                     game.setState(new MainMenuState(new MainMenu(game.getResolution(), game.getAudioManager().getMasterVolume()), game.getAudioManager()));
-                else if (getModel().ResolutionSelected()) {
-                    GUI.SCREEN_RESOLUTION newResolution = super.handleResolutionChange(game);
+                } else if (getModel().ResolutionSelected()) { //change the resolution
+                    GUI.SCREEN_RESOLUTION newResolution = incrementResolution(game.getResolution());
+                    game.setResolution(newResolution);
                     getModel().setResolution(newResolution);
-                } else if (getModel().MasterVolumeSelected()) {
+                } else if (getModel().MasterVolumeSelected()) { //change the master volume
                     float newVolume = super.handleVolumeChange(game);
                     getModel().setMasterVolume(newVolume);
                 }

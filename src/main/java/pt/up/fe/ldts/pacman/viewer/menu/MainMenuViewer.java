@@ -17,7 +17,7 @@ public class MainMenuViewer extends ModelViewer<MainMenu> {
 
     @Override
     public void drawElements(GUI gui, MainMenu menu, long frameCount) {
-        menu.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX()*11, position.getY()*11)));
+        menu.getBlankPositions().forEach(position -> gui.erase(new Position(position.getX() * 11, position.getY() * 11)));
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
         drawElement(gui, menu.getPacman(), frameCount);
 

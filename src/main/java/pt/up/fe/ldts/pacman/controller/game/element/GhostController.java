@@ -1,9 +1,6 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.states.game.DyingState;
-import pt.up.fe.ldts.pacman.audio.AudioManager;
-import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.GameController;
 import pt.up.fe.ldts.pacman.controller.game.element.behaviours.*;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -11,10 +8,7 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
-import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +17,7 @@ public class GhostController extends GameController {
     private int frameCount; //useful for alternating between chase and scatter states when ghosts are alive
     private int targetPacman;
 
-    public GhostController(Arena arena, AudioManager audioManager) {
+    public GhostController(Arena arena) {
         super(arena);
         this.movementBehaviours = Map.of(
                 Blinky.class, new BlinkyMovementBehaviour(),
@@ -63,7 +57,7 @@ public class GhostController extends GameController {
         ghost.incrementCounter();
     }
 
-    private boolean isChaseMode(){
+    private boolean isChaseMode() {
         return ((frameCount >= 450 && frameCount < 2700) || frameCount >= 3200);
     }
 
@@ -87,12 +81,15 @@ public class GhostController extends GameController {
     }
 
     @Override
-    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
-        if(frameCount == 450 || frameCount == 2700 || frameCount == 3200)
-            getModel().getGhosts().forEach(Ghost::invertDirection); //toggle between chase and scatter modes
+    public void step(Game game, List<GUI.ACTION> actions, long time) {
+        if (frameCount == 450 || frameCount == 2700 || frameCount == 3200)
+            //toggle between chase and scatter modes
+            getModel().getGhosts().forEach(ghost -> {
+                if (!ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.invertDirection();
+            });
 
         //change the target pacman from time to time on multiplayer
-        if(frameCount%2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
+        if (frameCount % 2000 == 0 && getModel().getPacmans().size() > 1 && !getModel().getPacmans().get((targetPacman == 0 ? 1 : 0)).isDying())
             targetPacman = (targetPacman == 0 ? 1 : 0);
 
 
