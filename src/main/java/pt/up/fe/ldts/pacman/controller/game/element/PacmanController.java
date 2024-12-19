@@ -21,6 +21,12 @@ public class PacmanController extends GameController {
     }
 
     private void movePacman(Pacman pacman, Direction desiredDirection) {
+        if(desiredDirection != null && desiredDirection.isOpposite(pacman.getDirection())){
+            //pacman can invert direction whenever
+            pacman.invertDirection();
+            desiredDirection = null;
+        }
+
         if (pacman.getCounter() > 0) {
             pacman.incrementCounter();
             return;
@@ -32,7 +38,7 @@ public class PacmanController extends GameController {
             boolean isPositionValid = getModel().isEmpty(nextDesiredPosition) &&
                     getModel().getPacmans().stream()
                             .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
-                            .noneMatch(other -> other.getPosition().equals(nextDesiredPosition) || other.getNextPosition().equals(nextDesiredPosition));
+                            .noneMatch(other -> other.collidingWith(new Pacman(nextDesiredPosition)));
 
             if (isPositionValid &&
                     !getModel().getGhostGate().getPosition().equals(nextDesiredPosition)) {
@@ -49,7 +55,7 @@ public class PacmanController extends GameController {
         if (getModel().isEmpty(nextPosition) &&
                 getModel().getPacmans().stream()
                         .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
-                        .noneMatch(other -> other.getPosition().equals(nextPosition) || other.getNextPosition().equals(nextPosition))) {
+                        .noneMatch(other -> other.collidingWith(new Pacman(nextPosition)))) {
             pacman.incrementCounter();
         }
     }
@@ -84,7 +90,6 @@ public class PacmanController extends GameController {
         }
         for (int i = 0; i < getModel().getPacmans().size(); ++i) {
             Pacman pacman = getModel().getPacmans().get(i);
-            pacman.updateMouthState();
             if (time % pacman.getSpeed() != 1 && !pacman.isDying()) movePacman(pacman, desiredDirections.get(i));
         }
     }

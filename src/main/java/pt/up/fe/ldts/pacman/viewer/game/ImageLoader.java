@@ -11,18 +11,21 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ImageLoader {
 
-    public static Map<Character, BufferedImage> loadGhostImages(String ghostName) throws IOException, URISyntaxException {
-        BufferedImage leftResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left.png");
-        BufferedImage upResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up.png");
-        BufferedImage downResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down.png");
-        BufferedImage rightResource = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right.png");
-        BufferedImage scaredResource = loadBufferedImage("PNGs/ghosts/common/scaredghost.png");
+    public static Map<Character, List<BufferedImage>> loadGhostImages(String ghostName) throws IOException {
+        BufferedImage leftResource1 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left1.png");
+        BufferedImage upResource1 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up1.png");
+        BufferedImage downResource1 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down1.png");
+        BufferedImage rightResource1 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right1.png");
+        BufferedImage leftResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "left2.png");
+        BufferedImage upResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "up2.png");
+        BufferedImage downResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "down2.png");
+        BufferedImage rightResource2 = loadBufferedImage("PNGs/ghosts/" + ghostName + "/" + ghostName + "right2.png");
+        BufferedImage scaredResource1 = loadBufferedImage("PNGs/ghosts/common/scaredghost1.png");
+        BufferedImage scaredResource2 = loadBufferedImage("PNGs/ghosts/common/scaredghost2.png");
         BufferedImage deadRightResource = loadBufferedImage("PNGs/ghosts/common/deadghostright.png");
         BufferedImage deadLeftResource = loadBufferedImage("PNGs/ghosts/common/deadghostleft.png");
         BufferedImage deadUpResource = loadBufferedImage("PNGs/ghosts/common/deadghostup.png");
@@ -30,19 +33,19 @@ public class ImageLoader {
 
 
         return Map.of(
-                'L', leftResource,
-                'U', upResource,
-                'D', downResource,
-                'R', rightResource,
-                'S', scaredResource,
-                'r', deadRightResource,
-                'l', deadLeftResource,
-                'u', deadUpResource,
-                'd', deadDownResource
+                'L', Arrays.asList(leftResource1,leftResource2),
+                'U', Arrays.asList(upResource1,upResource2),
+                'D', Arrays.asList(downResource1,downResource2),
+                'R', Arrays.asList(rightResource1,rightResource2),
+                'S', Arrays.asList(scaredResource1, scaredResource2),
+                'r', Collections.singletonList(deadRightResource),
+                'l', Collections.singletonList(deadLeftResource),
+                'u', Collections.singletonList(deadUpResource),
+                'd', Collections.singletonList(deadDownResource)
         );
     }
 
-    public static Map<Character, BufferedImage> loadPacmanImages() throws IOException, URISyntaxException {
+    public static Map<Character, List<BufferedImage>> loadPacmanImages() throws IOException, URISyntaxException {
         BufferedImage leftResource = loadBufferedImage("PNGs/pacman/pacmanleft.png");
         BufferedImage upResource = loadBufferedImage("PNGs/pacman/pacmanup.png");
         BufferedImage downResource = loadBufferedImage("PNGs/pacman/pacmandown.png");
@@ -51,12 +54,11 @@ public class ImageLoader {
         BufferedImage deadResource = loadBufferedImage("PNGs/pacman/pacmandead.png");
 
         return Map.of(
-                'L', leftResource,
-                'U', upResource,
-                'D', downResource,
-                'R', rightResource,
-                'C', closedResource,
-                'X', deadResource
+                'L', Arrays.asList(leftResource,closedResource),
+                'U', Arrays.asList(upResource,closedResource),
+                'D', Arrays.asList(downResource,closedResource),
+                'R', Arrays.asList(rightResource,closedResource),
+                'X', Collections.singletonList(deadResource)
         );
     }
 

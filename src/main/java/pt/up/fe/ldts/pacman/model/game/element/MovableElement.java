@@ -56,6 +56,20 @@ public abstract class MovableElement extends Element {
         };
     }
 
+    public void invertDirection(){
+        setPosition(getNextPosition());
+        setDirection(getDirection().getOpposite());
+        setCounter(11 - getCounter());
+    }
+
+    public Position getRealPosition(){
+        return new Position(getPosition().getX() * 11 + getCounterX(), getPosition().getY() * 11 + getCounterY());
+    }
+
+    public boolean collidingWith(MovableElement other){
+        return  getRealPosition().squaredDistance(other.getRealPosition()) < 121;
+    }
+
     public int getSpeed() {
         return speed;
     }

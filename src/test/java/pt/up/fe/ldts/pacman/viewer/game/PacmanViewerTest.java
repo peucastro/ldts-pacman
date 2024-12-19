@@ -26,13 +26,13 @@ class PacmanViewerTest {
         Pacman pacman = new Pacman(new Position(0, 0));
 
         // Draw Pacman (Left)
-        pacmanViewer.drawElement(mockLanternaGUI, pacman);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Up)
         pacman.setDirection(Direction.UP);
-        pacmanViewer.drawElement(mockLanternaGUI, pacman);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 }

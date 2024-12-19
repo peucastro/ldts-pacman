@@ -46,18 +46,18 @@ class ElementViewerTest {
         Wall wall = new Wall(new Position(0, 0));
 
         // Draw Cherry
-        cherryViewer.drawElement(mockLanternaGUI, cherry);
+        cherryViewer.drawElement(mockLanternaGUI, cherry,0);
 
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Orange
-        orangeViewer.drawElement(mockLanternaGUI, orange);
+        orangeViewer.drawElement(mockLanternaGUI, orange,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Wall
-        wallViewer.drawElement(mockLanternaGUI, wall);
+        wallViewer.drawElement(mockLanternaGUI, wall,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
     }
 }

@@ -20,7 +20,7 @@ public class ArenaTest {
 
         Arena arena = new Arena(width, height);
 
-        assertNotNull(arena.getPacman());
+        assertNotNull(arena.getPacmans());
         assertEquals(width, arena.getWidth());
         assertEquals(height, arena.getHeight());
         assertTrue(arena.getWalls().isEmpty());
@@ -42,15 +42,6 @@ public class ArenaTest {
     }
 
     @Test
-    void testPacmanInitialPosition() {
-        Arena arena = new Arena(20, 15);
-
-        Pacman pacman = arena.getPacman();
-
-        assertEquals(new Position(10, 10), pacman.getPosition());
-    }
-
-    @Test
     void testAddWall() {
         Arena arena = new Arena(20, 15);
         Wall wall = new Wall(new Position(10, 10));
@@ -62,8 +53,8 @@ public class ArenaTest {
     void testSetPacmanPosition() {
         Arena arena = new Arena(20, 15);
         Position position = new Position(10, 10);
-        arena.setPacmanPosition(position);
-        assertEquals(position, arena.getPacman().getPosition());
+        arena.addPacman(new Pacman(position));
+        assertEquals(position, arena.getPacmans().getFirst().getPosition());
     }
 
     @Test

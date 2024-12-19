@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.model.menu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.model.Position;
 
@@ -16,7 +17,7 @@ class PauseMenuTest {
     @BeforeEach
     void setUp() {
         mockState = mock(State.class);
-        pauseMenu = new PauseMenu(mockState);
+        pauseMenu = new PauseMenu(mockState, GUI.SCREEN_RESOLUTION._900p, 0);
     }
 
     @Test
@@ -54,9 +55,15 @@ class PauseMenuTest {
     }
 
     @Test
-    void testSettingsSelected() {
-        pauseMenu.setSelectedOption(1);
-        assertTrue(pauseMenu.SettingsSelected());
+    void testResolutionSelected() {
+        pauseMenu.setSelectedOption(2);
+        assertTrue(pauseMenu.ResolutionSelected());
+    }
+
+    @Test
+    void testMasterVolumeSelected() {
+        pauseMenu.setSelectedOption(3);
+        assertTrue(pauseMenu.MasterVolumeSelected());
     }
 
     @Test

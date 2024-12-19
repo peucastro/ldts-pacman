@@ -2,7 +2,7 @@ package pt.up.fe.ldts.pacman.controller.game;
 
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
-import pt.up.fe.ldts.pacman.controller.game.element.CollectibleController;
+import pt.up.fe.ldts.pacman.controller.game.element.CollisionController;
 import pt.up.fe.ldts.pacman.controller.game.element.GhostController;
 import pt.up.fe.ldts.pacman.controller.game.element.PacmanController;
 import pt.up.fe.ldts.pacman.gui.GUI;
@@ -12,25 +12,26 @@ import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
 import pt.up.fe.ldts.pacman.states.menu.AlertMenuState;
 import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
 public class ArenaController extends GameController {
     private final PacmanController pacmanController;
-    private final CollectibleController collectibleController;
+    private final CollisionController collisionController;
     private final GhostController ghostController;
 
     public ArenaController(Arena arena, AudioManager audioManager) {
         super(arena);
+
         this.pacmanController = new PacmanController(arena);
-        this.collectibleController = new CollectibleController(arena, audioManager);
+        this.collisionController = new CollisionController(arena, audioManager);
         this.ghostController = new GhostController(arena, audioManager);
-        GhostController.setScaredTimeLeft(0);
     }
 
     @Override
-    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException {
+    public void step(Game game, List<GUI.ACTION> actions, long time) throws IOException, URISyntaxException, FontFormatException {
         for (GUI.ACTION action : actions) {
             if (action == GUI.ACTION.QUIT) {
                 game.getAudioManager().stopAllAudios();
@@ -46,6 +47,6 @@ public class ArenaController extends GameController {
         //all the controllers here me thinks
         pacmanController.step(game, actions, time);
         ghostController.step(game, actions, time);
-        collectibleController.step(game, actions, time);
+        collisionController.step(game, actions, time);
     }
 }

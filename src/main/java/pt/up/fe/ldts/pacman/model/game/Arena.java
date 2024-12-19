@@ -4,6 +4,7 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.PowerUp;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
@@ -23,6 +24,7 @@ public class Arena {
     private final List<Pacman> pacmans;
     private final int width, height;
     private long score;
+    private long maxScore;
     private int collectedCollectibles;
     private final GhostGate ghostGate;
     private Set<Position> blankPositions;
@@ -35,6 +37,7 @@ public class Arena {
         this.height = height;
 
         this.score = 0;
+        this.maxScore = 0;
         this.collectedCollectibles = 0;
 
         this.pacmans = new ArrayList<>();
@@ -147,5 +150,13 @@ public class Arena {
 
     public void addBlankPosition(Position position){
         blankPositions.add(position);
+    }
+
+    public void setMaxScore(long maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public long getMaxScore() {
+        return maxScore;
     }
 }
