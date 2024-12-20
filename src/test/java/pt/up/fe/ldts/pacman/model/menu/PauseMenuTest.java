@@ -23,10 +23,11 @@ class PauseMenuTest {
     @Test
     void testCreateOptions() {
         var options = pauseMenu.createOptions();
-        assertEquals(3, options.size());
+        assertEquals(4, options.size());
         assertEquals("Resume", options.get(0).getText());
-        assertEquals("Settings", options.get(1).getText());
-        assertEquals("Exit to main menu", options.get(2).getText());
+        assertEquals("Resolution: 900p", options.get(1).getText());
+        assertEquals("Master Volume: 10", options.get(2).getText());
+        assertEquals("Exit to main menu", options.get(3).getText());
     }
 
     @Test
@@ -56,19 +57,19 @@ class PauseMenuTest {
 
     @Test
     void testResolutionSelected() {
-        pauseMenu.setSelectedOption(2);
+        pauseMenu.setSelectedOption(1);
         assertTrue(pauseMenu.ResolutionSelected());
     }
 
     @Test
     void testMasterVolumeSelected() {
-        pauseMenu.setSelectedOption(3);
+        pauseMenu.setSelectedOption(2);
         assertTrue(pauseMenu.MasterVolumeSelected());
     }
 
     @Test
     void testExitSelected() {
-        pauseMenu.setSelectedOption(2);
+        pauseMenu.setSelectedOption(3);
         assertTrue(pauseMenu.ExitSelected());
     }
 }
