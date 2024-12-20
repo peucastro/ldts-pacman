@@ -24,11 +24,11 @@ class MapSelectionMenuTest {
 
         assertEquals(5, options.size());
 
-        assertEquals("Normal Map", options.get(0).getText());
-        assertEquals("Spirals", options.get(1).getText());
-        assertEquals("islands", options.get(2).getText());
-        assertEquals("Stripes", options.get(3).getText());
-        assertEquals("Final Boss", options.get(4).getText());
+        assertEquals("1 Normal Map", options.get(0).getText());
+        assertEquals("2 Spirals", options.get(1).getText());
+        assertEquals("3 Stripes", options.get(2).getText());
+        assertEquals("4 Islands", options.get(3).getText());
+        assertEquals("5 Final Boss", options.get(4).getText());
     }
 
     @Test
@@ -38,11 +38,11 @@ class MapSelectionMenuTest {
 
         assertEquals(5, options.size());
 
-        assertEquals("Normal Map", options.get(0).getText());
-        assertEquals("Spirals", options.get(1).getText());
-        assertEquals("islands", options.get(2).getText());
-        assertEquals("Stripes", options.get(3).getText());
-        assertEquals("Final Boss", options.get(4).getText());
+        assertEquals("1 Normal Map", options.get(0).getText());
+        assertEquals("2 Spirals", options.get(1).getText());
+        assertEquals("3 Stripes", options.get(2).getText());
+        assertEquals("4 Islands", options.get(3).getText());
+        assertEquals("5 Final Boss", options.get(4).getText());
     }
 
     @Test
