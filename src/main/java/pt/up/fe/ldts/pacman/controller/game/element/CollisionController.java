@@ -24,7 +24,7 @@ public class CollisionController extends GameController {
     private final AudioPlayer ghostsScaredSiren;
     private int deadPacmanTimeCounter; //counter for one dead pacman on multiplayer
     private int ghostsEaten; //ghosts eaten in current scared state
-    private int scaredTimeLeft;
+    int scaredTimeLeft;
 
     public CollisionController(Arena arena, AudioManager audioManager) {
         super(arena);
