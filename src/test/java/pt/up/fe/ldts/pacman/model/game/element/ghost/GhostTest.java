@@ -1,9 +1,8 @@
-package pt.up.fe.ldts.pacman.model.game.ghost;
+package pt.up.fe.ldts.pacman.model.game.element.ghost;
 
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
