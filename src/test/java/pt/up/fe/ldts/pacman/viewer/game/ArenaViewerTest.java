@@ -43,7 +43,7 @@ class ArenaViewerTest {
         when(mockArena.getPacmans()).thenReturn(new ArrayList<>(List.of(mockPacman)));
 
         ArenaViewer arenaViewer = new ArenaViewer();
-        arenaViewer.drawElements(mockGUI, mockArena, 0);
+        arenaViewer.drawElement(mockGUI, mockArena, 0);
 
         // Verify that the drawImage method is called with a valid Position
         verify(mockGUI, times(1)).drawImage(any(), (BufferedImage) any());
@@ -59,7 +59,7 @@ class ArenaViewerTest {
         ArenaViewer arenaViewer = new ArenaViewer();
         arenaViewer.drawElements(mockGUI, arena,0);
 
-        // Verify the number of static elements drawn (total number of static elements = 29*15 - 5 (movables) - 2 (empty spaces))
+        // Verify the number of static elements drawn (total number of static elements = 29*16 - 5 (movables) - 2 (empty spaces))
         verify(mockGUI, times(29 * 16 - 5 - 2)).drawImage(any(), (BasicTextImage) any());
         // Verify the number of movable elements drawn (total number of movable elements = 5 (pacman + ghosts))
         verify(mockGUI, times(5)).drawImage(any(), (BufferedImage) any());
