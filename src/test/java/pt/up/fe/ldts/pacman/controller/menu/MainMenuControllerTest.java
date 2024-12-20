@@ -27,6 +27,7 @@ class MainMenuControllerTest {
     private MainMenu mainMenu;
     private Game game;
     private MainMenuController controller;
+    AudioManager audioManager;
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
@@ -37,7 +38,7 @@ class MainMenuControllerTest {
         mainMenu = mock(MainMenu.class);
         game = mock(Game.class);
 
-        AudioManager audioManager = mock(AudioManager.class);
+        audioManager = mock(AudioManager.class);
 
         AudioPlayer menuSelect = mock(AudioPlayer.class);
         AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);
@@ -51,12 +52,6 @@ class MainMenuControllerTest {
         when(game.getAudioManager()).thenReturn(audioManager);
 
         controller = new MainMenuController(mainMenu, audioManager);
-
-        MapSelectionMenu mapSelectionMenu = mock(MapSelectionMenu.class);
-        MapSelectionMenuController mapSelectionMenuController = new MapSelectionMenuController(mapSelectionMenu, audioManager);
-
-        MapSelectionMenuState mapSelectionMenuState = mock(MapSelectionMenuState.class);
-        when(mapSelectionMenuState.createController(audioManager)).thenReturn(mapSelectionMenuController);
 
         blinky = mock(Blinky.class);
         inky = mock(Inky.class);
@@ -125,7 +120,7 @@ class MainMenuControllerTest {
 
         when(mainMenu.MasterVolumeSelected()).thenReturn(true);
 
-        when(game.getAudioManager().getMasterVolume()).thenReturn(0.5f);
+        when(audioManager.getMasterVolume()).thenReturn(0.5f);
 
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
