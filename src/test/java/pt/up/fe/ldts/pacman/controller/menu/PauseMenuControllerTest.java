@@ -20,12 +20,19 @@ class PauseMenuControllerTest {
     private PauseMenu pauseMenu;
     private Game game;
     private PauseMenuController controller;
+    private AudioManager audioManager;
 
     @BeforeEach
     void setUp() {
         pauseMenu = mock(PauseMenu.class);
         game = mock(Game.class);
-        controller = new PauseMenuController(pauseMenu, AudioManager.getInstance());
+        audioManager = AudioManager.getInstance();
+
+        // Mock the game's getAudioManager and getResolution methods
+        when(game.getAudioManager()).thenReturn(audioManager);
+        when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._900p);
+
+        controller = new PauseMenuController(pauseMenu, audioManager);
     }
 
     @Test
@@ -51,6 +58,8 @@ class PauseMenuControllerTest {
     @Test
     void testExitSelected() throws Exception {
         when(pauseMenu.ExitSelected()).thenReturn(true);
+        when(game.getAudioManager()).thenReturn(audioManager);
+
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
         verify(game, times(1)).setState(any(MainMenuState.class));
     }
