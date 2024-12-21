@@ -59,5 +59,5 @@ jacocoTestCoverageVerification {
 pitest {
     junit5PluginVersion = "1.2.0"
     pitestVersion = "1.15.0"
-    targetClasses = ["pt.up.fe.ldts.pacman.test"]
+    targetClasses = ["pt.up.fe.ldts.pacman.*"]
 }
