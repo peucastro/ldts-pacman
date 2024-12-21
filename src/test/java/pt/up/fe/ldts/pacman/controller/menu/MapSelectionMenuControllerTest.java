@@ -3,10 +3,13 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
+import pt.up.fe.ldts.pacman.MockAudio;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
+import pt.up.fe.ldts.pacman.states.game.GameState;
+import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 
 import java.awt.*;
 import java.io.IOException;
@@ -25,15 +28,8 @@ public class MapSelectionMenuControllerTest {
 
     @BeforeEach
     void setUp() {
-        // Reset the AudioManager singleton instance
-        audioManager = AudioManager.getInstance();
-
-        // Clear existing audio mappings in the singleton
-        audioManager.stopAllAudios();
-
-        // Add required audio entries
-        audioManager.addAudio("menuSelect", "Audio/menuSelect.wav");
-        audioManager.addAudio("menuConfirmSelection", "Audio/menuConfirmSelection.wav");
+        // Reset the mock AudioManager
+        audioManager = MockAudio.getMockAudioManager();
 
         // Initialize mocks
         gui = mock(GUI.class);
@@ -48,22 +44,10 @@ public class MapSelectionMenuControllerTest {
     }
 
     @Test
-    void testSelectMap() throws IOException {
-        // Mock the AudioPlayer
-        AudioPlayer menuSelectMock = mock(AudioPlayer.class);
-        AudioPlayer menuConfirmSelectionMock = mock(AudioPlayer.class);
+    void testSelectMap() throws IOException, URISyntaxException, FontFormatException {
+        controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
-        // Mock the AudioManager behavior
-        audioManager.stopAllAudios();
-        audioManager.addAudio("menuSelect", "menuSelect.wav");
-        audioManager.addAudio("menuConfirmSelection", "menuConfirmSelection.wav");
-
-        // Inject mocks into the AudioManager
-        audioManager.getAudio("menuSelect").stopPlaying(); // Clear map and assign mock
-        audioManager.getAudio("menuConfirmSelection").stopPlaying(); // Repeat for all players
-
-        // Mock menu actions
-        when(gui.getNextAction()).thenReturn(List.of(GUI.ACTION.QUIT));
+        verify(game, times(1)).setState(any(GameState.class));
     }
 
 
@@ -75,6 +59,6 @@ public class MapSelectionMenuControllerTest {
         controller.step(game, gui.getNextAction(), System.currentTimeMillis());
 
         // Verify that the game state changes to MainMenuState
-        verify(game).setState(any());
+        verify(game).setState(any(MainMenuState.class));
     }
 }
