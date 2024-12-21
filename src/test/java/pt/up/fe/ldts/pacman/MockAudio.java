@@ -14,6 +14,7 @@ public class MockAudio {
         doNothing().when(mockAudioManager).stopAllAudios();
         doReturn(mock(AudioPlayer.class)).when(mockAudioManager).getAudio(any());
         doNothing().when(mockAudioManager).setMasterVolume(anyFloat());
+        when(mockAudioManager.getMasterVolume()).thenReturn(1f);
 
         return mockAudioManager;
     }

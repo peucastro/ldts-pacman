@@ -64,4 +64,30 @@ class PauseMenuControllerTest {
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
         verify(game, times(1)).setState(any(MainMenuState.class));
     }
+
+    @Test
+    void testResolutionSelected() throws Exception {
+        when(pauseMenu.ResolutionSelected()).thenReturn(true);
+
+        when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._900p);
+
+        controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
+        verify(pauseMenu, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
+    }
+
+    @Test
+    void testMasterVolumeSelected() throws Exception {
+        GUI gui = mock(GUI.class);
+        when(game.getGui()).thenReturn(gui);
+
+        when(pauseMenu.MasterVolumeSelected()).thenReturn(true);
+
+        when(audioManager.getMasterVolume()).thenReturn(0.5f);
+
+        controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
+        verify(pauseMenu, times(1)).setMasterVolume(anyFloat());
+    }
 }
