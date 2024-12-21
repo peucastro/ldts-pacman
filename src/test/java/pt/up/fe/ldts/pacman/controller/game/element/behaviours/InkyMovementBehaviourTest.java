@@ -70,7 +70,7 @@ class InkyMovementBehaviourTest {
 
         when(inky.isInsideGate()).thenReturn(false);
         when(arena.getCollectedCollectibles()).thenReturn(30);
-        
+
         Ghost blinky = mock(Blinky.class);
         when(blinky.getPosition()).thenReturn(new Position(2, 2));
 
