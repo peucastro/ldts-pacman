@@ -18,7 +18,7 @@ public class MainMenuState extends State<MainMenu> {
     }
 
     @Override
-    public Viewer<MainMenu> createViewer() throws IOException, URISyntaxException {
+    public Viewer<MainMenu> createViewer() throws IOException {
         return new MainMenuViewer();
     }
 

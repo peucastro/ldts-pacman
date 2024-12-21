@@ -12,12 +12,11 @@ import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class AlertMenuViewer extends ModelViewer<AlertMenu> {
     private final BufferedImage alertImage;
 
-    public AlertMenuViewer(String filePath) throws IOException, URISyntaxException {
+    public AlertMenuViewer(String filePath) throws IOException {
         super(ViewerFactory.createAlertMenuViewers());
         this.alertImage = ImageLoader.loadBufferedImage(filePath);
     }

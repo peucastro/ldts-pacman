@@ -10,10 +10,9 @@ import pt.up.fe.ldts.pacman.viewer.ModelViewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class ArenaViewer extends ModelViewer<Arena> {
-    public ArenaViewer() throws IOException, URISyntaxException {
+    public ArenaViewer() throws IOException {
         super(ViewerFactory.createArenaViewers());
     }
 
