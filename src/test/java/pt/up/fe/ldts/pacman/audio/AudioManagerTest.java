@@ -97,4 +97,19 @@ public class AudioManagerTest {
         assertEquals(1f, audio1.getVolume());
         assertEquals(0.5f, audio2.getVolume());
     }
+
+    @Test
+    void stopAllAudios(){
+        audioManager.addAudio("audio1", "Audio/silence.wav");
+        audioManager.addAudio("audio2", "Audio/silence.wav");
+        AudioPlayer audio1 = audioManager.getAudio("audio1");
+        AudioPlayer audio2 = audioManager.getAudio("audio2");
+
+        audio1.playInLoop();
+        audio2.playInLoop();
+        audioManager.stopAllAudios();
+
+        assertFalse(audio1.isPlaying());
+        assertFalse(audio2.isPlaying());
+    }
 }

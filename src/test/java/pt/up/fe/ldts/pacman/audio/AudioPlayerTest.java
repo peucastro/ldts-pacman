@@ -86,5 +86,13 @@ public class AudioPlayerTest {
         assertEquals("Could not open audio: Audio/silence.mp4", exception.getMessage());
     }
 
+    @Test
+    void stopAudio(){
+        AudioPlayer audioPlayer = new AudioPlayer("Audio/silence.wav");
+        audioPlayer.playInLoop();
 
+        audioPlayer.stopPlaying();
+
+        assertFalse(audioPlayer.isPlaying());
+    }
 }
