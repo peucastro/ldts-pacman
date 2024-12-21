@@ -12,7 +12,7 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 import pt.up.fe.ldts.pacman.viewer.game.ElementViewer;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
-import pt.up.fe.ldts.pacman.viewer.game.MultipleElementViewer;
+import pt.up.fe.ldts.pacman.viewer.game.MovableElementViewer;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
@@ -36,12 +36,12 @@ public class ViewerFactory {
 
         viewers.put(TextBox.class, new TextBoxViewer(ImageLoader.loadFontImages()));
 
-        viewers.put(Pacman.class, new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
+        viewers.put(Pacman.class, new MovableElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages()));
 
-        viewers.put(Blinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
-        viewers.put(Pinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
-        viewers.put(Inky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
-        viewers.put(Clyde.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
+        viewers.put(Blinky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
+        viewers.put(Pinky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
+        viewers.put(Inky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
+        viewers.put(Clyde.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
 
         return viewers;
     }
@@ -52,10 +52,10 @@ public class ViewerFactory {
 
         viewers.put(Pacman.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/pacman/pacmanright.png")));
 
-        viewers.put(Blinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
-        viewers.put(Pinky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
-        viewers.put(Inky.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
-        viewers.put(Clyde.class, new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
+        viewers.put(Blinky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("blinky")));
+        viewers.put(Pinky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky")));
+        viewers.put(Inky.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("inky")));
+        viewers.put(Clyde.class, new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("clyde")));
 
         return viewers;
     }

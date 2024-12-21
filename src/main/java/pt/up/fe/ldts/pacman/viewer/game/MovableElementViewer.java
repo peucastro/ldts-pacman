@@ -11,11 +11,11 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
-public class MultipleElementViewer extends Viewer<Element> {
+public class MovableElementViewer extends Viewer<Element> {
     private final Map<Character, List<BufferedImage>> images;
     private final MultipleElementStrategy strategy;
 
-    public MultipleElementViewer(MultipleElementStrategy strategy, Map<Character, List<BufferedImage>> images) {
+    public MovableElementViewer(MultipleElementStrategy strategy, Map<Character, List<BufferedImage>> images) {
         this.images = images;
         this.strategy = strategy;
     }
