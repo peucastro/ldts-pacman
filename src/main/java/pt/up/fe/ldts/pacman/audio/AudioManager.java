@@ -11,7 +11,7 @@ public class AudioManager {
 
     private AudioManager() {
         this.audios = new HashMap<>();
-        this.masterVolume = 0.5f;
+        this.masterVolume = 1f;
     }
 
     public void addAudio(String key, String audioPath) {

@@ -79,5 +79,12 @@ public class AudioPlayerTest {
         assertFalse(audioPlayer.isPlaying());
     }
 
+    @Test
+    void getException(){
+        Exception exception = assertThrows(Exception.class, () -> new AudioPlayer("Audio/silence.mp4"));
+
+        assertEquals("Could not open audio: Audio/silence.mp4", exception.getMessage());
+    }
+
 
 }

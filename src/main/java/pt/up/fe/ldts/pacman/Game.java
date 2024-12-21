@@ -25,6 +25,7 @@ public class Game {
     private Game() throws IOException, URISyntaxException, FontFormatException {
         this.resolution = GUI.SCREEN_RESOLUTION._900p;
         this.audioManager = AudioManager.getInstance();
+        this.audioManager.setMasterVolume(0.5f);
         this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, resolution);
         this.state = createInitialState();
     }
