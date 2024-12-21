@@ -24,12 +24,8 @@ public class MovableElementViewer extends Viewer<Element> {
     public void drawElement(GUI gui, Element element, long frameCount) {
         BufferedImage image = strategy.getCurrentImage(element, images, frameCount);
         assert image != null;
-        if (element instanceof MovableElement movableElement) {
-            Position drawPos = movableElement.getRealPosition();
-            gui.drawImage(drawPos, image);
-        } else {
-            Position drawPos = new Position(element.getPosition().getX() * 11, element.getPosition().getY() * 11);
-            gui.drawImage(drawPos, image);
-        }
+        MovableElement movableElement = (MovableElement) element;
+        Position drawPos = movableElement.getRealPosition();
+        gui.drawImage(drawPos, image);
     }
 }
