@@ -22,7 +22,7 @@ class GhostViewerTest {
     void testDrawElement() throws IOException, URISyntaxException {
         GUI mockLanternaGUI = Mockito.mock(LanternaGUI.class);
 
-        MultipleElementViewer ghostViewer = new MultipleElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky"));
+        MovableElementViewer ghostViewer = new MovableElementViewer(new GhostStrategy(), ImageLoader.loadGhostImages("pinky"));
         Pinky pinky = new Pinky(new Position(0, 0));
 
         // Test Pinky Alive

@@ -22,7 +22,7 @@ class PacmanViewerTest {
     void testDrawElement() throws IOException, URISyntaxException {
         GUI mockLanternaGUI = Mockito.mock(LanternaGUI.class);
 
-        MultipleElementViewer pacmanViewer = new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages());
+        MovableElementViewer pacmanViewer = new MovableElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages());
         Pacman pacman = new Pacman(new Position(0, 0));
 
         // Draw Pacman (Left)
