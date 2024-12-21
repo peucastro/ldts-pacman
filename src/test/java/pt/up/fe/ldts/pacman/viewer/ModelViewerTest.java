@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ModelViewerTest {
@@ -77,5 +79,16 @@ public class ModelViewerTest {
         verify(mockGui, times(1)).clear();
 
         verify(mockGui, times(2)).refresh();
+    }
+
+    @Test
+    void testDrawElementThrowsRuntimeExceptionOnIOException() throws IOException {
+        doThrow(new IOException("Refresh failed")).when(mockGui).refresh();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            modelViewer.drawElement(mockGui, new Object(), 0);
+        });
+
+        assertEquals("java.io.IOException: Refresh failed", exception.getMessage());
     }
 }
