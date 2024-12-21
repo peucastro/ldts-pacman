@@ -1,4 +1,4 @@
-package pt.up.fe.ldts.pacman.states;
+package pt.up.fe.ldts.pacman.states.game;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,6 @@ import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.controller.game.DyingStateController;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.states.game.DyingState;
 import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.net.URISyntaxException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-class DyingStateTest {
+public class DyingStateTest {
 
     private Arena mockArena;
     private AudioManager mockAudioManager;
