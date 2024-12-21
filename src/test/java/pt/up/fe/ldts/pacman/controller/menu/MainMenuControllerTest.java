@@ -6,7 +6,6 @@ import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
-import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;

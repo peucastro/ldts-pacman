@@ -3,8 +3,6 @@ package pt.up.fe.ldts.pacman.viewer.menu;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
-import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
-import pt.up.fe.ldts.pacman.states.State;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

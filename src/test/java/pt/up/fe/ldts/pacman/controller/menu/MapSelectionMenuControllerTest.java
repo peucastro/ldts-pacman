@@ -48,7 +48,7 @@ public class MapSelectionMenuControllerTest {
     }
 
     @Test
-    void testSelectMap() throws IOException, URISyntaxException {
+    void testSelectMap() throws IOException {
         // Mock the AudioPlayer
         AudioPlayer menuSelectMock = mock(AudioPlayer.class);
         AudioPlayer menuConfirmSelectionMock = mock(AudioPlayer.class);

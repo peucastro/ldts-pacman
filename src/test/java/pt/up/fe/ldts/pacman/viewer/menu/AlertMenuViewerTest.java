@@ -11,7 +11,6 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
-import pt.up.fe.ldts.pacman.viewer.game.ArenaViewer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
