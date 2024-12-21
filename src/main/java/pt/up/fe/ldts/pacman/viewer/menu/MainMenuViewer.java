@@ -7,11 +7,10 @@ import pt.up.fe.ldts.pacman.viewer.ModelViewer;
 import pt.up.fe.ldts.pacman.viewer.ViewerFactory;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class MainMenuViewer extends ModelViewer<MainMenu> {
 
-    public MainMenuViewer() throws IOException, URISyntaxException {
+    public MainMenuViewer() throws IOException {
         super(ViewerFactory.createMainMenuViewers());
     }
 

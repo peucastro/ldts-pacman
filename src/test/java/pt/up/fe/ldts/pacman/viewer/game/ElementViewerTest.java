@@ -11,7 +11,6 @@ import pt.up.fe.ldts.pacman.model.game.element.collectibles.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Orange;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -22,7 +21,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 class ElementViewerTest {
 
     @Test
-    void testDrawElement() throws IOException, URISyntaxException {
+    void testDrawElement() throws IOException {
         GUI mockLanternaGUI = Mockito.mock(LanternaGUI.class);
 
         URL cherryResource = ImageLoader.class.getClassLoader().getResource("PNGs/items/cherry.png");

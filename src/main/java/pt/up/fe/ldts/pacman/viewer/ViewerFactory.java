@@ -17,12 +17,11 @@ import pt.up.fe.ldts.pacman.viewer.game.strategies.GhostStrategy;
 import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ViewerFactory {
-    public static Map<Class<?>, Viewer<Element>> createArenaViewers() throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer<Element>> createArenaViewers() throws IOException {
         Map<Class<?>, Viewer<Element>> viewers = new HashMap<>();
 
         viewers.put(Wall.class, new ElementViewer(ImageLoader.loadTextImage("PNGs/wall.png")));
@@ -73,7 +72,7 @@ public class ViewerFactory {
         return viewers;
     }
 
-    public static Map<Class<?>, Viewer<Element>> createAlertMenuViewers() throws IOException, URISyntaxException {
+    public static Map<Class<?>, Viewer<Element>> createAlertMenuViewers() throws IOException {
         return createArenaViewers();
     }
 }

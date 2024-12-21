@@ -11,7 +11,6 @@ import pt.up.fe.ldts.pacman.viewer.game.strategies.PacmanStrategy;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -19,7 +18,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 class PacmanViewerTest {
 
     @Test
-    void testDrawElement() throws IOException, URISyntaxException {
+    void testDrawElement() throws IOException {
         GUI mockLanternaGUI = Mockito.mock(LanternaGUI.class);
 
         MultipleElementViewer pacmanViewer = new MultipleElementViewer(new PacmanStrategy(), ImageLoader.loadPacmanImages());
