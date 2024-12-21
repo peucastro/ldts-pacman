@@ -34,7 +34,7 @@ public class StateTest {
         mockGame = mock(Game.class);
         mockGui = mock(GUI.class);
 
-        mockState = new State<String>("Test Model", mockAudioManager) {
+        mockState = new State<>("Test Model", mockAudioManager) {
             @Override
             public Viewer<String> createViewer() {
                 return mockViewer;
