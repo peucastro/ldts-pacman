@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MapSelectionMenuTest {
     private MapSelectionMenu mapSelectionMenuSingle;
-    private MapSelectionMenu mapSelectionMenuMulti;
 
     @BeforeEach
     void setUp() {
@@ -33,7 +32,7 @@ class MapSelectionMenuTest {
 
     @Test
     void testCreateOptionsMultiPlayer() {
-        mapSelectionMenuMulti = new MapSelectionMenu("multiplayer");
+        MapSelectionMenu mapSelectionMenuMulti = new MapSelectionMenu("multiplayer");
         List<TextBox> options = mapSelectionMenuMulti.createOptions();
 
         assertEquals(5, options.size());

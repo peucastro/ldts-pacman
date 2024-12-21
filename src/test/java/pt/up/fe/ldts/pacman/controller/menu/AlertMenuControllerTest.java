@@ -19,16 +19,14 @@ import java.util.List;
 class AlertMenuControllerTest {
     private AlertMenuController controller;
     private AlertMenu alertMenu;
-    private Arena arena;
     private Game game;
-    private AudioManager audioManager;
 
     @BeforeEach
     void setUp() {
         alertMenu = mock(AlertMenu.class);
-        arena = mock(Arena.class);
+        Arena arena = mock(Arena.class);
         game = mock(Game.class);
-        audioManager = mock(AudioManager.class);
+        AudioManager audioManager = mock(AudioManager.class);
 
         AudioPlayer menuSelect = mock(AudioPlayer.class);
         AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);

@@ -10,7 +10,7 @@ import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -21,7 +21,6 @@ public class PacmanControllerTest {
     private Arena arena;
     private Game game;
     private Pacman pacman;
-    private GhostGate ghostGate;
 
     @BeforeEach
     void setUp() {
@@ -29,9 +28,9 @@ public class PacmanControllerTest {
         game = mock(Game.class);
 
         pacman = mock(Pacman.class);
-        when(arena.getPacmans()).thenReturn(Arrays.asList(pacman));
+        when(arena.getPacmans()).thenReturn(Collections.singletonList(pacman));
 
-        ghostGate = mock(GhostGate.class);
+        GhostGate ghostGate = mock(GhostGate.class);
         when(arena.getGhostGate()).thenReturn(ghostGate);
         when(ghostGate.getPosition()).thenReturn(new Position(10, 10));
 
