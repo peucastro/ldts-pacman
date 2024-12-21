@@ -48,7 +48,8 @@ public class DyingStateTest {
 
     @Test
     void testInitialization() {
-        assertNotNull(dyingState.getModel(), "The model should be properly initialized");
-        assertNotNull(dyingState.getAudioManager(), "The audio manager should be properly initialized");
+        assertNotNull(dyingState.getModel());
+        assertNotNull(dyingState.getAudioManager());
     }
+
 }
