@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -23,31 +24,41 @@ public class MapSelectionMenuControllerTest {
     private MapSelectionMenu mapSelectionMenu;
     private MapSelectionMenuController controller;
     private AudioManager audioManager;
+    private AudioPlayer menuSelect;
+    private AudioPlayer menuConfirmSelection;
     private GUI gui;
     private Game game;
 
     @BeforeEach
     void setUp() {
-        // Reset the mock AudioManager
-        audioManager = MockAudio.getMockAudioManager();
-
         // Initialize mocks
         gui = mock(GUI.class);
         game = mock(Game.class);
 
+        // Reset the mock AudioManager
+        audioManager = mock(AudioManager.class);
+
+        menuSelect = mock(AudioPlayer.class);
+        menuConfirmSelection = mock(AudioPlayer.class);
+
+        when(audioManager.getAudio("menuSelect")).thenReturn(menuSelect);
+        when(audioManager.getAudio("menuConfirmSelection")).thenReturn(menuConfirmSelection);
+
+        when(game.getAudioManager()).thenReturn(audioManager);
+
         // Initialize menu and controller
         mapSelectionMenu = new MapSelectionMenu("singleplayer");
         controller = new MapSelectionMenuController(mapSelectionMenu, audioManager);
-
-        // Stub game behavior
-        when(game.getAudioManager()).thenReturn(audioManager);
     }
 
     @Test
     void testSelectMap() throws IOException, URISyntaxException, FontFormatException {
+        when(audioManager.getAudio(any())).thenReturn(mock(AudioPlayer.class));
+
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
         verify(game, times(1)).setState(any(GameState.class));
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
 
@@ -60,5 +71,13 @@ public class MapSelectionMenuControllerTest {
 
         // Verify that the game state changes to MainMenuState
         verify(game).setState(any(MainMenuState.class));
+    }
+
+    @Test
+    void testSelectNextMap() throws IOException, URISyntaxException, FontFormatException {
+        controller.step(game, List.of(GUI.ACTION.DOWN),0);
+
+        verify(menuSelect,times(1)).playOnce();
+        assertEquals(1, mapSelectionMenu.getSelectedOption());
     }
 }

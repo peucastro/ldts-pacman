@@ -145,6 +145,7 @@ class MainMenuControllerTest {
         controller.step(game, List.of(), 0);
 
         verify(blinky, times(1)).setDirection(Direction.RIGHT);
+        verify(blinky, times(1)).incrementCounter();
 
         when(blinky.getPosition()).thenReturn(new Position(7, 4));
 
@@ -160,12 +161,14 @@ class MainMenuControllerTest {
         controller.step(game, List.of(), 0);
 
         verify(inky, times(1)).setDirection(Direction.DOWN);
+        verify(inky, times(1)).incrementCounter();
 
         when(inky.getPosition()).thenReturn(new Position(5, 13));
 
         controller.step(game, List.of(), 0);
 
         verify(inky, times(1)).setDirection(Direction.UP);
+
     }
 
     @Test
@@ -175,6 +178,7 @@ class MainMenuControllerTest {
         controller.step(game, List.of(), 0);
 
         verify(pinky, times(1)).setDirection(Direction.RIGHT);
+        verify(pinky, times(1)).incrementCounter();
 
         when(pinky.getPosition()).thenReturn(new Position(26, 13));
 
@@ -190,6 +194,7 @@ class MainMenuControllerTest {
         controller.step(game, List.of(), 0);
 
         verify(clyde, times(1)).setDirection(Direction.DOWN);
+        verify(clyde, times(1)).incrementCounter();
 
         when(clyde.getPosition()).thenReturn(new Position(24, 10));
 
