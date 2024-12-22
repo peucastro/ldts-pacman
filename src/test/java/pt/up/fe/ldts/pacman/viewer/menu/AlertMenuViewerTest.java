@@ -14,7 +14,6 @@ import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 public class AlertMenuViewerTest {
     @Test
-    void testDrawElementCallCountWithNoMapLoading() throws IOException, URISyntaxException {
+    void testDrawElementCallCountWithNoMapLoading() throws IOException {
         GUI mockGUI = mock(LanternaGUI.class);
         Arena mockArena = mock(Arena.class);
 
@@ -59,7 +58,7 @@ public class AlertMenuViewerTest {
     }
 
     @Test
-    void testDrawElementCallCountWithMapLoadingSingleplayer() throws IOException, URISyntaxException {
+    void testDrawElementCallCountWithMapLoadingSingleplayer() throws IOException {
         Arena arena = new Arena(29, 16);
         GUI mockGUI = mock(LanternaGUI.class);
 
@@ -84,7 +83,7 @@ public class AlertMenuViewerTest {
     }
 
     @Test
-    void testDrawElementCallCountWithMapLoadingMultiplayer() throws IOException, URISyntaxException {
+    void testDrawElementCallCountWithMapLoadingMultiplayer() throws IOException {
         Arena arena = new Arena(29, 16);
         GUI mockGUI = mock(LanternaGUI.class);
 
