@@ -70,7 +70,7 @@ class PinkyMovementBehaviourTest {
         when(arena.getHeight()).thenReturn(10);
 
         Position target = behaviour.getAlivePosition(pinky, arena, pacman, true);
-        assertEquals(new Position(5, 10), target); // 3 tiles down, bounded at arena height
+        assertEquals(new Position(5, 8), target); // 3 tiles down, bounded at arena height
     }
 
     @Test
@@ -83,7 +83,7 @@ class PinkyMovementBehaviourTest {
         when(arena.getWidth()).thenReturn(10);
 
         Position target = behaviour.getAlivePosition(pinky, arena, pacman, true);
-        assertEquals(new Position(10, 5), target); // 3 tiles right, bounded at arena width
+        assertEquals(new Position(8, 5), target); // 3 tiles right, bounded at arena width
     }
 
     @Test

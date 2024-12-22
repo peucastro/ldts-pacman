@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
@@ -31,10 +32,10 @@ public class ClydeMovementBehaviourTest {
         when(ghost.isInsideGate()).thenReturn(false);
         when(arena.getCollectedCollectibles()).thenReturn(70);
         when(ghost.getPosition()).thenReturn(new Position(0, 0));
-        when(pacman.getPosition()).thenReturn(new Position(10, 10));
+        when(pacman.getPosition()).thenReturn(new Position(6, 0));
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, true);
-        assertEquals(new Position(10, 10), target); // Clyde chases Pacman
+        assertEquals(new Position(6,0), target); // Clyde chases Pacman
     }
 
     @Test
@@ -44,20 +45,39 @@ public class ClydeMovementBehaviourTest {
         when(ghost.isInsideGate()).thenReturn(false);
         when(arena.getCollectedCollectibles()).thenReturn(70);
         when(ghost.getPosition()).thenReturn(new Position(0, 0));
-        when(pacman.getPosition()).thenReturn(new Position(2, 2));
+        when(pacman.getPosition()).thenReturn(new Position(5, 0));
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, true);
         assertEquals(new Position(0, arena.getHeight()), target); // Clyde retreats to bottom-left corner
     }
 
     @Test
-    void testClydeLowCollectibles() {
+    void testClydeNumberOfCollectibles() {
         GhostMovementBehaviour behaviour = new ClydeMovementBehaviour();
+        when(ghost.isInsideGate()).thenReturn(true);
 
         when(arena.getCollectedCollectibles()).thenReturn(50);
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, false);
         assertEquals(new Position(10, 11), target); // Clyde moves to a fixed position
+
+        when(arena.getCollectedCollectibles()).thenReturn(60);
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(5,5)));
+
+        target = behaviour.getAlivePosition(ghost, arena, pacman, false);
+        assertEquals(new Position(5,5), target); // Clyde moves to a fixed position
+    }
+
+    @Test
+    void testClydeScatterMode(){
+        GhostMovementBehaviour behaviour = new ClydeMovementBehaviour();
+        when(ghost.isInsideGate()).thenReturn(false);
+
+        when(arena.getCollectedCollectibles()).thenReturn(70);
+        when(arena.getHeight()).thenReturn(20);
+
+        Position target = behaviour.getAlivePosition(ghost, arena, pacman, false);
+        assertEquals(new Position(0,20), target); // Clyde moves to a fixed position
     }
 
 }

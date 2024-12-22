@@ -33,7 +33,7 @@ class InkyMovementBehaviourTest {
     void testInkyLowCollectibles() {
         InkyMovementBehaviour behaviour = new InkyMovementBehaviour();
 
-        when(arena.getCollectedCollectibles()).thenReturn(20);
+        when(arena.getCollectedCollectibles()).thenReturn(24);
 
         Position target = behaviour.getAlivePosition(inky, arena, pacman, true);
         assertEquals(new Position(8, 11), target); // Fixed position for low collectibles
@@ -45,7 +45,7 @@ class InkyMovementBehaviourTest {
 
         when(inky.isInsideGate()).thenReturn(true);
         when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(15, 6)));
-        when(arena.getCollectedCollectibles()).thenReturn(30);
+        when(arena.getCollectedCollectibles()).thenReturn(25);
 
         Position target = behaviour.getAlivePosition(inky, arena, pacman, true);
         assertEquals(new Position(15, 6), target); // Targets ghost gate when inside
@@ -88,6 +88,31 @@ class InkyMovementBehaviourTest {
         // Target calculated as: (2 * 6 - 2, 2 * 6 - 2) = (10, 10)
         assertEquals(new Position(10, 10), target);
     }
+
+    @Test
+    void testInkyChaseModeOutOfBounds() {
+        InkyMovementBehaviour behaviour = new InkyMovementBehaviour();
+
+        when(inky.isInsideGate()).thenReturn(false);
+        when(arena.getCollectedCollectibles()).thenReturn(30);
+
+        Ghost blinky = mock(Blinky.class);
+        when(blinky.getPosition()).thenReturn(new Position(2, 2));
+
+        Set<Ghost> ghosts = new HashSet<>();
+        ghosts.add(blinky);
+        ghosts.add(inky);
+        when(arena.getGhosts()).thenReturn(ghosts);
+
+        when(pacman.getNextPosition()).thenReturn(new Position(20, 20));
+        when(arena.getWidth()).thenReturn(29);
+        when(arena.getHeight()).thenReturn(16);
+
+        Position target = behaviour.getAlivePosition(inky, arena, pacman, true);
+
+        assertEquals(new Position(29, 16), target);
+    }
+
 
 
     @Test

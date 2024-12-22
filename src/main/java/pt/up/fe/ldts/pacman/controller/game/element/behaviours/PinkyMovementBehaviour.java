@@ -14,8 +14,8 @@ public class PinkyMovementBehaviour extends GhostMovementBehaviour {
         int newX = targetPacman.getPosition().getX(), newY = targetPacman.getPosition().getY();
         switch (targetPacman.getDirection()) {
             case UP -> newY = Math.max(0, newY - 3);
-            case DOWN -> newY = Math.max(arena.getHeight(), newY + 3);
-            case RIGHT -> newX = Math.max(arena.getWidth(), newX + 3);
+            case DOWN -> newY = Math.min(arena.getHeight(), newY + 3);
+            case RIGHT -> newX = Math.min(arena.getWidth(), newX + 3);
             case LEFT -> newX = Math.max(0, newX - 3);
         }
         return new Position(newX, newY);
