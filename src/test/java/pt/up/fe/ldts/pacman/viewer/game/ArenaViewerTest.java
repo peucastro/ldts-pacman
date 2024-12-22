@@ -48,7 +48,7 @@ class ArenaViewerTest {
     }
 
     @Test
-    void testDrawElementCallCountWithMapLoading() throws IOException, URISyntaxException {
+    void testDrawElementCallCountWithMapLoadingSingleplayer() throws IOException, URISyntaxException {
         Arena arena = new Arena(29, 16);
         GUI mockGUI = mock(LanternaGUI.class);
 
@@ -61,7 +61,27 @@ class ArenaViewerTest {
         verify(mockGUI, times(29 * 16 - 5 - 2)).drawImage(any(), (BasicTextImage) any());
         // Verify the number of movable elements drawn (total number of movable elements = 5 (pacman + ghosts))
         verify(mockGUI, times(5)).drawImage(any(), (BufferedImage) any());
+        //7 times for the score + 7 times for the lives = 14
+        verify(mockGUI, times(14)).drawCharacter(any(),any(),any());
+    }
 
+    @Test
+    void testDrawElementCallCountWithMapLoadingMultiplayer() throws IOException, URISyntaxException {
+        Arena arena = new Arena(29, 16);
+        GUI mockGUI = mock(LanternaGUI.class);
+
+        // Simulate map loading
+        new ArenaLoader(arena).loadMap("src/main/resources/Maps/multiplayer/1 Normal Map.txt");
+        ArenaViewer arenaViewer = new ArenaViewer();
+        arena.getPacmans().getFirst().setDying(true);
+        arenaViewer.drawElements(mockGUI, arena,0);
+
+        // Verify the number of static elements drawn (total number of static elements = 29*16 - 6 (movables) - 2 (empty spaces))
+        verify(mockGUI, times(29 * 16 - 6 - 2)).drawImage(any(), (BasicTextImage) any());
+        // Verify the number of movable elements drawn (total number of movable elements = 6 (2 pacman + 4 ghosts))
+        verify(mockGUI, times(6)).drawImage(any(), (BufferedImage) any());
+        //7 times for the score + 9*2 times for the lives of each player = 25
+        verify(mockGUI, times(25)).drawCharacter(any(),any(),any());
     }
 
 }

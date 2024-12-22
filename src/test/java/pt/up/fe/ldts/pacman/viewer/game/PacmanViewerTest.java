@@ -33,5 +33,17 @@ class PacmanViewerTest {
         pacman.setDirection(Direction.UP);
         pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
+        reset(mockLanternaGUI);
+
+        // Draw Pacman (Down)
+        pacman.setDirection(Direction.DOWN);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
+        reset(mockLanternaGUI);
+
+        // Draw Pacman (Right)
+        pacman.setDirection(Direction.RIGHT);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 }
