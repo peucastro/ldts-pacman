@@ -110,9 +110,10 @@ public class MovableElementTest {
         Assertions.assertTrue(movableElement.collidingWith(other));
 
         other.setPosition(new Position(5, 6));
+        other.setDirection(Direction.UP);
         other.setCounter(6);
 
-        Assertions.assertFalse(movableElement.collidingWith(other));
+        Assertions.assertTrue(movableElement.collidingWith(other));
 
         other.setPosition(new Position(10, 10));
         other.setCounter(0);

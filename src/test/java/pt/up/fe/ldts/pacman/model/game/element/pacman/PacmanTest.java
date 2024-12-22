@@ -2,6 +2,7 @@ package pt.up.fe.ldts.pacman.model.game.element.pacman;
 
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.Arena;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +17,8 @@ public class PacmanTest {
         assertFalse(pacman.isDying());
 
         assertEquals(new Position(10, 10), pacman.getPosition());
+
+        assertEquals(Arena.PACMAN_NORMAL_SPEED ,pacman.getSpeed());
     }
 
     @Test

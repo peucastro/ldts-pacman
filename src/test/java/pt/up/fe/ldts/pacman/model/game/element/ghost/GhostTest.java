@@ -2,11 +2,23 @@ package pt.up.fe.ldts.pacman.model.game.element.ghost;
 
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GhostTest {
+    @Test
+    void testGhostInitialization(){
+        Ghost ghost = new Blinky(new Position(0,0));
+
+        assertEquals(GhostState.ALIVE, ghost.getState());
+        assertEquals(new Position(0,0) ,ghost.getPosition());
+        assertNull(ghost.getRespawnPosition());
+        assertEquals(Arena.GHOST_NORMAL_SPEED, ghost.getSpeed());
+        assertTrue(ghost.isInsideGate());
+    }
+
     @Test
     void testGhostSetDirection() {
         Ghost a = new Pinky(new Position(5, 14));
