@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
@@ -9,7 +10,6 @@ import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.states.game.GameState;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
-import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 public class GameTest {
     private static Game game;
     private AudioManager audioManager;
-    private LanternaGUI mockGUI;
+    private LanternaGUI gui;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException, FontFormatException, NoSuchFieldException, IllegalAccessException {
@@ -32,10 +32,9 @@ public class GameTest {
         gameField.setAccessible(true);
         gameField.set(game, null); //set the game instance to null
 
-        game = Game.getInstance();
-        game.getGui().close();
         audioManager = MockAudio.getMockAudioManager();
-        mockGUI = mock(LanternaGUI.class);
+        gui = mock(LanternaGUI.class);
+        game = Game.getInstance(gui, audioManager);
 
         Field privateField1 = Game.class.getDeclaredField("audioManager");
         privateField1.setAccessible(true);
@@ -43,12 +42,12 @@ public class GameTest {
 
         Field privateField2 = Game.class.getDeclaredField("gui");
         privateField2.setAccessible(true);
-        privateField2.set(game, mockGUI);
+        privateField2.set(game, gui);
     }
 
     @Test
     void testGetGUI(){
-        assertEquals(mockGUI, game.getGui());
+        assertEquals(gui, game.getGui());
     }
 
     @Test
@@ -58,7 +57,7 @@ public class GameTest {
 
     @Test
     void testGetResolution(){
-        assertEquals(mockGUI.getResolution(), game.getResolution());
+        assertEquals(gui.getResolution(), game.getResolution());
     }
 
     @Test
@@ -76,10 +75,10 @@ public class GameTest {
 
     @Test
     void testSetResolution() throws URISyntaxException, IOException, FontFormatException {
-        when(mockGUI.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
+        when(gui.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
         game.setResolution(GUI.SCREEN_RESOLUTION._360p);
 
-        verify(mockGUI, times(1)).resizeScreen(anyInt(),anyInt(),any());
+        verify(gui, times(1)).resizeScreen(anyInt(),anyInt(),any());
         assertEquals(GUI.SCREEN_RESOLUTION._360p, game.getResolution());
     }
 
@@ -105,13 +104,13 @@ public class GameTest {
         actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //go down
         actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //to exit
         actions.add(GUI.ACTION.SELECT); //select exit
-        when(mockGUI.getNextAction()).thenReturn(actions);
+        when(gui.getNextAction()).thenReturn(actions);
 
         String[] args = {};
         Game.main(args);
 
         assertNull(game.getState());
-        verify(mockGUI, times(1)).close();
+        verify(gui, times(1)).close();
     }
 
     @Test
@@ -131,7 +130,7 @@ public class GameTest {
 
     @Test
     void testSingletonBehavior() throws IOException, URISyntaxException, FontFormatException {
-        Game anotherInstance = Game.getInstance();
+        Game anotherInstance = Game.getInstance(gui, audioManager);
         assertSame(game, anotherInstance);
     }
     @Test
@@ -162,7 +161,7 @@ public class GameTest {
         String[] args = {};
         Game.main(args);;
 
-        verify(mockGUI, times(1)).close();
+        verify(gui, times(1)).close();
     }
 
 

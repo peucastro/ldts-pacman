@@ -21,22 +21,25 @@ public class Game {
     private State state;
 
 
-    private Game() throws IOException, URISyntaxException, FontFormatException {
-        this.audioManager = AudioManager.getInstance();
-        this.audioManager.setMasterVolume(0.5f);
-        this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, GUI.SCREEN_RESOLUTION._900p);
+    private Game(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException {
+        this.gui = gui;
+        this.audioManager = audioManager;
+        this.audioManager.setMasterVolume(1f);
         this.state = createInitialState();
     }
 
-    public static Game getInstance() throws IOException, URISyntaxException, FontFormatException {
+    public static Game getInstance(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException {
         if (instance == null) {
-            instance = new Game();
+            instance = new Game(gui, audioManager);
         }
         return instance;
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        Game game = Game.getInstance();
+
+        GUI gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, GUI.SCREEN_RESOLUTION._900p);
+        AudioManager audioManager = AudioManager.getInstance();
+        Game game = Game.getInstance(gui, audioManager);
         game.start();
     }
 
