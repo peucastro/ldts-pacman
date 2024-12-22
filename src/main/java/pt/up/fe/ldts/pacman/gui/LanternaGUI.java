@@ -34,6 +34,11 @@ public class LanternaGUI implements GUI {
         this.resolution = resolution;
     }
 
+    public LanternaGUI(Screen screen, SCREEN_RESOLUTION resolution) {
+        this.screen = screen;
+        this.resolution = resolution;
+    }
+
     private Screen createScreen(Terminal terminal) throws IOException {
         final Screen screen = new TerminalScreen(terminal);
 

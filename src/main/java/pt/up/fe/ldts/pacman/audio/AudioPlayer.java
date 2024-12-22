@@ -18,7 +18,9 @@ public class AudioPlayer {
     private Clip loadAudioFile(String audioFilepath) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(audioFilepath);
-            assert inputStream != null;
+            if (inputStream == null) {
+                throw new IllegalArgumentException("Audio file not found: " + audioFilepath);
+            }
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(inputStream);
             Clip audio = AudioSystem.getClip();
             audio.open(audioInputStream);
@@ -26,7 +28,7 @@ public class AudioPlayer {
             audioInputStream.close();
             return audio;
         } catch (Exception e) {
-            throw new RuntimeException("Could not open audio: " + audioFilepath);
+            throw new RuntimeException("Could not open audio: " + audioFilepath, e);
         }
     }
 
