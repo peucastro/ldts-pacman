@@ -91,8 +91,7 @@ public class GameTest {
         };
         game.setState(mockState);
 
-        String[] args = {};
-        Game.main(args, gui, audioManager);
+        Game.main(gui, audioManager);
 
         verify(audioManager, times(1)).setMainMusic(any());
     }
@@ -105,8 +104,7 @@ public class GameTest {
         actions.add(GUI.ACTION.SELECT); //select exit
         when(gui.getNextAction()).thenReturn(actions);
 
-        String[] args = {};
-        Game.main(args, gui, audioManager);
+        Game.main(gui, audioManager);
 
         assertNull(game.getState());
         verify(gui, times(1)).close();
@@ -122,8 +120,7 @@ public class GameTest {
         };
         game.setState(mockState);
 
-        String[] args = {};
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> Game.main(args, gui, audioManager));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> Game.main(gui, audioManager));
         assertEquals("java.io.IOException: IO exception", exception.getMessage());
     }
 
@@ -141,8 +138,7 @@ public class GameTest {
             return null;
         }).when(mockState).step(any(), any(), anyLong());
 
-        String[] args = {};
-        Game.main(args, gui, audioManager);;
+        Game.main(gui, audioManager);
 
         verify(mockState, atLeastOnce()).step(any(), any(), anyLong());
         assertNull(game.getState());
@@ -157,8 +153,7 @@ public class GameTest {
             return null;
         }).when(mockState).step(any(), any(), anyLong());
 
-        String[] args = {};
-        Game.main(args, gui, audioManager);;
+        Game.main(gui, audioManager);;
 
         verify(gui, times(1)).close();
     }

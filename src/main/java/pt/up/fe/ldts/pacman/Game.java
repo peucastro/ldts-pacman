@@ -42,7 +42,8 @@ public class Game {
         game.start();
     }
 
-    public static void main(String[] args, GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+    // User only for tests
+    public static void main(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
         Game game = Game.getInstance(gui, audioManager);
         game.start();
     }
