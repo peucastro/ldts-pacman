@@ -41,7 +41,7 @@ public class DyingStateController extends GameController {
                     ++alivePacmans;
                 }
             }
-            if (alivePacmans == 0) { //no pacman alive: game over
+            if (alivePacmans <= 0) { //no pacman alive: game over
                 game.getAudioManager().stopAllAudios();
                 game.setState(new AlertMenuState(new AlertMenu(getModel(), "PNGs/gameover.png"), game.getAudioManager()));
             } else { //there is still at least one pacman with more than one life: keep playing

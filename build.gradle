@@ -63,4 +63,5 @@ pitest {
     junit5PluginVersion = "1.2.0"
     pitestVersion = "1.15.0"
     targetClasses = ["pt.up.fe.ldts.pacman.*"]
+    excludedTestClasses = ["pt.up.fe.ldts.pacman.audio.*", "pt.up.fe.ldts.pacman.gui.*", "pt.up.fe.ldts.pacman.GameTest"]
 }

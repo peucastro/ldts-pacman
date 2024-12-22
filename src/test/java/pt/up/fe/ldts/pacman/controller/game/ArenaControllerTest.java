@@ -5,9 +5,18 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
+import pt.up.fe.ldts.pacman.controller.game.element.CollisionController;
+import pt.up.fe.ldts.pacman.controller.game.element.GhostController;
+import pt.up.fe.ldts.pacman.controller.game.element.PacmanController;
 import pt.up.fe.ldts.pacman.gui.GUI;
+import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.collectibles.Cherry;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.Collectible;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
+import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.states.menu.AlertMenuState;
 import pt.up.fe.ldts.pacman.states.menu.PauseMenuState;
 
@@ -16,6 +25,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ArenaControllerTest {
@@ -69,6 +79,25 @@ class ArenaControllerTest {
 
         verify(audioManager, never()).stopAllAudios();
         verify(game, never()).setState(any(AlertMenuState.class));
+    }
+
+    @Test
+    void testIfControllersAreCalled() throws IOException, URISyntaxException {
+        Ghost ghost = new Blinky(new Position(1,0));
+        ghost.setCounter(9); ghost.setDirection(Direction.LEFT); //ghost is colliding with pacman
+        ghost.setSpeed(1); //ghost moves every frame, helps with testing
+        Pacman pacman = new Pacman(new Position(0,0));
+        pacman.setDirection(Direction.DOWN);
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        when(arena.getPacmans()).thenReturn(List.of(pacman));
+        //the collectibles set cannot be empty or the game ends
+        when(arena.getCollectibles()).thenReturn(Set.of(new Cherry(new Position(10,10))));
+
+        arenaController.step(game, List.of(GUI.ACTION.UP), 0);
+
+        assertEquals(Direction.UP, pacman.getDirection()); //pacman controller was called
+        assertTrue(pacman.isDying()); //collision controller was called
+        assertEquals(10, ghost.getCounter()); //ghost controller was called
     }
 
 }
