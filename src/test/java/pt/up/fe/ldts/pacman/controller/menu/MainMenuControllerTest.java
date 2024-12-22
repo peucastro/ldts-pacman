@@ -16,6 +16,7 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -28,7 +29,9 @@ class MainMenuControllerTest {
     private MainMenu mainMenu;
     private Game game;
     private MainMenuController controller;
-    AudioManager audioManager;
+    private AudioManager audioManager;
+    private AudioPlayer menuSelect;
+    private AudioPlayer menuConfirmSelection;
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
@@ -41,8 +44,8 @@ class MainMenuControllerTest {
 
         audioManager = mock(AudioManager.class);
 
-        AudioPlayer menuSelect = mock(AudioPlayer.class);
-        AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);
+        menuSelect = mock(AudioPlayer.class);
+        menuConfirmSelection = mock(AudioPlayer.class);
 
         when(audioManager.getAudio("menuSelect")).thenReturn(menuSelect);
         when(audioManager.getAudio("menuConfirmSelection")).thenReturn(menuConfirmSelection);
@@ -198,92 +201,144 @@ class MainMenuControllerTest {
     @Test
     void handleVolumeChange() throws URISyntaxException, IOException, FontFormatException {
         MainMenu mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._360p, 0.8f);
-        controller = new MainMenuController(mainMenu, MockAudio.getMockAudioManager());
+        controller = new MainMenuController(mainMenu, audioManager);
 
-        GUI gui = mock(GUI.class);
-        when(game.getGui()).thenReturn(gui);
+        GUI mockGUI = mock(GUI.class);
+        when(game.getGui()).thenReturn(mockGUI);
         when(audioManager.getMasterVolume()).thenReturn(0.8f);
 
         controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN, GUI.ACTION.DOWN,GUI.ACTION.LEFT), 0);
 
         assertTrue(mainMenu.getOptions().get(3).getText().endsWith("7"));
+        verify(mockGUI, times(1)).clear();
+        verify(menuSelect, times(4)).playOnce();
+        verify(audioManager, times(1)).setMasterVolume(0.7f);
+        reset(mockGUI); reset(menuSelect);
 
         controller.step(game, List.of(GUI.ACTION.RIGHT, GUI.ACTION.RIGHT), 0);
 
         assertTrue(mainMenu.getOptions().get(3).getText().endsWith("9"));
+        verify(mockGUI, times(2)).clear();
+        verify(menuSelect, times(2)).playOnce();
+        verify(audioManager, times(2)).setMasterVolume(0.9f);
     }
 
     @Test
     void handleResolutionIncrement() throws URISyntaxException, IOException, FontFormatException {
         MainMenu mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._360p, 0);
-        controller = new MainMenuController(mainMenu, MockAudio.getMockAudioManager());
+        controller = new MainMenuController(mainMenu, audioManager);
         GUI gui = mock(GUI.class);
         when(game.getGui()).thenReturn(gui);
         controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN),0); //select resolution
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("540p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._540p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._540p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("720p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._720p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._720p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("900p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._900p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._900p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("1080p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._1080p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("1440p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1440p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._1440p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("2160p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._2160p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
+
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._2160p);
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("360p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._360p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
     }
 
     @Test
     void handleResolutionDecrement() throws URISyntaxException, IOException, FontFormatException {
         MainMenu mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._360p, 0);
-        controller = new MainMenuController(mainMenu, MockAudio.getMockAudioManager());
+        controller = new MainMenuController(mainMenu, audioManager);
         GUI gui = mock(GUI.class);
         when(game.getGui()).thenReturn(gui);
         controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN),0); //select resolution
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("2160p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._2160p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._2160p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("1440p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1440p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._1440p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("1080p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._1080p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("900p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._900p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._900p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("720p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._720p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._720p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("540p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._540p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._540p);
         controller.step(game, List.of(GUI.ACTION.LEFT), 0);
         assertTrue(mainMenu.getOptions().get(2).getText().endsWith("360p"));
+        verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._360p);
+        verify(menuSelect, times(1)).playOnce();
+        reset(menuSelect);
     }
 }
