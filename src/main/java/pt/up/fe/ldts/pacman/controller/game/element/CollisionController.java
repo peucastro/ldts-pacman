@@ -60,6 +60,7 @@ public class CollisionController extends GameController {
                         case ALIVE:
                             pacman.decreaseLife();
                             pacman.setDying(true);
+                            pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
                             long alivePacmans = getModel().getPacmans().stream().filter(pacman1 -> !pacman1.isDying()).count();
                             //first condition is for multiplayer, second is for single player
                             if (alivePacmans == 0) {

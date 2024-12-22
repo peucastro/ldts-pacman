@@ -34,6 +34,7 @@ public class DyingStateController extends GameController {
             int alivePacmans = 0; //number of still alive pacmans
             for (Pacman pacman : getModel().getPacmans()) {
                 if (pacman.getLife() > 0) {
+                    pacman.setSpeed(Arena.PACMAN_NORMAL_SPEED);
                     pacman.setPosition(pacman.getRespawnPosition());
                     pacman.setCounter(0);
                     pacman.setDying(false);
