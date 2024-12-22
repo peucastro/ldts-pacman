@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.viewer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
