@@ -1,5 +1,6 @@
 package pt.up.fe.ldts.pacman.viewer.menu;
 
+import com.googlecode.lanterna.graphics.BasicTextImage;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
@@ -26,5 +27,7 @@ public class MainMenuViewerTest {
         verify(mockGUI, times(27)).erase(any());
         //4 one for each ghost
         verify(mockGUI, times(4)).drawImage(any(), (BufferedImage) any());
+        //one for pacman
+        verify(mockGUI, times(1)).drawImage(any(), (BasicTextImage) any());
     }
 }

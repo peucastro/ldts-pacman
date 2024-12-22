@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -41,22 +42,22 @@ class ElementViewerTest {
         ElementViewer wallViewer = new ElementViewer(wallImage);
 
         Cherry cherry = new Cherry(new Position(0, 0));
-        Orange orange = new Orange(new Position(0, 0));
-        Wall wall = new Wall(new Position(0, 0));
+        Orange orange = new Orange(new Position(10, 10));
+        Wall wall = new Wall(new Position(20, 20));
 
         // Draw Cherry
         cherryViewer.drawElement(mockLanternaGUI, cherry,0);
 
-        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(eq(new Position(0, 0)), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Orange
         orangeViewer.drawElement(mockLanternaGUI, orange,0);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(eq(new Position(10*11, 10*11)), (BasicTextImage) any());
         reset(mockLanternaGUI);
 
         // Draw Wall
         wallViewer.drawElement(mockLanternaGUI, wall,0);
-        verify(mockLanternaGUI, times(1)).drawImage(any(), (BasicTextImage) any());
+        verify(mockLanternaGUI, times(1)).drawImage(eq(new Position(20*11, 20*11)), (BasicTextImage) any());
     }
 }

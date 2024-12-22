@@ -26,6 +26,8 @@ public class AlertMenuViewerTest {
         GUI mockGUI = mock(LanternaGUI.class);
         Arena mockArena = mock(Arena.class);
 
+        when(mockArena.getWidth()).thenReturn(29);
+        when(mockArena.getHeight()).thenReturn(16);
         when(mockArena.getWalls()).thenReturn(Set.of());
         when(mockArena.getCollectibles()).thenReturn(Set.of());
         when(mockArena.getGhosts()).thenReturn(Set.of());
@@ -51,8 +53,8 @@ public class AlertMenuViewerTest {
 
         //7 times for the score + 7 times for the lives + (9 + 14) for each option respectively = 37
         verify(mockGUI, times(37)).drawCharacter(any(),any(),any());
-        //game over image
-        verify(mockGUI, times(1)).drawImage(any(),any(),anyInt(),anyInt());
+        //game over image, 77 by 37 pixels, in position (121,44) to be centered
+        verify(mockGUI, times(1)).drawImage(eq(new Position(121,44)),any(),eq(77),eq(37));
         //no elements except the ghost gate and one pacman
         verify(mockGUI, times(1)).drawImage(any(),(BufferedImage) any());
         verify(mockGUI, times(1)).drawImage(any(),(BasicTextImage) any());
@@ -77,8 +79,8 @@ public class AlertMenuViewerTest {
 
         //7 times for the score + 7 times for the lives + (9 + 14) for each option respectively = 37
         verify(mockGUI, times(37)).drawCharacter(any(),any(),any());
-        //game over image
-        verify(mockGUI, times(1)).drawImage(any(),any(),anyInt(),anyInt());
+        //game over image, 77 by 37 pixels, in position (121,44) to be centered
+        verify(mockGUI, times(1)).drawImage(eq(new Position(121,44)),any(),eq(77),eq(37));
         // Verify the number of movable elements drawn (total number of movable elements = 5 (pacman + ghosts))
         verify(mockGUI, times(5)).drawImage(any(),(BufferedImage) any());
         // Verify the number of static elements drawn (total number of static elements = 29*16 - 5 (movables) - 2 (empty spaces))
@@ -104,8 +106,8 @@ public class AlertMenuViewerTest {
 
         //7 times for the score + 9*2 times for the lives of each player + (9 + 14) for each option respectively = 48
         verify(mockGUI, times(48)).drawCharacter(any(),any(),any());
-        //you win image
-        verify(mockGUI, times(1)).drawImage(any(),any(),anyInt(),anyInt());
+        //you win image, 200 by 34 pixels, in position (59, 44) to be centered
+        verify(mockGUI, times(1)).drawImage(eq(new Position(59,44)), any(), eq(200), eq(34));
         // Verify the number of movable elements drawn (total number of movable elements = 6 (2 pacman + 4 ghosts))
         verify(mockGUI, times(6)).drawImage(any(),(BufferedImage) any());
         // Verify the number of static elements drawn (total number of static elements = 29*16 - 6 (movables) - 2 (empty spaces))
