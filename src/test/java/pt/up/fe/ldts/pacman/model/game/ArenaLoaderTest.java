@@ -35,11 +35,31 @@ public class ArenaLoaderTest {
         Assertions.assertTrue(arena.getCollectibles().contains(new Strawberry(new Position(16, 10))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Coin(new Position(5, 13))));
         Assertions.assertTrue(arena.getCollectibles().contains(new PowerUp(new Position(1,1))));
+
         Assertions.assertTrue(arena.getGhosts().contains(new Pinky(new Position(13, 8))));
+        Pinky pinky = (Pinky) arena.getGhosts().stream().filter(ghost -> ghost.getClass() == Pinky.class).toArray()[0];
+        Assertions.assertNotNull(pinky.getRespawnPosition());
+
         Assertions.assertTrue(arena.getGhosts().contains(new Inky(new Position(14, 8))));
+        Inky inky = (Inky) arena.getGhosts().stream().filter(ghost -> ghost.getClass() == Inky.class).toArray()[0];
+        Assertions.assertNotNull(inky.getRespawnPosition());
+
         Assertions.assertTrue(arena.getGhosts().contains(new Clyde(new Position(15, 8))));
+        Clyde clyde = (Clyde) arena.getGhosts().stream().filter(ghost -> ghost.getClass() == Clyde.class).toArray()[0];
+        Assertions.assertNotNull(clyde.getRespawnPosition());
+
         Assertions.assertTrue(arena.getGhosts().contains(new Blinky(new Position(14, 7))));
+        Blinky blinky = (Blinky) arena.getGhosts().stream().filter(ghost -> ghost.getClass() == Blinky.class).toArray()[0];
+        Assertions.assertNotNull(blinky.getRespawnPosition());
+
         Assertions.assertTrue(arena.getWalls().contains(new Wall(new Position(0, 0))));
+
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(14,13))); //pacman's position
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(13,8))); //pinky's position
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(14,8))); //inky's position
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(15,8))); //clyde's position
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(14,7))); //blinky's position
+
         String output = outputStream.toString(StandardCharsets.UTF_8);
         Assertions.assertEquals("Unknown element '*' at (2, 1)" + System.lineSeparator(), output);
 
