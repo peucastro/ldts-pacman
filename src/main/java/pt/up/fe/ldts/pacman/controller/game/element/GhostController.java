@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GhostController extends GameController {
-    Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
+    private final Map<Class<?>, GhostMovementBehaviour> movementBehaviours;
     private int frameCount; //useful for alternating between chase and scatter states when ghosts are alive
     private int targetPacman;
 
