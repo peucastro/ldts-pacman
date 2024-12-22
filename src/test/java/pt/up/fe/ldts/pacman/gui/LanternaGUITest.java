@@ -13,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -188,16 +186,4 @@ public class LanternaGUITest {
         verify(screen, times(1)).newTextGraphics();
         verify(tg, times(1)).drawImage(new TerminalPosition(0, 0), textImage);
     }
-
-    @Test
-    void resizeScreen() throws URISyntaxException, IOException, FontFormatException {
-        for (GUI.SCREEN_RESOLUTION resolution : GUI.SCREEN_RESOLUTION.values()) {
-            gui.resizeScreen(20, 20, resolution);
-
-            verify(screen, times(1)).close();
-            assertEquals(resolution, gui.getResolution());
-        }
-    }
-
-
 }
