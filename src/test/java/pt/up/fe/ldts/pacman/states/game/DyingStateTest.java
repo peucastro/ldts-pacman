@@ -17,16 +17,14 @@ import static org.mockito.Mockito.mock;
 
 public class DyingStateTest {
 
-    private Arena mockArena;
     private AudioManager mockAudioManager;
     private DyingState dyingState;
-    private AudioPlayer mockAudioPlayer;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
-        mockArena = mock(Arena.class);
+        Arena mockArena = mock(Arena.class);
         mockAudioManager = mock(AudioManager.class);
-        mockAudioPlayer = mock(AudioPlayer.class);
+        AudioPlayer mockAudioPlayer = mock(AudioPlayer.class);
 
         Mockito.when(mockAudioManager.getAudio("deathAudio")).thenReturn(mockAudioPlayer);
         dyingState = new DyingState(mockArena, mockAudioManager);

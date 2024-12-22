@@ -174,7 +174,10 @@ public class PacmanControllerTest {
         Position expectedPosition = pacman.getNextPosition();
         pacmanController = new PacmanController(arena2);
 
-        for(int i = 0; i < 11; ++i) pacmanController.step(game, List.of(action), 0);
+        for(int i = 0; i < 11; ++i) {
+            assert action != null;
+            pacmanController.step(game, List.of(action), 0);
+        }
 
         //if the next position is not empty then pacman should not move
         if (!arena2.isEmpty(expectedPosition) || arena2.getGhostGate().getPosition().equals(expectedPosition)) {

@@ -20,14 +20,13 @@ import static org.mockito.Mockito.*;
 
 public class AlertMenuStateTest {
 
-    private AlertMenu mockAlertMenu;
     private AudioManager mockAudioManager;
     private AlertMenuState alertMenuState;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
         // Mock dependencies
-        mockAlertMenu = mock(AlertMenu.class);
+        AlertMenu mockAlertMenu = mock(AlertMenu.class);
         mockAudioManager = mock(AudioManager.class);
 
         AudioPlayer mockMenuSelect = mock(AudioPlayer.class);
@@ -49,14 +48,14 @@ public class AlertMenuStateTest {
     void testCreateViewer() throws IOException, URISyntaxException {
         Viewer<AlertMenu> viewer = alertMenuState.createViewer();
         assertNotNull(viewer);
-        assertTrue(viewer instanceof AlertMenuViewer);
+        assertInstanceOf(AlertMenuViewer.class, viewer);
     }
 
     @Test
     void testCreateController() {
         Controller<AlertMenu> controller = alertMenuState.createController(mockAudioManager);
         assertNotNull(controller);
-        assertTrue(controller instanceof AlertMenuController);
+        assertInstanceOf(AlertMenuController.class, controller);
     }
 
     @Test

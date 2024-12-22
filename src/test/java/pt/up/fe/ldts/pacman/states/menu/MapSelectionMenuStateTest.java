@@ -18,13 +18,12 @@ import static org.mockito.Mockito.*;
 
 public class MapSelectionMenuStateTest {
 
-    private MapSelectionMenu mockMapSelectionMenu;
     private AudioManager mockAudioManager;
     private MapSelectionMenuState mapSelectionMenuState;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
-        mockMapSelectionMenu = mock(MapSelectionMenu.class);
+        MapSelectionMenu mockMapSelectionMenu = mock(MapSelectionMenu.class);
         mockAudioManager = mock(AudioManager.class);
 
         AudioPlayer mockMenuSelect = mock(AudioPlayer.class);
@@ -38,14 +37,14 @@ public class MapSelectionMenuStateTest {
     void testCreateViewer() throws IOException {
         Viewer<MapSelectionMenu> viewer = mapSelectionMenuState.createViewer();
         assertNotNull(viewer);
-        assertTrue(viewer instanceof MapSelectionMenuViewer);
+        assertInstanceOf(MapSelectionMenuViewer.class, viewer);
     }
 
     @Test
     void testCreateController() {
         Controller<MapSelectionMenu> controller = mapSelectionMenuState.createController(mockAudioManager);
         assertNotNull(controller);
-        assertTrue(controller instanceof MapSelectionMenuController);
+        assertInstanceOf(MapSelectionMenuController.class, controller);
     }
 
     @Test

@@ -18,16 +18,14 @@ import static org.mockito.Mockito.*;
 
 public class GameStateTest {
 
-    private Arena mockArena;
     private AudioManager mockAudioManager;
     private GameState gameState;
-    private AudioPlayer mockAudioPlayer;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
-        mockArena = mock(Arena.class);
+        Arena mockArena = mock(Arena.class);
         mockAudioManager = mock(AudioManager.class);
-        mockAudioPlayer = mock(AudioPlayer.class);
+        AudioPlayer mockAudioPlayer = mock(AudioPlayer.class);
 
         when(mockAudioManager.getAudio("ghostEaten")).thenReturn(mockAudioPlayer);
         when(mockAudioManager.getAudio("collectibleEaten")).thenReturn(mockAudioPlayer);
@@ -41,14 +39,14 @@ public class GameStateTest {
     void testCreateViewer() throws IOException, URISyntaxException {
         Viewer<Arena> viewer = gameState.createViewer();
         assertNotNull(viewer);
-        assertTrue(viewer instanceof ArenaViewer);
+        assertInstanceOf(ArenaViewer.class, viewer);
     }
 
     @Test
     void testCreateController() {
         Controller<Arena> controller = gameState.createController(mockAudioManager);
         assertNotNull(controller);
-        assertTrue(controller instanceof ArenaController);
+        assertInstanceOf(ArenaController.class, controller);
     }
 
     @Test
