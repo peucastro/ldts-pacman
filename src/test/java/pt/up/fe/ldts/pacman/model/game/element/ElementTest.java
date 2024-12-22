@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game.element;
 
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
@@ -68,5 +70,15 @@ public class ElementTest {
         assertThrows(IllegalArgumentException.class, () -> c.setPosition(new Position(-1, -1)));
         assertDoesNotThrow(() -> new Inky(new Position(0, 0)));
         assertDoesNotThrow(() -> new Pacman(new Position(100, 5)));
+    }
+
+    @Property
+    void testElementCreation(@ForAll int x, @ForAll int y){
+        Position position = new Position(x,y);
+        if(x < 0 || y < 0){
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,() -> new Orange(position));
+            assertEquals("Element position cannot have negatives values: " + position, exception.getMessage());
+        }
+        else assertDoesNotThrow(() -> new Orange(position));
     }
 }
