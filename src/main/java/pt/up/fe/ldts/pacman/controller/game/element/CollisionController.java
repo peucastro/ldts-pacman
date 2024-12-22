@@ -24,7 +24,7 @@ public class CollisionController extends GameController {
     private final AudioPlayer ghostsScaredSiren;
     private int deadPacmanTimeCounter; //counter for one dead pacman on multiplayer
     private int ghostsEaten; //ghosts eaten in current scared state
-    int scaredTimeLeft;
+    private int scaredTimeLeft;
 
     public CollisionController(Arena arena, AudioManager audioManager) {
         super(arena);
@@ -103,9 +103,9 @@ public class CollisionController extends GameController {
                                 ghost.invertDirection();
                             }
                         });
+                        for (Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
                     }
                     collectibleEatenAudio.playOnce();
-                    for (Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
                     getModel().addBlankPosition(new Position(collectible.getPosition())); //new position to be cleared
                     getModel().incrementScore(collectible.getValue());
                     getModel().incrementCollectedCollectibles();
