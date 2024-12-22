@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.MockAudio;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
@@ -16,7 +15,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -31,7 +29,6 @@ class MainMenuControllerTest {
     private MainMenuController controller;
     private AudioManager audioManager;
     private AudioPlayer menuSelect;
-    private AudioPlayer menuConfirmSelection;
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
@@ -45,7 +42,7 @@ class MainMenuControllerTest {
         audioManager = mock(AudioManager.class);
 
         menuSelect = mock(AudioPlayer.class);
-        menuConfirmSelection = mock(AudioPlayer.class);
+        AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);
 
         when(audioManager.getAudio("menuSelect")).thenReturn(menuSelect);
         when(audioManager.getAudio("menuConfirmSelection")).thenReturn(menuConfirmSelection);

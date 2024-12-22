@@ -153,7 +153,7 @@ public class GameTest {
             return null;
         }).when(mockState).step(any(), any(), anyLong());
 
-        Game.main(gui, audioManager);;
+        Game.main(gui, audioManager);
 
         verify(gui, times(1)).close();
     }

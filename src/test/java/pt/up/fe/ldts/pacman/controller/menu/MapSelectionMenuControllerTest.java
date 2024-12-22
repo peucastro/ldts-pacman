@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.controller.menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.MockAudio;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;

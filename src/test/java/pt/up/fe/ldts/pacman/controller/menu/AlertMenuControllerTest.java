@@ -12,7 +12,6 @@ import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.awt.*;
@@ -26,7 +25,6 @@ class AlertMenuControllerTest {
     private AlertMenu alertMenu;
     private AudioManager audioManager;
     private AudioPlayer menuSelect;
-    private AudioPlayer menuConfirmSelection;
     private Game game;
 
     @BeforeEach
@@ -37,7 +35,7 @@ class AlertMenuControllerTest {
         audioManager = mock(AudioManager.class);
 
         menuSelect = mock(AudioPlayer.class);
-        menuConfirmSelection = mock(AudioPlayer.class);
+        AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);
 
         when(audioManager.getAudio("menuSelect")).thenReturn(menuSelect);
         when(audioManager.getAudio("menuConfirmSelection")).thenReturn(menuConfirmSelection);

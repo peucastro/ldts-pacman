@@ -1,23 +1,19 @@
 package pt.up.fe.ldts.pacman.controller.game.element;
 
 import net.jqwik.api.*;
-import net.jqwik.api.constraints.Positive;
 import net.jqwik.api.lifecycle.BeforeTry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.game.element.behaviours.GhostMovementBehaviour;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
-import pt.up.fe.ldts.pacman.model.game.ArenaLoader;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
