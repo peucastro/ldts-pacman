@@ -29,6 +29,7 @@ public class AlertMenuViewerTest {
         when(mockArena.getWalls()).thenReturn(Set.of());
         when(mockArena.getCollectibles()).thenReturn(Set.of());
         when(mockArena.getGhosts()).thenReturn(Set.of());
+        when(mockArena.getBlankPositions()).thenReturn(Set.of());
 
         GhostGate mockGhostGate = mock(GhostGate.class);
         when(mockGhostGate.getPosition()).thenReturn(new Position(5, 5));
@@ -55,6 +56,8 @@ public class AlertMenuViewerTest {
         //no elements except the ghost gate and one pacman
         verify(mockGUI, times(1)).drawImage(any(),(BufferedImage) any());
         verify(mockGUI, times(1)).drawImage(any(),(BasicTextImage) any());
+        //no positions erased
+        verify(mockGUI, times(0)).erase(any());
     }
 
     @Test
@@ -80,6 +83,8 @@ public class AlertMenuViewerTest {
         verify(mockGUI, times(5)).drawImage(any(),(BufferedImage) any());
         // Verify the number of static elements drawn (total number of static elements = 29*16 - 5 (movables) - 2 (empty spaces))
         verify(mockGUI, times(29*16 - 5 - 2)).drawImage(any(),(BasicTextImage) any());
+        //erase the movable elements' positions and the empty spaces
+        verify(mockGUI, times(5 + 2)).erase(any());
     }
 
     @Test
@@ -105,5 +110,7 @@ public class AlertMenuViewerTest {
         verify(mockGUI, times(6)).drawImage(any(),(BufferedImage) any());
         // Verify the number of static elements drawn (total number of static elements = 29*16 - 6 (movables) - 2 (empty spaces))
         verify(mockGUI, times(29*16 - 6 - 2)).drawImage(any(),(BasicTextImage) any());
+        //erase the movable elements' positions and the empty spaces
+        verify(mockGUI, times(6 + 2)).erase(any());
     }
 }
