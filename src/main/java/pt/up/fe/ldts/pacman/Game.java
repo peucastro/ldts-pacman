@@ -71,7 +71,7 @@ public class Game {
         gui.resizeScreen(SCREEN_WIDTH, SCREEN_HEIGHT, newResolution);
     }
 
-    void start() throws IOException, InterruptedException {
+    private void start() throws IOException, InterruptedException {
         GameLoop gameLoop = new GameLoop(60);
         AudioPlayer mainMusic = initializeMusic();
 
@@ -90,7 +90,7 @@ public class Game {
         }
     }
 
-    AudioPlayer initializeMusic() {
+    private AudioPlayer initializeMusic() {
         AudioPlayer mainMusic = new AudioPlayer("Audio/music.wav");
         mainMusic.setVolume(0.05f);
         mainMusic.playInLoop();
@@ -98,7 +98,7 @@ public class Game {
         return mainMusic;
     }
 
-    void cleanup(AudioPlayer mainMusic) throws IOException {
+    private void cleanup(AudioPlayer mainMusic) throws IOException {
         mainMusic.stopPlaying();
         gui.close();
     }

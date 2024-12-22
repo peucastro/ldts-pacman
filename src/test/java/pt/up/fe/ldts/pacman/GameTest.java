@@ -142,16 +142,26 @@ public class GameTest {
             game.setState(null);
             return null;
         }).when(mockState).step(any(), any(), anyLong());
-        game.start();
+
+        String[] args = {};
+        Game.main(args);;
+
         verify(mockState, atLeastOnce()).step(any(), any(), anyLong());
         assertNull(game.getState());
     }
 
     @Test
-    void testCleanup() throws IOException {
-        AudioPlayer mockAudioPlayer = mock(AudioPlayer.class);
-        game.cleanup(mockAudioPlayer);
-        verify(mockAudioPlayer, times(1)).stopPlaying();
+    void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        State mockState = mock(State.class);
+        game.setState(mockState);
+        doAnswer(invocation -> {
+            game.setState(null);
+            return null;
+        }).when(mockState).step(any(), any(), anyLong());
+
+        String[] args = {};
+        Game.main(args);;
+
         verify(mockGUI, times(1)).close();
     }
 
