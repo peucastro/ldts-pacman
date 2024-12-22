@@ -1,11 +1,11 @@
 package pt.up.fe.ldts.pacman;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
+import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 import pt.up.fe.ldts.pacman.states.game.GameState;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 
@@ -13,6 +13,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -24,6 +26,10 @@ public class GameTest {
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException, FontFormatException, NoSuchFieldException, IllegalAccessException {
+        Field gameField = Game.class.getDeclaredField("instance");
+        gameField.setAccessible(true);
+        gameField.set(game, null); //set the game instance to null
+
         game = Game.getInstance();
         game.getGui().close();
         audioManager = MockAudio.getMockAudioManager();
@@ -36,11 +42,6 @@ public class GameTest {
         Field privateField2 = Game.class.getDeclaredField("gui");
         privateField2.setAccessible(true);
         privateField2.set(game, mockGUI);
-    }
-
-    @AfterAll
-    static void cleanUp(){
-        game.setState(null);
     }
 
     @Test
@@ -59,6 +60,11 @@ public class GameTest {
     }
 
     @Test
+    void testGetAudioManager(){
+        assertEquals(audioManager, game.getAudioManager());
+    }
+
+    @Test
     void testSetState(){
         GameState gameState = mock(GameState.class);
         game.setState(gameState);
@@ -73,5 +79,51 @@ public class GameTest {
 
         verify(mockGUI, times(1)).resizeScreen(anyInt(),anyInt(),any());
         assertEquals(GUI.SCREEN_RESOLUTION._360p, game.getResolution());
+    }
+
+    @Test
+    void testInitializeMusic() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        MainMenuState mockState = new MainMenuState(mock(MainMenu.class),audioManager){
+            @Override
+            public void step(Game game, GUI gui, long frameTime) {
+                game.setState(null);
+            }
+        };
+        game.setState(mockState);
+
+        String[] args = {};
+        Game.main(args);
+
+        verify(audioManager, times(1)).setMainMusic(any());
+    }
+
+    @Test
+    void testExitGame() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        List<GUI.ACTION> actions = new ArrayList<>();
+        actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //go down
+        actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //to exit
+        actions.add(GUI.ACTION.SELECT); //select exit
+        when(mockGUI.getNextAction()).thenReturn(actions);
+
+        String[] args = {};
+        Game.main(args);
+
+        assertNull(game.getState());
+        verify(mockGUI, times(1)).close();
+    }
+
+    @Test
+    void testThrownException() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        MainMenuState mockState = new MainMenuState(mock(MainMenu.class),audioManager){
+            @Override
+            public void step(Game game, GUI gui, long frameTime) throws IOException {
+                throw new IOException("IO exception");
+            }
+        };
+        game.setState(mockState);
+
+        String[] args = {};
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> Game.main(args));
+        assertEquals("java.io.IOException: IO exception", exception.getMessage());
     }
 }
