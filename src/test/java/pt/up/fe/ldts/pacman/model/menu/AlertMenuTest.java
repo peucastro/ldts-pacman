@@ -23,7 +23,7 @@ class AlertMenuTest {
 
     @Test
     void testCreateOptions() {
-        List<TextBox> options = alertMenu.createOptions();
+        List<TextBox> options = alertMenu.getOptions();
 
         assertEquals(2, options.size());
         assertEquals("Play Again", options.get(0).getText());
@@ -36,12 +36,16 @@ class AlertMenuTest {
     void testPlayAgainSelected() {
         alertMenu.setSelectedOption(0);
         assertTrue(alertMenu.PlayAgainSelected());
+        alertMenu.setSelectedOption(1);
+        assertFalse(alertMenu.PlayAgainSelected());
     }
 
     @Test
     void testExitSelected() {
         alertMenu.setSelectedOption(1);
         assertTrue(alertMenu.ExitSelected());
+        alertMenu.setSelectedOption(0);
+        assertFalse(alertMenu.ExitSelected());
     }
 
     @Test

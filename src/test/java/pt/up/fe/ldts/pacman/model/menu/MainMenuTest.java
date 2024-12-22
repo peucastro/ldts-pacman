@@ -20,12 +20,12 @@ class MainMenuTest {
 
     @Test
     void testCreateOptions() {
-        var options = mainMenu.createOptions();
+        var options = mainMenu.getOptions();
         assertEquals(5, options.size());
         assertEquals("Single player", options.get(0).getText());
         assertEquals("Multi player", options.get(1).getText());
         assertEquals("Resolution: 900p", options.get(2).getText());
-        assertEquals("Master Volume: 10", options.get(3).getText());
+        assertEquals("Master Volume: 0", options.get(3).getText());
         assertEquals("Exit", options.get(4).getText());
 
     }
@@ -41,30 +41,40 @@ class MainMenuTest {
     void testSinglePlayerSelected() {
         mainMenu.setSelectedOption(0);
         assertTrue(mainMenu.singlePLayerSelected());
+        mainMenu.setSelectedOption(1);
+        assertFalse(mainMenu.singlePLayerSelected());
     }
 
     @Test
     void testMultiplayerSelected() {
         mainMenu.setSelectedOption(1);
         assertTrue(mainMenu.multiplayerSelected());
+        mainMenu.setSelectedOption(0);
+        assertFalse(mainMenu.multiplayerSelected());
     }
 
     @Test
     void testResolutionSelected() {
         mainMenu.setSelectedOption(2);
         assertTrue(mainMenu.ResolutionSelected());
+        mainMenu.setSelectedOption(0);
+        assertFalse(mainMenu.ResolutionSelected());
     }
 
     @Test
     void testMasterVolumeSelected() {
         mainMenu.setSelectedOption(3);
         assertTrue(mainMenu.MasterVolumeSelected());
+        mainMenu.setSelectedOption(0);
+        assertFalse(mainMenu.MasterVolumeSelected());
     }
 
     @Test
     void testExitSelected() {
         mainMenu.setSelectedOption(4);
         assertTrue(mainMenu.ExitSelected());
+        mainMenu.setSelectedOption(0);
+        assertFalse(mainMenu.ExitSelected());
     }
 
     @Test
