@@ -16,9 +16,11 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void audioLoadingException(){
-        assertThrows(AssertionError.class,() -> new AudioPlayer("NeverGonnaGiveYouUp.mp4"));
+    void audioLoadingException() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> new AudioPlayer("NeverGonnaGiveYouUp.mp4"));
+        assertTrue(exception.getMessage().contains("Could not open audio"));
     }
+
 
     @Test
     void playOnceClipDependency() throws NoSuchFieldException, IllegalAccessException {
