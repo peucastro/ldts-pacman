@@ -36,9 +36,13 @@ public class Game {
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-
         GUI gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, GUI.SCREEN_RESOLUTION._900p);
         AudioManager audioManager = AudioManager.getInstance();
+        Game game = Game.getInstance(gui, audioManager);
+        game.start();
+    }
+
+    public static void main(String[] args, GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
         Game game = Game.getInstance(gui, audioManager);
         game.start();
     }
