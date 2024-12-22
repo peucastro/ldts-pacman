@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.MockAudio;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
@@ -41,11 +42,15 @@ public class DyingStateControllerTest {
     void returnToGame() throws IOException, URISyntaxException {
         Pacman pacman = new Pacman(new Position(0,0));
         pacman.setRespawnPosition(new Position(20,20));
+        pacman.setDying(true);
+        pacman.setCounter(5);
         pacman.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
         when(arena.getPacmans()).thenReturn(List.of(pacman));
 
         Blinky blinky = new Blinky(new Position(0,0));
         blinky.setRespawnPosition(new Position(10,10));
+        blinky.setCounter(5);
+        blinky.setOutsideGate();
         blinky.setState(GhostState.DEAD);
         blinky.setSpeed(Arena.GHOST_DEAD_SPEED);
         when(arena.getGhosts()).thenReturn(Set.of(blinky));
@@ -69,6 +74,7 @@ public class DyingStateControllerTest {
         assertEquals(new Position(20,20), pacman.getPosition());
         assertEquals(Arena.PACMAN_NORMAL_SPEED, pacman.getSpeed());
         assertFalse(pacman.isDying());
+        assertEquals(0, pacman.getCounter());
     }
 
     @Test
@@ -88,5 +94,18 @@ public class DyingStateControllerTest {
         //game over
         verify(game, times(1)).setState(any(AlertMenuState.class));
         verify(audioManager, times(1)).stopAllAudios();
+    }
+
+    @Test
+    void testAudioLoading() {
+        audioManager = mock(AudioManager.class);
+        AudioPlayer mockAudio = mock(AudioPlayer.class);
+        when(audioManager.getAudio(anyString())).thenReturn(mockAudio);
+
+        controller = new DyingStateController(arena, audioManager);
+
+        verify(audioManager, times(1)).addAudio("deathAudio", "Audio/pacmanDeath.wav");
+        verify(mockAudio, times(1)).setVolume(1.0f);
+        verify(mockAudio, times(1)).playOnce();
     }
 }
