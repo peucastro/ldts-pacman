@@ -36,7 +36,6 @@ public abstract class State<T> {
         List<GUI.ACTION> actions = gui.getNextAction();
         controller.step(game, actions, frameTime);
         viewer.drawElement(gui, model, frameTime);
-        actions.clear();
     }
 
     public AudioManager getAudioManager() {
