@@ -195,6 +195,12 @@ public class PacmanControllerTest {
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
         verify(pacman, never()).setDirection(Direction.RIGHT);
+
+        when(otherPacman.isDying()).thenReturn(true);
+
+        pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
+
+        verify(pacman).setDirection(Direction.RIGHT);
     }
 
 
@@ -231,6 +237,7 @@ public class PacmanControllerTest {
         when(pacman.getDirection()).thenReturn(Direction.UP);
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getCounter()).thenReturn(0);
+        when(pacman.getNextPosition()).thenReturn(new Position(6,5));
         when(arena.isEmpty(any())).thenReturn(true);
         when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(6, 5)));
 

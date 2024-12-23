@@ -37,7 +37,7 @@ public class PacmanController extends GameController {
 
             boolean isPositionValid = getModel().isEmpty(nextDesiredPosition) &&
                     getModel().getPacmans().stream()
-                            .filter(other -> !other.equals(pacman) && !other.isDying()) // Ignore the current Pacman
+                            .filter(other -> !other.isDying()) // Ignore the current Pacman
                             .noneMatch(other -> other.collidingWith(new Pacman(nextDesiredPosition)));
 
             if (isPositionValid &&
@@ -55,7 +55,7 @@ public class PacmanController extends GameController {
         if (getModel().isEmpty(nextPosition) &&
                 !getModel().getGhostGate().getPosition().equals(nextPosition) &&
                 getModel().getPacmans().stream()
-                        .filter(other -> !other.equals(pacman)) // Ignore the current Pacman
+                        .filter(other -> !other.isDying()) // Ignore the current Pacman
                         .noneMatch(other -> other.collidingWith(new Pacman(nextPosition)))) {
             pacman.incrementCounter();
         }
