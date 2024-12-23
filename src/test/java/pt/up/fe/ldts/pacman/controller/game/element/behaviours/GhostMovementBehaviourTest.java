@@ -85,10 +85,17 @@ class GhostMovementBehaviourTest {
         realghost.setOutsideGate();
         realghost.setState(GhostState.SCARED);
 
-        for(int i = 0; i < 1000; ++i){
+        boolean posXBiggerThan10 = false;
+        boolean posYBiggerThan5 = false;
+        for(int i = 0; i < 100000; ++i){
             Position target = behaviour.getTargetPosition(realghost, arena, pacman, false);
+            if(target.getX() > 10) posXBiggerThan10 = true;
+            if(target.getY() > 5) posYBiggerThan5 = true;
             assertTrue(target.getX() >= 0 && target.getX() <= 29);
             assertTrue(target.getY() >= 0 && target.getY() <= 16);
         }
+
+        assertTrue(posXBiggerThan10);
+        assertTrue(posYBiggerThan5);
     }
 }
