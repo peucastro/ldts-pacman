@@ -69,14 +69,38 @@ that changes in one layer (e.g., the user interface) don't directly affect the o
 
 ## **UML schema**
 
-![Project structure](/docs/resources/uml/structure.png "UML")
+<p align="center" justify="center">
+  <img src="resources/uml/structure.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 5. UML classes diagram</i></b>
+</p>
+
+## Known-code smells
+
+We have fixed all the errors reported by error-prone. No other major code smells identified.
 
 ## Testing
 
-We used unit testing with Junit 5, mocks with Mockito, mutation testing with Pitest and property based testing with
-jqwik.
+We used unit testing with Junit 5, mocks with Mockito, mutation testing with Pitest, test coverage verification with
+jacoco and property based testing with jqwik.
 
 ### Screenshot of Test Coverage
 
-![Test coverage](/docs/resources/testing/coverage.png "Coverage")
-![Pitest report](/docs/resources/testing/pitest.png "Pitest")
+<p align="center" justify="center">
+  <img src="resources/testing/coverage.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 6. Code coverage screenshot</i></b>
+</p>
+
+<p align="center" justify="center">
+  <img src="resources/testing/pitest.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 7. Mutation coverage screenshot</i></b>
+</p>
+
+### Link to mutation testing report
+
+[Mutation tests](/build/reports/pitest/index.html)
