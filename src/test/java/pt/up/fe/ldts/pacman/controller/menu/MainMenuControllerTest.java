@@ -29,6 +29,7 @@ class MainMenuControllerTest {
     private MainMenuController controller;
     private AudioManager audioManager;
     private AudioPlayer menuSelect;
+    private AudioPlayer menuConfirmSelection;
     private Blinky blinky;
     private Inky inky;
     private Pinky pinky;
@@ -42,7 +43,7 @@ class MainMenuControllerTest {
         audioManager = mock(AudioManager.class);
 
         menuSelect = mock(AudioPlayer.class);
-        AudioPlayer menuConfirmSelection = mock(AudioPlayer.class);
+        menuConfirmSelection = mock(AudioPlayer.class);
 
         when(audioManager.getAudio("menuSelect")).thenReturn(menuSelect);
         when(audioManager.getAudio("menuConfirmSelection")).thenReturn(menuConfirmSelection);
@@ -75,38 +76,56 @@ class MainMenuControllerTest {
         when(mainMenu.getClyde()).thenReturn(clyde);
     }
 
+    @Test
+    void testAudioInitialization(){
+        verify(audioManager, times(1)).addAudio("menuSelect", "Audio/menuSelect.wav");
+        verify(audioManager, times(1)).addAudio("menuConfirmSelection", "Audio/menuConfirmSelection.wav");
+    }
 
     @Test
     void testSelectPreviousOption() throws IOException, URISyntaxException, FontFormatException {
         controller.step(game, List.of(GUI.ACTION.UP), 0);
+
         verify(mainMenu, times(1)).selectPreviousOption();
+        verify(menuSelect, times(1)).playOnce();
     }
 
     @Test
     void testSelectNextOption() throws IOException, URISyntaxException, FontFormatException {
         controller.step(game, List.of(GUI.ACTION.DOWN), 0);
+
         verify(mainMenu, times(1)).selectNextOption();
+        verify(menuSelect, times(1)).playOnce();
     }
 
     @Test
     void testSingleplayerSelected() throws Exception {
         when(mainMenu.singlePLayerSelected()).thenReturn(true);
+
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
         verify(game, times(1)).setState(any(MapSelectionMenuState.class));
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
     @Test
     void testMultiplayerSelected() throws Exception {
         when(mainMenu.multiplayerSelected()).thenReturn(true);
+
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
         verify(game, times(1)).setState(any(MapSelectionMenuState.class));
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
     @Test
     void testExitSelected() throws Exception {
         when(mainMenu.ExitSelected()).thenReturn(true);
+
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
         verify(game, times(1)).setState(null);
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
     @Test
@@ -119,6 +138,7 @@ class MainMenuControllerTest {
 
         verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
         verify(mainMenu, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
     @Test
@@ -133,6 +153,7 @@ class MainMenuControllerTest {
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
         verify(mainMenu, times(1)).setMasterVolume(anyFloat());
+        verify(menuConfirmSelection, times(1)).playOnce();
     }
 
     @Test

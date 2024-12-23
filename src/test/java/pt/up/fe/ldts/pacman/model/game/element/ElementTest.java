@@ -60,6 +60,25 @@ public class ElementTest {
     }
 
     @Test
+    void testEqualsWithSameObject(){
+        Element element = new Coin(new Position(0,0));
+        assertEquals(element, element);
+    }
+
+    @Test
+    void testEqualsWithDifferentClass(){
+        Element element = new Coin(new Position(0,0));
+        assertNotEquals("not an Element object", element);
+    }
+
+    @Test
+    void testHashCodeConsistency(){
+        Element element1 = new Pacman(new Position(0,0));
+        Element element2 = new Pacman(new Position(0,0));
+        assertEquals(element2.hashCode(), element1.hashCode());
+    }
+
+    @Test
     void testElementSetNegativePosition() {
         Element a = new Pacman(new Position(0, 0));
         Element b = new Coin(new Position(10, 10));

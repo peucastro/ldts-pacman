@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman.model.game;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
@@ -28,6 +29,7 @@ public class ArenaLoaderTest {
         arenaLoader.loadMap("src/main/resources/Maps/testmap.txt");
 
         Assertions.assertEquals(new Position(14, 13), arena.getPacmans().getFirst().getPosition());
+        Assertions.assertNotNull(arena.getPacmans().getFirst().getRespawnPosition());
         Assertions.assertTrue(arena.getCollectibles().contains(new Orange(new Position(15, 10))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Apple(new Position(12, 10))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Cherry(new Position(13, 10))));
@@ -35,6 +37,7 @@ public class ArenaLoaderTest {
         Assertions.assertTrue(arena.getCollectibles().contains(new Strawberry(new Position(16, 10))));
         Assertions.assertTrue(arena.getCollectibles().contains(new Coin(new Position(5, 13))));
         Assertions.assertTrue(arena.getCollectibles().contains(new PowerUp(new Position(1,1))));
+        Assertions.assertEquals(new Position(14,6), arena.getGhostGate().getPosition());
 
         Assertions.assertTrue(arena.getGhosts().contains(new Pinky(new Position(13, 8))));
         Pinky pinky = (Pinky) arena.getGhosts().stream().filter(ghost -> ghost.getClass() == Pinky.class).toArray()[0];
@@ -59,6 +62,7 @@ public class ArenaLoaderTest {
         Assertions.assertTrue(arena.getBlankPositions().contains(new Position(14,8))); //inky's position
         Assertions.assertTrue(arena.getBlankPositions().contains(new Position(15,8))); //clyde's position
         Assertions.assertTrue(arena.getBlankPositions().contains(new Position(14,7))); //blinky's position
+        Assertions.assertTrue(arena.getBlankPositions().contains(new Position(2,1))); //unknown element's position
 
         String output = outputStream.toString(StandardCharsets.UTF_8);
         Assertions.assertEquals("Unknown element '*' at (2, 1)" + System.lineSeparator(), output);
