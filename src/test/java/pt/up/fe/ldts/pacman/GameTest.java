@@ -45,27 +45,29 @@ public class GameTest {
     }
 
     @Test
-    void testGetGUI(){
+    void testGetGUI() {
         assertEquals(gui, game.getGui());
     }
 
     @Test
-    void testGetInitialState(){
+    void testGetInitialState() {
         assertInstanceOf(MainMenuState.class, game.getState());
     }
 
     @Test
-    void testGetResolution(){
-        assertEquals(gui.getResolution(), game.getResolution());
+    void testGetResolution() {
+        when(gui.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._900p);
+
+        assertEquals(GUI.SCREEN_RESOLUTION._900p, game.getResolution());
     }
 
     @Test
-    void testGetAudioManager(){
+    void testGetAudioManager() {
         assertEquals(audioManager, game.getAudioManager());
     }
 
     @Test
-    void testSetState(){
+    void testSetState() {
         GameState gameState = mock(GameState.class);
         game.setState(gameState);
 
@@ -77,13 +79,13 @@ public class GameTest {
         when(gui.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
         game.setResolution(GUI.SCREEN_RESOLUTION._360p);
 
-        verify(gui, times(1)).resizeScreen(anyInt(),anyInt(),any());
+        verify(gui, times(1)).resizeScreen(anyInt(), anyInt(), any());
         assertEquals(GUI.SCREEN_RESOLUTION._360p, game.getResolution());
     }
 
     @Test
     void testInitializeMusic() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        MainMenuState mockState = new MainMenuState(mock(MainMenu.class),audioManager){
+        MainMenuState mockState = new MainMenuState(mock(MainMenu.class), audioManager) {
             @Override
             public void step(Game game, GUI gui, long frameTime) {
                 game.setState(null);
@@ -99,8 +101,10 @@ public class GameTest {
     @Test
     void testExitGame() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
         List<GUI.ACTION> actions = new ArrayList<>();
-        actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //go down
-        actions.add(GUI.ACTION.DOWN); actions.add(GUI.ACTION.DOWN); //to exit
+        actions.add(GUI.ACTION.DOWN);
+        actions.add(GUI.ACTION.DOWN); //go down
+        actions.add(GUI.ACTION.DOWN);
+        actions.add(GUI.ACTION.DOWN); //to exit
         actions.add(GUI.ACTION.SELECT); //select exit
         when(gui.getNextAction()).thenReturn(actions);
 
@@ -112,7 +116,7 @@ public class GameTest {
 
     @Test
     void testThrownException() throws IOException, URISyntaxException {
-        MainMenuState mockState = new MainMenuState(mock(MainMenu.class),audioManager){
+        MainMenuState mockState = new MainMenuState(mock(MainMenu.class), audioManager) {
             @Override
             public void step(Game game, GUI gui, long frameTime) throws IOException {
                 throw new IOException("IO exception");
@@ -129,6 +133,7 @@ public class GameTest {
         Game anotherInstance = Game.getInstance(gui, audioManager);
         assertSame(game, anotherInstance);
     }
+
     @Test
     void testStartGameLoop() throws IOException, InterruptedException, FontFormatException, URISyntaxException {
         State mockState = mock(State.class);
