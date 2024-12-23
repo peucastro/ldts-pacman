@@ -12,7 +12,7 @@ public abstract class GhostMovementBehaviour {
             case ALIVE -> getAlivePosition(ghost, arena, targetPacman, chaseMode);
             case DEAD -> arena.getGhostGate().getPosition();
             case SCARED ->
-                    (ghost.isInsideGate() ? getAlivePosition(ghost, arena, targetPacman, chaseMode) : new Position((int) (Math.random() * 20), (int) (Math.random() * 20)));
+                    (ghost.isInsideGate() ? getAlivePosition(ghost, arena, targetPacman, chaseMode) : new Position((int) (Math.random() * 29), (int) (Math.random() * 16)));
         };
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class PacmanControllerTest {
@@ -100,6 +101,16 @@ public class PacmanControllerTest {
     }
 
     @Test
+    void testSpeed(){
+        when(pacman.getSpeed()).thenReturn(Arena.PACMAN_NORMAL_SPEED);
+
+        pacmanController.step(game, List.of(), 0); //will move
+        pacmanController.step(game, List.of(), 1); // will not move
+
+        verify(pacman, times(1)).getCounter();
+    }
+
+    @Test
     void testPacmanDoesNotMoveWhenDying() {
         // Setup mock behavior for position and direction
         Position initialPosition = new Position(5, 5);
@@ -158,6 +169,35 @@ public class PacmanControllerTest {
         else assertEquals(Direction.LEFT, desiredDirections.getFirst());
     }
 
+    @Test
+    void testPacmanDoesNotMoveWhenCollidingWithAnotherPacman() {
+        Pacman otherPacman = mock(Pacman.class); // Mock the other Pacman
+        Position pacmanPosition = new Position(5, 5);
+        Position otherPacmanPosition = new Position(6, 5);
+        Position nextPosition = new Position(6, 5);
+
+        when(arena.getPacmans()).thenReturn(List.of(pacman, otherPacman));
+        when(pacman.getPosition()).thenReturn(pacmanPosition);
+        when(pacman.getCounter()).thenReturn(0);
+        when(pacman.getSpeed()).thenReturn(1);
+        when(pacman.getNextPosition()).thenReturn(nextPosition);
+
+        when(otherPacman.getPosition()).thenReturn(otherPacmanPosition);
+        when(otherPacman.getSpeed()).thenReturn(1);
+        when(otherPacman.getNextPosition()).thenReturn(otherPacmanPosition);
+        when(otherPacman.collidingWith(any())).thenAnswer(invocation -> {
+            Pacman other = invocation.getArgument(0);
+            return otherPacmanPosition.equals(other.getPosition());
+        });
+
+        when(arena.isEmpty(any())).thenReturn(true);
+
+        pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
+
+        verify(pacman, never()).setDirection(Direction.RIGHT);
+    }
+
+
     @Property
     void testNotMovingThroughWalls(@ForAll("arenas") Arena arena2, @ForAll("positions") Position startPosition, @ForAll("actions") GUI.ACTION action) {
         Pacman realpacman = new Pacman(new Position(startPosition));
@@ -184,6 +224,34 @@ public class PacmanControllerTest {
             assertEquals(startPosition, realpacman.getPosition());
         }
     }
+
+    @Test
+    void testPacmanDoesNotMoveIntoGhostGate() {
+        when(pacman.getPosition()).thenReturn(new Position(5, 5));
+        when(pacman.getDirection()).thenReturn(Direction.UP);
+        when(pacman.getSpeed()).thenReturn(1);
+        when(pacman.getCounter()).thenReturn(0);
+        when(arena.isEmpty(any())).thenReturn(true);
+        when(arena.getGhostGate().getPosition()).thenReturn(new Position(6, 5));
+
+        pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
+
+        verify(pacman, never()).setDirection(Direction.RIGHT);
+    }
+
+    @Test
+    void testTimeAndSpeedBoundaryConditions() {
+        when(pacman.getSpeed()).thenReturn(2);
+        when(pacman.getPosition()).thenReturn(new Position(5,5));
+        when(pacman.getCounter()).thenReturn(1);
+
+        pacmanController.step(game, List.of(GUI.ACTION.UP), 1);
+        verify(pacman, never()).incrementCounter();
+
+        pacmanController.step(game, List.of(GUI.ACTION.UP), 4);
+        verify(pacman).incrementCounter();
+    }
+
 
     @Provide
     Arbitrary<Position> positions() {

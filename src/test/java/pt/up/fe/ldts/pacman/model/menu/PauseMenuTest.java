@@ -79,4 +79,16 @@ class PauseMenuTest {
         pauseMenu.setSelectedOption(0);
         assertFalse(pauseMenu.ExitSelected());
     }
+
+    @Test
+    void testSetResolution() {
+        pauseMenu.setResolution(GUI.SCREEN_RESOLUTION._1440p);
+        assertEquals("Resolution: 1440p", pauseMenu.getOptions().get(1).getText());
+    }
+
+    @Test
+    void testSetMasterVolume() {
+        pauseMenu.setMasterVolume(0.7f);
+        assertEquals("Master Volume: 7", pauseMenu.getOptions().get(2).getText());
+    }
 }

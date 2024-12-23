@@ -31,7 +31,6 @@ public class MainMenu extends Menu implements MenuOptions {
         pacman = new Pacman(new Position(14, 4));
 
         blinky = new Blinky(new Position(7, 4));
-        blinky.setDirection(Direction.LEFT);
         inky = new Inky(new Position(5, 8));
         inky.setDirection(Direction.DOWN);
         pinky = new Pinky(new Position(21, 13));

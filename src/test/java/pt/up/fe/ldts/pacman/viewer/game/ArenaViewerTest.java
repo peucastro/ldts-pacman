@@ -62,6 +62,7 @@ class ArenaViewerTest {
         verify(mockGUI, times(5)).drawImage(any(), (BufferedImage) any());
         //7 times for the score + 7 times for the lives = 14
         verify(mockGUI, times(14)).drawCharacter(any(),any(),any());
+        for (Position position : arena.getBlankPositions()) verify(mockGUI).erase(new Position(position.getX()*11,position.getY()*11));
     }
 
     @Test
@@ -81,6 +82,7 @@ class ArenaViewerTest {
         verify(mockGUI, times(6)).drawImage(any(), (BufferedImage) any());
         //7 times for the score + 9*2 times for the lives of each player = 25
         verify(mockGUI, times(25)).drawCharacter(any(),any(),any());
+        for (Position position : arena.getBlankPositions()) verify(mockGUI).erase(new Position(position.getX()*11,position.getY()*11));
     }
 
 }

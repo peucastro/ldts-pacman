@@ -44,9 +44,10 @@ public class GhostControllerTest {
         when(arena.getGhosts()).thenReturn(Set.of(ghost));
         when(arena.isEmpty(any())).thenReturn(true);
         when(arena.getGhostGate().getPosition()).thenReturn(new Position(10, 10));
+        when(arena.getWidth()).thenReturn(20);
+        when(arena.getHeight()).thenReturn(20);
 
         when(ghost.getPosition()).thenReturn(new Position(5, 5));
-        when(ghost.getDirection()).thenReturn(Direction.UP);
         when(ghost.getCounter()).thenReturn(0);
         when(ghost.getSpeed()).thenReturn(1);
 
@@ -59,6 +60,42 @@ public class GhostControllerTest {
 
         verify(ghost).setDirection(any(Direction.class));
         verify(ghost).incrementCounter();
+    }
+
+    @Test
+    void testInvalidDirections(){
+        ghost = new Blinky(new Position(3,1));
+        ghost.setDirection(Direction.DOWN);
+        ghost.setSpeed(1);
+        ghost.setOutsideGate();
+        Pacman pacman = new Pacman(new Position(3,0));
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        when(arena.getPacmans()).thenReturn(List.of(pacman));
+        ghostController = new GhostController(arena);
+
+        ghostController.step(game, null, 0);
+
+        //even though moving up is closer, ghost cannot invert direction
+        //even though right and left are at the same distance from pacman, right takes priority
+        assertEquals(Direction.RIGHT, ghost.getDirection());
+    }
+
+    @Test
+    void testCannotMoveToGateWhileAlive(){
+        ghost = new Blinky(new Position(3,2));
+        ghost.setDirection(Direction.DOWN);
+        ghost.setSpeed(1);
+        ghost.setOutsideGate();
+        Pacman pacman = new Pacman(new Position(3,0));
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        when(arena.getPacmans()).thenReturn(List.of(pacman));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(3,1)));
+        ghostController = new GhostController(arena);
+
+        ghostController.step(game, null, 0);
+
+        //even though moving up is closer, ghost cannot move to the ghost gate if outside and alive
+        assertNotEquals(Direction.UP, ghost.getDirection());
     }
 
     @Test
@@ -75,29 +112,66 @@ public class GhostControllerTest {
 
     @Test
     void testTargetPacmanSwitchInMultiplayer() throws IllegalAccessException, NoSuchFieldException {
-        Pacman pacman1 = mock(Pacman.class);
-        Pacman pacman2 = mock(Pacman.class);
+        Pacman pacman1 = new Pacman(new Position(0,0));
+        Pacman pacman2 = new Pacman(new Position(2,0));
         when(arena.getPacmans()).thenReturn(Arrays.asList(pacman1, pacman2));
-        when(pacman1.isDying()).thenReturn(false);
-        when(pacman2.isDying()).thenReturn(false);
+        ghost = new Blinky(new Position(1,0));
+        ghost.setOutsideGate();
+        ghost.setDirection(Direction.DOWN);
+        ghost.setSpeed(1);
+        ghost.setCounter(0);
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        ghostController = new GhostController(arena);
 
-        GhostMovementBehaviour ghostMovementBehaviour = mock(GhostMovementBehaviour.class);
-        Position targetPosition = new Position(7, 7);
-        when(ghostMovementBehaviour.getTargetPosition(any(), any(), any(), anyBoolean())).thenReturn(targetPosition);
-
-        GhostController ghostController = new GhostController(arena);
-        Field privateField = GhostController.class.getDeclaredField("movementBehaviours");
+        Field privateField = GhostController.class.getDeclaredField("frameCount");
         privateField.setAccessible(true);
-        privateField.set(ghostController, Map.of(
-                Blinky.class, ghostMovementBehaviour,
-                Pinky.class, ghostMovementBehaviour,
-                Inky.class, ghostMovementBehaviour,
-                Clyde.class, ghostMovementBehaviour
-        ));
 
-        ghostController.step(game, List.of(), 0);
+        privateField.set(ghostController,3999);
 
-        verify(ghostMovementBehaviour).getTargetPosition(any(), any(), any(), anyBoolean());
+        ghostController.step(game, null, 0);
+
+        //blinky will follow the first pacman
+        assertEquals(Direction.LEFT, ghost.getDirection());
+
+        ghost.setCounter(0);
+        ghost.setDirection(Direction.DOWN);
+        ghostController.step(game, null, 0);
+
+        //blinky will follow the second pacman
+        assertEquals(Direction.RIGHT, ghost.getDirection());
+
+
+        Field privateField2 = GhostController.class.getDeclaredField("targetPacman");
+        privateField2.setAccessible(true);
+        privateField2.set(ghostController,0);
+        pacman2.setDying(true);
+        ghost.setCounter(0);
+        ghost.setDirection(Direction.DOWN);
+        privateField.set(ghostController,3999);
+
+        ghostController.step(game, null, 0);
+
+        //blinky will follow the first pacman
+        assertEquals(Direction.LEFT, ghost.getDirection());
+
+        ghost.setCounter(0);
+        ghost.setDirection(Direction.DOWN);
+        ghostController.step(game, null, 0);
+
+        //blinky will follow the first pacman again since the second is dead
+        assertEquals(Direction.LEFT, ghost.getDirection());
+    }
+
+    @Test
+    void testGhostSpeed(){
+        when(ghost.getSpeed()).thenReturn(Arena.GHOST_NORMAL_SPEED);
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        ghostController = new GhostController(arena);
+
+        ghostController.step(game, null, 0); //will move
+        ghostController.step(game, null, 1); //will not move
+
+        verify(ghost, times(1)).incrementCounter();
     }
 
     @Test
@@ -137,10 +211,9 @@ public class GhostControllerTest {
         }
     }
 
+
     @Test
     void ghostLeavesGhostGate(){
-        //GhostGate ghostGate = new GhostGate(new Position(10,10));
-        //when(arena.getGhostGate()).thenReturn(ghostGate);
         Blinky blinky = new Blinky(new Position(10,11));
         blinky.setCounter(10); //blinky is one intermediate position away from the ghost gate
         blinky.setDirection(Direction.UP);
@@ -151,6 +224,80 @@ public class GhostControllerTest {
         ghostController.step(game, List.of(), 0); //as counter = 0, blinky leave the ghost box and decides on the next direction
 
         assertFalse(blinky.isInsideGate());
+    }
+
+    @Test
+    void testChaseModeCondition() throws NoSuchFieldException, IllegalAccessException {
+        ghost = new Pinky(new Position(1,0));
+        ghost.setDirection(Direction.DOWN);
+        ghost.setSpeed(1);
+        ghost.setOutsideGate();
+        Pacman pacman = new Pacman(new Position(3,0));
+        pacman.setDirection(Direction.RIGHT);
+        when(arena.getGhosts()).thenReturn(Set.of(ghost));
+        when(arena.getPacmans()).thenReturn(List.of(pacman));
+        ghostController = new GhostController(arena);
+
+        Field privateField = GhostController.class.getDeclaredField("frameCount");
+        privateField.setAccessible(true);
+
+
+        privateField.set(ghostController, 449); //scatter mode
+        ghostController.step(game, null, 0);
+
+        assertEquals(Direction.LEFT, ghost.getDirection());//pinky scatters to the left
+
+        ghost.setCounter(0);
+        ghostController.step(game, null, 0);//goes into chase mode
+
+        assertEquals(Direction.RIGHT, ghost.getDirection());//pinky chases pacman to the right
+
+
+        ghost.setCounter(0);
+        ghost.setDirection(Direction.DOWN);
+        privateField.set(ghostController, 2699); //chase mode
+        ghostController.step(game, null, 0);
+
+        assertEquals(Direction.RIGHT, ghost.getDirection());//pinky chases pacman to the right
+
+        ghost.setCounter(0);
+        ghost.setDirection(Direction.DOWN);
+        ghostController.step(game, null, 0);//goes into chase mode
+
+        assertEquals(Direction.LEFT, ghost.getDirection());//pinky scatters to the left
+
+        privateField.set(ghostController, 3199); //scatter mode
+        ghostController.step(game, null, 0);
+
+        assertEquals(Direction.LEFT, ghost.getDirection());//pinky scatters to the left
+
+        ghost.setCounter(0);
+        ghostController.step(game, null, 0);//goes into chase mode
+
+        assertEquals(Direction.RIGHT, ghost.getDirection());//pinky chases pacman to the right
+    }
+
+    @Test
+    void testGhostChangesDirectionWhenBlockedByWall() {
+        when(arena.isEmpty(any(Position.class))).thenReturn(false);
+
+        when(ghost.getPosition()).thenReturn(new Position(5, 5));
+        when(ghost.getCounter()).thenReturn(0);
+
+        ghostController.step(game, List.of(), 0);
+
+        verify(ghost, never()).setPosition(any(Position.class));
+
+        assertNotEquals(Direction.UP, ghost.getDirection());
+    }
+
+    @Test
+    void testGhostSpeedWhenRevived() {
+        when(ghost.isDead()).thenReturn(true);
+        when(ghost.getPosition()).thenReturn(new Position(10,10));
+        ghostController.step(game, List.of(), 0);
+
+        verify(ghost).setSpeed(Arena.GHOST_NORMAL_SPEED);
     }
 
     @BeforeTry
