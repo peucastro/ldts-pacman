@@ -90,14 +90,14 @@ public class PacmanControllerTest {
     void testPacmanMovesWhenItCan(){
         when(arena.getWalls()).thenReturn(Set.of()); //no walls
         when(arena.isEmpty(any())).thenReturn(true);
-        pacman = new Pacman(new Position(10,10));
-        pacman.setSpeed(1); //max speed possible
-        pacman.setCounter(0);
-        when(arena.getPacmans()).thenReturn(List.of(pacman));
+        Pacman realpacman = new Pacman(new Position(10,10));
+        realpacman.setSpeed(1); //max speed possible
+        realpacman.setCounter(0);
+        when(arena.getPacmans()).thenReturn(List.of(realpacman));
 
         pacmanController.step(game, List.of(), 0);
 
-        assertEquals(1, pacman.getCounter()); //assert pacman moves one intermediate position
+        assertEquals(1, realpacman.getCounter()); //assert pacman moves one intermediate position
     }
 
     @Test
@@ -200,9 +200,9 @@ public class PacmanControllerTest {
 
     @Property
     void testNotMovingThroughWalls(@ForAll("arenas") Arena arena2, @ForAll("positions") Position startPosition, @ForAll("actions") GUI.ACTION action) {
-        pacman = new Pacman(new Position(startPosition));
-        pacman.setCounter(0);
-        pacman.setDirection(switch (action){
+        Pacman realpacman = new Pacman(new Position(startPosition));
+        realpacman.setCounter(0);
+        realpacman.setDirection(switch (action){
             case UP -> Direction.UP;
             case RIGHT -> Direction.RIGHT;
             case DOWN -> Direction.DOWN;
@@ -210,8 +210,8 @@ public class PacmanControllerTest {
             case null, default -> null;
         });
         arena2.getPacmans().clear(); //remove all pacmans that existed before this test
-        arena2.addPacman(pacman);
-        Position expectedPosition = pacman.getNextPosition();
+        arena2.addPacman(realpacman);
+        Position expectedPosition = realpacman.getNextPosition();
         pacmanController = new PacmanController(arena2);
 
         for(int i = 0; i < 11; ++i) {
@@ -221,7 +221,7 @@ public class PacmanControllerTest {
 
         //if the next position is not empty then pacman should not move
         if (!arena2.isEmpty(expectedPosition) || arena2.getGhostGate().getPosition().equals(expectedPosition)) {
-            assertEquals(startPosition, pacman.getPosition());
+            assertEquals(startPosition, realpacman.getPosition());
         }
     }
 
@@ -232,7 +232,7 @@ public class PacmanControllerTest {
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getCounter()).thenReturn(0);
         when(arena.isEmpty(any())).thenReturn(true);
-        when(arena.getGhostGate().getPosition()).thenReturn(new Position(6, 5));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(6, 5)));
 
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
