@@ -77,7 +77,7 @@ The system is composed of the following key components:
 - **Code References:**
     - [Pacman Model](/src/main/java/pt/up/fe/ldts/pacman/model/game/element/pacman/Pacman.java)
     - [Pacman Viewer](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/MovableElementViewer.java)
-    - [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/pacman/PacmanController.java)
+    - [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/PacmanController.java)
 
 - **UML diagram:**
   // TODO
@@ -174,7 +174,8 @@ The system is composed of the following key components:
     - **Liabilities:** Slightly increased complexity due to additional interfaces/classes.
 
 - **Code References:**
-    - [GhostController Strategies](./src/controller/GhostController.java)
+    - [Bliky movement Strategy](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/behaviours/BlinkyMovementBehaviour.java)
+    - [Pacman viewer Strategy](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/strategies/PacmanStrategy.java)
 
 - **UML diagram:**  
   // TODO
