@@ -15,7 +15,7 @@ class MainMenuTest {
 
     @BeforeEach
     void setUp() {
-        mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._900p, 0);
+        mainMenu = new MainMenu(GUI.SCREEN_RESOLUTION._1080p, 0);
     }
 
     @Test
@@ -24,7 +24,7 @@ class MainMenuTest {
         assertEquals(5, options.size());
         assertEquals("Single player", options.get(0).getText());
         assertEquals("Multi player", options.get(1).getText());
-        assertEquals("Resolution: 900p", options.get(2).getText());
+        assertEquals("Resolution: 1080p", options.get(2).getText());
         assertEquals("Master Volume: 0", options.get(3).getText());
         assertEquals("Exit", options.get(4).getText());
 

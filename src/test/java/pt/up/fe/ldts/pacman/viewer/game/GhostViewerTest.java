@@ -93,7 +93,7 @@ class GhostViewerTest {
         Ghost ghost = new Blinky(new Position(0,0));
         ghost.setDirection(Direction.RIGHT);
 
-        BufferedImage obtainedImage1 = ghostStrategy.getCurrentImage(ghost, images, 0); //animation frame 1
+        BufferedImage obtainedImage1 = ghostStrategy.getCurrentImage(ghost, images, 5); //animation frame 1
         BufferedImage obtainedImage2 = ghostStrategy.getCurrentImage(ghost, images, 10); //animation frame 2
 
         assertEquals(frame1, obtainedImage1);

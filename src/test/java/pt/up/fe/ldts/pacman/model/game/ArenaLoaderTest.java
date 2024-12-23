@@ -26,7 +26,7 @@ public class ArenaLoaderTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        arenaLoader.loadMap("src/main/resources/Maps/testmap.txt");
+        arenaLoader.loadMap("src/test/resources/Maps/testmap.txt");
 
         Assertions.assertEquals(new Position(14, 13), arena.getPacmans().getFirst().getPosition());
         Assertions.assertNotNull(arena.getPacmans().getFirst().getRespawnPosition());

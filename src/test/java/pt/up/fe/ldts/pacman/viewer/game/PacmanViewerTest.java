@@ -71,7 +71,7 @@ class PacmanViewerTest {
         Pacman pacman = new Pacman(new Position(0,0));
         pacman.setDirection(Direction.RIGHT);
 
-        BufferedImage obtainedImage1 = pacmanStrategy.getCurrentImage(pacman, images, 0); //pacman has mouth open
+        BufferedImage obtainedImage1 = pacmanStrategy.getCurrentImage(pacman, images, 5); //pacman has mouth open
         BufferedImage obtainedImage2 = pacmanStrategy.getCurrentImage(pacman, images, 10); //pacman has mouth closed
 
         assertEquals(pacmanRight, obtainedImage1);
