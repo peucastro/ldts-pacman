@@ -187,7 +187,7 @@ public class GameTest {
     }
 
     @Test
-    void testMasterVolumeSetAtInitialization() throws IOException, URISyntaxException, FontFormatException {
+    void testMasterVolumeSetAtInitialization() {
         verify(audioManager, times(1)).setMasterVolume(1f);
     }
 
@@ -237,7 +237,7 @@ public class GameTest {
     }
 
     @Test
-    void testGameLoopUpdate() throws NoSuchFieldException, InterruptedException, IllegalAccessException {
+    void testGameLoopUpdate() throws InterruptedException {
         GameLoop gameLoop = new GameLoop(100); //only 10 milliseconds per frame
 
         long start = System.currentTimeMillis();
@@ -267,6 +267,48 @@ public class GameTest {
         assertEquals((long) 2, gameLoop.getFrameCount()); //assert the frame count was incremented
         assertTrue(10 <= timeEllapsed); //frame was too fast so it got delayed
     }
+
+    @Test
+    void testAudioPlayerSetVolumeAndPlayInLoop() throws Exception {
+        AudioManager mockAudioManager = mock(AudioManager.class);
+        Field audioManagerField = Game.class.getDeclaredField("audioManager");
+        audioManagerField.setAccessible(true);
+        audioManagerField.set(game, mockAudioManager);
+
+        Method initializeMusicMethod = Game.class.getDeclaredMethod("initializeMusic");
+        initializeMusicMethod.setAccessible(true);
+        AudioPlayer result = (AudioPlayer) initializeMusicMethod.invoke(game);
+
+        verify(mockAudioManager, times(1)).setMainMusic(result);
+
+        assertNotNull(result);
+        assertEquals(0.05f, result.getVolume(), 0.01f);
+        assertTrue(result.isPlaying());
+    }
+
+    @Test
+    void testFrameCountIncrementsCorrectly() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        for (int i = 0; i < 5; i++) {
+            gameLoop.update(mockLogic);
+        }
+
+        assertEquals(5, gameLoop.getFrameCount());
+    }
+
+    @Test
+    void testGameLoopTimingWithSubtraction() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+
+        long startTime = System.currentTimeMillis();
+        gameLoop.update(() -> {});
+        long elapsedTime = System.currentTimeMillis() - startTime;
+
+        assertTrue(elapsedTime >= 16); // Ensures at least 16 ms (60 FPS)
+    }
+
 
 
 }
