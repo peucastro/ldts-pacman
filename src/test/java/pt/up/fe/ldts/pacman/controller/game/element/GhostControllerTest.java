@@ -5,7 +5,6 @@ import net.jqwik.api.lifecycle.BeforeTry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
-import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.controller.game.element.behaviours.GhostMovementBehaviour;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
@@ -49,7 +48,6 @@ public class GhostControllerTest {
         when(arena.getHeight()).thenReturn(20);
 
         when(ghost.getPosition()).thenReturn(new Position(5, 5));
-        when(ghost.getDirection()).thenReturn(Direction.UP);
         when(ghost.getCounter()).thenReturn(0);
         when(ghost.getSpeed()).thenReturn(1);
 
@@ -277,6 +275,29 @@ public class GhostControllerTest {
         ghostController.step(game, null, 0);//goes into chase mode
 
         assertEquals(Direction.RIGHT, ghost.getDirection());//pinky chases pacman to the right
+    }
+
+    @Test
+    void testGhostChangesDirectionWhenBlockedByWall() {
+        when(arena.isEmpty(any(Position.class))).thenReturn(false);
+
+        when(ghost.getPosition()).thenReturn(new Position(5, 5));
+        when(ghost.getCounter()).thenReturn(0);
+
+        ghostController.step(game, List.of(), 0);
+
+        verify(ghost, never()).setPosition(any(Position.class));
+
+        assertNotEquals(Direction.UP, ghost.getDirection());
+    }
+
+    @Test
+    void testGhostSpeedWhenRevived() {
+        when(ghost.isDead()).thenReturn(true);
+        when(ghost.getPosition()).thenReturn(new Position(10,10));
+        ghostController.step(game, List.of(), 0);
+
+        verify(ghost).setSpeed(Arena.GHOST_NORMAL_SPEED);
     }
 
     @BeforeTry
