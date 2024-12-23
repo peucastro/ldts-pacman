@@ -11,7 +11,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 ### Game demonstration
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/singleplayer.gif"/>
+  <img src="docs/resources/screenshots/gameplays/singleplayer.gif"/>
 </p>
 <p align="center">
   <b><i>Gif 1. Single player demonstration</i></b>
@@ -19,7 +19,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 <br/>
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/multiplayer.gif"/>
+  <img src="docs/resources/screenshots/gameplays/multiplayer.gif"/>
 </p>
 <p align="center">
   <b><i>Gif 2. Multiplayer demonstration</i></b>
@@ -29,7 +29,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 ### Menus
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/mainmenu.gif"/>
+  <img src="docs/resources/screenshots/menus/mainmenu.gif"/>
 </p>
 <p align="center">
   <b><i>Gif 3. Main menu</i></b>
@@ -37,7 +37,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 <br/>
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/pausemenu.png"/>
+  <img src="docs/resources/screenshots/menus/pausemenu.png"/>
 </p>
 <p align="center">
   <b><i>Fig 1. Pause menu</i></b>
@@ -65,7 +65,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 ### End game
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/youwin.png"/>
+  <img src="docs/resources/screenshots/endgame/youwin.png"/>
 </p>
 <p align="center">
   <b><i>Fig 2. Win message</i></b>
@@ -73,7 +73,7 @@ For a more detailed version of this description click [here](./docs/README.md).
 <br/>
 
 <p align="center" justify="center">
-  <img src="docs/resources/screenshots/youlose.png"/>
+  <img src="docs/resources/screenshots/endgame/youlose.png"/>
 </p>
 <p align="center">
   <b><i>Fig 3. Lost message</i></b>
