@@ -14,6 +14,8 @@ import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameTest {
+    private AudioPlayer mainMusic;
     private static Game game;
     private AudioManager audioManager;
     private LanternaGUI gui;
@@ -92,6 +95,14 @@ public class GameTest {
                 game.setState(null);
             }
         };
+
+        doAnswer(invocationOnMock -> {
+            mainMusic = invocationOnMock.getArgument(0);
+            assertEquals(0.05f, mainMusic.getVolume()); //assert the volume was set
+            assertTrue(mainMusic.isPlaying()); //assert main music is playing
+            return null;
+        }).when(audioManager).setMainMusic(any());
+
         game.setState(mockState);
 
         Game.main(gui, audioManager);
@@ -151,17 +162,28 @@ public class GameTest {
     }
 
     @Test
-    void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+    void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         State mockState = mock(State.class);
         game.setState(mockState);
+        mainMusic = mock(AudioPlayer.class);
+
         doAnswer(invocation -> {
             game.setState(null);
             return null;
         }).when(mockState).step(any(), any(), anyLong());
 
+        Method privateMethod = Game.class.getDeclaredMethod("cleanup", AudioPlayer.class);
+        privateMethod.setAccessible(true);
+
+
         Game.main(gui, audioManager);
 
         verify(gui, times(1)).close();
+
+
+        privateMethod.invoke(game, mainMusic);
+
+        verify(mainMusic).stopPlaying();
     }
 
     @Test
@@ -188,6 +210,58 @@ public class GameTest {
 
         long elapsed = endTime - startTime;
         assertTrue(elapsed >= 16);
+    }
+
+    @Test
+    void testGameLoopInitialState() throws NoSuchFieldException, IllegalAccessException {
+        Field privateField1 = GameLoop.class.getDeclaredField("frameCount");
+        privateField1.setAccessible(true);
+        Field privateField2 = GameLoop.class.getDeclaredField("frameTime");
+        privateField2.setAccessible(true);
+
+        GameLoop gameLoop = new GameLoop(60);
+        Long frameCount = (Long) privateField1.get(gameLoop);
+        Long frameTime = (Long) privateField2.get(gameLoop);
+
+        assertEquals(0,frameCount);
+        assertEquals(1000/60, frameTime);
+    }
+
+    @Test
+    void testGameLoopUpdate() throws NoSuchFieldException, InterruptedException, IllegalAccessException {
+        Field privateField1 = GameLoop.class.getDeclaredField("frameCount");
+        privateField1.setAccessible(true);
+        Field privateField2 = GameLoop.class.getDeclaredField("frameTime");
+        privateField2.setAccessible(true);
+
+        GameLoop gameLoop = new GameLoop(100); //only 10 milliseconds per frame
+
+        long start = System.currentTimeMillis();
+        gameLoop.update(() -> {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        long timeEllapsed = System.currentTimeMillis() - start;
+
+
+        assertEquals((long) 1,  privateField1.get(gameLoop)); //assert the frame count was incremented
+        assertTrue(10 < timeEllapsed); //frame took too long
+
+        start = System.currentTimeMillis();
+        gameLoop.update(() -> {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        timeEllapsed = System.currentTimeMillis() - start;
+
+        assertEquals((long) 2, privateField1.get(gameLoop)); //assert the frame count was incremented
+        assertTrue(10 <= timeEllapsed); //frame was too fast so it got delayed
     }
 
 
