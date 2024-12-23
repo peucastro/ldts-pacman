@@ -44,11 +44,31 @@ For a more detailed version of this description click [here](./docs/README.md).
 </p>
 <br/>
 
+### Levels
+
+<p align="center" justify="center">
+  <img src="docs/resources/screenshots/levels/spirals.gif"/>
+</p>
+<p align="center">
+  <b><i>Gif 4. Spirals</i></b>
+</p>
+<br/>
+
+<p align="center" justify="center">
+  <img src="docs/resources/screenshots/levels/finalboss.gif"/>
+</p>
+<p align="center">
+  <b><i>Gif 5. Final boss</i></b>
+</p>
+<br/>
+
+### End game
+
 <p align="center" justify="center">
   <img src="docs/resources/screenshots/youwin.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 2. Win menu</i></b>
+  <b><i>Fig 2. Win message</i></b>
 </p>
 <br/>
 
@@ -56,7 +76,7 @@ For a more detailed version of this description click [here](./docs/README.md).
   <img src="docs/resources/screenshots/youlose.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 3. Lose menu</i></b>
+  <b><i>Fig 3. Lost message</i></b>
 </p>
 <br/>
 
