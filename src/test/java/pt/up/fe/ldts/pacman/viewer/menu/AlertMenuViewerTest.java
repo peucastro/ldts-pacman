@@ -87,6 +87,7 @@ public class AlertMenuViewerTest {
         verify(mockGUI, times(29*16 - 5 - 2)).drawImage(any(),(BasicTextImage) any());
         //erase the movable elements' positions and the empty spaces
         verify(mockGUI, times(5 + 2)).erase(any());
+        for (Position position : arena.getBlankPositions()) verify(mockGUI).erase(new Position(position.getX()*11,position.getY()*11));
     }
 
     @Test
@@ -114,5 +115,6 @@ public class AlertMenuViewerTest {
         verify(mockGUI, times(29*16 - 6 - 2)).drawImage(any(),(BasicTextImage) any());
         //erase the movable elements' positions and the empty spaces
         verify(mockGUI, times(6 + 2)).erase(any());
+        for (Position position : arena.getBlankPositions()) verify(mockGUI).erase(new Position(position.getX()*11,position.getY()*11));
     }
 }
