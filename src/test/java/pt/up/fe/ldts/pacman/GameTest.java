@@ -192,6 +192,18 @@ public class GameTest {
     }
 
     @Test
+    void testGameLoopGetFrameCount() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        assertEquals(0, gameLoop.getFrameCount());
+
+        gameLoop.update(mockLogic);
+
+        assertEquals(1, gameLoop.getFrameCount());
+    }
+
+    @Test
     void testGameLoopRunnableExecution() throws InterruptedException {
         GameLoop gameLoop = new GameLoop(60);
         Runnable mockLogic = mock(Runnable.class);
@@ -214,26 +226,18 @@ public class GameTest {
 
     @Test
     void testGameLoopInitialState() throws NoSuchFieldException, IllegalAccessException {
-        Field privateField1 = GameLoop.class.getDeclaredField("frameCount");
-        privateField1.setAccessible(true);
-        Field privateField2 = GameLoop.class.getDeclaredField("frameTime");
-        privateField2.setAccessible(true);
+        Field privateField = GameLoop.class.getDeclaredField("frameTime");
+        privateField.setAccessible(true);
 
         GameLoop gameLoop = new GameLoop(60);
-        Long frameCount = (Long) privateField1.get(gameLoop);
-        Long frameTime = (Long) privateField2.get(gameLoop);
+        Long frameTime = (Long) privateField.get(gameLoop);
 
-        assertEquals(0,frameCount);
+        assertEquals(0, gameLoop.getFrameCount());
         assertEquals(1000/60, frameTime);
     }
 
     @Test
     void testGameLoopUpdate() throws NoSuchFieldException, InterruptedException, IllegalAccessException {
-        Field privateField1 = GameLoop.class.getDeclaredField("frameCount");
-        privateField1.setAccessible(true);
-        Field privateField2 = GameLoop.class.getDeclaredField("frameTime");
-        privateField2.setAccessible(true);
-
         GameLoop gameLoop = new GameLoop(100); //only 10 milliseconds per frame
 
         long start = System.currentTimeMillis();
@@ -247,7 +251,7 @@ public class GameTest {
         long timeEllapsed = System.currentTimeMillis() - start;
 
 
-        assertEquals((long) 1,  privateField1.get(gameLoop)); //assert the frame count was incremented
+        assertEquals((long) 1,  gameLoop.getFrameCount()); //assert the frame count was incremented
         assertTrue(10 < timeEllapsed); //frame took too long
 
         start = System.currentTimeMillis();
@@ -260,7 +264,7 @@ public class GameTest {
         });
         timeEllapsed = System.currentTimeMillis() - start;
 
-        assertEquals((long) 2, privateField1.get(gameLoop)); //assert the frame count was incremented
+        assertEquals((long) 2, gameLoop.getFrameCount()); //assert the frame count was incremented
         assertTrue(10 <= timeEllapsed); //frame was too fast so it got delayed
     }
 
