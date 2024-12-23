@@ -101,6 +101,16 @@ public class PacmanControllerTest {
     }
 
     @Test
+    void testSpeed(){
+        when(pacman.getSpeed()).thenReturn(Arena.PACMAN_NORMAL_SPEED);
+
+        pacmanController.step(game, List.of(), 0); //will move
+        pacmanController.step(game, List.of(), 1); // will not move
+
+        verify(pacman, times(1)).getCounter();
+    }
+
+    @Test
     void testPacmanDoesNotMoveWhenDying() {
         // Setup mock behavior for position and direction
         Position initialPosition = new Position(5, 5);

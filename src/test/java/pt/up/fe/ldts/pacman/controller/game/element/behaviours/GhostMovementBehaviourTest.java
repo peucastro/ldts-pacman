@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Ghost;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.GhostState;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
@@ -59,7 +60,7 @@ class GhostMovementBehaviourTest {
         when(ghost.isInsideGate()).thenReturn(false);
 
         Position target = behaviour.getTargetPosition(ghost, arena, pacman, false);
-        assertTrue(target.getX() >= 0 && target.getX() < 20 && target.getY() >= 0 && target.getY() < 20);
+        assertTrue(target.getX() >= 0 && target.getX() < 29 && target.getY() >= 0 && target.getY() < 16);
     }
 
     @Test
@@ -74,5 +75,20 @@ class GhostMovementBehaviourTest {
 
         Position target = behaviour.getTargetPosition(ghost, arena, pacman, false);
         assertEquals(new Position(15, 6), target); // Scared, inside gate, defaults to Blinky's idle position
+    }
+
+    @Test
+    void testGetValidScaredPosition(){
+        GhostMovementBehaviour behaviour = new BlinkyMovementBehaviour();
+
+        ghost = new Blinky(new Position(10,10));
+        ghost.setOutsideGate();
+        ghost.setState(GhostState.SCARED);
+
+        for(int i = 0; i < 1000; ++i){
+            Position target = behaviour.getTargetPosition(ghost, arena, pacman, false);
+            assertTrue(target.getX() >= 0 && target.getX() <= 29);
+            assertTrue(target.getY() >= 0 && target.getY() <= 16);
+        }
     }
 }
