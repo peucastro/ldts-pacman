@@ -68,14 +68,16 @@ public class ElementTest {
     @Test
     void testEqualsWithDifferentClass(){
         Element element = new Coin(new Position(0,0));
-        assertNotEquals("not an Element object", element);
+        assertFalse(element.equals("not an element Ob"));
     }
 
     @Test
     void testHashCodeConsistency(){
         Element element1 = new Pacman(new Position(0,0));
         Element element2 = new Pacman(new Position(0,0));
+        Element element3 = new Pacman(new Position(1,0));
         assertEquals(element2.hashCode(), element1.hashCode());
+        assertNotEquals(element2.hashCode(), element3.hashCode());
     }
 
     @Test
