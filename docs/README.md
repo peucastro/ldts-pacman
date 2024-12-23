@@ -75,10 +75,9 @@ The system is composed of the following key components:
       components.
 
 - **Code References:**
-
-- [Pacman Model](/src/main/java/pt/up/fe/ldts/pacman/model/game/element/pacman/Pacman.java)
-- [Pacman Viewer](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/MovableElementViewer.java)
-- [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/pacman/PacmanController.java)
+    - [Pacman Model](/src/main/java/pt/up/fe/ldts/pacman/model/game/element/pacman/Pacman.java)
+    - [Pacman Viewer](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/MovableElementViewer.java)
+    - [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/pacman/PacmanController.java)
 
 - **UML diagram:**
   // TODO
@@ -101,8 +100,7 @@ The system is composed of the following key components:
     - **Liabilities:** May require optimization for complex games to avoid frame drops.
 
 - **Code References:**
-
-- [Game Loop Implementation](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
+    - [Game Loop Implementation](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
 
 - **UML diagram:**
   // TODO
@@ -126,9 +124,8 @@ The system is composed of the following key components:
     - **Liabilities:** Limited flexibility in testing (mocking requires additional effort).
 
 - **Code References:**
-
-- [Game Singleton](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
-- [AudioManager Singleton](/src/main/java/pt/up/fe/ldts/pacman/audio/AudioManager.java)
+    - [Game Singleton](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
+    - [AudioManager Singleton](/src/main/java/pt/up/fe/ldts/pacman/audio/AudioManager.java)
 
 - **UML diagram:**  
   // TODO
@@ -149,11 +146,10 @@ The system is composed of the following key components:
 - **Consequences:**
     - **Benefits:** Cleaner state management, easier to add or modify states.
     - **Liabilities:** Increased number of classes.
-    -
-- **Code References:**
 
-- [State Abstract Class](/src/main/java/pt/up/fe/ldts/pacman/states/State.java)
-- [MainMenuState](/src/main/java/pt/up/fe/ldts/pacman/states/menu/MainMenuState.java)
+- **Code References:**
+    - [State Abstract Class](/src/main/java/pt/up/fe/ldts/pacman/states/State.java)
+    - [MainMenuState](/src/main/java/pt/up/fe/ldts/pacman/states/menu/MainMenuState.java)
 
 - **UML diagram:**  
   // TODO
@@ -178,8 +174,7 @@ The system is composed of the following key components:
     - **Liabilities:** Slightly increased complexity due to additional interfaces/classes.
 
 - **Code References:**
-
-- [GhostController Strategies](./src/controller/GhostController.java)
+    - [GhostController Strategies](./src/controller/GhostController.java)
 
 - **UML diagram:**  
   // TODO
@@ -202,9 +197,8 @@ The system is composed of the following key components:
     - **Benefits:** Simplified API for GUI operations, improved code readability.
     - **Liabilities:** Limited flexibility for advanced users needing direct access to the library.
 
-Code References:
-
-- [LanternaGUI Facade](/src/main/java/pt/up/fe/ldts/pacman/gui/LanternaGUI.java)
+- **Code References:**
+    - [LanternaGUI Facade](/src/main/java/pt/up/fe/ldts/pacman/gui/LanternaGUI.java)
 
 - **UML diagram:**  
   // TODO
@@ -226,8 +220,7 @@ Code References:
     - **Liabilities:** Minor overhead in managing the factory class.
 
 - **Code References:**
-
-- [Viewer Factory](/src/main/java/pt/up/fe/ldts/pacman/viewer/ViewerFactory.java)
+    - [Viewer Factory](/src/main/java/pt/up/fe/ldts/pacman/viewer/ViewerFactory.java)
 
 - **UML diagram:**  
   // TODO
