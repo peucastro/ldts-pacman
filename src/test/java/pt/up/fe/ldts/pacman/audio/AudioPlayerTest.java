@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 import java.lang.reflect.Field;
 
@@ -117,5 +118,16 @@ public class AudioPlayerTest {
         audioPlayer.stopPlaying();
 
         assertFalse(audioPlayer.isPlaying());
+    }
+
+    @Test
+    void setVolumeFloatControl(){
+        FloatControl mockFloatControl = mock(FloatControl.class);
+        when(mockClip.getControl(any())).thenReturn(mockFloatControl);
+
+        audioPlayer.setVolume(0.5f);
+
+        verify(mockClip).getControl(FloatControl.Type.MASTER_GAIN);
+        verify(mockFloatControl).setValue(20f * (float) Math.log10(0.5f));
     }
 }

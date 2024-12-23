@@ -43,7 +43,6 @@ public class MainMenuController extends MenuController<MainMenu> {
                     getModel().setResolution(newResolution);
                 } else if (getModel().MasterVolumeSelected()) { //change master volume
                     float newVolume = super.handleVolumeChange(game);
-                    System.out.println("aa " + newVolume);
                     getModel().setMasterVolume(newVolume);
                 }
             }

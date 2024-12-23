@@ -166,4 +166,18 @@ public class AudioManagerTest {
         audio1.setVolume(1f);
         assertEquals(1f, audio1.getVolume());
     }
+
+    @Test
+    void testStopAudios() throws NoSuchFieldException, IllegalAccessException {
+        Field privateField = AudioManager.class.getDeclaredField("audios");
+        privateField.setAccessible(true);
+        AudioPlayer audio1 = mock(AudioPlayer.class);
+        AudioPlayer audio2 = mock(AudioPlayer.class);
+        privateField.set(audioManager, Map.of("audio1", audio1, "audio2", audio2));
+
+        audioManager.stopAllAudios();
+
+        verify(audio1).stopPlaying();
+        verify(audio2).stopPlaying();
+    }
 }
