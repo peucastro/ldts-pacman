@@ -44,6 +44,14 @@ For a more detailed version of this description click [here](./docs/README.md).
 </p>
 <br/>
 
+<p align="center" justify="center">
+  <img src="docs/resources/screenshots/menus/mapselection.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 2. Map selection</i></b>
+</p>
+<br/>
+
 ### Levels
 
 <p align="center" justify="center">
@@ -68,7 +76,7 @@ For a more detailed version of this description click [here](./docs/README.md).
   <img src="docs/resources/screenshots/endgame/youwin.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 2. Win message</i></b>
+  <b><i>Fig 3. Win message</i></b>
 </p>
 <br/>
 
@@ -76,7 +84,7 @@ For a more detailed version of this description click [here](./docs/README.md).
   <img src="docs/resources/screenshots/endgame/youlose.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 3. Lost message</i></b>
+  <b><i>Fig 4. Lost message</i></b>
 </p>
 <br/>
 
