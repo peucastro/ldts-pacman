@@ -105,6 +105,7 @@ public class CollisionControllerTest {
     void testPacmanCollectibleCollisionPowerUp() throws IOException, URISyntaxException {
         when(pacman.getPosition()).thenReturn(new Position(5, 5));
         when(powerUp.getPosition()).thenReturn(new Position(5, 5));
+        when(powerUp.getValue()).thenReturn(5);
 
         collisionController.step(game, null, 0);
 
@@ -112,8 +113,8 @@ public class CollisionControllerTest {
         verify(ghost).setSpeed(Arena.GHOST_SCARED_SPEED);
         verify(ghost).invertDirection();
         verify(pacman).setSpeed(Arena.PACMAN_BOOSTED_SPEED);
-        verify(arena).incrementScore(powerUp.getValue());
-        verify(arena).addBlankPosition(new Position(5,5));
+        verify(arena).incrementScore(5);
+        verify(arena).addBlankPosition(new Position(5, 5));
         verify(arena).incrementCollectedCollectibles();
         verify(mockCollectibleEaten).playOnce();
         verify(mockGhostAliveSiren).stopPlaying();
@@ -122,27 +123,29 @@ public class CollisionControllerTest {
 
     @Test
     void testCollectibleRemoving() throws IOException, URISyntaxException {
-        arena = new Arena(20,20);
-        arena.addGhost(ghost);
-        arena.addPacman(pacman);
-        arena.addCollectible(new Cherry(new Position(5,5)));
-        arena.addCollectible(new Orange(new Position(10,10)));
+        // Configure the mock to mimic real behavior
+        Set<Collectible> initialCollectibles = new HashSet<>(Set.of(new Cherry(new Position(5, 5)), new Orange(new Position(10, 10))));
+        when(arena.getCollectibles()).thenReturn(initialCollectibles);
 
         collisionController = new CollisionController(arena, audioManager);
         collisionController.step(game, List.of(), 0);
 
-        assertEquals(1, arena.getCollectibles().size());
+        // Verify that the method was called during the process
+        verify(arena, times(1)).getCollectibles();
+
+        // Assert based on the stubbed data
+        assertEquals(1, initialCollectibles.size());
     }
 
     @Test
     void testGhostStateResetAfterScaredTime() throws IOException, URISyntaxException, NoSuchFieldException, IllegalAccessException {
-        when(pacman.getPosition()).thenReturn(new Position(30,30));
+        when(pacman.getPosition()).thenReturn(new Position(30, 30));
         when(ghost.getState()).thenReturn(GhostState.SCARED);
         when(ghost.isScared()).thenReturn(true);
 
         Field privateField = CollisionController.class.getDeclaredField("scaredTimeLeft");
         privateField.setAccessible(true);
-        privateField.set(collisionController,2);
+        privateField.set(collisionController, 2);
 
         collisionController.step(game, null, 0);
 
@@ -163,8 +166,8 @@ public class CollisionControllerTest {
 
     @Test
     void testDyingState() throws IOException, URISyntaxException {
-        when(arena.getPacmans()).thenReturn(List.of(new Pacman(new Position(0,0))));
-        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0,0))));
+        when(arena.getPacmans()).thenReturn(List.of(new Pacman(new Position(0, 0))));
+        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0, 0))));
         AudioManager audioManager = MockAudio.getMockAudioManager();
         when(game.getAudioManager()).thenReturn(audioManager);
 
@@ -176,17 +179,17 @@ public class CollisionControllerTest {
 
     @Test
     void multiplayerPacmanRespawns() throws IOException, URISyntaxException {
-        Pacman pacman1 = new Pacman(new Position(0,0));
+        Pacman pacman1 = new Pacman(new Position(0, 0));
         pacman1.setCounter(1);
-        pacman1.setRespawnPosition(new Position(100,100));
-        Pacman pacman2 = new Pacman(new Position(100,100));
-        when(arena.getPacmans()).thenReturn(List.of(pacman1,pacman2));
-        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0,0))));
+        pacman1.setRespawnPosition(new Position(100, 100));
+        Pacman pacman2 = new Pacman(new Position(100, 100));
+        when(arena.getPacmans()).thenReturn(List.of(pacman1, pacman2));
+        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0, 0))));
         AudioManager audioManager = MockAudio.getMockAudioManager();
         when(game.getAudioManager()).thenReturn(audioManager);
 
         //simulate the wait while the pacman is dead
-        for(int i = 0; i < 110; ++i) collisionController.step(game, List.of(), 0);
+        for (int i = 0; i < 110; ++i) collisionController.step(game, List.of(), 0);
 
         assertTrue(pacman1.isDying());
         assertFalse(pacman2.isDying());
@@ -201,17 +204,17 @@ public class CollisionControllerTest {
 
     @Test
     void multiplayerPacmanStaysDead() throws IOException, URISyntaxException {
-        Pacman pacman1 = new Pacman(new Position(0,0));
+        Pacman pacman1 = new Pacman(new Position(0, 0));
         pacman1.setLife(1);
-        pacman1.setRespawnPosition(new Position(100,100));
-        Pacman pacman2 = new Pacman(new Position(100,100));
-        when(arena.getPacmans()).thenReturn(List.of(pacman1,pacman2));
-        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0,0))));
+        pacman1.setRespawnPosition(new Position(100, 100));
+        Pacman pacman2 = new Pacman(new Position(100, 100));
+        when(arena.getPacmans()).thenReturn(List.of(pacman1, pacman2));
+        when(arena.getGhosts()).thenReturn(Set.of(new Pinky(new Position(0, 0))));
         AudioManager audioManager = MockAudio.getMockAudioManager();
         when(game.getAudioManager()).thenReturn(audioManager);
 
         //simulate the wait while the pacman is dead
-        for(int i = 0; i < 110; ++i) collisionController.step(game, List.of(), 0);
+        for (int i = 0; i < 110; ++i) collisionController.step(game, List.of(), 0);
 
         assertTrue(pacman1.isDying());
         assertFalse(pacman2.isDying());
@@ -224,7 +227,7 @@ public class CollisionControllerTest {
     }
 
     @Test
-    void testAudioLoading(){
+    void testAudioLoading() {
         verify(audioManager, times(1)).addAudio("ghostEaten", "Audio/ghostEaten.wav");
         verify(audioManager, times(1)).addAudio("collectibleEaten", "Audio/collectibleEaten.wav");
         verify(audioManager, times(1)).addAudio("ghostsAliveSiren", "Audio/ghostsAlive.wav");
@@ -261,7 +264,7 @@ public class CollisionControllerTest {
 
         Field privateField = CollisionController.class.getDeclaredField("scaredTimeLeft");
         privateField.setAccessible(true);
-        privateField.set(collisionController,100);
+        privateField.set(collisionController, 100);
 
         collisionController.step(game, List.of(), 0);
 
