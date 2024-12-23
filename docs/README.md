@@ -76,9 +76,9 @@ The system is composed of the following key components:
 
 - **Code References:**
 
-- [Pacman Model](/src/main/java/pt/fe/ldts/pacman/model/game/element/pacman/Pacman.java)
-- [Pacman Viewer](/src/main/java/pt/fe/ldts/pacman/viewer/game/MovableElementViewer.java)
-- [Pacman Controller](/src/main/java/pt/fe/ldts/pacman/controller/game/element/pacman/PacmanController.java)
+- [Pacman Model](/src/main/java/pt/up/fe/ldts/pacman/model/game/element/pacman/Pacman.java)
+- [Pacman Viewer](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/MovableElementViewer.java)
+- [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/pacman/PacmanController.java)
 
 - **UML diagram:**
   // TODO
@@ -102,7 +102,7 @@ The system is composed of the following key components:
 
 - **Code References:**
 
-- [Game Loop Implementation](/src/main/java/pt/fe/ldts/pacman/Game.java)
+- [Game Loop Implementation](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
 
 - **UML diagram:**
   // TODO
@@ -127,8 +127,8 @@ The system is composed of the following key components:
 
 - **Code References:**
 
-- [Game Singleton](/src/main/java/pt/fe/ldts/pacman/Game.java)
-- [AudioManager Singleton](/src/main/java/pt/fe/ldts/pacman/audio/AudioManager.java)
+- [Game Singleton](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
+- [AudioManager Singleton](/src/main/java/pt/up/fe/ldts/pacman/audio/AudioManager.java)
 
 - **UML diagram:**  
   // TODO
@@ -152,8 +152,8 @@ The system is composed of the following key components:
     -
 - **Code References:**
 
-- [State Abstract Class](/src/main/java/pt/fe/ldts/pacman/states/State.java)
-- [MainMenuState](/src/main/java/pt/fe/ldts/pacman/states/menu/MainMenuState.java)
+- [State Abstract Class](/src/main/java/pt/up/fe/ldts/pacman/states/State.java)
+- [MainMenuState](/src/main/java/pt/up/fe/ldts/pacman/states/menu/MainMenuState.java)
 
 - **UML diagram:**  
   // TODO
@@ -204,7 +204,7 @@ The system is composed of the following key components:
 
 Code References:
 
-- [LanternaGUI Facade](/src/main/java/pt/fe/ldts/pacman/gui/LanternaGUI.java)
+- [LanternaGUI Facade](/src/main/java/pt/up/fe/ldts/pacman/gui/LanternaGUI.java)
 
 - **UML diagram:**  
   // TODO
@@ -227,7 +227,7 @@ Code References:
 
 - **Code References:**
 
-- [Viewer Factory](/src/main/java/pt/fe/ldts/pacman/viewer/ViewerFactory.java)
+- [Viewer Factory](/src/main/java/pt/up/fe/ldts/pacman/viewer/ViewerFactory.java)
 
 - **UML diagram:**  
   // TODO
