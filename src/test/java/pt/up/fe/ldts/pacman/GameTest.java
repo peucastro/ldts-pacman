@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
@@ -161,6 +162,32 @@ public class GameTest {
         Game.main(gui, audioManager);
 
         verify(gui, times(1)).close();
+    }
+
+    @Test
+    void testMasterVolumeSetAtInitialization() throws IOException, URISyntaxException, FontFormatException {
+        verify(audioManager, times(1)).setMasterVolume(1f);
+    }
+
+    @Test
+    void testGameLoopRunnableExecution() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        gameLoop.update(mockLogic);
+        verify(mockLogic, times(1)).run();
+    }
+
+    @Test
+    void testThreadSleepInGameLoop() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+
+        long startTime = System.currentTimeMillis();
+        gameLoop.update(() -> {});
+        long endTime = System.currentTimeMillis();
+
+        long elapsed = endTime - startTime;
+        assertTrue(elapsed >= 16);
     }
 
 
