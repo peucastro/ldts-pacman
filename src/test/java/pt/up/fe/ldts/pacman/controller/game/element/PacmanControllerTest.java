@@ -197,6 +197,7 @@ public class PacmanControllerTest {
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0); //with desired direction
 
         verify(pacman, never()).setDirection(Direction.RIGHT);
+        verify(pacman, never()).incrementCounter();
 
 
 
@@ -206,14 +207,15 @@ public class PacmanControllerTest {
 
         //since the other pacman is now dead, moving right is possible
         verify(pacman).setDirection(Direction.RIGHT);
+        verify(pacman).incrementCounter();
 
         Field privateField = PacmanController.class.getDeclaredField("desiredDirections");
         privateField.setAccessible(true);
         privateField.set(pacmanController, Arrays.asList(null, null));
-        pacmanController.step(game, List.of(), 0);
+        pacmanController.step(game, List.of(), 4);
 
         //since the other pacman is now dead, moving right is possible, now without desired direction,
-        verify(pacman).setDirection(Direction.RIGHT);
+        verify(pacman, times(2)).incrementCounter();
     }
 
 
