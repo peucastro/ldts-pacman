@@ -232,7 +232,7 @@ public class PacmanControllerTest {
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getCounter()).thenReturn(0);
         when(arena.isEmpty(any())).thenReturn(true);
-        when(arena.getGhostGate().getPosition()).thenReturn(new Position(6, 5));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(6, 5)));
 
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
