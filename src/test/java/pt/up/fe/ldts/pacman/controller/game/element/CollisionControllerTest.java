@@ -95,12 +95,23 @@ public class CollisionControllerTest {
         when(powerUp.getPosition()).thenReturn(new Position(6, 5));
         when(ghost.collidingWith(pacman)).thenReturn(true);
         when(ghost.getState()).thenReturn(GhostState.SCARED);
+        Set<Ghost> ghosts = new HashSet<>();
+        ghosts.add(ghost);
+        ghosts.add(mock(Ghost.class));
+        when(arena.getGhosts()).thenReturn(ghosts);
 
         collisionController.step(game, null, 0);
 
         verify(ghost).setState(GhostState.DEAD);
         verify(ghost).setSpeed(Arena.GHOST_DEAD_SPEED);
         verify(arena, times(1)).incrementScore(200);
+        verify(mockGhostEaten).playOnce();
+        reset(mockGhostEaten);
+
+        collisionController.step(game, null, 0);
+
+        verify(arena, times(1)).incrementScore(400);
+        verify(mockGhostEaten).playOnce();
     }
 
     @Test
@@ -156,6 +167,7 @@ public class CollisionControllerTest {
         verify(pacman, times(0)).setSpeed(Arena.PACMAN_NORMAL_SPEED);
         verify(mockGhostScaredSiren, times(0)).stopPlaying();
         verify(mockGhostAliveSiren, times(0)).playInLoop();
+        assertEquals(1, privateField.get(collisionController));
 
         collisionController.step(game, null, 0);
 
@@ -164,6 +176,11 @@ public class CollisionControllerTest {
         verify(pacman).setSpeed(Arena.PACMAN_NORMAL_SPEED);
         verify(mockGhostScaredSiren).stopPlaying();
         verify(mockGhostAliveSiren).playInLoop();
+        assertEquals(0, privateField.get(collisionController));
+
+        collisionController.step(game, null, 0);
+
+        assertEquals(0, privateField.get(collisionController));
     }
 
     @Test
@@ -205,7 +222,9 @@ public class CollisionControllerTest {
     }
 
     @Test
-    void multiplayerPacmanStaysDead() throws IOException, URISyntaxException {
+    void multiplayerPacmanStaysDead() throws IOException, URISyntaxException, NoSuchFieldException, IllegalAccessException {
+        Field privateField = CollisionController.class.getDeclaredField("deadPacmanTimeCounter");
+        privateField.setAccessible(true);
         Pacman pacman1 = new Pacman(new Position(0, 0));
         pacman1.setLife(1);
         pacman1.setRespawnPosition(new Position(100, 100));
@@ -220,12 +239,20 @@ public class CollisionControllerTest {
 
         assertTrue(pacman1.isDying());
         assertFalse(pacman2.isDying());
+        assertEquals(1, privateField.get(collisionController));
 
         //frame when the timer for pacman1 to respawn ends, however it has 0 lives
         collisionController.step(game, List.of(), 0);
 
         assertTrue(pacman1.isDying());
         assertFalse(pacman2.isDying());
+        assertEquals(0, privateField.get(collisionController));
+
+        collisionController.step(game, List.of(), 0);
+
+        assertTrue(pacman1.isDying());
+        assertFalse(pacman2.isDying());
+        assertEquals(0, privateField.get(collisionController));
     }
 
     @Test
