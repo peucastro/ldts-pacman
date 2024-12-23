@@ -97,7 +97,7 @@ public class GameTest {
         };
 
         doAnswer(invocationOnMock -> {
-            mainMusic = invocationOnMock.getArgument(0);
+            AudioPlayer mainMusic = invocationOnMock.getArgument(0);
             assertEquals(0.05f, mainMusic.getVolume()); //assert the volume was set
             assertTrue(mainMusic.isPlaying()); //assert main music is playing
             return null;

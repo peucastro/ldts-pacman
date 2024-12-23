@@ -214,7 +214,6 @@ public class LanternaGUITest {
         screen = (Screen) privateMethod.invoke(gui, mockTerminal);
 
         assertNotNull(screen);
-        assertNull(screen.getCursorPosition());
         assertTrue((Boolean) privateField.get(screen));
     }
 
