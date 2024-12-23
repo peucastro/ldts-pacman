@@ -25,11 +25,18 @@ import java.util.List;
 
 public class LanternaGUI implements GUI {
     private Screen screen;
+    private SCREEN_RESOLUTION resolution;
 
     public LanternaGUI(int width, int height, SCREEN_RESOLUTION resolution) throws IOException, FontFormatException, URISyntaxException {
         AWTTerminalFontConfiguration fontConfig = loadSquareFont(resolutionToFontSize(resolution));
         Terminal terminal = createTerminal(width, height, fontConfig);
         this.screen = createScreen(terminal);
+        this.resolution = resolution;
+    }
+
+    public LanternaGUI(Screen screen, SCREEN_RESOLUTION resolution) {
+        this.screen = screen;
+        this.resolution = resolution;
     }
 
     private Screen createScreen(Terminal terminal) throws IOException {
@@ -68,6 +75,7 @@ public class LanternaGUI implements GUI {
         AWTTerminalFontConfiguration fontConfig = loadSquareFont(resolutionToFontSize(newResolution));
         Terminal terminal = createTerminal(width, height, fontConfig);
         this.screen = createScreen(terminal);
+        this.resolution = newResolution;
     }
 
     private int resolutionToFontSize(SCREEN_RESOLUTION resolution) {
@@ -80,6 +88,11 @@ public class LanternaGUI implements GUI {
             case _1440p -> 8;
             case _2160p -> 12;
         };
+    }
+
+    @Override
+    public SCREEN_RESOLUTION getResolution() {
+        return resolution;
     }
 
     @Override

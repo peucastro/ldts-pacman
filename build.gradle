@@ -25,6 +25,7 @@ application {
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.1"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.1"
+    testImplementation 'net.jqwik:jqwik:1.5.1'
     testImplementation "org.mockito:mockito-core:5.8.0"
     errorprone "com.google.errorprone:error_prone_core:2.30.0"
     implementation group: "com.googlecode.lanterna", name: "lanterna", version: "3.1.2"
@@ -35,11 +36,11 @@ compileJava {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeEngines ('junit-jupiter', 'jqwik')
+    }
     testLogging {
-        events "passed", "skipped", "failed"
         exceptionFormat = "full"
-        showStandardStreams = true
     }
     finalizedBy jacocoTestReport
 }
@@ -61,5 +62,6 @@ jacocoTestCoverageVerification {
 pitest {
     junit5PluginVersion = "1.2.0"
     pitestVersion = "1.15.0"
-    targetClasses = ["pt.up.fe.ldts.pacman.test"]
+    targetClasses = ["pt.up.fe.ldts.pacman.*"]
+    //excludedTestClasses = ["pt.up.fe.ldts.pacman.audio.*", "pt.up.fe.ldts.pacman.gui.*", "pt.up.fe.ldts.pacman.GameTest"]
 }

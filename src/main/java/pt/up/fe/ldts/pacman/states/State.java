@@ -15,11 +15,13 @@ public abstract class State<T> {
     private final T model;
     private final Viewer<T> viewer;
     private final Controller<T> controller;
+    private final AudioManager audioManager;
 
     public State(T model, AudioManager audioManager) throws IOException, URISyntaxException {
         this.model = model;
         this.viewer = createViewer();
         this.controller = createController(audioManager);
+        this.audioManager = audioManager;
     }
 
     public T getModel() {
@@ -34,6 +36,9 @@ public abstract class State<T> {
         List<GUI.ACTION> actions = gui.getNextAction();
         controller.step(game, actions, frameTime);
         viewer.drawElement(gui, model, frameTime);
-        actions.clear();
+    }
+
+    public AudioManager getAudioManager() {
+        return audioManager;
     }
 }

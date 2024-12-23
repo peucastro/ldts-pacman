@@ -11,11 +11,11 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
-public class MultipleElementViewer extends Viewer<Element> {
+public class MovableElementViewer extends Viewer<Element> {
     private final Map<Character, List<BufferedImage>> images;
     private final MultipleElementStrategy strategy;
 
-    public MultipleElementViewer(MultipleElementStrategy strategy, Map<Character, List<BufferedImage>> images) {
+    public MovableElementViewer(MultipleElementStrategy strategy, Map<Character, List<BufferedImage>> images) {
         this.images = images;
         this.strategy = strategy;
     }
@@ -24,12 +24,8 @@ public class MultipleElementViewer extends Viewer<Element> {
     public void drawElement(GUI gui, Element element, long frameCount) {
         BufferedImage image = strategy.getCurrentImage(element, images, frameCount);
         assert image != null;
-        if (element instanceof MovableElement movableElement) {
-            Position drawPos = movableElement.getRealPosition();
-            gui.drawImage(drawPos, image);
-        } else {
-            Position drawPos = new Position(element.getPosition().getX() * 11, element.getPosition().getY() * 11);
-            gui.drawImage(drawPos, image);
-        }
+        MovableElement movableElement = (MovableElement) element;
+        Position drawPos = movableElement.getRealPosition();
+        gui.drawImage(drawPos, image);
     }
 }

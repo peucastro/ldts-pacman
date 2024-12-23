@@ -12,12 +12,11 @@ import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class AlertMenuViewer extends ModelViewer<AlertMenu> {
     private final BufferedImage alertImage;
 
-    public AlertMenuViewer(String filePath) throws IOException, URISyntaxException {
+    public AlertMenuViewer(String filePath) throws IOException {
         super(ViewerFactory.createAlertMenuViewers());
         this.alertImage = ImageLoader.loadBufferedImage(filePath);
     }
@@ -38,7 +37,7 @@ public class AlertMenuViewer extends ModelViewer<AlertMenu> {
         } else
             drawElement(gui, new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274, 0), new TextColor.RGB(255, 255, 255)), frameCount);
 
-        gui.drawImage(new Position(121, 44), alertImage, alertImage.getWidth(), alertImage.getHeight());
+        gui.drawImage(new Position((arena.getWidth()*11 - alertImage.getWidth())/2, 44), alertImage, alertImage.getWidth(), alertImage.getHeight());
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
     }
 }

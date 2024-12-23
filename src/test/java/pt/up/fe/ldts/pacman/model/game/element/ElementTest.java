@@ -1,5 +1,7 @@
 package pt.up.fe.ldts.pacman.model.game.element;
 
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Element;
 import pt.up.fe.ldts.pacman.model.Position;
@@ -58,6 +60,27 @@ public class ElementTest {
     }
 
     @Test
+    void testEqualsWithSameObject(){
+        Element element = new Coin(new Position(0,0));
+        assertEquals(element, element);
+    }
+
+    @Test
+    void testEqualsWithDifferentClass(){
+        Element element = new Coin(new Position(0,0));
+        assertFalse(element.equals("not an element Ob"));
+    }
+
+    @Test
+    void testHashCodeConsistency(){
+        Element element1 = new Pacman(new Position(0,0));
+        Element element2 = new Pacman(new Position(0,0));
+        Element element3 = new Pacman(new Position(1,0));
+        assertEquals(element2.hashCode(), element1.hashCode());
+        assertNotEquals(element2.hashCode(), element3.hashCode());
+    }
+
+    @Test
     void testElementSetNegativePosition() {
         Element a = new Pacman(new Position(0, 0));
         Element b = new Coin(new Position(10, 10));
@@ -68,5 +91,15 @@ public class ElementTest {
         assertThrows(IllegalArgumentException.class, () -> c.setPosition(new Position(-1, -1)));
         assertDoesNotThrow(() -> new Inky(new Position(0, 0)));
         assertDoesNotThrow(() -> new Pacman(new Position(100, 5)));
+    }
+
+    @Property
+    void testElementCreation(@ForAll int x, @ForAll int y){
+        Position position = new Position(x,y);
+        if(x < 0 || y < 0){
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,() -> new Orange(position));
+            assertEquals("Element position cannot have negatives values: " + position, exception.getMessage());
+        }
+        else assertDoesNotThrow(() -> new Orange(position));
     }
 }

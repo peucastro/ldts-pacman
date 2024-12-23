@@ -5,9 +5,7 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MapSelectionMenu extends Menu {
     private final String folderstring;
@@ -19,16 +17,22 @@ public class MapSelectionMenu extends Menu {
 
     @Override
     protected List<TextBox> createOptions() {
-        List<TextBox> options = new ArrayList<>();
-        int y = 80;
+        List<String> mapNames = new ArrayList<>();
         File mapFolder = new File("src/main/resources/Maps/" + folderstring);
         for (final File fileEntry : Objects.requireNonNull(mapFolder.listFiles())) {
             if (!fileEntry.isDirectory() && fileEntry.getName().endsWith(".txt")) {
-                options.add(new TextBox(fileEntry.getName().substring(0, fileEntry.getName().length() - 4),
-                        new Position(160 - ((fileEntry.getName().length() - 4) * 5) / 2, y), //math to center the text box
-                        new TextColor.RGB(255, 255, 255)));
-                y += 11;
+                mapNames.add(fileEntry.getName().substring(0, fileEntry.getName().length() - 4));
             }
+        }
+
+        mapNames.sort(String::compareTo);
+        List<TextBox> options = new ArrayList<>();
+        int y = 80;
+        for (String mapName : mapNames) {
+            options.add(new TextBox(mapName,
+                    new Position(160 - (mapName.length() * 5) / 2, y), //math to center the text box
+                    new TextColor.RGB(255, 255, 255)));
+            y += 11;
         }
         return options;
     }

@@ -19,31 +19,38 @@ public class Game {
     private final GUI gui;
     private final AudioManager audioManager;
     private State state;
-    private GUI.SCREEN_RESOLUTION resolution;
 
 
-    private Game() throws IOException, URISyntaxException, FontFormatException {
-        this.resolution = GUI.SCREEN_RESOLUTION._900p;
-        this.audioManager = AudioManager.getInstance();
-        this.gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, resolution);
+    private Game(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException {
+        this.gui = gui;
+        this.audioManager = audioManager;
+        this.audioManager.setMasterVolume(1f);
         this.state = createInitialState();
     }
 
-    public static Game getInstance() throws IOException, URISyntaxException, FontFormatException {
+    public static Game getInstance(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException {
         if (instance == null) {
-            instance = new Game();
+            instance = new Game(gui, audioManager);
         }
         return instance;
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        Game game = Game.getInstance();
+        GUI gui = new LanternaGUI(SCREEN_WIDTH, SCREEN_HEIGHT, GUI.SCREEN_RESOLUTION._900p);
+        AudioManager audioManager = AudioManager.getInstance();
+        Game game = Game.getInstance(gui, audioManager);
+        game.start();
+    }
+
+    // User only for tests
+    public static void main(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        Game game = Game.getInstance(gui, audioManager);
         game.start();
     }
 
     private State createInitialState() throws IOException, URISyntaxException {
         return new MainMenuState(
-                new MainMenu(resolution, audioManager.getMasterVolume()),
+                new MainMenu(gui.getResolution(), audioManager.getMasterVolume()),
                 audioManager
         );
     }
@@ -65,11 +72,10 @@ public class Game {
     }
 
     public GUI.SCREEN_RESOLUTION getResolution() {
-        return resolution;
+        return gui.getResolution();
     }
 
     public void setResolution(GUI.SCREEN_RESOLUTION newResolution) throws URISyntaxException, IOException, FontFormatException {
-        this.resolution = newResolution;
         gui.resizeScreen(SCREEN_WIDTH, SCREEN_HEIGHT, newResolution);
     }
 

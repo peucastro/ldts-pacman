@@ -1,10 +1,10 @@
 package pt.up.fe.ldts.pacman.model.game;
 
+import com.googlecode.lanterna.TerminalPosition;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PositionTest {
 
@@ -55,7 +55,7 @@ class PositionTest {
     @Test
     void testEqualsWithDifferentClass() {
         Position position = new Position(1, 1);
-        assertNotEquals("Not a Position object", position);
+        assertFalse(position.equals("not a Position object"));
     }
 
     @Test
@@ -97,5 +97,30 @@ class PositionTest {
     void testToString() {
         Position position = new Position(3, 7);
         assertEquals("(3, 7)", position.toString());
+    }
+
+    @Test
+    void testDirectionMethods() {
+        Position position = new Position(5, 5);
+        assertEquals(new Position(4, 5), position.getLeft());
+        assertEquals(new Position(6, 5), position.getRight());
+        assertEquals(new Position(5, 4), position.getUp());
+        assertEquals(new Position(5, 6), position.getDown());
+    }
+
+    @Test
+    void testSquaredDistance() {
+        Position position1 = new Position(1, 1);
+        Position position2 = new Position(4, 5);
+        assertEquals(25, position1.squaredDistance(position2));
+        assertEquals(25, position2.squaredDistance(position1));
+    }
+
+    @Test
+    void testToTerminalPosition() {
+        Position position = new Position(7, 3);
+        TerminalPosition terminalPosition = position.toTerminalPosition();
+        assertEquals(7, terminalPosition.getColumn());
+        assertEquals(3, terminalPosition.getRow());
     }
 }

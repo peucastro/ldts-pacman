@@ -121,4 +121,60 @@ public class ArenaTest {
         assertTrue(arena.getGhosts().contains(ghost));
     }
 
+    @Test
+    void testAddBlankPosition() {
+        Arena arena = new Arena(20, 20);
+        Position blankPosition = new Position(5, 5);
+        arena.addBlankPosition(blankPosition);
+        assertTrue(arena.getBlankPositions().contains(blankPosition));
+    }
+
+    @Test
+    void testIsEmpty() {
+        Arena arena = new Arena(20, 20);
+        Position wallPosition = new Position(10, 10);
+        Wall wall = new Wall(wallPosition);
+        arena.addWall(wall);
+
+        assertFalse(arena.isEmpty(wallPosition));
+        assertTrue(arena.isEmpty(new Position(15, 15)));
+    }
+
+    @Test
+    void testIncrementScore() {
+        Arena arena = new Arena(20, 20);
+        arena.incrementScore(10);
+        assertEquals(10, arena.getScore());
+        arena.incrementScore(5);
+        assertEquals(15, arena.getScore());
+    }
+
+    @Test
+    void testSetScore() {
+        Arena arena = new Arena(20, 20);
+        arena.setScore(100);
+        assertEquals(100, arena.getScore());
+    }
+
+    @Test
+    void testGhostGatePosition() {
+        Arena arena = new Arena(20, 20);
+        Position newPosition = new Position(8, 8);
+        arena.setGhostGatePosition(newPosition);
+        assertEquals(newPosition, arena.getGhostGate().getPosition());
+    }
+
+    @Test
+    void testIncrementAndGetCollectedCollectibles() {
+        Arena arena = new Arena(20, 20);
+
+        assertEquals(0, arena.getCollectedCollectibles());
+
+        arena.incrementCollectedCollectibles();
+        assertEquals(1, arena.getCollectedCollectibles());
+
+        arena.incrementCollectedCollectibles();
+        assertEquals(2, arena.getCollectedCollectibles());
+    }
+    
 }
