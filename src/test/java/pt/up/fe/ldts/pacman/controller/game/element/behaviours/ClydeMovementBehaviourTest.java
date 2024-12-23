@@ -46,9 +46,10 @@ public class ClydeMovementBehaviourTest {
         when(arena.getCollectedCollectibles()).thenReturn(70);
         when(ghost.getPosition()).thenReturn(new Position(0, 0));
         when(pacman.getPosition()).thenReturn(new Position(5, 0));
+        when(arena.getHeight()).thenReturn(20);
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, true);
-        assertEquals(new Position(0, arena.getHeight()), target); // Clyde retreats to bottom-left corner
+        assertEquals(new Position(0, 20), target); // Clyde retreats to bottom-left corner
     }
 
     @Test
