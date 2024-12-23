@@ -139,4 +139,31 @@ public class AudioManagerTest {
         assertFalse(audio1.isPlaying());
         assertFalse(audio2.isPlaying());
     }
+
+    @Test
+    void stopAllAudiosWithAlreadyStoppedAudios() {
+        audioManager.addAudio("audio1", "Audio/silence.wav");
+        audioManager.addAudio("audio2", "Audio/silence.wav");
+        AudioPlayer audio1 = audioManager.getAudio("audio1");
+        AudioPlayer audio2 = audioManager.getAudio("audio2");
+
+        audio1.stopPlaying();
+        audioManager.stopAllAudios();
+
+        assertFalse(audio1.isPlaying());
+        assertFalse(audio2.isPlaying());
+    }
+
+    @Test
+    void testAudioVolumeBoundaries() {
+        audioManager.addAudio("audio1", "Audio/ghostEaten.wav");
+
+        AudioPlayer audio1 = audioManager.getAudio("audio1");
+
+        audio1.setVolume(0f);
+        assertEquals(0f, audio1.getVolume());
+
+        audio1.setVolume(1f);
+        assertEquals(1f, audio1.getVolume());
+    }
 }
