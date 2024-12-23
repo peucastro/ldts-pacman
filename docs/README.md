@@ -1,6 +1,6 @@
-# LDTS_10_03 - Pacman
+# LDTS_T10_G03 - **PACMAN**
 
-## Introduction
+## Game description
 
 In this project, we developed a Pacman clone using **Java** and the **Lanterna** library, offering a text-based,
 retro-style gaming experience. The player controls Pacman, navigating through an arena, collecting coins and power-ups,
@@ -11,38 +11,28 @@ This project was developed by <a href="https://github.com/GustavoCMadureira">Gus
 up202304978@fe.up.pt), <a href="https://github.com/PauloSaa29">Paulo Saavedra</a> (up202307477@fe.up.pt)
 and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.pt) for the LDTS 2024/25 course at FEUP.
 
----
-
 ## Implemented features
 
-### Gameplay
-
-- **Arena**: A maze filled with coins and power-ups.
-
----
+- **Player Character (Pacman)**: The player controls Pacman, which can move in four directions. Pacman interacts with
+  the game environment, including collecting coins and evading ghosts.
+- **Ghosts**: Each ghost will have a unique behavior to challenge the player. Ghosts adapt to the player’s movements,
+  creating a dynamic and engaging chase.
+- **Coins and Power-ups**: Collectible items that increase the player’s score. The game ends when all coins are
+  consumed.
+- **Start and pause menus** - The user has the capability of pause and return to the main menu during the gameplay.
+- **Alert menus** - When the user wins or loses, a custom message shows up at the window.
+- **Map selection** - A total of 5 maps are available to play, each with unique layouts and challenges.
+- **Multiplayer mode** - For each map, the user has the capability of playing it the singleplayer or multiplayer
+  mode. In multiplayer mode, a second player can control another Pacman character, adding an extra layer of excitement
+  and teamwork.
+- **Audio** - A lively soundtrack plays during gameplay. Interactive sound effects include audio cues for collectible
+  consumption, menu navigation, and player actions such as losing a life.
+- **Resizable screen** - The game offers a resizable screen feature, allowing players to adjust the game window for
+  their preferred viewing experience.
 
 ## Planned features
 
-### **Gameplay**
-
-- **Player Character (Pacman)**: The player controls Pacman, which can move in four directions—up, down, left, and
-  right—using corresponding arrow keys.
-- **Ghosts**: Each ghost will have a unique behavior to challenge the player.
-- **Coins**: Collectible items that increase the player’s score. The game ends when all PacDots are consumed.
 - **Power-ups**: Special collectible items that temporarily change the Pacman state.
-- **Game Over**: If a ghost catches Pacman, the game ends, and the player is returned to the main menu.
-
-### **Menu**
-
-- A main menu appears at the start of the game, allowing the player to either start the game or quit. The player can
-  navigate the menu with the arrow keys and press Enter to make a selection.
-- A pause menu that allows the player to take a break during the gameplay.
-
-### **Game Over and Restart**
-
-- The game will display a death animation and return to the main menu after Pacman is caught by a ghost.
-
----
 
 ## **Implementation Overview**
 
@@ -77,15 +67,14 @@ that changes in one layer (e.g., the user interface) don't directly affect the o
 - **View:** `ArenaViewer`, `ElementViewer`, `Display`, ...
 - **Controller:** Yet to be implemented
 
----
-
 ## **UML schema**
 
 ![Project structure](/docs/resources/uml/structure.png "UML")
 
 ## Testing
 
-We used unit testing with Junit 5, mocks with Mockito and mutation testing with Pitest.
+We used unit testing with Junit 5, mocks with Mockito, mutation testing with Pitest and property based testing with
+jqwik.
 
 ### Screenshot of Test Coverage
 
