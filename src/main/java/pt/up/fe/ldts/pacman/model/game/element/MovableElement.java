@@ -61,9 +61,12 @@ public abstract class MovableElement extends Element {
     }
 
     public void invertDirection() {
-        setPosition(getNextPosition());
-        setDirection(getDirection().getOpposite());
-        setCounter(11 - getCounter());
+        if(counter != 0) {
+            setPosition(getNextPosition());
+            setDirection(getDirection().getOpposite());
+            setCounter(11 - getCounter());
+        }
+        else setDirection(getDirection().getOpposite());
     }
 
     public Position getRealPosition() {
