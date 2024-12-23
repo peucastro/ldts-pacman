@@ -80,7 +80,12 @@ The system is composed of the following key components:
     - [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/PacmanController.java)
 
 - **UML diagram:**
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/mvc.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 5. MVC UML</i></b>
+</p>
 
 #### **Game Loop**
 
@@ -128,7 +133,12 @@ The system is composed of the following key components:
     - [AudioManager Singleton](/src/main/java/pt/up/fe/ldts/pacman/audio/AudioManager.java)
 
 - **UML diagram:**  
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/singleton.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 6. Singleton UML</i></b>
+</p>
 
 #### **State**
 
@@ -178,7 +188,12 @@ The system is composed of the following key components:
     - [Pacman viewer Strategy](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/strategies/PacmanStrategy.java)
 
 - **UML diagram:**  
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/strategy.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 7. Strategy UML</i></b>
+</p>
 
 #### **Facade**
 
@@ -234,7 +249,7 @@ The system is composed of the following key components:
   <img src="resources/uml/structure.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 5. UML classes diagram</i></b>
+  <b><i>Fig 8. UML classes diagram</i></b>
 </p>
 
 ## Known-code smells
@@ -252,12 +267,12 @@ jacoco and property based testing with jqwik.
   <img src="resources/testing/coverage.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 6. Code coverage screenshot</i></b>
+  <b><i>Fig 9. Code coverage screenshot</i></b>
 </p>
 
 <p align="center" justify="center">
   <img src="resources/testing/pitest.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 7. Mutation coverage screenshot</i></b>
+  <b><i>Fig 10. Mutation coverage screenshot</i></b>
 </p>
