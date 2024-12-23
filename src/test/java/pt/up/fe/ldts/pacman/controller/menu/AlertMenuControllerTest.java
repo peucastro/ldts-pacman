@@ -9,12 +9,10 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
-import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.awt.*;

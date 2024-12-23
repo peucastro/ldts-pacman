@@ -9,7 +9,6 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.states.game.GameState;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
-import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
 import java.awt.*;
 import java.io.IOException;

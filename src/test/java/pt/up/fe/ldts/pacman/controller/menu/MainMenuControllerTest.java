@@ -15,7 +15,6 @@ import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
