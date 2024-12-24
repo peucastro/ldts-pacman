@@ -296,3 +296,11 @@ jacoco and property based testing with jqwik.
 <p align="center">
   <b><i>Fig 14. Mutation coverage screenshot</i></b>
 </p>
+
+### Self Evaluation
+
+|       Name        | Contribution |
+|:-----------------:|:------------:|
+| Gustavo Madureira |    33.3%     |
+|  Paulo Saavedra   |    33.3%     |
+|   Pedro Castro    |    33.3%     |
