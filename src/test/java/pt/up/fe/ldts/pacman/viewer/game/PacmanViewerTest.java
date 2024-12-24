@@ -27,25 +27,25 @@ class PacmanViewerTest {
         Pacman pacman = new Pacman(new Position(0, 0));
 
         // Draw Pacman (Left)
-        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Up)
         pacman.setDirection(Direction.UP);
-        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Down)
         pacman.setDirection(Direction.DOWN);
-        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Draw Pacman (Right)
         pacman.setDirection(Direction.RIGHT);
-        pacmanViewer.drawElement(mockLanternaGUI, pacman,0);
+        pacmanViewer.drawElement(mockLanternaGUI, pacman, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 
@@ -54,7 +54,7 @@ class PacmanViewerTest {
         PacmanStrategy pacmanStrategy = new PacmanStrategy();
         Map<Character, List<BufferedImage>> images = ImageLoader.loadPacmanImages();
         BufferedImage deadImage = images.get('X').getFirst();
-        Pacman pacman = new Pacman(new Position(0,0));
+        Pacman pacman = new Pacman(new Position(0, 0));
         pacman.setDying(true);
 
         BufferedImage obtainedImage = pacmanStrategy.getCurrentImage(pacman, images, 0);
@@ -68,7 +68,7 @@ class PacmanViewerTest {
         Map<Character, List<BufferedImage>> images = ImageLoader.loadPacmanImages();
         BufferedImage pacmanRight = images.get('R').getFirst();
         BufferedImage pacmanClosed = images.get('R').get(1);
-        Pacman pacman = new Pacman(new Position(0,0));
+        Pacman pacman = new Pacman(new Position(0, 0));
         pacman.setDirection(Direction.RIGHT);
 
         BufferedImage obtainedImage1 = pacmanStrategy.getCurrentImage(pacman, images, 5); //pacman has mouth open

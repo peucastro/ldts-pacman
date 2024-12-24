@@ -17,7 +17,7 @@ public class AlertMenuState extends State<AlertMenu> {
     }
 
     @Override
-    public Viewer<AlertMenu> createViewer() throws IOException, URISyntaxException {
+    public Viewer<AlertMenu> createViewer() throws IOException {
         return new AlertMenuViewer(getModel().getAlertFilePath());
     }
 

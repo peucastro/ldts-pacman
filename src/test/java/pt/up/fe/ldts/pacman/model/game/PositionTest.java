@@ -4,7 +4,8 @@ import com.googlecode.lanterna.TerminalPosition;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PositionTest {
 
@@ -55,7 +56,7 @@ class PositionTest {
     @Test
     void testEqualsWithDifferentClass() {
         Position position = new Position(1, 1);
-        assertFalse(position.equals("not a Position object"));
+        assertNotEquals("not a Position object", position);
     }
 
     @Test

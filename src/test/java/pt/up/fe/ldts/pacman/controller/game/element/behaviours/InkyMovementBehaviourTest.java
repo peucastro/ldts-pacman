@@ -114,7 +114,6 @@ class InkyMovementBehaviourTest {
     }
 
 
-
     @Test
     void testInkyChaseModeBoundedPosition() {
         InkyMovementBehaviour behaviour = new InkyMovementBehaviour();

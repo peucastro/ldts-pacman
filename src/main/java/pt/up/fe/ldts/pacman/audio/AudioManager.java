@@ -5,13 +5,20 @@ import java.util.Map;
 
 public class AudioManager {
     private static AudioManager instance;
-    private AudioPlayer mainMusic;
     private final Map<String, AudioPlayer> audios;
+    private AudioPlayer mainMusic;
     private float masterVolume;
 
     private AudioManager() {
         this.audios = new HashMap<>();
         this.masterVolume = 1f;
+    }
+
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            instance = new AudioManager();
+        }
+        return instance;
     }
 
     public void addAudio(String key, String audioPath) {
@@ -20,13 +27,6 @@ public class AudioManager {
             audios.put(key, audio);
             audio.setVolume(audio.getVolume() * masterVolume);
         }
-    }
-
-    public static AudioManager getInstance() {
-        if (instance == null) {
-            instance = new AudioManager();
-        }
-        return instance;
     }
 
     public void stopAllAudios() {

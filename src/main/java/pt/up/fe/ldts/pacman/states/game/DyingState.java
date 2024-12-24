@@ -17,7 +17,7 @@ public class DyingState extends State<Arena> {
     }
 
     @Override
-    public Viewer<Arena> createViewer() throws IOException, URISyntaxException {
+    public Viewer<Arena> createViewer() throws IOException {
         return new ArenaViewer();
     }
 

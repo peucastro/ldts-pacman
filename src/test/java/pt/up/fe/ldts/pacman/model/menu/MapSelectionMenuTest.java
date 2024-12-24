@@ -24,15 +24,15 @@ class MapSelectionMenuTest {
         assertEquals(5, options.size());
 
         assertEquals("1 Normal Map", options.get(0).getText());
-        assertEquals(new Position(130,80), options.get(0).getPosition());
+        assertEquals(new Position(130, 80), options.get(0).getPosition());
         assertEquals("2 Spirals", options.get(1).getText());
-        assertEquals(new Position(138,91), options.get(1).getPosition());
+        assertEquals(new Position(138, 91), options.get(1).getPosition());
         assertEquals("3 Stripes", options.get(2).getText());
-        assertEquals(new Position(138,102), options.get(2).getPosition());
+        assertEquals(new Position(138, 102), options.get(2).getPosition());
         assertEquals("4 Islands", options.get(3).getText());
-        assertEquals(new Position(138,113), options.get(3).getPosition());
+        assertEquals(new Position(138, 113), options.get(3).getPosition());
         assertEquals("5 Final Boss", options.get(4).getText());
-        assertEquals(new Position(130,124), options.get(4).getPosition());
+        assertEquals(new Position(130, 124), options.get(4).getPosition());
     }
 
     @Test

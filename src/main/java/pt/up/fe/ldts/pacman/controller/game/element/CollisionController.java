@@ -100,7 +100,8 @@ public class CollisionController extends GameController {
                             if (!ghost.isDead()) {
                                 ghost.setState(GhostState.SCARED);
                                 ghost.setSpeed(Arena.GHOST_SCARED_SPEED);
-                                if(!ghost.getPosition().equals(getModel().getGhostGate().getPosition())) ghost.invertDirection();
+                                if (!ghost.getPosition().equals(getModel().getGhostGate().getPosition()))
+                                    ghost.invertDirection();
                             }
                         });
                         for (Pacman p : getModel().getPacmans()) p.setSpeed(Arena.PACMAN_BOOSTED_SPEED);

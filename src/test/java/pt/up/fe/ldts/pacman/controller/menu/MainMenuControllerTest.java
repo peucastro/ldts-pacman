@@ -5,23 +5,23 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
-import pt.up.fe.ldts.pacman.model.game.element.Direction;
-import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.model.game.element.Direction;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
 import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
+import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.awt.FontFormatException;
-import java.util.List;
 
 class MainMenuControllerTest {
     private MainMenu mainMenu;
@@ -77,7 +77,7 @@ class MainMenuControllerTest {
     }
 
     @Test
-    void testAudioInitialization(){
+    void testAudioInitialization() {
         verify(audioManager, times(1)).addAudio("menuSelect", "Audio/menuSelect.wav");
         verify(audioManager, times(1)).addAudio("menuConfirmSelection", "Audio/menuConfirmSelection.wav");
     }
@@ -230,13 +230,14 @@ class MainMenuControllerTest {
         when(game.getGui()).thenReturn(mockGUI);
         when(audioManager.getMasterVolume()).thenReturn(0.8f);
 
-        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN, GUI.ACTION.DOWN,GUI.ACTION.LEFT), 0);
+        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN, GUI.ACTION.DOWN, GUI.ACTION.LEFT), 0);
 
         assertTrue(mainMenu.getOptions().get(3).getText().endsWith("7"));
         verify(mockGUI, times(1)).clear();
         verify(menuSelect, times(4)).playOnce();
         verify(audioManager, times(1)).setMasterVolume(0.7f);
-        reset(mockGUI); reset(menuSelect);
+        reset(mockGUI);
+        reset(menuSelect);
 
         controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
@@ -244,7 +245,8 @@ class MainMenuControllerTest {
         verify(mockGUI, times(1)).clear();
         verify(menuSelect, times(1)).playOnce();
         verify(audioManager, times(1)).setMasterVolume(0.9f);
-        reset(mockGUI); reset(menuSelect);
+        reset(mockGUI);
+        reset(menuSelect);
 
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
@@ -260,7 +262,7 @@ class MainMenuControllerTest {
         controller = new MainMenuController(mainMenu, audioManager);
         GUI gui = mock(GUI.class);
         when(game.getGui()).thenReturn(gui);
-        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN),0); //select resolution
+        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN), 0); //select resolution
         reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);
@@ -320,7 +322,7 @@ class MainMenuControllerTest {
         controller = new MainMenuController(mainMenu, audioManager);
         GUI gui = mock(GUI.class);
         when(game.getGui()).thenReturn(gui);
-        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN),0); //select resolution
+        controller.step(game, List.of(GUI.ACTION.DOWN, GUI.ACTION.DOWN), 0); //select resolution
         reset(menuSelect);
 
         when(game.getResolution()).thenReturn(GUI.SCREEN_RESOLUTION._360p);

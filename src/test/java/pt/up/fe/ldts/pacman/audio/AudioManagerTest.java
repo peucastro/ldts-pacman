@@ -3,7 +3,6 @@ package pt.up.fe.ldts.pacman.audio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +24,12 @@ public class AudioManagerTest {
     }
 
     @Test
-    void basicAudioManagerCreation(){
+    void basicAudioManagerCreation() {
         assertDoesNotThrow(AudioManager::getInstance);
     }
 
     @Test
-    void testSingletonPattern(){
+    void testSingletonPattern() {
         AudioManager newAudioManager = AudioManager.getInstance();
 
         assertEquals(audioManager, newAudioManager);
@@ -59,11 +58,11 @@ public class AudioManagerTest {
         audioManager.addAudio("audio2", "Audio/ghostEaten.wav"); //this audio is also added (different key): size = 2
         audioManager.addAudio("audio2", "Audio/ghostEaten.wav"); //this audio is not added (key already exists): size = 2
 
-        assertEquals(2, ((Map<String, AudioPlayer>)privateField.get(audioManager)).size());
+        assertEquals(2, ((Map<String, AudioPlayer>) privateField.get(audioManager)).size());
     }
 
     @Test
-    void getAudio(){
+    void getAudio() {
         audioManager.addAudio("audio1", "Audio/ghostEaten.wav");
         audioManager.addAudio("audio2", "Audio/ghostEaten.wav");
 
@@ -73,14 +72,14 @@ public class AudioManagerTest {
     }
 
     @Test
-    void setAndGetMasterVolume(){
+    void setAndGetMasterVolume() {
         audioManager.setMasterVolume(0.5f);
 
         assertEquals(0.5f, audioManager.getMasterVolume());
     }
 
     @Test
-    void setMasterVolumeOnAllAudios(){
+    void setMasterVolumeOnAllAudios() {
         audioManager.setMasterVolume(0.5f);
 
         audioManager.addAudio("audio1", "Audio/ghostEaten.wav");
@@ -114,19 +113,19 @@ public class AudioManagerTest {
 
         audioManager.setMasterVolume(2f);
 
-        assertEquals(1f,audioManager.getMasterVolume());
+        assertEquals(1f, audioManager.getMasterVolume());
         assertEquals(1f, audio1.getVolume());
         assertEquals(0.5f, audio2.getVolume());
 
         audioManager.setMasterVolume(0f);
 
-        assertEquals(1f,audioManager.getMasterVolume());
+        assertEquals(1f, audioManager.getMasterVolume());
         assertEquals(1f, audio1.getVolume());
         assertEquals(0.5f, audio2.getVolume());
     }
 
     @Test
-    void stopAllAudios(){
+    void stopAllAudios() {
         audioManager.addAudio("audio1", "Audio/silence.wav");
         audioManager.addAudio("audio2", "Audio/silence.wav");
         AudioPlayer audio1 = audioManager.getAudio("audio1");

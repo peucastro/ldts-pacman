@@ -20,6 +20,6 @@ public class MapSelectionMenuViewerTest {
 
 
         //12 times for the title + (10 + 8 + 8 + 8 + 10) for each option respectively = 56
-        verify(mockGUI, times(56)).drawCharacter(any(),any(),any());
+        verify(mockGUI, times(56)).drawCharacter(any(), any(), any());
     }
 }

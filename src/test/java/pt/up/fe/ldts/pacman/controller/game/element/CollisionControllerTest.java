@@ -50,7 +50,7 @@ public class CollisionControllerTest {
 
         when(pacman.isDying()).thenReturn(false);
         when(pacman.getPosition()).thenReturn(new Position(5, 5));
-        when(ghost.getPosition()).thenReturn(new Position(10,10));
+        when(ghost.getPosition()).thenReturn(new Position(10, 10));
         when(powerUp.getPosition()).thenReturn(new Position(5, 5));
 
         arena = mock(Arena.class);
@@ -61,7 +61,7 @@ public class CollisionControllerTest {
         Set<Collectible> collectibles = new HashSet<>();
         collectibles.add(powerUp);
         when(arena.getCollectibles()).thenReturn(collectibles);
-        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(50,50)));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(50, 50)));
 
         game = mock(Game.class);
 

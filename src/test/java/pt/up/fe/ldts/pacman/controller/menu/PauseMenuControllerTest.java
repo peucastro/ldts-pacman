@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
 import pt.up.fe.ldts.pacman.audio.AudioPlayer;
-import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
-import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.PauseMenu;
+import pt.up.fe.ldts.pacman.states.State;
+import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 
 import java.awt.*;
 import java.io.IOException;
@@ -44,7 +44,7 @@ class PauseMenuControllerTest {
         controller.step(game, List.of(GUI.ACTION.UP), 0);
 
         verify(pauseMenu, times(1)).selectPreviousOption();
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
@@ -52,7 +52,7 @@ class PauseMenuControllerTest {
         controller.step(game, List.of(GUI.ACTION.DOWN), 0);
 
         verify(pauseMenu, times(1)).selectNextOption();
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
@@ -63,7 +63,7 @@ class PauseMenuControllerTest {
 
         State<?> ps = verify(pauseMenu, times(1)).getPausedState();
         verify(game, times(1)).setState(ps);
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
@@ -73,7 +73,7 @@ class PauseMenuControllerTest {
 
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
         verify(game, times(1)).setState(any(MainMenuState.class));
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
@@ -86,7 +86,7 @@ class PauseMenuControllerTest {
 
         verify(game, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
         verify(pauseMenu, times(1)).setResolution(GUI.SCREEN_RESOLUTION._1080p);
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
@@ -101,11 +101,11 @@ class PauseMenuControllerTest {
         controller.step(game, List.of(GUI.ACTION.SELECT), 0);
 
         verify(pauseMenu, times(1)).setMasterVolume(anyFloat());
-        verify(mockAudio,times(1)).playOnce();
+        verify(mockAudio, times(1)).playOnce();
     }
 
     @Test
-    void testSetVolume(){
+    void testSetVolume() {
         verify(mockAudio, times(1)).setVolume(0.25f);
         verify(mockAudio, times(1)).setVolume(0.2f);
     }

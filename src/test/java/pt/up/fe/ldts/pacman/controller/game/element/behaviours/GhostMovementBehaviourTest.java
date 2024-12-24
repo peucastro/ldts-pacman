@@ -78,19 +78,19 @@ class GhostMovementBehaviourTest {
     }
 
     @Test
-    void testGetValidScaredPosition(){
+    void testGetValidScaredPosition() {
         GhostMovementBehaviour behaviour = new BlinkyMovementBehaviour();
 
-        Ghost realghost = new Blinky(new Position(10,10));
+        Ghost realghost = new Blinky(new Position(10, 10));
         realghost.setOutsideGate();
         realghost.setState(GhostState.SCARED);
 
         boolean posXBiggerThan10 = false;
         boolean posYBiggerThan5 = false;
-        for(int i = 0; i < 100000; ++i){
+        for (int i = 0; i < 100000; ++i) {
             Position target = behaviour.getTargetPosition(realghost, arena, pacman, false);
-            if(target.getX() > 10) posXBiggerThan10 = true;
-            if(target.getY() > 5) posYBiggerThan5 = true;
+            if (target.getX() > 10) posXBiggerThan10 = true;
+            if (target.getY() > 5) posYBiggerThan5 = true;
             assertTrue(target.getX() >= 0 && target.getX() <= 29);
             assertTrue(target.getY() >= 0 && target.getY() <= 16);
         }

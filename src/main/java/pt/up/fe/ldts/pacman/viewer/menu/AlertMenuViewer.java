@@ -37,7 +37,7 @@ public class AlertMenuViewer extends ModelViewer<AlertMenu> {
         } else
             drawElement(gui, new TextBox("Lives:" + arena.getPacmans().getFirst().getLife(), new Position(274, 0), new TextColor.RGB(255, 255, 255)), frameCount);
 
-        gui.drawImage(new Position((arena.getWidth()*11 - alertImage.getWidth())/2, 44), alertImage, alertImage.getWidth(), alertImage.getHeight());
+        gui.drawImage(new Position((arena.getWidth() * 11 - alertImage.getWidth()) / 2, 44), alertImage, alertImage.getWidth(), alertImage.getHeight());
         menu.getOptions().forEach(textBox -> drawElement(gui, textBox, frameCount));
     }
 }

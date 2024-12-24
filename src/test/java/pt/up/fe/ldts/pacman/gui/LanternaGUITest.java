@@ -53,7 +53,7 @@ public class LanternaGUITest {
     }
 
     @Test
-    void testGetResolution(){
+    void testGetResolution() {
         assertEquals(GUI.SCREEN_RESOLUTION._360p, gui.getResolution());
     }
 
@@ -162,7 +162,8 @@ public class LanternaGUITest {
         XXXXXXX
          */
         verify(tg, times(18)).setCharacter(anyInt(), anyInt(), eq(' '));
-        for(int x = 0; x < 5; ++x) for(int y = 0; y < 11; ++y) if(letterA.getRGB(x,y) != 0) verify(tg).setCharacter(x,y,' ');
+        for (int x = 0; x < 5; ++x)
+            for (int y = 0; y < 11; ++y) if (letterA.getRGB(x, y) != 0) verify(tg).setCharacter(x, y, ' ');
     }
 
     @Test
@@ -173,9 +174,9 @@ public class LanternaGUITest {
 
         verify(screen, times(1)).newTextGraphics();
         //both the background color and the character are set everytime, so 11*11 times
-        verify(tg, times(11 * 11)).setBackgroundColor(new TextColor.RGB(0x1c,0x1c,0xb7));
+        verify(tg, times(11 * 11)).setBackgroundColor(new TextColor.RGB(0x1c, 0x1c, 0xb7));
         verify(tg, times(11 * 11)).setCharacter(anyInt(), anyInt(), eq(' '));
-        for(int x = 0; x < 11; ++x) for(int y = 0; y < 11; ++y) verify(tg).setCharacter(x,y,' ');
+        for (int x = 0; x < 11; ++x) for (int y = 0; y < 11; ++y) verify(tg).setCharacter(x, y, ' ');
     }
 
     @Test
@@ -187,9 +188,9 @@ public class LanternaGUITest {
 
         verify(screen, times(1)).newTextGraphics();
         //both the background color and the character are set everytime, so 5*5 times
-        verify(tg, times(5 * 5)).setBackgroundColor(new TextColor.RGB(0x1c,0x1c,0xb7));
+        verify(tg, times(5 * 5)).setBackgroundColor(new TextColor.RGB(0x1c, 0x1c, 0xb7));
         verify(tg, times(5 * 5)).setCharacter(anyInt(), anyInt(), eq(' '));
-        for(int x = 0; x < 5; ++x) for(int y = 0; y < 5; ++y) verify(tg).setCharacter(x,y,' ');
+        for (int x = 0; x < 5; ++x) for (int y = 0; y < 5; ++y) verify(tg).setCharacter(x, y, ' ');
     }
 
     @Test
@@ -209,7 +210,7 @@ public class LanternaGUITest {
         Method privateMethod = LanternaGUI.class.getDeclaredMethod("createScreen", Terminal.class);
         privateMethod.setAccessible(true);
         Terminal mockTerminal = mock(Terminal.class);
-        when(mockTerminal.getTerminalSize()).thenReturn(new TerminalSize(5,5));
+        when(mockTerminal.getTerminalSize()).thenReturn(new TerminalSize(5, 5));
 
         screen = (Screen) privateMethod.invoke(gui, mockTerminal);
 
@@ -224,7 +225,7 @@ public class LanternaGUITest {
 
         AWTTerminalFontConfiguration fontConfiguration = (AWTTerminalFontConfiguration) privateMethod.invoke(gui, 20);
 
-        assertNotNull( fontConfiguration);
+        assertNotNull(fontConfiguration);
     }
 
     @Test

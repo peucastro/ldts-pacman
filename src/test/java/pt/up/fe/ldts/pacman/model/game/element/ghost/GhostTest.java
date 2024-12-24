@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GhostTest {
     @Test
-    void testGhostInitialization(){
-        Ghost ghost = new Blinky(new Position(0,0));
+    void testGhostInitialization() {
+        Ghost ghost = new Blinky(new Position(0, 0));
 
         assertEquals(GhostState.ALIVE, ghost.getState());
-        assertEquals(new Position(0,0) ,ghost.getPosition());
+        assertEquals(new Position(0, 0), ghost.getPosition());
         assertNull(ghost.getRespawnPosition());
         assertEquals(Arena.GHOST_NORMAL_SPEED, ghost.getSpeed());
         assertTrue(ghost.isInsideGate());

@@ -22,7 +22,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class ArenaControllerTest {
@@ -80,15 +81,16 @@ class ArenaControllerTest {
 
     @Test
     void testIfControllersAreCalled() throws IOException, URISyntaxException {
-        Ghost ghost = new Blinky(new Position(1,0));
-        ghost.setCounter(9); ghost.setDirection(Direction.LEFT); //ghost is colliding with pacman
+        Ghost ghost = new Blinky(new Position(1, 0));
+        ghost.setCounter(9);
+        ghost.setDirection(Direction.LEFT); //ghost is colliding with pacman
         ghost.setSpeed(1); //ghost moves every frame, helps with testing
-        Pacman pacman = new Pacman(new Position(0,0));
+        Pacman pacman = new Pacman(new Position(0, 0));
         pacman.setDirection(Direction.DOWN);
         when(arena.getGhosts()).thenReturn(Set.of(ghost));
         when(arena.getPacmans()).thenReturn(List.of(pacman));
         //the collectibles set cannot be empty or the game ends
-        when(arena.getCollectibles()).thenReturn(Set.of(new Cherry(new Position(10,10))));
+        when(arena.getCollectibles()).thenReturn(Set.of(new Cherry(new Position(10, 10))));
 
         arenaController.step(game, List.of(GUI.ACTION.UP), 0);
 

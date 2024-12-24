@@ -83,7 +83,7 @@ public class GhostControllerTest {
         assertEquals(Direction.LEFT, realghost.getDirection());
 
         realghost.setCounter(0);
-        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(3,1)));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(3, 1)));
 
         ghostController.step(game, null, 0);
 

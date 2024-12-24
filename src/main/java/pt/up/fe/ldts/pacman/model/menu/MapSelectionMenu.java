@@ -5,7 +5,9 @@ import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MapSelectionMenu extends Menu {
     private final String folderstring;

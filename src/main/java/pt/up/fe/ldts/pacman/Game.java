@@ -21,7 +21,7 @@ public class Game {
     private State state;
 
 
-    private Game(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException, FontFormatException {
+    private Game(GUI gui, AudioManager audioManager) throws IOException, URISyntaxException {
         this.gui = gui;
         this.audioManager = audioManager;
         this.audioManager.setMasterVolume(1f);
