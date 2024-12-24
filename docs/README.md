@@ -64,7 +64,7 @@ The system is composed of the following key components:
 
 - **Implementation:**  
   The **Model** encapsulates the game's data and logic. (e.g., `Pacman`, `Ghost`, `Coins`). The **View** is responsible
-  for rendering these elements on the screen using classes like `PacmanViewer` and `GhostViewer`. The **Controller**
+  for rendering these elements on the screen using classes like `ElementViewer` and `MovableElementViewer`. The **Controller**
   manages user input and updates the game state accordingly, e.g., `GameController` handles key presses and game loop
   logic.
 
@@ -108,7 +108,12 @@ The system is composed of the following key components:
     - [Game Loop Implementation](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
 
 - **UML diagram:**
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/gameloop.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 6. Game Loop UML</i></b>
+</p>
 
 #### **Singleton**
 
@@ -137,7 +142,7 @@ The system is composed of the following key components:
   <img src="resources/uml/patterns/singleton.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 6. Singleton UML</i></b>
+  <b><i>Fig 7. Singleton UML</i></b>
 </p>
 
 #### **State**
@@ -162,7 +167,12 @@ The system is composed of the following key components:
     - [MainMenuState](/src/main/java/pt/up/fe/ldts/pacman/states/menu/MainMenuState.java)
 
 - **UML diagram:**  
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/state.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 8. State UML</i></b>
+</p>
 
 #### **Strategy**
 
@@ -184,7 +194,7 @@ The system is composed of the following key components:
     - **Liabilities:** Slightly increased complexity due to additional interfaces/classes.
 
 - **Code References:**
-    - [Bliky movement Strategy](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/behaviours/BlinkyMovementBehaviour.java)
+    - [Blinky movement Strategy](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/behaviours/BlinkyMovementBehaviour.java)
     - [Pacman viewer Strategy](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/strategies/PacmanStrategy.java)
 
 - **UML diagram:**  
@@ -192,7 +202,7 @@ The system is composed of the following key components:
   <img src="resources/uml/patterns/strategy.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 7. Strategy UML</i></b>
+  <b><i>Fig 9. Strategy UML</i></b>
 </p>
 
 #### **Facade**
@@ -217,7 +227,12 @@ The system is composed of the following key components:
     - [LanternaGUI Facade](/src/main/java/pt/up/fe/ldts/pacman/gui/LanternaGUI.java)
 
 - **UML diagram:**  
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/facade.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 10. Facade UML</i></b>
+</p>
 
 #### **Factory**
 
@@ -239,7 +254,12 @@ The system is composed of the following key components:
     - [Viewer Factory](/src/main/java/pt/up/fe/ldts/pacman/viewer/ViewerFactory.java)
 
 - **UML diagram:**  
-  // TODO
+<p align="center" justify="center">
+  <img src="resources/uml/patterns/factory.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 11. Factory UML</i></b>
+</p>
 
 ---
 
@@ -249,7 +269,7 @@ The system is composed of the following key components:
   <img src="resources/uml/structure.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 8. UML classes diagram</i></b>
+  <b><i>Fig 12. UML classes diagram</i></b>
 </p>
 
 ## Known-code smells
@@ -267,12 +287,12 @@ jacoco and property based testing with jqwik.
   <img src="resources/testing/coverage.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 9. Code coverage screenshot</i></b>
+  <b><i>Fig 13. Code coverage screenshot</i></b>
 </p>
 
 <p align="center" justify="center">
   <img src="resources/testing/pitest.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 10. Mutation coverage screenshot</i></b>
+  <b><i>Fig 14. Mutation coverage screenshot</i></b>
 </p>
