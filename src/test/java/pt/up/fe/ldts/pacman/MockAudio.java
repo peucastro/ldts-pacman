@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class MockAudio {
-    public static AudioManager getMockAudioManager(){
+    public static AudioManager getMockAudioManager() {
         AudioManager mockAudioManager = mock(AudioManager.class);
 
         doNothing().when(mockAudioManager).addAudio(any(), any());

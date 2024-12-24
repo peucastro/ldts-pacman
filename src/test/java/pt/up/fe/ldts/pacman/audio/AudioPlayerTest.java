@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +24,7 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void basicAudioLoading(){
+    void basicAudioLoading() {
         assertDoesNotThrow(() -> new AudioPlayer("Audio/ghostEaten.wav"));
     }
 
@@ -55,21 +54,21 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void stopPlayingClipDependency(){
+    void stopPlayingClipDependency() {
         audioPlayer.stopPlaying();
 
         verify(mockClip).stop();
     }
 
     @Test
-    void isPlayingClipDependency(){
+    void isPlayingClipDependency() {
         audioPlayer.isPlaying();
 
         verify(mockClip).isActive();
     }
 
     @Test
-    void setAndGetVolume(){
+    void setAndGetVolume() {
         AudioPlayer audioPlayer = new AudioPlayer("Audio/ghostEaten.wav");
 
         audioPlayer.setVolume(0.5f);
@@ -83,7 +82,7 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void setAndGetInvalidVolume(){
+    void setAndGetInvalidVolume() {
         AudioPlayer audioPlayer = new AudioPlayer("Audio/ghostEaten.wav");
 
         audioPlayer.setVolume(1f);
@@ -97,21 +96,21 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void isPlaying(){
+    void isPlaying() {
         AudioPlayer audioPlayer = new AudioPlayer("Audio/ghostEaten.wav");
 
         assertFalse(audioPlayer.isPlaying());
     }
 
     @Test
-    void getException(){
+    void getException() {
         Exception exception = assertThrows(Exception.class, () -> new AudioPlayer("Audio/silence.mp4"));
 
         assertEquals("Could not open audio: Audio/silence.mp4", exception.getMessage());
     }
 
     @Test
-    void stopAudio(){
+    void stopAudio() {
         AudioPlayer audioPlayer = new AudioPlayer("Audio/silence.wav");
         audioPlayer.playInLoop();
 
@@ -121,7 +120,7 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void setVolumeFloatControl(){
+    void setVolumeFloatControl() {
         FloatControl mockFloatControl = mock(FloatControl.class);
         when(mockClip.getControl(any())).thenReturn(mockFloatControl);
 

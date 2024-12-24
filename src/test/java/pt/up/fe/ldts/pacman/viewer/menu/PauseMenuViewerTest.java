@@ -22,6 +22,6 @@ public class PauseMenuViewerTest {
 
 
         //5 times for the title + 2 times for the pause sign + (6 + 15 + 15 + 14) for each option respectively = 57
-        verify(mockGUI, times(57)).drawCharacter(any(),any(),any());
+        verify(mockGUI, times(57)).drawCharacter(any(), any(), any());
     }
 }

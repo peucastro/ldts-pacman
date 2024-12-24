@@ -2,16 +2,20 @@ package pt.up.fe.ldts.pacman.viewer;
 
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Element;
-import pt.up.fe.ldts.pacman.model.game.element.*;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
+import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.collectibles.*;
-import pt.up.fe.ldts.pacman.model.game.element.ghost.*;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Blinky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Clyde;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Inky;
+import pt.up.fe.ldts.pacman.model.game.element.ghost.Pinky;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.io.IOException;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ViewerFactoryTest {
 

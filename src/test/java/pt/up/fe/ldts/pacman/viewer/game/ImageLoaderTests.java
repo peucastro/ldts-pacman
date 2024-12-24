@@ -49,10 +49,10 @@ public class ImageLoaderTests {
         assertNotNull(bufferedImage);
         assertNotNull(basicTextImage);
 
-        for(int x = 0; x < 11; ++x){
-            for(int y = 0; y < 11; ++y){
-                TextColor color = basicTextImage.getCharacterAt(x,y).getBackgroundColor();
-                assertEquals(0xff1c1cb7, bufferedImage.getRGB(x,y));
+        for (int x = 0; x < 11; ++x) {
+            for (int y = 0; y < 11; ++y) {
+                TextColor color = basicTextImage.getCharacterAt(x, y).getBackgroundColor();
+                assertEquals(0xff1c1cb7, bufferedImage.getRGB(x, y));
                 assertEquals(0x1c, color.getRed());
                 assertEquals(0x1c, color.getGreen());
                 assertEquals(0xb7, color.getBlue());

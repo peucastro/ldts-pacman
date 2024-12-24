@@ -4,22 +4,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.Game;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
+import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
-import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 class AlertMenuControllerTest {
     private AlertMenuController controller;
@@ -58,7 +58,7 @@ class AlertMenuControllerTest {
     @Test
     void testPlayAgainSelected() throws Exception {
         doAnswer(invocationOnMock -> {
-            assertEquals("singleplayer", ((MapSelectionMenuState)invocationOnMock.getArgument(0)).getModel().getFolderstring());
+            assertEquals("singleplayer", ((MapSelectionMenuState) invocationOnMock.getArgument(0)).getModel().getFolderstring());
             return null;
         }).when(game).setState(any(MapSelectionMenuState.class));
         when(alertMenu.PlayAgainSelected()).thenReturn(true);
@@ -84,9 +84,9 @@ class AlertMenuControllerTest {
 
     @Test
     void testSelectNextOption() throws IOException, URISyntaxException, FontFormatException {
-        controller.step(game, List.of(GUI.ACTION.DOWN),0);
+        controller.step(game, List.of(GUI.ACTION.DOWN), 0);
 
-        verify(menuSelect,times(1)).playOnce();
+        verify(menuSelect, times(1)).playOnce();
         verify(menuSelect, times(1)).playOnce();
         verify(alertMenu, times(1)).selectNextOption();
     }

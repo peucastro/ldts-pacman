@@ -49,8 +49,8 @@ public class MapSelectionMenuControllerTest {
     void testSelectMap() throws IOException, URISyntaxException, FontFormatException {
         // Arrange
         doAnswer(invocationOnMock -> {
-            assertEquals(1, ((GameState)invocationOnMock.getArgument(0)).getModel().getPacmans().size());
-            assertEquals(4, ((GameState)invocationOnMock.getArgument(0)).getModel().getGhosts().size());
+            assertEquals(1, ((GameState) invocationOnMock.getArgument(0)).getModel().getPacmans().size());
+            assertEquals(4, ((GameState) invocationOnMock.getArgument(0)).getModel().getGhosts().size());
             return null;
         }).when(game).setState(any(GameState.class));
         when(audioManager.getAudio(any())).thenReturn(mock(AudioPlayer.class));

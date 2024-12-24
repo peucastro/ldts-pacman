@@ -35,7 +35,7 @@ public class ClydeMovementBehaviourTest {
         when(pacman.getPosition()).thenReturn(new Position(6, 0));
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, true);
-        assertEquals(new Position(6,0), target); // Clyde chases Pacman
+        assertEquals(new Position(6, 0), target); // Clyde chases Pacman
     }
 
     @Test
@@ -63,14 +63,14 @@ public class ClydeMovementBehaviourTest {
         assertEquals(new Position(10, 11), target); // Clyde moves to a fixed position
 
         when(arena.getCollectedCollectibles()).thenReturn(60);
-        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(5,5)));
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(5, 5)));
 
         target = behaviour.getAlivePosition(ghost, arena, pacman, false);
-        assertEquals(new Position(5,5), target); // Clyde moves to a fixed position
+        assertEquals(new Position(5, 5), target); // Clyde moves to a fixed position
     }
 
     @Test
-    void testClydeScatterMode(){
+    void testClydeScatterMode() {
         GhostMovementBehaviour behaviour = new ClydeMovementBehaviour();
         when(ghost.isInsideGate()).thenReturn(false);
 
@@ -78,7 +78,7 @@ public class ClydeMovementBehaviourTest {
         when(arena.getHeight()).thenReturn(20);
 
         Position target = behaviour.getAlivePosition(ghost, arena, pacman, false);
-        assertEquals(new Position(0,20), target); // Clyde moves to a fixed position
+        assertEquals(new Position(0, 20), target); // Clyde moves to a fixed position
     }
 
 }

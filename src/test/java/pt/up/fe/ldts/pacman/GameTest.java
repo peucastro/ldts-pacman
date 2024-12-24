@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameTest {
-    private AudioPlayer mainMusic;
     private static Game game;
+    private AudioPlayer mainMusic;
     private AudioManager audioManager;
     private LanternaGUI gui;
 
@@ -217,7 +217,8 @@ public class GameTest {
         GameLoop gameLoop = new GameLoop(60);
 
         long startTime = System.currentTimeMillis();
-        gameLoop.update(() -> {});
+        gameLoop.update(() -> {
+        });
         long endTime = System.currentTimeMillis();
 
         long elapsed = endTime - startTime;
@@ -233,7 +234,7 @@ public class GameTest {
         Long frameTime = (Long) privateField.get(gameLoop);
 
         assertEquals(0, gameLoop.getFrameCount());
-        assertEquals(1000/60, frameTime);
+        assertEquals(1000 / 60, frameTime);
     }
 
     @Test
@@ -251,7 +252,7 @@ public class GameTest {
         long timeEllapsed = System.currentTimeMillis() - start;
 
 
-        assertEquals((long) 1,  gameLoop.getFrameCount()); //assert the frame count was incremented
+        assertEquals(1, gameLoop.getFrameCount()); //assert the frame count was incremented
         assertTrue(10 < timeEllapsed); //frame took too long
 
         start = System.currentTimeMillis();
@@ -264,7 +265,7 @@ public class GameTest {
         });
         timeEllapsed = System.currentTimeMillis() - start;
 
-        assertEquals((long) 2, gameLoop.getFrameCount()); //assert the frame count was incremented
+        assertEquals(2, gameLoop.getFrameCount()); //assert the frame count was incremented
         assertTrue(10 <= timeEllapsed); //frame was too fast so it got delayed
     }
 
@@ -304,12 +305,12 @@ public class GameTest {
         GameLoop gameLoop = new GameLoop(60);
 
         long startTime = System.currentTimeMillis();
-        gameLoop.update(() -> {});
+        gameLoop.update(() -> {
+        });
         long elapsedTime = System.currentTimeMillis() - startTime;
 
         assertTrue(elapsedTime >= 16); // Ensures at least 16 ms (60 FPS)
     }
-
 
 
 }

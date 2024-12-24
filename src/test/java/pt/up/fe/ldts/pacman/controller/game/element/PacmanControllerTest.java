@@ -9,9 +9,9 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.Position;
 import pt.up.fe.ldts.pacman.model.game.Arena;
 import pt.up.fe.ldts.pacman.model.game.element.Direction;
+import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 import pt.up.fe.ldts.pacman.model.game.element.Wall;
 import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
-import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -29,7 +29,8 @@ public class PacmanControllerTest {
     private Game game;
     private Pacman pacman;
 
-    @BeforeEach @BeforeTry
+    @BeforeEach
+    @BeforeTry
     void setUp() {
         arena = mock(Arena.class);
         game = mock(Game.class);
@@ -38,7 +39,7 @@ public class PacmanControllerTest {
         when(arena.getPacmans()).thenReturn(Collections.singletonList(pacman));
 
         GhostGate ghostGate = mock(GhostGate.class);
-        when(ghostGate.getPosition()).thenReturn(new Position(0,0));
+        when(ghostGate.getPosition()).thenReturn(new Position(0, 0));
         when(arena.getGhostGate()).thenReturn(ghostGate);
         when(ghostGate.getPosition()).thenReturn(new Position(10, 10));
 
@@ -87,10 +88,10 @@ public class PacmanControllerTest {
     }
 
     @Test
-    void testPacmanMovesWhenItCan(){
+    void testPacmanMovesWhenItCan() {
         when(arena.getWalls()).thenReturn(Set.of()); //no walls
         when(arena.isEmpty(any())).thenReturn(true);
-        Pacman realpacman = new Pacman(new Position(10,10));
+        Pacman realpacman = new Pacman(new Position(10, 10));
         realpacman.setSpeed(1); //max speed possible
         realpacman.setCounter(0);
         when(arena.getPacmans()).thenReturn(List.of(realpacman));
@@ -101,7 +102,7 @@ public class PacmanControllerTest {
     }
 
     @Test
-    void testSpeed(){
+    void testSpeed() {
         when(pacman.getSpeed()).thenReturn(Arena.PACMAN_NORMAL_SPEED);
 
         pacmanController.step(game, List.of(), 0); //will move
@@ -152,9 +153,9 @@ public class PacmanControllerTest {
     }
 
     @Property
-    void testKeepLastDesiredDirection(@ForAll ("listOfActions") List<GUI.ACTION> actions) throws NoSuchFieldException, IllegalAccessException {
-        Pacman pacman1 = new Pacman(new Position(10,10));
-        Pacman pacman2 = new Pacman(new Position(10,10));
+    void testKeepLastDesiredDirection(@ForAll("listOfActions") List<GUI.ACTION> actions) throws NoSuchFieldException, IllegalAccessException {
+        Pacman pacman1 = new Pacman(new Position(10, 10));
+        Pacman pacman2 = new Pacman(new Position(10, 10));
         when(arena.getPacmans()).thenReturn(List.of(pacman1, pacman2));
 
         Field privateField = PacmanController.class.getDeclaredField("desiredDirections");
@@ -163,9 +164,9 @@ public class PacmanControllerTest {
         pacmanController.step(game, actions, 0);
 
         List<Direction> desiredDirections = (List<Direction>) privateField.get(pacmanController);
-        if(actions.getLast() == GUI.ACTION.DOWN) assertEquals(Direction.DOWN, desiredDirections.getFirst());
-        else if(actions.getLast() == GUI.ACTION.RIGHT) assertEquals(Direction.RIGHT, desiredDirections.getFirst());
-        else if(actions.getLast() == GUI.ACTION.UP) assertEquals(Direction.UP, desiredDirections.getFirst());
+        if (actions.getLast() == GUI.ACTION.DOWN) assertEquals(Direction.DOWN, desiredDirections.getFirst());
+        else if (actions.getLast() == GUI.ACTION.RIGHT) assertEquals(Direction.RIGHT, desiredDirections.getFirst());
+        else if (actions.getLast() == GUI.ACTION.UP) assertEquals(Direction.UP, desiredDirections.getFirst());
         else assertEquals(Direction.LEFT, desiredDirections.getFirst());
     }
 
@@ -200,7 +201,6 @@ public class PacmanControllerTest {
         verify(pacman, never()).incrementCounter();
 
 
-
         when(otherPacman.isDying()).thenReturn(true);
 
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
@@ -223,7 +223,7 @@ public class PacmanControllerTest {
     void testNotMovingThroughWalls(@ForAll("arenas") Arena arena2, @ForAll("positions") Position startPosition, @ForAll("actions") GUI.ACTION action) {
         Pacman realpacman = new Pacman(new Position(startPosition));
         realpacman.setCounter(0);
-        realpacman.setDirection(switch (action){
+        realpacman.setDirection(switch (action) {
             case UP -> Direction.UP;
             case RIGHT -> Direction.RIGHT;
             case DOWN -> Direction.DOWN;
@@ -235,7 +235,7 @@ public class PacmanControllerTest {
         Position expectedPosition = realpacman.getNextPosition();
         pacmanController = new PacmanController(arena2);
 
-        for(int i = 0; i < 11; ++i) {
+        for (int i = 0; i < 11; ++i) {
             assert action != null;
             pacmanController.step(game, List.of(action), 0);
         }
@@ -252,7 +252,7 @@ public class PacmanControllerTest {
         when(pacman.getDirection()).thenReturn(Direction.UP);
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getCounter()).thenReturn(0);
-        when(pacman.getNextPosition()).thenReturn(new Position(6,5));
+        when(pacman.getNextPosition()).thenReturn(new Position(6, 5));
         when(arena.isEmpty(any())).thenReturn(true);
         when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(6, 5)));
 
@@ -264,7 +264,7 @@ public class PacmanControllerTest {
     @Test
     void testTimeAndSpeedBoundaryConditions() {
         when(pacman.getSpeed()).thenReturn(2);
-        when(pacman.getPosition()).thenReturn(new Position(5,5));
+        when(pacman.getPosition()).thenReturn(new Position(5, 5));
         when(pacman.getCounter()).thenReturn(1);
 
         pacmanController.step(game, List.of(GUI.ACTION.UP), 1);
@@ -284,7 +284,7 @@ public class PacmanControllerTest {
     }
 
     @Provide
-    Arbitrary<GUI.ACTION> actions(){
+    Arbitrary<GUI.ACTION> actions() {
         return Arbitraries.of(
                 GUI.ACTION.RIGHT, GUI.ACTION.DOWN,
                 GUI.ACTION.UP, GUI.ACTION.LEFT
@@ -308,7 +308,7 @@ public class PacmanControllerTest {
     }
 
     @Provide
-    Arbitrary<List<GUI.ACTION>> listOfActions(){
+    Arbitrary<List<GUI.ACTION>> listOfActions() {
         Arbitrary<GUI.ACTION> actions = Arbitraries.of(
                 GUI.ACTION.RIGHT, GUI.ACTION.DOWN,
                 GUI.ACTION.UP, GUI.ACTION.LEFT

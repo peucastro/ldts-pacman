@@ -8,7 +8,8 @@ import pt.up.fe.ldts.pacman.model.menu.element.TextBox;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestMenu extends Menu {
     @Override

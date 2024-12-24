@@ -40,15 +40,15 @@ public class DyingStateControllerTest {
 
     @Test
     void returnToGame() throws IOException, URISyntaxException {
-        Pacman pacman = new Pacman(new Position(0,0));
-        pacman.setRespawnPosition(new Position(20,20));
+        Pacman pacman = new Pacman(new Position(0, 0));
+        pacman.setRespawnPosition(new Position(20, 20));
         pacman.setDying(true);
         pacman.setCounter(5);
         pacman.setSpeed(Arena.PACMAN_BOOSTED_SPEED);
         when(arena.getPacmans()).thenReturn(List.of(pacman));
 
-        Blinky blinky = new Blinky(new Position(0,0));
-        blinky.setRespawnPosition(new Position(10,10));
+        Blinky blinky = new Blinky(new Position(0, 0));
+        blinky.setRespawnPosition(new Position(10, 10));
         blinky.setCounter(5);
         blinky.setOutsideGate();
         blinky.setState(GhostState.DEAD);
@@ -68,10 +68,10 @@ public class DyingStateControllerTest {
         assertEquals(GhostState.ALIVE, blinky.getState());
         assertTrue(blinky.isInsideGate());
         assertEquals(0, blinky.getCounter());
-        assertEquals(new Position(10,10), blinky.getPosition());
+        assertEquals(new Position(10, 10), blinky.getPosition());
         assertEquals(Arena.GHOST_NORMAL_SPEED, blinky.getSpeed());
 
-        assertEquals(new Position(20,20), pacman.getPosition());
+        assertEquals(new Position(20, 20), pacman.getPosition());
         assertEquals(Arena.PACMAN_NORMAL_SPEED, pacman.getSpeed());
         assertFalse(pacman.isDying());
         assertEquals(0, pacman.getCounter());
@@ -79,8 +79,8 @@ public class DyingStateControllerTest {
 
     @Test
     void toGameOverMenu() throws IOException, URISyntaxException {
-        Pacman pacman = new Pacman(new Position(0,0));
-        pacman.setRespawnPosition(new Position(20,20));
+        Pacman pacman = new Pacman(new Position(0, 0));
+        pacman.setRespawnPosition(new Position(20, 20));
         pacman.setLife(0);
         when(arena.getPacmans()).thenReturn(List.of(pacman));
 

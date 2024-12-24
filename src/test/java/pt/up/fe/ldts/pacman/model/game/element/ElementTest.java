@@ -60,22 +60,22 @@ public class ElementTest {
     }
 
     @Test
-    void testEqualsWithSameObject(){
-        Element element = new Coin(new Position(0,0));
+    void testEqualsWithSameObject() {
+        Element element = new Coin(new Position(0, 0));
         assertEquals(element, element);
     }
 
     @Test
-    void testEqualsWithDifferentClass(){
-        Element element = new Coin(new Position(0,0));
-        assertFalse(element.equals("not an element Ob"));
+    void testEqualsWithDifferentClass() {
+        Element element = new Coin(new Position(0, 0));
+        assertNotEquals("not an element Ob", element);
     }
 
     @Test
-    void testHashCodeConsistency(){
-        Element element1 = new Pacman(new Position(0,0));
-        Element element2 = new Pacman(new Position(0,0));
-        Element element3 = new Pacman(new Position(1,0));
+    void testHashCodeConsistency() {
+        Element element1 = new Pacman(new Position(0, 0));
+        Element element2 = new Pacman(new Position(0, 0));
+        Element element3 = new Pacman(new Position(1, 0));
         assertEquals(element2.hashCode(), element1.hashCode());
         assertNotEquals(element2.hashCode(), element3.hashCode());
     }
@@ -94,12 +94,11 @@ public class ElementTest {
     }
 
     @Property
-    void testElementCreation(@ForAll int x, @ForAll int y){
-        Position position = new Position(x,y);
-        if(x < 0 || y < 0){
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,() -> new Orange(position));
+    void testElementCreation(@ForAll int x, @ForAll int y) {
+        Position position = new Position(x, y);
+        if (x < 0 || y < 0) {
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Orange(position));
             assertEquals("Element position cannot have negatives values: " + position, exception.getMessage());
-        }
-        else assertDoesNotThrow(() -> new Orange(position));
+        } else assertDoesNotThrow(() -> new Orange(position));
     }
 }

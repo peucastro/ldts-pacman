@@ -31,13 +31,13 @@ class GhostViewerTest {
         Pinky pinky = new Pinky(new Position(0, 0));
 
         // Test Pinky Alive
-        ghostViewer.drawElement(mockLanternaGUI, pinky,0);
+        ghostViewer.drawElement(mockLanternaGUI, pinky, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
         reset(mockLanternaGUI);
 
         // Test Pinky Dead
         pinky.setState(GhostState.DEAD);
-        ghostViewer.drawElement(mockLanternaGUI, pinky,0);
+        ghostViewer.drawElement(mockLanternaGUI, pinky, 0);
         verify(mockLanternaGUI, times(1)).drawImage(any(), (BufferedImage) any());
     }
 
@@ -46,7 +46,7 @@ class GhostViewerTest {
         GhostStrategy ghostStrategy = new GhostStrategy();
         Map<Character, List<BufferedImage>> images = ImageLoader.loadGhostImages("blinky");
         BufferedImage scaredImage = images.get('S').getFirst(); //get the example scared image
-        Ghost ghost = new Blinky(new Position(0,0));
+        Ghost ghost = new Blinky(new Position(0, 0));
         ghost.setState(GhostState.SCARED);
 
         BufferedImage obtainedImage1 = ghostStrategy.getCurrentImage(ghost, images, 0);
@@ -65,7 +65,7 @@ class GhostViewerTest {
         BufferedImage deadImageLeft = images.get('l').getFirst();
         BufferedImage deadImageUp = images.get('u').getFirst();
         BufferedImage deadImageDown = images.get('d').getFirst();
-        Ghost ghost = new Blinky(new Position(0,0));
+        Ghost ghost = new Blinky(new Position(0, 0));
         ghost.setState(GhostState.DEAD);
 
         //dead images in all directions
@@ -90,7 +90,7 @@ class GhostViewerTest {
         Map<Character, List<BufferedImage>> images = ImageLoader.loadGhostImages("blinky");
         BufferedImage frame1 = images.get('R').getFirst();
         BufferedImage frame2 = images.get('R').get(1);
-        Ghost ghost = new Blinky(new Position(0,0));
+        Ghost ghost = new Blinky(new Position(0, 0));
         ghost.setDirection(Direction.RIGHT);
 
         BufferedImage obtainedImage1 = ghostStrategy.getCurrentImage(ghost, images, 5); //animation frame 1

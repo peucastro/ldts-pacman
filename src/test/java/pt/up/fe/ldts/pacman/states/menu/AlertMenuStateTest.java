@@ -8,14 +8,15 @@ import pt.up.fe.ldts.pacman.controller.Controller;
 import pt.up.fe.ldts.pacman.controller.menu.AlertMenuController;
 import pt.up.fe.ldts.pacman.model.menu.AlertMenu;
 import pt.up.fe.ldts.pacman.viewer.Viewer;
-import pt.up.fe.ldts.pacman.viewer.menu.AlertMenuViewer;
 import pt.up.fe.ldts.pacman.viewer.game.ImageLoader;
+import pt.up.fe.ldts.pacman.viewer.menu.AlertMenuViewer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class AlertMenuStateTest {

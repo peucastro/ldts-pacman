@@ -55,7 +55,7 @@ class PositionTest {
     @Test
     void testEqualsWithDifferentClass() {
         Position position = new Position(1, 1);
-        assertFalse(position.equals("not a Position object"));
+        assertNotEquals("not a Position object", position);
     }
 
     @Test

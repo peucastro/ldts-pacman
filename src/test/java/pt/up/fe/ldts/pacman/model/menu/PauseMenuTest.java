@@ -3,8 +3,8 @@ package pt.up.fe.ldts.pacman.model.menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.gui.GUI;
-import pt.up.fe.ldts.pacman.states.State;
 import pt.up.fe.ldts.pacman.model.Position;
+import pt.up.fe.ldts.pacman.states.State;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

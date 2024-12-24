@@ -7,12 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CollectibleTest {
 
-    private static class TestCollectible extends Collectible {
-        public TestCollectible(Position pos, int value) {
-            super(pos, value);
-        }
-    }
-
     @Test
     void testCollectibleInitialization() {
         TestCollectible collectible = new TestCollectible(new Position(5, 5), 10);
@@ -27,5 +21,11 @@ public class CollectibleTest {
         TestCollectible collectible = new TestCollectible(new Position(1, 1), 20);
 
         assertEquals(20, collectible.getValue());
+    }
+
+    private static class TestCollectible extends Collectible {
+        public TestCollectible(Position pos, int value) {
+            super(pos, value);
+        }
     }
 }

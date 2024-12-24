@@ -176,5 +176,5 @@ public class ArenaTest {
         arena.incrementCollectedCollectibles();
         assertEquals(2, arena.getCollectedCollectibles());
     }
-    
+
 }

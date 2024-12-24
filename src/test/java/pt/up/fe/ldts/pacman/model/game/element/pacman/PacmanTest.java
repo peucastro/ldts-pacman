@@ -18,7 +18,7 @@ public class PacmanTest {
 
         assertEquals(new Position(10, 10), pacman.getPosition());
 
-        assertEquals(Arena.PACMAN_NORMAL_SPEED ,pacman.getSpeed());
+        assertEquals(Arena.PACMAN_NORMAL_SPEED, pacman.getSpeed());
     }
 
     @Test
