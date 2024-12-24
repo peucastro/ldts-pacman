@@ -4,7 +4,8 @@ import com.googlecode.lanterna.TerminalPosition;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.model.Position;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PositionTest {
 

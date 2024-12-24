@@ -30,7 +30,7 @@ public class ModelViewerTest {
         viewers = new HashMap<>();
         viewers.put(mockElement.getClass(), mockElementViewer);
 
-        modelViewer = new ModelViewer<Object>(viewers) {
+        modelViewer = new ModelViewer<>(viewers) {
             @Override
             public void drawElements(GUI gui, Object model, long frameCount) {
             }
@@ -85,9 +85,7 @@ public class ModelViewerTest {
     void testDrawElementThrowsRuntimeExceptionOnIOException() throws IOException {
         doThrow(new IOException("Refresh failed")).when(mockGui).refresh();
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            modelViewer.drawElement(mockGui, new Object(), 0);
-        });
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> modelViewer.drawElement(mockGui, new Object(), 0));
 
         assertEquals("java.io.IOException: Refresh failed", exception.getMessage());
     }

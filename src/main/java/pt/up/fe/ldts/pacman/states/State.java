@@ -28,7 +28,7 @@ public abstract class State<T> {
         return model;
     }
 
-    public abstract Viewer<T> createViewer() throws IOException, URISyntaxException;
+    public abstract Viewer<T> createViewer() throws IOException;
 
     public abstract Controller<T> createController(AudioManager audioManager);
 

@@ -36,7 +36,7 @@ public class AudioPlayerTest {
 
 
     @Test
-    void playOnceClipDependency() throws NoSuchFieldException, IllegalAccessException {
+    void playOnceClipDependency() {
         audioPlayer.playOnce();
 
         verify(mockClip, times(1)).stop();
@@ -45,7 +45,7 @@ public class AudioPlayerTest {
     }
 
     @Test
-    void playInLoopClipDependency() throws NoSuchFieldException, IllegalAccessException {
+    void playInLoopClipDependency() {
         audioPlayer.playInLoop();
 
         verify(mockClip, times(1)).stop();

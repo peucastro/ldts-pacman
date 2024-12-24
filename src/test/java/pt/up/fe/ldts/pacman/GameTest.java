@@ -25,7 +25,6 @@ import static org.mockito.Mockito.*;
 
 public class GameTest {
     private static Game game;
-    private AudioPlayer mainMusic;
     private AudioManager audioManager;
     private LanternaGUI gui;
 
@@ -165,7 +164,7 @@ public class GameTest {
     void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         State mockState = mock(State.class);
         game.setState(mockState);
-        mainMusic = mock(AudioPlayer.class);
+        AudioPlayer mainMusic = mock(AudioPlayer.class);
 
         doAnswer(invocation -> {
             game.setState(null);
