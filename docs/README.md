@@ -17,8 +17,10 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
   the game environment, including collecting coins and evading ghosts.
 - **Ghosts:** Each ghost will have a unique behavior to challenge the player. Ghosts adapt to the player’s movements,
   creating a dynamic and engaging chase.
-- **Coins and Power-ups:** Collectible items that increase the player’s score. The game ends when all coins are
+- **Coins and Fruit:** Collectible items that increase the player’s score. The game ends when all coins are
   consumed.
+- **Power-ups:** Special collectible items that temporarily change the Ghost's state and speed up Pacman, which can
+  then eat the Ghosts.
 - **Start and pause menus:** The user has the capability of pause and return to the main menu during the gameplay.
 - **Alert menus:** When the user wins or loses, a custom message shows up at the window.
 - **Map selection:** A total of 5 maps are available to play, each with unique layouts and challenges.
@@ -32,7 +34,7 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
 
 ## Planned features
 
-- **Power-ups:** Special collectible items that temporarily change the Pacman state.
+- For now, there are no planned features.
 
 ## **Implementation Overview**
 
