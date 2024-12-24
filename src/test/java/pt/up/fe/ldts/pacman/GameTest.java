@@ -284,6 +284,7 @@ public class GameTest {
         assertNotNull(result);
         assertEquals(0.05f, result.getVolume(), 0.01f);
         assertTrue(result.isPlaying());
+        result.stopPlaying();
     }
 
     @Test
