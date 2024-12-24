@@ -36,17 +36,7 @@ and <a href="https://github.com/peucastro">Pedro Castro</a> (up202200044@fe.up.p
 
 - For now, there are no planned features.
 
-## **Implementation Overview**
-
-The system is composed of the following key components:
-
-- **Element:** A base class representing both movable (Pacman, Ghosts) and static (coins, power-ups) elements in
-  the game.
-- **MovableElement & StaticElement:** Interfaces defining the behavior of objects that can move or remain stationary.
-- **Pacman & Ghost:** Concrete classes that implement the movable behavior, with the Ghost class further divided into
-  specific ghost types (Blinky, Pinky, Inky, Clyde).
-- **Direction & Position:** Representations of the directions and coordinates in the game world.
-- **Arena:** A container for all the elements in the game, including Pacman, ghosts, and collectible items.
+---
 
 ## Design
 
@@ -66,7 +56,8 @@ The system is composed of the following key components:
 
 - **Implementation:**  
   The **Model** encapsulates the game's data and logic. (e.g., `Pacman`, `Ghost`, `Coins`). The **View** is responsible
-  for rendering these elements on the screen using classes like `ElementViewer` and `MovableElementViewer`. The **Controller**
+  for rendering these elements on the screen using classes like `ElementViewer` and `MovableElementViewer`. The *
+  *Controller**
   manages user input and updates the game state accordingly, e.g., `GameController` handles key presses and game loop
   logic.
 
@@ -82,6 +73,7 @@ The system is composed of the following key components:
     - [Pacman Controller](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/PacmanController.java)
 
 - **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/mvc.png"/>
 </p>
@@ -110,6 +102,7 @@ The system is composed of the following key components:
     - [Game Loop Implementation](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
 
 - **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/gameloop.png"/>
 </p>
@@ -139,7 +132,8 @@ The system is composed of the following key components:
     - [Game Singleton](/src/main/java/pt/up/fe/ldts/pacman/Game.java)
     - [AudioManager Singleton](/src/main/java/pt/up/fe/ldts/pacman/audio/AudioManager.java)
 
-- **UML diagram:**  
+- **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/singleton.png"/>
 </p>
@@ -168,7 +162,8 @@ The system is composed of the following key components:
     - [State Abstract Class](/src/main/java/pt/up/fe/ldts/pacman/states/State.java)
     - [MainMenuState](/src/main/java/pt/up/fe/ldts/pacman/states/menu/MainMenuState.java)
 
-- **UML diagram:**  
+- **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/state.png"/>
 </p>
@@ -199,7 +194,8 @@ The system is composed of the following key components:
     - [Blinky movement Strategy](/src/main/java/pt/up/fe/ldts/pacman/controller/game/element/behaviours/BlinkyMovementBehaviour.java)
     - [Pacman viewer Strategy](/src/main/java/pt/up/fe/ldts/pacman/viewer/game/strategies/PacmanStrategy.java)
 
-- **UML diagram:**  
+- **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/strategy.png"/>
 </p>
@@ -228,7 +224,8 @@ The system is composed of the following key components:
 - **Code References:**
     - [LanternaGUI Facade](/src/main/java/pt/up/fe/ldts/pacman/gui/LanternaGUI.java)
 
-- **UML diagram:**  
+- **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/facade.png"/>
 </p>
@@ -255,7 +252,8 @@ The system is composed of the following key components:
 - **Code References:**
     - [Viewer Factory](/src/main/java/pt/up/fe/ldts/pacman/viewer/ViewerFactory.java)
 
-- **UML diagram:**  
+- **UML diagram:**
+
 <p align="center" justify="center">
   <img src="resources/uml/patterns/factory.png"/>
 </p>
