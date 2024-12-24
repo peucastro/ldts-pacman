@@ -62,8 +62,8 @@ public class GhostControllerTest {
     }
 
     @Test
-    void testInvalidDirections() {
-        Ghost realghost = new Blinky(new Position(3, 1));
+    void testInvalidDirections() throws NoSuchFieldException, IllegalAccessException {
+        Ghost realghost = new Blinky(new Position(3, 2));
         realghost.setDirection(Direction.DOWN);
         realghost.setSpeed(1);
         realghost.setOutsideGate();
@@ -71,12 +71,32 @@ public class GhostControllerTest {
         when(arena.getGhosts()).thenReturn(Set.of(realghost));
         when(arena.getPacmans()).thenReturn(List.of(pacman));
         ghostController = new GhostController(arena);
+        Field privateField = GhostController.class.getDeclaredField("frameCount");
+        privateField.setAccessible(true);
+
+        privateField.set(ghostController, 5000); //set in chase mode
 
         ghostController.step(game, null, 0);
 
         //even though moving up is closer, ghost cannot invert direction
-        //even though right and left are at the same distance from pacman, right takes priority
-        assertEquals(Direction.RIGHT, realghost.getDirection());
+        //even though right and left are at the same distance from pacman, left takes priority
+        assertEquals(Direction.LEFT, realghost.getDirection());
+
+        realghost.setCounter(0);
+        when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(3,1)));
+
+        ghostController.step(game, null, 0);
+
+        //even though moving up is closer, ghost cannot move to the ghost gate if oustide and alive
+        assertEquals(Direction.LEFT, realghost.getDirection());
+
+        realghost.setCounter(0);
+        realghost.setState(GhostState.DEAD);
+
+        ghostController.step(game, null, 0);
+
+        //ghost can now move up since he is dead, can now enter ghost box
+        assertEquals(Direction.UP, realghost.getDirection());
     }
 
     @Test

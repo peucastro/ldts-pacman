@@ -3,6 +3,7 @@ package pt.up.fe.ldts.pacman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.up.fe.ldts.pacman.audio.AudioManager;
+import pt.up.fe.ldts.pacman.audio.AudioPlayer;
 import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.gui.LanternaGUI;
 import pt.up.fe.ldts.pacman.model.menu.MainMenu;
@@ -13,6 +14,8 @@ import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameTest {
+    private AudioPlayer mainMusic;
     private static Game game;
     private AudioManager audioManager;
     private LanternaGUI gui;
@@ -91,6 +95,14 @@ public class GameTest {
                 game.setState(null);
             }
         };
+
+        doAnswer(invocationOnMock -> {
+            AudioPlayer mainMusic = invocationOnMock.getArgument(0);
+            assertEquals(0.05f, mainMusic.getVolume()); //assert the volume was set
+            assertTrue(mainMusic.isPlaying()); //assert main music is playing
+            return null;
+        }).when(audioManager).setMainMusic(any());
+
         game.setState(mockState);
 
         Game.main(gui, audioManager);
@@ -150,18 +162,154 @@ public class GameTest {
     }
 
     @Test
-    void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+    void testCleanup() throws IOException, URISyntaxException, FontFormatException, InterruptedException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         State mockState = mock(State.class);
         game.setState(mockState);
+        mainMusic = mock(AudioPlayer.class);
+
         doAnswer(invocation -> {
             game.setState(null);
             return null;
         }).when(mockState).step(any(), any(), anyLong());
 
+        Method privateMethod = Game.class.getDeclaredMethod("cleanup", AudioPlayer.class);
+        privateMethod.setAccessible(true);
+
+
         Game.main(gui, audioManager);
 
         verify(gui, times(1)).close();
+
+
+        privateMethod.invoke(game, mainMusic);
+
+        verify(mainMusic).stopPlaying();
     }
+
+    @Test
+    void testMasterVolumeSetAtInitialization() {
+        verify(audioManager, times(1)).setMasterVolume(1f);
+    }
+
+    @Test
+    void testGameLoopGetFrameCount() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        assertEquals(0, gameLoop.getFrameCount());
+
+        gameLoop.update(mockLogic);
+
+        assertEquals(1, gameLoop.getFrameCount());
+    }
+
+    @Test
+    void testGameLoopRunnableExecution() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        gameLoop.update(mockLogic);
+        verify(mockLogic, times(1)).run();
+    }
+
+    @Test
+    void testThreadSleepInGameLoop() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+
+        long startTime = System.currentTimeMillis();
+        gameLoop.update(() -> {});
+        long endTime = System.currentTimeMillis();
+
+        long elapsed = endTime - startTime;
+        assertTrue(elapsed >= 16);
+    }
+
+    @Test
+    void testGameLoopInitialState() throws NoSuchFieldException, IllegalAccessException {
+        Field privateField = GameLoop.class.getDeclaredField("frameTime");
+        privateField.setAccessible(true);
+
+        GameLoop gameLoop = new GameLoop(60);
+        Long frameTime = (Long) privateField.get(gameLoop);
+
+        assertEquals(0, gameLoop.getFrameCount());
+        assertEquals(1000/60, frameTime);
+    }
+
+    @Test
+    void testGameLoopUpdate() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(100); //only 10 milliseconds per frame
+
+        long start = System.currentTimeMillis();
+        gameLoop.update(() -> {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        long timeEllapsed = System.currentTimeMillis() - start;
+
+
+        assertEquals((long) 1,  gameLoop.getFrameCount()); //assert the frame count was incremented
+        assertTrue(10 < timeEllapsed); //frame took too long
+
+        start = System.currentTimeMillis();
+        gameLoop.update(() -> {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        timeEllapsed = System.currentTimeMillis() - start;
+
+        assertEquals((long) 2, gameLoop.getFrameCount()); //assert the frame count was incremented
+        assertTrue(10 <= timeEllapsed); //frame was too fast so it got delayed
+    }
+
+    @Test
+    void testAudioPlayerSetVolumeAndPlayInLoop() throws Exception {
+        AudioManager mockAudioManager = mock(AudioManager.class);
+        Field audioManagerField = Game.class.getDeclaredField("audioManager");
+        audioManagerField.setAccessible(true);
+        audioManagerField.set(game, mockAudioManager);
+
+        Method initializeMusicMethod = Game.class.getDeclaredMethod("initializeMusic");
+        initializeMusicMethod.setAccessible(true);
+        AudioPlayer result = (AudioPlayer) initializeMusicMethod.invoke(game);
+
+        verify(mockAudioManager, times(1)).setMainMusic(result);
+
+        assertNotNull(result);
+        assertEquals(0.05f, result.getVolume(), 0.01f);
+        assertTrue(result.isPlaying());
+        result.stopPlaying();
+    }
+
+    @Test
+    void testFrameCountIncrementsCorrectly() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+        Runnable mockLogic = mock(Runnable.class);
+
+        for (int i = 0; i < 5; i++) {
+            gameLoop.update(mockLogic);
+        }
+
+        assertEquals(5, gameLoop.getFrameCount());
+    }
+
+    @Test
+    void testGameLoopTimingWithSubtraction() throws InterruptedException {
+        GameLoop gameLoop = new GameLoop(60);
+
+        long startTime = System.currentTimeMillis();
+        gameLoop.update(() -> {});
+        long elapsedTime = System.currentTimeMillis() - startTime;
+
+        assertTrue(elapsedTime >= 16); // Ensures at least 16 ms (60 FPS)
+    }
+
 
 
 }

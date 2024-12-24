@@ -238,11 +238,19 @@ class MainMenuControllerTest {
         verify(audioManager, times(1)).setMasterVolume(0.7f);
         reset(mockGUI); reset(menuSelect);
 
-        controller.step(game, List.of(GUI.ACTION.RIGHT, GUI.ACTION.RIGHT), 0);
+        controller.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
         assertTrue(mainMenu.getOptions().get(3).getText().endsWith("9"));
-        verify(mockGUI, times(2)).clear();
-        verify(menuSelect, times(2)).playOnce();
+        verify(mockGUI, times(1)).clear();
+        verify(menuSelect, times(1)).playOnce();
+        verify(audioManager, times(1)).setMasterVolume(0.9f);
+        reset(mockGUI); reset(menuSelect);
+
+        controller.step(game, List.of(GUI.ACTION.SELECT), 0);
+
+        assertTrue(mainMenu.getOptions().get(3).getText().endsWith("9"));
+        verify(mockGUI, times(1)).clear();
+        verify(menuConfirmSelection, times(1)).playOnce();
         verify(audioManager, times(2)).setMasterVolume(0.9f);
     }
 

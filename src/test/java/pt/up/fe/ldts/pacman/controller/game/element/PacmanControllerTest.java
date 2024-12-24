@@ -14,12 +14,12 @@ import pt.up.fe.ldts.pacman.model.game.element.pacman.Pacman;
 import pt.up.fe.ldts.pacman.model.game.element.GhostGate;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class PacmanControllerTest {
@@ -170,7 +170,7 @@ public class PacmanControllerTest {
     }
 
     @Test
-    void testPacmanDoesNotMoveWhenCollidingWithAnotherPacman() {
+    void testPacmanDoesNotMoveWhenCollidingWithAnotherPacman() throws NoSuchFieldException, IllegalAccessException {
         Pacman otherPacman = mock(Pacman.class); // Mock the other Pacman
         Position pacmanPosition = new Position(5, 5);
         Position otherPacmanPosition = new Position(6, 5);
@@ -179,6 +179,7 @@ public class PacmanControllerTest {
         when(arena.getPacmans()).thenReturn(List.of(pacman, otherPacman));
         when(pacman.getPosition()).thenReturn(pacmanPosition);
         when(pacman.getCounter()).thenReturn(0);
+        when(pacman.getDirection()).thenReturn(Direction.RIGHT);
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getNextPosition()).thenReturn(nextPosition);
 
@@ -189,12 +190,32 @@ public class PacmanControllerTest {
             Pacman other = invocation.getArgument(0);
             return otherPacmanPosition.equals(other.getPosition());
         });
-
         when(arena.isEmpty(any())).thenReturn(true);
+
+
+        pacmanController.step(game, List.of(), 0); //without desired direction
+        pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0); //with desired direction
+
+        verify(pacman, never()).setDirection(Direction.RIGHT);
+        verify(pacman, never()).incrementCounter();
+
+
+
+        when(otherPacman.isDying()).thenReturn(true);
 
         pacmanController.step(game, List.of(GUI.ACTION.RIGHT), 0);
 
-        verify(pacman, never()).setDirection(Direction.RIGHT);
+        //since the other pacman is now dead, moving right is possible
+        verify(pacman).setDirection(Direction.RIGHT);
+        verify(pacman).incrementCounter();
+
+        Field privateField = PacmanController.class.getDeclaredField("desiredDirections");
+        privateField.setAccessible(true);
+        privateField.set(pacmanController, Arrays.asList(null, null));
+        pacmanController.step(game, List.of(), 4);
+
+        //since the other pacman is now dead, moving right is possible, now without desired direction,
+        verify(pacman, times(2)).incrementCounter();
     }
 
 
@@ -231,6 +252,7 @@ public class PacmanControllerTest {
         when(pacman.getDirection()).thenReturn(Direction.UP);
         when(pacman.getSpeed()).thenReturn(1);
         when(pacman.getCounter()).thenReturn(0);
+        when(pacman.getNextPosition()).thenReturn(new Position(6,5));
         when(arena.isEmpty(any())).thenReturn(true);
         when(arena.getGhostGate()).thenReturn(new GhostGate(new Position(6, 5)));
 

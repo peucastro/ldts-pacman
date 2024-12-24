@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class AudioManagerTest {
     private AudioManager audioManager;
@@ -30,14 +30,24 @@ public class AudioManagerTest {
     }
 
     @Test
+    void testSingletonPattern(){
+        AudioManager newAudioManager = AudioManager.getInstance();
+
+        assertEquals(audioManager, newAudioManager);
+    }
+
+    @Test
     void setMainMusic() throws NoSuchFieldException, IllegalAccessException {
         AudioPlayer mockAudioPlayer = mock(AudioPlayer.class);
+        when(mockAudioPlayer.getVolume()).thenReturn(0.75f);
         Field privateField = AudioManager.class.getDeclaredField("mainMusic");
         privateField.setAccessible(true);
+        audioManager.setMasterVolume(0.5f);
 
         audioManager.setMainMusic(mockAudioPlayer);
 
         assertEquals(mockAudioPlayer, privateField.get(audioManager));
+        verify(mockAudioPlayer).setVolume(0.75f * 0.5f);
     }
 
     @Test
@@ -75,12 +85,23 @@ public class AudioManagerTest {
 
         audioManager.addAudio("audio1", "Audio/ghostEaten.wav");
         audioManager.addAudio("audio2", "Audio/ghostEaten.wav");
+        AudioPlayer mockMainMusic = mock(AudioPlayer.class);
+        when(mockMainMusic.getVolume()).thenReturn(1f);
+        audioManager.setMainMusic(mockMainMusic);
         AudioPlayer audio1 = audioManager.getAudio("audio1");
         AudioPlayer audio2 = audioManager.getAudio("audio2");
 
 
         assertEquals(0.5f, audio1.getVolume());
         assertEquals(0.5f, audio2.getVolume());
+        verify(mockMainMusic).setVolume(0.5f);
+
+        when(mockMainMusic.getVolume()).thenReturn(0.5f);
+        audioManager.setMasterVolume(0.6f);
+
+        assertEquals(0.6f, audio1.getVolume());
+        assertEquals(0.6f, audio2.getVolume());
+        verify(mockMainMusic).setVolume(0.6f);
     }
 
     @Test
@@ -92,6 +113,12 @@ public class AudioManagerTest {
         audio2.setVolume(0.5f);
 
         audioManager.setMasterVolume(2f);
+
+        assertEquals(1f,audioManager.getMasterVolume());
+        assertEquals(1f, audio1.getVolume());
+        assertEquals(0.5f, audio2.getVolume());
+
+        audioManager.setMasterVolume(0f);
 
         assertEquals(1f,audioManager.getMasterVolume());
         assertEquals(1f, audio1.getVolume());
@@ -111,5 +138,46 @@ public class AudioManagerTest {
 
         assertFalse(audio1.isPlaying());
         assertFalse(audio2.isPlaying());
+    }
+
+    @Test
+    void stopAllAudiosWithAlreadyStoppedAudios() {
+        audioManager.addAudio("audio1", "Audio/silence.wav");
+        audioManager.addAudio("audio2", "Audio/silence.wav");
+        AudioPlayer audio1 = audioManager.getAudio("audio1");
+        AudioPlayer audio2 = audioManager.getAudio("audio2");
+
+        audio1.stopPlaying();
+        audioManager.stopAllAudios();
+
+        assertFalse(audio1.isPlaying());
+        assertFalse(audio2.isPlaying());
+    }
+
+    @Test
+    void testAudioVolumeBoundaries() {
+        audioManager.addAudio("audio1", "Audio/ghostEaten.wav");
+
+        AudioPlayer audio1 = audioManager.getAudio("audio1");
+
+        audio1.setVolume(0f);
+        assertEquals(0f, audio1.getVolume());
+
+        audio1.setVolume(1f);
+        assertEquals(1f, audio1.getVolume());
+    }
+
+    @Test
+    void testStopAudios() throws NoSuchFieldException, IllegalAccessException {
+        Field privateField = AudioManager.class.getDeclaredField("audios");
+        privateField.setAccessible(true);
+        AudioPlayer audio1 = mock(AudioPlayer.class);
+        AudioPlayer audio2 = mock(AudioPlayer.class);
+        privateField.set(audioManager, Map.of("audio1", audio1, "audio2", audio2));
+
+        audioManager.stopAllAudios();
+
+        verify(audio1).stopPlaying();
+        verify(audio2).stopPlaying();
     }
 }

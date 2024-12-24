@@ -9,7 +9,6 @@ import pt.up.fe.ldts.pacman.gui.GUI;
 import pt.up.fe.ldts.pacman.model.menu.MapSelectionMenu;
 import pt.up.fe.ldts.pacman.states.game.GameState;
 import pt.up.fe.ldts.pacman.states.menu.MainMenuState;
-import pt.up.fe.ldts.pacman.states.menu.MapSelectionMenuState;
 
 import java.awt.*;
 import java.io.IOException;
@@ -53,7 +52,7 @@ public class MapSelectionMenuControllerTest {
             assertEquals(1, ((GameState)invocationOnMock.getArgument(0)).getModel().getPacmans().size());
             assertEquals(4, ((GameState)invocationOnMock.getArgument(0)).getModel().getGhosts().size());
             return null;
-        }).when(game).setState(any(MapSelectionMenuState.class));
+        }).when(game).setState(any(GameState.class));
         when(audioManager.getAudio(any())).thenReturn(mock(AudioPlayer.class));
 
         // Act
